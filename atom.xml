@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://leenut-code.github.io</id>
+    <title>LeeNut</title>
+    <updated>2024-06-25T10:19:34.165Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://leenut-code.github.io"/>
+    <link rel="self" href="https://leenut-code.github.io/atom.xml"/>
+    <subtitle>美好每一天！</subtitle>
+    <logo>https://leenut-code.github.io/images/avatar.png</logo>
+    <icon>https://leenut-code.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2024, LeeNut</rights>
+    <entry>
+        <title type="html"><![CDATA[二次元随机图片API宝藏网站：栗次元API—举个栗子]]></title>
+        <id>https://leenut-code.github.io/post/2024-06-20/</id>
+        <link href="https://leenut-code.github.io/post/2024-06-20/">
+        </link>
+        <updated>2024-06-20T06:31:32.000Z</updated>
+        <summary type="html"><![CDATA[<p>在构建网站或应用程序时，前端开发者经常需要实现随机展示图片的功能。&quot;栗次元API—举个栗子&quot; 正是这样一个能够提供丰富二次元图片资源的API服务，它不仅满足需求，还为项目增添了一抹独特的风格。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在构建网站或应用程序时，前端开发者经常需要实现随机展示图片的功能。&quot;栗次元API—举个栗子&quot; 正是这样一个能够提供丰富二次元图片资源的API服务，它不仅满足需求，还为项目增添了一抹独特的风格。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://img.picui.cn/free/2024/06/20/6673d0fe3de22.png" alt="" loading="lazy"></figure>
+<h3 id="网站概览">网站概览</h3>
+<ul>
+<li>网站地址：<a href="https://t.alcy.cc//">https://t.alcy.cc//</a><br>
+该网站以其丰富的图片分类和高质量的图片资源，成为二次元爱好者和开发者的不二之选。</li>
+</ul>
+<h3 id="特色功能">特色功能</h3>
+<ul>
+<li>随机图片展示：提供多种分类的随机图片API，满足不同场景的展示需求。</li>
+<li>API支持：所有分类的API支持输出JSON格式，便于开发者集成和使用。</li>
+<li>持续更新：网站不断更新图片库，保证用户能够获取到最新、最热的二次元图片。</li>
+</ul>
+<h3 id="丰富的api">丰富的API</h3>
+<ul>
+<li>二次元自适应：🌟<a href="https://t.alcy.cc/ycy">https://t.alcy.cc/ycy</a><br>
+<img src="https://t.alcy.cc/ycy" alt="" loading="lazy"></li>
+<li>萌版自适应：🐾<a href="https://t.alcy.cc/moez">https://t.alcy.cc/moez</a><br>
+<img src="https://t.alcy.cc/moez" alt="" loading="lazy"></li>
+<li>AI自适应：🤖<a href="https://t.alcy.cc/ai">https://t.alcy.cc/ai</a><br>
+<img src="https://t.alcy.cc/ai" alt="" loading="lazy"></li>
+<li>原神自适应：🗡️<a href="https://t.alcy.cc/ysz">https://t.alcy.cc/ysz</a><br>
+<img src="https://t.alcy.cc/ysz" alt="" loading="lazy"></li>
+<li>PC横图：🖥️<a href="https://t.alcy.cc/pc">https://t.alcy.cc/pc</a><br>
+<img src="https://t.alcy.cc/pc" alt="" loading="lazy"></li>
+<li>萌版横图：🌸<a href="https://t.alcy.cc/moe">https://t.alcy.cc/moe</a><br>
+<img src="https://t.alcy.cc/moe" alt="" loading="lazy"></li>
+<li>风景横图：🏞️<a href="https://t.alcy.cc/fj">https://t.alcy.cc/fj</a><br>
+<img src="https://t.alcy.cc/fj" alt="" loading="lazy"></li>
+<li>白底横图：📸<a href="https://t.alcy.cc/bd">https://t.alcy.cc/bd</a><br>
+<img src="https://t.alcy.cc/bd" alt="" loading="lazy"></li>
+<li>原神横图：🏰<a href="https://t.alcy.cc/ys">https://t.alcy.cc/ys</a><br>
+<img src="https://t.alcy.cc/ys" alt="" loading="lazy"></li>
+<li>ACG动图：🎉<a href="https://t.alcy.cc/acg">https://t.alcy.cc/acg</a><br>
+<img src="https://t.alcy.cc/acg" alt="" loading="lazy"></li>
+<li>移动竖图：📱<a href="https://t.alcy.cc/mp">https://t.alcy.cc/mp</a><br>
+<img src="https://t.alcy.cc/mp" alt="" loading="lazy"></li>
+<li>萌版竖图：💖<a href="https://t.alcy.cc/moemp">https://t.alcy.cc/moemp</a><br>
+<img src="https://t.alcy.cc/moemp" alt="" loading="lazy"></li>
+<li>原神竖图：🗡️<a href="https://t.alcy.cc/ysmp">https://t.alcy.cc/ysmp</a><br>
+<img src="https://t.alcy.cc/ysmp" alt="" loading="lazy"></li>
+<li>AI竖图：🧠<a href="https://t.alcy.cc/aimp">https://t.alcy.cc/aimp</a><br>
+<img src="https://t.alcy.cc/aimp" alt="" loading="lazy"></li>
+<li>头像方图：🎭<a href="https://t.alcy.cc/tx">https://t.alcy.cc/tx</a><br>
+<img src="https://t.alcy.cc/tx" alt="" loading="lazy"></li>
+<li>七濑胡桃：🍑<a href="https://t.alcy.cc/lai">https://t.alcy.cc/lai</a><br>
+<img src="https://t.alcy.cc/lai" alt="" loading="lazy"></li>
+<li>小狐狸：🦊<a href="https://t.alcy.cc/xhl">https://t.alcy.cc/xh</a><br>
+<img src="https://t.alcy.cc/xhl" alt="" loading="lazy"></li>
+</ul>
+<h3 id="使用方法">使用方法</h3>
+<p>开发者可以通过添加相应的API链接，获取数据。</p>
+<h3 id="结语">结语</h3>
+<p>&quot;栗次元API—举个栗子&quot; 不仅仅是一个图片资源库，它还是一个充满活力的社区，鼓励用户分享、反馈并参与到网站的发展中来。无论是寻找灵感，还是为项目添加视觉元素，这个网站都是一个不可多得的资源。</p>
+<blockquote>
+<p>(注：文章在人工撰写后由AI润色完成)</p>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[📢网站公告]]></title>
+        <id>https://leenut-code.github.io/post/2024-6-11/</id>
+        <link href="https://leenut-code.github.io/post/2024-6-11/">
+        </link>
+        <updated>2024-06-11T02:53:55.000Z</updated>
+        <summary type="html"><![CDATA[<p>这个网站原来是个人博客网站，由于要完成大学课程期末考核作业，在<strong>5月30日--6月11日期间</strong>被用来暂时作为一个影视艺术鉴赏网站。<br>
+目前，课程考核已通过，网站已恢复为原样。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>这个网站原来是个人博客网站，由于要完成大学课程期末考核作业，在<strong>5月30日--6月11日期间</strong>被用来暂时作为一个影视艺术鉴赏网站。<br>
+目前，课程考核已通过，网站已恢复为原样。</p>
+<!-- more -->
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Intel Unison：无缝协同，手机与电脑间的桥梁]]></title>
+        <id>https://leenut-code.github.io/post/2024-05-02/</id>
+        <link href="https://leenut-code.github.io/post/2024-05-02/">
+        </link>
+        <updated>2024-05-02T09:00:28.000Z</updated>
+        <summary type="html"><![CDATA[<p>Intel Unison —— 一款由Intel精心打造的协同软件，旨在为您的手机与电脑之间搭建起一座无缝的桥梁。它不仅能够实现两者之间的文件传输，还能同步短信、实现免提通话以及通知同步等丰富功能。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Intel Unison —— 一款由Intel精心打造的协同软件，旨在为您的手机与电脑之间搭建起一座无缝的桥梁。它不仅能够实现两者之间的文件传输，还能同步短信、实现免提通话以及通知同步等丰富功能。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://img.qovv.cn/2024/05/02/663362b392d05.png" alt="" loading="lazy"></figure>
+<h2 id="软件下载">软件下载</h2>
+<h3 id="windows端">Windows端：</h3>
+<p>地址：<a href="https://apps.microsoft.com/detail/9pp9gzm2gn26?rtc=1&amp;hl=zh-cn&amp;gl=CN">https://apps.microsoft.com/detail/9pp9gzm2gn26?rtc=1&amp;hl=zh-cn&amp;gl=CN</a></p>
+<h3 id="android端">Android端：</h3>
+<h4 id="google-play-下载">Google play 下载</h4>
+<p>地址：<a href="https://play.google.com/store/apps/details?id=com.intel.mde">https://play.google.com/store/apps/details?id=com.intel.mde</a></p>
+<h4 id="应用宝-下载">应用宝 下载</h4>
+<p>地址：<a href="https://sj.qq.com/appdetail/com.intel.mde">https://sj.qq.com/appdetail/com.intel.mde</a></p>
+<h3 id="ios端">iOS端：</h3>
+<p>地址：<a href="https://apps.apple.com/us/app/intel-unison/id1613307037">https://apps.apple.com/us/app/intel-unison/id1613307037</a></p>
+<h2 id="设备连接">设备连接</h2>
+<p>安装完成后打开windows端软件，进入设置界面。<br>
+<img src="https://img.qovv.cn/2024/05/02/663362d2f2164.png" alt="" loading="lazy"></p>
+<p>点击添加手机，用手机app扫描QR码，确认代码。(保证手机和电脑在同一网络)<br>
+<img src="https://img.qovv.cn/2024/05/02/663362b3b9b83.png" alt="" loading="lazy"></p>
+<h2 id="软件功能">软件功能</h2>
+<h3 id="功能1文件传输">功能1：文件传输</h3>
+<p>这个软件可以实现手机和电脑间的文件传输，还可以与任何其他人交换文件</p>
+<h3 id="功能2图库">功能2：图库</h3>
+<p>将手机相册同步到电脑</p>
+<h3 id="功能3消息">功能3：消息</h3>
+<p>可以将手机短信同步到电脑<br>
+<img src="https://img.qovv.cn/2024/05/02/663362b3a2dd6.png" alt="" loading="lazy"></p>
+<h3 id="功能4通话">功能4：通话</h3>
+<p>在电脑端接听拨打电话，需要手机和电脑之间蓝牙连接<br>
+<img src="https://img.qovv.cn/2024/05/02/663362b3a4597.png" alt="" loading="lazy"></p>
+<figure data-type="image" tabindex="2"><img src="https://img.qovv.cn/2024/05/02/663362b39e7d1.png" alt="" loading="lazy"></figure>
+<h3 id="功能5通知">功能5：通知</h3>
+<p>将手机通知同步到电脑</p>
+<p><strong>Intel Unison，让手机与电脑的协同工作更加智能、便捷。立即下载体验，开启您的智能生活新篇章！</strong></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[📢网站优化更新！]]></title>
+        <id>https://leenut-code.github.io/post/2024-04-27 /</id>
+        <link href="https://leenut-code.github.io/post/2024-04-27 /">
+        </link>
+        <updated>2024-04-27T08:55:12.000Z</updated>
+        <summary type="html"><![CDATA[<p>在4月26日-27日对网站进行了优化</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在4月26日-27日对网站进行了优化</p>
+<!-- more -->
+<p>具体内容如下：</p>
+<p>增加右下角的音乐播放器<br>
+将博文标题下方的发布时间、标签、阅读时间和字数信息改为黑色显示。<br>
+将网页底部的运行时间、访问量、访客量和版权信息改为黑色显示。<br>
+左侧侧边栏博主信息改为黑色。<br>
+将透明度设置为30%，模糊度设置为5。<br>
+菜单颜色改为黑色。<br>
+使用https://picui.cn作为图床网站，用来在博客中引用图片外链。<br>
+<img src="https://img.qovv.cn/2024/04/27/662cb55a708b4.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[基于Android的开源服务器软件KSWEB]]></title>
+        <id>https://leenut-code.github.io/post/2024-04-25/</id>
+        <link href="https://leenut-code.github.io/post/2024-04-25/">
+        </link>
+        <updated>2024-04-25T08:47:07.000Z</updated>
+        <summary type="html"><![CDATA[<p>KBWEB<br>
+Android端的Web服务器软件<br>
+可以使用手机搭建服务器</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>KBWEB<br>
+Android端的Web服务器软件<br>
+可以使用手机搭建服务器</p>
+<!-- more -->
+<p>KSWEB是基于Android的开源服务器。<br>
+我们可利用它在手机上搭建服务器。</p>
+<h2 id="工具准备">工具准备</h2>
+<ol>
+<li>一台闲置的安卓手机</li>
+<li>一个局域网（WiFi，校园网等）</li>
+</ol>
+<h2 id="软件下载">软件下载</h2>
+<h3 id="官网下载">官网下载</h3>
+<p>地址：http://kslabs.ru/download<br>
+<img src="https://img.qovv.cn/2024/04/26/662b4fefd24e2.png" alt="" loading="lazy"></p>
+<h3 id="google-play-下载">Google play 下载</h3>
+<p>地址：https://play.google.com/store/apps/details?id=ru.kslabs.ksweb</p>
+<h2 id="软件设置">软件设置</h2>
+<p>安装完成后打开软件，进入设置界面，对软件进行设置。</p>
+<ol>
+<li>勾选“自动启动”，并让软件取得“自启动”权限。</li>
+<li>勾选“启动时最小化”。</li>
+<li>”允许使用root权限“，根据手机情况勾选。root下服务器可自定义80端口。</li>
+<li>勾选“关闭省电“。</li>
+<li>勾选“锁定Wi-Fi”<br>
+<img src="https://img.qovv.cn/2024/04/26/662b4fefd7af0.png" alt="" loading="lazy"></li>
+</ol>
+<h2 id="软件使用">软件使用</h2>
+<ol>
+<li>点击LIGHTTPD，选择”开启服务“<br>
+<img src="https://img.qovv.cn/2024/04/26/662b4fef544b0.png" alt="" loading="lazy"></li>
+<li>将web服务器允许用户访问的文件放入”htdocs“文件夹。<br>
+<img src="https://img.qovv.cn/2024/04/26/662b4fefabb00.png" alt="" loading="lazy"><br>
+本机浏览器输入http://localhost:8080 ,其他设备输入http://&quot;服务器ip地址:8080&quot;就可以访问了。</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[只有后天这种电影中才会有美国人大量逃难到墨西哥的情况。]]></title>
+        <id>https://leenut-code.github.io/post/2024-04-24/</id>
+        <link href="https://leenut-code.github.io/post/2024-04-24/">
+        </link>
+        <updated>2024-04-24T08:40:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>只有后天这种电影中才会有美国人大量逃难到墨西哥的情况。<br>
+现实中只有全世界人偷渡到美国。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>只有后天这种电影中才会有美国人大量逃难到墨西哥的情况。<br>
+现实中只有全世界人偷渡到美国。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://pic1.zhimg.com/50/v2-9194b98c20429a91fd70929f4b4800fc_720w.gif?source=1def8aca" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[博客初步建成！]]></title>
+        <id>https://leenut-code.github.io/post/2024-4-12-1/</id>
+        <link href="https://leenut-code.github.io/post/2024-4-12-1/">
+        </link>
+        <updated>2024-04-12T10:14:57.000Z</updated>
+        <summary type="html"><![CDATA[<ol>
+<li>使用Gridea作为客户端，</li>
+<li>使用NexT主题，</li>
+<li>使用GitHub Page，</li>
+<li>使用Cloundfare加速网页的浏览，</li>
+</ol>
+]]></summary>
+        <content type="html"><![CDATA[<ol>
+<li>使用Gridea作为客户端，</li>
+<li>使用NexT主题，</li>
+<li>使用GitHub Page，</li>
+<li>使用Cloundfare加速网页的浏览，</li>
+</ol>
+<!-- more -->
+<p><a href="http:s//leenut-code.github.io">此博客LeeNut</a></p>
+<figure data-type="image" tabindex="1"><img src="https://leenut-code.github.io/post-images/1712917261460.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于本站是如何建立的？]]></title>
+        <id>https://leenut-code.github.io/post/2024-4-11-1/</id>
+        <link href="https://leenut-code.github.io/post/2024-4-11-1/">
+        </link>
+        <updated>2024-04-11T07:20:43.000Z</updated>
+        <summary type="html"><![CDATA[<p>关于本站如何建立，主要是参考了知乎文章<br><br>
+<a href="https://zhuanlan.zhihu.com/p/385692707">快速上手 Gridea，实现你小小的博客梦想！</a></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>关于本站如何建立，主要是参考了知乎文章<br><br>
+<a href="https://zhuanlan.zhihu.com/p/385692707">快速上手 Gridea，实现你小小的博客梦想！</a></p>
+<!-- more -->
+<h2 id="以下是原文">以下是原文：</h2>
+<figure data-type="image" tabindex="1"><img src="https://pica.zhimg.com/70/v2-62c7874485e880a8701012ac365c9eaa_1440w.avis?source=172ae18b&amp;biz_tag=Post" alt="" loading="lazy"></figure>
+<h1 id="快速上手-gridea实现你小小的博客梦想">快速上手 Gridea，实现你小小的博客梦想！</h1>
+<p>Suremotoo<br>
+10 人赞同了该文章<br>
+快速上手 Gridea，实现你小小的博客梦想！</p>
+<p>大家也可以关注我的公众号: 浆果捕鼠草，文章也会同步更新，当然，公众号还会有一些资源可以分享给大家～</p>
+<p>如果您之前使用过 Github 来搭建过自己的网站或者博客，那么您可以很轻松的上手 Gridea。</p>
+<p>如果您使用过 Hugo、Hexo、Jekyll 等类似于这样的静态网站生成工具，您会体验到 Gridea 是多么的人性化～</p>
+<p>如果您并非开发者或者说是小小白，根据下面的操作，您照样可以轻松搭建您的网站或者博客！</p>
+<h2 id="一-预备工作">一、预备工作</h2>
+<blockquote>
+<p>文章中使用 Github 作为样例，Coding 的配置方式大同小异。</p>
+</blockquote>
+<p>⚠️⚠️注意： 要在本机安装好 Gridea 和 Git， 点此查看 Git 安装教程</p>
+<h2 id="二注册-github-账号并创建仓库">二，注册 Github 账号并创建仓库</h2>
+<blockquote>
+<p>已经注册并成功建好仓库略过此步骤</p>
+</blockquote>
+<p>打开 Github 的官方网站： https://github.com，如果你没有用过 github，默认打开的页面就是注册页面，如下：<br>
+<img src="https://pic3.zhimg.com/80/v2-a46ac53583f806f250fa60532c2a56aa_720w.webp" alt="" loading="lazy"></p>
+<p>注册自己的 github 账号，注册成功后，我们新建个仓库，用来存储网站的代码。点击图中的 New 按钮<br>
+<img src="https://pic3.zhimg.com/80/v2-3bf1bea821b414d34ff49b0e36c4c25a_720w.webp" alt="" loading="lazy"></p>
+<p>然后跳转到新建仓库详情页，填写仓库的基本信息。</p>
+<blockquote>
+<p>注意： 小白最好按照图中的操作说明来，避免不必要的问题</p>
+</blockquote>
+<figure data-type="image" tabindex="2"><img src="https://pic4.zhimg.com/80/v2-aa4d8532dda7d9959dc6e83a795fd3fb_720w.webp" alt="" loading="lazy"></figure>
+<p>我的 github 仓库名叫：Suremotoo， 所以我的仓库名就起： http://Suremotoo.github.io</p>
+<h2 id="三-申请-personal-access-token️️token-值要保存好">三、申请 Personal access token（⚠️⚠️Token 值要保存好）</h2>
+<p>接下来我们要申请 Personal access token，这样 Gridea 才能有权限将网站文件推送到你的仓库中。 我不直接给出申请 token 的链接，为了大家以后忘了自己还能找到该功能。 我们按照下图标的顺序，点击 「右上角自己的头像右边的小箭头」→ 「Settings」→ 「Developer settings」<br>
+<img src="https://pic4.zhimg.com/80/v2-d2359f9ea80405ccf9a3709467f247e7_720w.webp" alt="" loading="lazy"></p>
+<p>再依次选择 「Developer settings」→ 「Personal access tokens」→ 「Generate new token」<br>
+<img src="https://pic1.zhimg.com/80/v2-7a936a4423d58ba53e9a8c4d4f251f00_720w.webp" alt="" loading="lazy"></p>
+<p>我们起个名字（或者说是备注），说明这个 token 是用来干什么的。token 的权限我们只选择 Repo。<br>
+<img src="https://pic3.zhimg.com/80/v2-c3896cbe246acb5c0491541ac32a7916_720w.webp" alt="" loading="lazy"></p>
+<p>申请成功，会给你一串数字 + 字母的信息，这个就是 Token，我们一定要保存好！后面的配置中我们会用到。<br>
+<img src="https://pic3.zhimg.com/80/v2-d90d4bcded95a6abb75308044a931a22_720w.webp" alt="" loading="lazy"></p>
+<h2 id="四-配置-gridea-与-github">四、配置 Gridea 与 Github</h2>
+<blockquote>
+<p>这里以我的为例，我的 Github 用户名叫： Suremotoo</p>
+</blockquote>
+<p>配置 Gridea，来连接 Github 。可以参考下面的方法进行配置：<br>
+<img src="https://pic4.zhimg.com/80/v2-c4894d0c3f9357472ac4214c67fb0e77_720w.webp" alt="" loading="lazy"></p>
+<ul>
+<li>域名：Github Pages 对应的域名（例如：https://Suremotoo.github.io 或 https://suremotoo.site）</li>
+<li>仓库：你的静态文件存放的仓库（例如：http://Suremotoo.github.io ）</li>
+<li>分支：你的 Github Pages 对应的分支（例如：master 或 gh-pages）</li>
+<li>用户名：仓库所属用户的用户名（通常就是你的 Github 账号的昵称，例如：Suremotoo）</li>
+<li>邮箱：Git 推送时使用的邮箱（通常就是你的 Github 账号的邮箱，例如：suremotoo@163.com）</li>
+<li>Token: Git 推送时需要的 Token，用来向 Github 提交构建后的文件 这里的 token 就是 第三步 申请的 Github personal access tokens</li>
+<li>CNAME: 可通过这个【可选项】配置你自己的域名（例如：suremotoo.site）</li>
+</ul>
+<p>填写上面的信息后，点击 「检测远程连接」 按钮，如果提示 「远程连接成功」 那就 ok 啦～<br>
+<img src="https://pic4.zhimg.com/80/v2-dd19bd59932e21e74f570717bce838d7_720w.webp" alt="" loading="lazy"></p>
+<h2 id="五-使用-gitalk-为网站添加评论">五、使用 Gitalk 为网站添加评论</h2>
+<blockquote>
+<p>找不到 「Developer settings」 的位置可以参考第三步</p>
+</blockquote>
+<p>我们在进入个人 「Settings」 里，再 依次选择 「Developer settings」→ 「OAuth Apps」→ 「New OAuth App」 创建一个应用。<br>
+<img src="https://pic4.zhimg.com/80/v2-551b989c767715f8dbd2404216eeb4ab_720w.webp" alt="" loading="lazy"></p>
+<p>紧接着按照下图说明，填写注册应用信息<br>
+<img src="https://pic2.zhimg.com/80/v2-3001d552bff64319861e04757d63e05d_720w.webp" alt="" loading="lazy"></p>
+<p>填写完成之后，会有有个 ClientID 和 ClientSecret ， 我们保存下这两条信息，来配置 Gridea<br>
+<img src="https://pic4.zhimg.com/80/v2-9330aba633472b66c505a96c1a1d9363_720w.webp" alt="" loading="lazy"></p>
+<p>打开 Gridea，依次进入 「配置」→ 「评论配置」，按照下图说明填写信息：<br>
+<img src="https://pic2.zhimg.com/80/v2-522c35a1089d0da60ed4dc716af711cd_720w.webp" alt="" loading="lazy"></p>
+<p>这样评论插件就设置好了，在预览时会在文章页显示评论模块，但不会显示具体的评论信息，因为这个是本地预览，而 Github OAuth 设置的域名为线上的域名。待博客同步到线上时就可以显示啦！</p>
+<blockquote>
+<p>实在不会看不懂图文，这里我也录制了一个小视频放在 B 站：<br>
+<a href="https://www.bilibili.com/video/BV1W4411H7iS/">Gridea 快速上手-3-Gridea 与 Github的配置_哔哩哔哩_bilibili</a></p>
+</blockquote>
+<p>注意：</p>
+<ol>
+<li>
+<p>博客同步后，每一篇需要你手动去激活评论，也就是在评论的地方需要你使用 Github 先登陆一下，这样就完成了初始化，别人才能评论哟～</p>
+</li>
+<li>
+<p>这样构建出来的博客是静态网页哦～</p>
+</li>
+</ol>
+<hr>
+<p>大家也可以关注我的公众号: 浆果捕鼠草，文章也会同步更新，当然，公众号还会有一些资源可以分享给大家～</p>
+<p>本文由 @Suremotoo 综合整理。</p>
+<ul>
+<li>素材链接：<br>
+<a href="https://sspai.com/post/54212">Gridea 让你更方便的管理 Github </a></li>
+</ul>
+<p>编辑于 2021-07-07 17:14</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[随手拍到的春天！]]></title>
+        <id>https://leenut-code.github.io/post/2024-4-11-2/</id>
+        <link href="https://leenut-code.github.io/post/2024-4-11-2/">
+        </link>
+        <updated>2024-04-11T07:04:28.000Z</updated>
+        <summary type="html"><![CDATA[<p>🍀随手拍到的春天！</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>🍀随手拍到的春天！</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://leenut-code.github.io/post-images/1712916856865.webp" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+</feed>
