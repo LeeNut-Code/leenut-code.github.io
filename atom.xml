@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://leenut-code.github.io</id>
+    <title>LeeNut</title>
+    <updated>2024-10-08T11:33:16.176Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://leenut-code.github.io"/>
+    <link rel="self" href="https://leenut-code.github.io/atom.xml"/>
+    <subtitle>美好每一天！</subtitle>
+    <logo>https://leenut-code.github.io/images/avatar.png</logo>
+    <icon>https://leenut-code.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2024, LeeNut</rights>
+    <entry>
+        <title type="html"><![CDATA[如何利用iis管理器搭建基于个人电脑的网站和FTP网盘]]></title>
+        <id>https://leenut-code.github.io/post/2024-10-8/</id>
+        <link href="https://leenut-code.github.io/post/2024-10-8/">
+        </link>
+        <updated>2024-10-08T08:46:55.000Z</updated>
+        <content type="html"><![CDATA[<p>在当今互联网时代，个人网站和网盘的搭建不再是专业技术人员的专利。通过Windows自带的IIS（Internet Information Services）管理器，普通用户也能在个人电脑上轻松搭建自己的<strong>网站</strong>和<strong>FTP网盘</strong>。本文将详细介绍如何通过IIS管理器搭建一个简单的网站和FTP服务，实现文件共享和站点管理。</p>
+<h3 id="1-安装和启用iis">1. 安装和启用IIS</h3>
+<p><strong>步骤1：启用IIS服务</strong></p>
+<ul>
+<li>打开 <strong>控制面板</strong> -&gt; <strong>程序</strong> -&gt; <strong>启用或关闭Windows功能</strong>。</li>
+<li>找到 <strong>Internet Information Services (IIS)</strong>，勾选所有相关选项，尤其是 <strong>Web管理工具</strong> 和 <strong>FTP服务器</strong>。<br>
+<img src="https://tse3-mm.cn.bing.net/th/id/OIP-C.kluhgYdrnWzT9RsNClJmfAHaHM?rs=1&amp;pid=ImgDetMain" alt="" loading="lazy"></li>
+<li>点击 <strong>确定</strong>，等待安装完成。</li>
+</ul>
+<p><strong>步骤2：启动IIS管理器</strong></p>
+<ul>
+<li>在 <strong>开始菜单</strong> 搜索 <strong>IIS管理器</strong>，点击进入。你现在已经可以通过IIS管理器来管理网站和FTP服务了。</li>
+</ul>
+<h3 id="2-使用iis管理器搭建网站">2. 使用IIS管理器搭建网站</h3>
+<p><strong>步骤1：创建站点文件夹</strong></p>
+<ul>
+<li>在硬盘上创建一个文件夹来存放你的网站文件，比如 <code>C:\MyWebsite</code>。</li>
+<li>将你要发布的HTML文件、图片、CSS、JavaScript等资源放到这个文件夹内.</li>
+<li>右键单击属性，点击“共享”选项卡-&gt;高级共享，共享此文件夹，设置权限为读取。</li>
+</ul>
+<p><strong>步骤2：配置IIS中的网站</strong></p>
+<ul>
+<li>在IIS管理器左侧树状视图中，右键点击 <strong>网站</strong>，选择 <strong>添加网站</strong>。</li>
+<li><strong>网站名称</strong>：输入你的站点名称（如 &quot;MyWebsite&quot;）。</li>
+<li><strong>物理路径</strong>：选择刚才创建的文件夹 <code>C:\MyWebsite</code>。</li>
+<li><strong>绑定设置</strong>：选择IP地址或直接使用 <code>All Unassigned</code>（所有未分配地址），端口保持为默认的 <strong>80</strong>，若想使用特定的域名访问，可在 <strong>主机名</strong> 中输入你的域名。</li>
+<li>点击 <strong>确定</strong>，网站将立即在IIS中显示。</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://i.postimg.cc/d0zvz3DC/2024-10-8-1.png" alt="" loading="lazy"></figure>
+<p><strong>步骤3：启动站点</strong></p>
+<ul>
+<li>在IIS管理器中，右键刚才创建的网站，选择 <strong>启动</strong>。</li>
+<li>现在你可以通过访问 <code>http://localhost</code>（或绑定的IP/域名）来访问你的个人网站。</li>
+</ul>
+<h3 id="3-使用iis搭建ftp网盘">3. 使用IIS搭建FTP网盘</h3>
+<p><strong>步骤1：创建FTP根目录</strong></p>
+<ul>
+<li>在你的硬盘中创建一个目录，作为FTP服务器的根目录，比如 <code>C:\MyFTP</code>。</li>
+</ul>
+<p><strong>步骤2：配置FTP站点</strong></p>
+<ul>
+<li>在IIS管理器中，右键 <strong>网站</strong> 栏目下的 <strong>FTP站点</strong>，选择 <strong>添加FTP站点</strong>。</li>
+<li><strong>站点名称</strong>：输入你FTP站点的名称（如 &quot;MyFTP&quot;）。</li>
+<li><strong>物理路径</strong>：选择 <code>C:\MyFTP</code> 作为FTP根目录。</li>
+<li><strong>绑定和SSL设置</strong>：设置IP地址为<code>All Unassigned</code>，端口选择 <strong>21</strong>（默认FTP端口）。如果不需要安全连接，选择 <strong>无SSL</strong>。</li>
+<li>点击 <strong>下一步</strong>。</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://i.postimg.cc/nzBZZxQP/2024-10-8-2.png" alt="" loading="lazy"></figure>
+<p><strong>步骤3：身份验证和授权</strong></p>
+<ul>
+<li><strong>身份验证</strong>：选择 <strong>基本</strong>。</li>
+<li><strong>授权</strong>：选择用户组和权限。你可以选择为所有用户提供读写权限，或根据需求自定义权限。</li>
+<li>完成设置后，点击 <strong>完成</strong>，FTP站点将成功创建。</li>
+</ul>
+<p><strong>步骤4：配置用户账户</strong></p>
+<ul>
+<li>打开 <strong>控制面板</strong> -&gt; <strong>用户账户</strong> -&gt; <strong>管理其他账户</strong>，添加一个本地用户或使用现有的本地账户来访问FTP。</li>
+<li>回到IIS管理器，选择 <strong>FTP身份验证</strong>，启用 <strong>基本身份验证</strong>，并设置相应的用户权限。</li>
+</ul>
+<h3 id="4-测试与使用">4. 测试与使用</h3>
+<p><strong>测试网站</strong></p>
+<ul>
+<li>在浏览器中输入 <code>http://localhost</code> 或绑定的域名/IP，查看你的个人网站是否正常显示。</li>
+</ul>
+<p><strong>测试FTP网盘</strong></p>
+<ul>
+<li>在Windows资源管理器中，输入 <code>ftp://localhost</code>，然后使用设置的账户名和密码登录。</li>
+<li>你可以通过FTP客户端（如FileZilla）或Windows自带的资源管理器，上传和下载文件。</li>
+</ul>
+<h3 id="总结">总结</h3>
+<p>通过IIS管理器，Windows用户能够轻松在自己的个人电脑上搭建网站和FTP网盘。虽然这是一个简单的本地解决方案，但适合个人学习、测试和小范围的文件共享。如果你希望部署更大规模的网站或网盘服务，可以考虑使用专业的服务器或云托管服务。</p>
+<p>（本文由Chat GPT 协助完成）</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一些好用的安卓app推荐]]></title>
+        <id>https://leenut-code.github.io/post/2024-10-3/</id>
+        <link href="https://leenut-code.github.io/post/2024-10-3/">
+        </link>
+        <updated>2024-10-03T07:43:46.000Z</updated>
+        <summary type="html"><![CDATA[<p>本文将推荐一些好用的开源app和国外app</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本文将推荐一些好用的开源app和国外app</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://p3.itc.cn/q_70/images03/20220820/983c7ac38fe145f58ed7b5109e6b5482.jpeg" alt="" loading="lazy"></figure>
+<h3 id="日历-待办">日历、待办</h3>
+<ul>
+<li>
+<p>Etar：开源日历，ui很丑<br>
+<a href="https://github.com/Etar-Group/Etar-Calendar">GitHub</a></p>
+</li>
+<li>
+<p>Google日历：可通过Google 账号，同步和导入日程<br>
+<a href="https://play.google.com/store/apps/details?id=com.google.android.calendar&amp;hl=zh&amp;pli=1">play商店</a></p>
+</li>
+<li>
+<p>一叶日历：<a href="https://www.coolapk.com/apk/me.mapleaf.calendar">酷安</a></p>
+</li>
+<li>
+<p>日历备份：用来导入和导出.ics日历文件，ics日历文件请在互联网搜索获取<br>
+<a href="https://play.google.com/store/apps/details?id=kfsoft.calendar.backup.ics&amp;hl=zh">play商店</a></p>
+</li>
+<li>
+<p>微软To Do：<a href="https://sj.qq.com/appdetail/com.microsoft.todos?channel=0002160650432d595942&amp;fromcase=60001&amp;from_wxz=1">应用宝</a></p>
+</li>
+</ul>
+<h3 id="天气">天气</h3>
+<ul>
+<li>Breezy Weather：开源天气app，数据来自国外平台<br>
+<a href="https://github.com/breezy-weather/breezy-weather">GitHub</a></li>
+</ul>
+<h3 id="笔记">笔记</h3>
+<ul>
+<li>
+<p>fairnote：支持webdav同步<br>
+<a href="https://www.ghxi.com/fairnote.html">果核剥壳</a></p>
+</li>
+<li>
+<p>SilentNotes：支持android/PC，可用多种同步方式<br>
+<a href="https://www.martinstoeckli.ch/silentnotes/">果核剥壳</a></p>
+</li>
+<li>
+<p>Notally：好像暂不支持webdav<br>
+<a href="https://github.com/OmGodse/Notally">GitHub</a></p>
+</li>
+</ul>
+<h3 id="闹钟">闹钟</h3>
+<ul>
+<li>使命闹钟：部分品牌手机振动功能失灵<br>
+<a href="https://alar.my/">官网</a></li>
+</ul>
+<h3 id="文件">文件</h3>
+<ul>
+<li>
+<p>流舟文件：支持ftp、webdav<br>
+<a href="https://www.coolapk.com/apk/com.liuzho.file.explorer">酷安</a></p>
+</li>
+<li>
+<p>质感文件：<a href="https://github.com/zhanghai/MaterialFiles/">GitHub</a></p>
+</li>
+</ul>
+<h3 id="相册">相册</h3>
+<ul>
+<li>Aves：<a href="https://github.com/deckerst/aves">GitHub</a></li>
+</ul>
+<h3 id="课表">课表</h3>
+<ul>
+<li>wake up课程表：<a href="https://www.wakeup.fun/">官网</a></li>
+</ul>
+<h3 id="翻译">翻译</h3>
+<ul>
+<li>papago：<a href="https://papago.naver.com/">官网</a></li>
+<li>DeepL：<a href="https://www.deepl.com/zh/translator">官网</a></li>
+<li>微软翻译：<a href="https://cn.bing.com/translator/">官网</a></li>
+</ul>
+<h3 id="软件管理">软件管理</h3>
+<ul>
+<li>My APK：<a href="https://www.ghxi.com/myapk.html">果核剥壳</a></li>
+</ul>
+<h3 id="播放器">播放器</h3>
+<ul>
+<li>MX播放器：<a href="https://mxtechs.net/">官网</a></li>
+<li>绿乐：<a href="https://www.coolapk.com/apk/com.yuanwofei.greenmusic">酷安</a></li>
+</ul>
+<h3 id="网盘">网盘</h3>
+<ul>
+<li>
+<p>onedrive：国内无法打开web页面，pc/android客户端可以打开，免费存储5GB<br>
+<a href="https://onedrive.live.com/">官网</a></p>
+</li>
+<li>
+<p>Koofr：网站和app无中文界面，支持连结Google drive和OneDrive，免费存储10GB<br>
+<a href="https://app.koofr.net/">官网</a></p>
+</li>
+<li>
+<p>坚果云：支持webdav，有上传流量限制<br>
+<a href="https://www.jianguoyun.com/">官网</a></p>
+</li>
+<li>
+<p>阿里云盘：存储容量很大，有一定的限速，隐私安全无保障（不建议上传关乎个人隐私的文件）<br>
+<a href="https://www.aliyundrive.com">官网</a></p>
+</li>
+<li>
+<p>Google Drive：国内无法打开web页面/app，免费存储15GB，隐私安全可保障。<br>
+<a href="https://drive.google.com//">官网</a></p>
+</li>
+</ul>
+<h3 id="邮箱">邮箱</h3>
+<ul>
+<li>outlook：<a href="https://outlook.office.com/">官网</a></li>
+<li>Gmail：<a href="https://mail.google.com/">官网</a></li>
+</ul>
+<h3 id="文档处理-图书阅览">文档处理、图书阅览</h3>
+<ul>
+<li>
+<p>Markor：用来写markdown的app。<br>
+<a href="https://github.com/gsantner/markor">GitHub</a></p>
+</li>
+<li>
+<p>Acode：手机上写代码。<br>
+<a href="https://github.com/deadlyjack/Acode">GitHub</a></p>
+</li>
+<li>
+<p>onlyoffice：<a href="https://www.onlyoffice.com/zh/desktop.aspx/">官网</a></p>
+</li>
+<li>
+<p>阅读：开源阅读<br>
+<a href="https://gedoor.github.io/">官网</a></p>
+</li>
+</ul>
+<h3 id="网络代理工具">网络代理工具</h3>
+<ul>
+<li>
+<p>clash：<a href="https://apkpure.com/cn/clash-for-android/com.github.kr328.clash">Apkpure</a></p>
+</li>
+<li>
+<p>Shadowrocket：提供免费节点。<br>
+<a href="https://apkpure.com/cn/shadowrocket-for-android/com.v2cross.proxy">Apkpure</a></p>
+</li>
+</ul>
+<h3 id="新闻">新闻</h3>
+<ul>
+<li>联合早报：第三只眼看中国<br>
+<a href="https://www.zaobao.com/">官网</a></li>
+</ul>
+<h3 id="下载器">下载器</h3>
+<ul>
+<li>ADM：支持16线程下载。<br>
+<a href="https://www.appinn.com/advanced-download-manager/">小众软件</a></li>
+</ul>
+<h3 id="即时通讯">即时通讯</h3>
+<ul>
+<li>Delta Chat：加密的电子邮箱IM，建议用来在多个设备间传输文件。<br>
+<a href="https://delta.chat/zh_CN//">官网</a></li>
+</ul>
+<h3 id="浏览器">浏览器</h3>
+<ul>
+<li>
+<p>via：小而美的浏览器，依靠webview，可定制性高，支持油猴脚本。<br>
+<a href="https://viayoo.com/zh-cn//">官网</a></p>
+</li>
+<li>
+<p>firefox：<a href="https://www.firefox.com.cn/browsers/mobile/">官网</a></p>
+</li>
+<li>
+<p>edge：<a href="https://www.microsoft.com/zh-cn/edge/download">官网</a></p>
+</li>
+</ul>
+<h3 id="社交媒体">社交媒体</h3>
+<ul>
+<li>bilimiao：开源第三方哔哩哔哩客户端。<br>
+<a href="https://github.com/10miaomiao/bilimiao2">GitHub</a></li>
+</ul>
+<h3 id="输入法">输入法</h3>
+<ul>
+<li>Gboard：谷歌键盘。<br>
+<a href="https://www.firepx.com/app/android-gboard-google-pinyin-input/">火哥分享</a></li>
+</ul>
+<h3 id="百科">百科</h3>
+<ul>
+<li>维基百科：<a href="https://github.com/wikimedia/apps-android-wikipedia">GitHub</a></li>
+</ul>
+<h3 id="设备管理-相关">设备管理 相关</h3>
+<ul>
+<li>
+<p>冰箱：用来冻结系统内置的app.<br>
+<a href="https://iceboxdoc.catchingnow.com/changelog.html">官网</a></p>
+</li>
+<li>
+<p>安装狮：安装app，可以用来绕过某些手机的app备案检测安装app.<br>
+<a href="https://github.com/dadaewq/Install-Lion">GitHub</a></p>
+</li>
+<li>
+<p>权限狗：管理app权限，保护用户隐私安全。<br>
+<a href="https://apppage.net/preview/com.web1n.permissiondog">官网</a></p>
+</li>
+<li>
+<p>小黑屋：冻结系统内置的app.<br>
+<a href="https://stopapp.https.gs/">官网</a></p>
+</li>
+</ul>
+<h3 id="自律-锁机">自律 &amp; 锁机</h3>
+<ul>
+<li>不做手机控：<a href="https://www.coolapk.com/apk/com.pl.getaway.getaway">酷安</a></li>
+<li>远离手机：<a href="https://www.coolapk.com/apk/com.lijianqiang12.silent">酷安</a></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[二次元随机图片API宝藏网站：栗次元API—举个栗子]]></title>
+        <id>https://leenut-code.github.io/post/2024-06-20/</id>
+        <link href="https://leenut-code.github.io/post/2024-06-20/">
+        </link>
+        <updated>2024-06-20T06:31:32.000Z</updated>
+        <summary type="html"><![CDATA[<p>在构建网站或应用程序时，前端开发者经常需要实现随机展示图片的功能。&quot;栗次元API—举个栗子&quot; 正是这样一个能够提供丰富二次元图片资源的API服务，它不仅满足需求，还为项目增添了一抹独特的风格。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在构建网站或应用程序时，前端开发者经常需要实现随机展示图片的功能。&quot;栗次元API—举个栗子&quot; 正是这样一个能够提供丰富二次元图片资源的API服务，它不仅满足需求，还为项目增添了一抹独特的风格。</p>
+<!-- more -->
+<h3 id="网站概览">网站概览</h3>
+<ul>
+<li>网站地址：<a href="https://t.alcy.cc//">https://t.alcy.cc//</a><br>
+该网站以其丰富的图片分类和高质量的图片资源，成为二次元爱好者和开发者的不二之选。</li>
+</ul>
+<h3 id="特色功能">特色功能</h3>
+<ul>
+<li>随机图片展示：提供多种分类的随机图片API，满足不同场景的展示需求。</li>
+<li>API支持：所有分类的API支持输出JSON格式，便于开发者集成和使用。</li>
+<li>持续更新：网站不断更新图片库，保证用户能够获取到最新、最热的二次元图片。</li>
+</ul>
+<h3 id="丰富的api">丰富的API</h3>
+<ul>
+<li>二次元自适应：🌟<a href="https://t.alcy.cc/ycy">https://t.alcy.cc/ycy</a><br>
+<img src="https://t.alcy.cc/ycy" alt="" loading="lazy"></li>
+<li>萌版自适应：🐾<a href="https://t.alcy.cc/moez">https://t.alcy.cc/moez</a><br>
+<img src="https://t.alcy.cc/moez" alt="" loading="lazy"></li>
+<li>AI自适应：🤖<a href="https://t.alcy.cc/ai">https://t.alcy.cc/ai</a><br>
+<img src="https://t.alcy.cc/ai" alt="" loading="lazy"></li>
+<li>原神自适应：🗡️<a href="https://t.alcy.cc/ysz">https://t.alcy.cc/ysz</a><br>
+<img src="https://t.alcy.cc/ysz" alt="" loading="lazy"></li>
+<li>PC横图：🖥️<a href="https://t.alcy.cc/pc">https://t.alcy.cc/pc</a><br>
+<img src="https://t.alcy.cc/pc" alt="" loading="lazy"></li>
+<li>萌版横图：🌸<a href="https://t.alcy.cc/moe">https://t.alcy.cc/moe</a><br>
+<img src="https://t.alcy.cc/moe" alt="" loading="lazy"></li>
+<li>风景横图：🏞️<a href="https://t.alcy.cc/fj">https://t.alcy.cc/fj</a><br>
+<img src="https://t.alcy.cc/fj" alt="" loading="lazy"></li>
+<li>白底横图：📸<a href="https://t.alcy.cc/bd">https://t.alcy.cc/bd</a><br>
+<img src="https://t.alcy.cc/bd" alt="" loading="lazy"></li>
+<li>原神横图：🏰<a href="https://t.alcy.cc/ys">https://t.alcy.cc/ys</a><br>
+<img src="https://t.alcy.cc/ys" alt="" loading="lazy"></li>
+<li>ACG动图：🎉<a href="https://t.alcy.cc/acg">https://t.alcy.cc/acg</a><br>
+<img src="https://t.alcy.cc/acg" alt="" loading="lazy"></li>
+<li>移动竖图：📱<a href="https://t.alcy.cc/mp">https://t.alcy.cc/mp</a><br>
+<img src="https://t.alcy.cc/mp" alt="" loading="lazy"></li>
+<li>萌版竖图：💖<a href="https://t.alcy.cc/moemp">https://t.alcy.cc/moemp</a><br>
+<img src="https://t.alcy.cc/moemp" alt="" loading="lazy"></li>
+<li>原神竖图：🗡️<a href="https://t.alcy.cc/ysmp">https://t.alcy.cc/ysmp</a><br>
+<img src="https://t.alcy.cc/ysmp" alt="" loading="lazy"></li>
+<li>AI竖图：🧠<a href="https://t.alcy.cc/aimp">https://t.alcy.cc/aimp</a><br>
+<img src="https://t.alcy.cc/aimp" alt="" loading="lazy"></li>
+<li>头像方图：🎭<a href="https://t.alcy.cc/tx">https://t.alcy.cc/tx</a><br>
+<img src="https://t.alcy.cc/tx" alt="" loading="lazy"></li>
+<li>七濑胡桃：🍑<a href="https://t.alcy.cc/lai">https://t.alcy.cc/lai</a><br>
+<img src="https://t.alcy.cc/lai" alt="" loading="lazy"></li>
+<li>小狐狸：🦊<a href="https://t.alcy.cc/xhl">https://t.alcy.cc/xh</a><br>
+<img src="https://t.alcy.cc/xhl" alt="" loading="lazy"></li>
+</ul>
+<h3 id="使用方法">使用方法</h3>
+<p>开发者可以通过添加相应的API链接，获取数据。</p>
+<h3 id="结语">结语</h3>
+<p>&quot;栗次元API—举个栗子&quot; 不仅仅是一个图片资源库，它还是一个充满活力的社区，鼓励用户分享、反馈并参与到网站的发展中来。无论是寻找灵感，还是为项目添加视觉元素，这个网站都是一个不可多得的资源。</p>
+<blockquote>
+<p>(注：文章在人工撰写后由AI润色完成)</p>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Intel Unison：无缝协同，手机与电脑间的桥梁]]></title>
+        <id>https://leenut-code.github.io/post/2024-05-02/</id>
+        <link href="https://leenut-code.github.io/post/2024-05-02/">
+        </link>
+        <updated>2024-05-02T09:00:28.000Z</updated>
+        <summary type="html"><![CDATA[<p>Intel Unison —— 一款由Intel精心打造的协同软件，旨在为您的手机与电脑之间搭建起一座无缝的桥梁。它不仅能够实现两者之间的文件传输，还能同步短信、实现免提通话以及通知同步等丰富功能。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Intel Unison —— 一款由Intel精心打造的协同软件，旨在为您的手机与电脑之间搭建起一座无缝的桥梁。它不仅能够实现两者之间的文件传输，还能同步短信、实现免提通话以及通知同步等丰富功能。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://i.postimg.cc/8csmwy0Z/2024-5-2-1.png" alt="" loading="lazy"></figure>
+<h2 id="软件下载">软件下载</h2>
+<h3 id="windows端">Windows端：</h3>
+<p>地址：<a href="https://apps.microsoft.com/detail/9pp9gzm2gn26?rtc=1&amp;hl=zh-cn&amp;gl=CN">https://apps.microsoft.com/detail/9pp9gzm2gn26?rtc=1&amp;hl=zh-cn&amp;gl=CN</a></p>
+<h3 id="android端">Android端：</h3>
+<h4 id="google-play-下载">Google play 下载</h4>
+<p>地址：<a href="https://play.google.com/store/apps/details?id=com.intel.mde">https://play.google.com/store/apps/details?id=com.intel.mde</a></p>
+<h4 id="应用宝-下载">应用宝 下载</h4>
+<p>地址：<a href="https://sj.qq.com/appdetail/com.intel.mde">https://sj.qq.com/appdetail/com.intel.mde</a></p>
+<h3 id="ios端">iOS端：</h3>
+<p>地址：<a href="https://apps.apple.com/us/app/intel-unison/id1613307037">https://apps.apple.com/us/app/intel-unison/id1613307037</a></p>
+<h2 id="设备连接">设备连接</h2>
+<p>安装完成后打开windows端软件，进入设置界面。<br>
+点击添加手机，用手机app扫描QR码，确认代码。(保证手机和电脑在同一网络)</p>
+<h2 id="软件功能">软件功能</h2>
+<h3 id="功能1文件传输">功能1：文件传输</h3>
+<p>这个软件可以实现手机和电脑间的文件传输，还可以与任何其他人交换文件</p>
+<h3 id="功能2图库">功能2：图库</h3>
+<p>将手机相册同步到电脑</p>
+<h3 id="功能3消息">功能3：消息</h3>
+<p>可以将手机短信同步到电脑</p>
+<h3 id="功能4通话">功能4：通话</h3>
+<p>在电脑端接听拨打电话，需要手机和电脑之间蓝牙连接</p>
+<h3 id="功能5通知">功能5：通知</h3>
+<p>将手机通知同步到电脑</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[基于Android的开源服务器软件KSWEB]]></title>
+        <id>https://leenut-code.github.io/post/2024-04-25/</id>
+        <link href="https://leenut-code.github.io/post/2024-04-25/">
+        </link>
+        <updated>2024-04-25T08:47:07.000Z</updated>
+        <summary type="html"><![CDATA[<p>KBWEB<br>
+Android端的Web服务器软件<br>
+可以使用手机搭建服务器</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>KBWEB<br>
+Android端的Web服务器软件<br>
+可以使用手机搭建服务器</p>
+<!-- more -->
+<p>KSWEB是基于Android的开源服务器。<br>
+我们可利用它在手机上搭建服务器。</p>
+<h2 id="工具准备">工具准备</h2>
+<ol>
+<li>一台闲置的安卓手机</li>
+<li>一个局域网（WiFi，校园网等）</li>
+</ol>
+<h2 id="软件下载">软件下载</h2>
+<h3 id="官网下载">官网下载</h3>
+<p>地址：http://kslabs.ru/download<br>
+<img src="https://i.postimg.cc/2S3NhmGW/2024-4-12-1.png" alt="" loading="lazy"></p>
+<h3 id="google-play-下载">Google play 下载</h3>
+<p>地址：https://play.google.com/store/apps/details?id=ru.kslabs.ksweb</p>
+<h2 id="软件设置">软件设置</h2>
+<p>安装完成后打开软件，进入设置界面，对软件进行设置。</p>
+<ol>
+<li>勾选“自动启动”，并让软件取得“自启动”权限。</li>
+<li>勾选“启动时最小化”。</li>
+<li>”允许使用root权限“，根据手机情况勾选。root下服务器可自定义80端口。</li>
+<li>勾选“关闭省电“。</li>
+<li>勾选“锁定Wi-Fi”</li>
+</ol>
+<h2 id="软件使用">软件使用</h2>
+<ol>
+<li>点击LIGHTTPD，选择”开启服务“</li>
+<li>将web服务器允许用户访问的文件放入”htdocs“文件夹。<br>
+本机浏览器输入http://localhost:8080 ,其他设备输入http://&quot;服务器ip地址:8080&quot;就可以访问了。</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于本站是如何建立的？]]></title>
+        <id>https://leenut-code.github.io/post/2024-4-11-1/</id>
+        <link href="https://leenut-code.github.io/post/2024-4-11-1/">
+        </link>
+        <updated>2024-04-11T07:20:43.000Z</updated>
+        <summary type="html"><![CDATA[<p>关于本站如何建立，主要是参考了知乎文章<br><br>
+<a href="https://zhuanlan.zhihu.com/p/385692707">快速上手 Gridea，实现你小小的博客梦想！</a></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>关于本站如何建立，主要是参考了知乎文章<br><br>
+<a href="https://zhuanlan.zhihu.com/p/385692707">快速上手 Gridea，实现你小小的博客梦想！</a></p>
+<!-- more -->
+<h2 id="以下是原文">以下是原文：</h2>
+<figure data-type="image" tabindex="1"><img src="https://pica.zhimg.com/70/v2-62c7874485e880a8701012ac365c9eaa_1440w.avis?source=172ae18b&amp;biz_tag=Post" alt="" loading="lazy"></figure>
+<h1 id="快速上手-gridea实现你小小的博客梦想">快速上手 Gridea，实现你小小的博客梦想！</h1>
+<p>Suremotoo<br>
+10 人赞同了该文章<br>
+快速上手 Gridea，实现你小小的博客梦想！</p>
+<p>大家也可以关注我的公众号: 浆果捕鼠草，文章也会同步更新，当然，公众号还会有一些资源可以分享给大家～</p>
+<p>如果您之前使用过 Github 来搭建过自己的网站或者博客，那么您可以很轻松的上手 Gridea。</p>
+<p>如果您使用过 Hugo、Hexo、Jekyll 等类似于这样的静态网站生成工具，您会体验到 Gridea 是多么的人性化～</p>
+<p>如果您并非开发者或者说是小小白，根据下面的操作，您照样可以轻松搭建您的网站或者博客！</p>
+<h2 id="一-预备工作">一、预备工作</h2>
+<blockquote>
+<p>文章中使用 Github 作为样例，Coding 的配置方式大同小异。</p>
+</blockquote>
+<p>⚠️⚠️注意： 要在本机安装好 Gridea 和 Git， 点此查看 Git 安装教程</p>
+<h2 id="二注册-github-账号并创建仓库">二，注册 Github 账号并创建仓库</h2>
+<blockquote>
+<p>已经注册并成功建好仓库略过此步骤</p>
+</blockquote>
+<p>打开 Github 的官方网站： https://github.com，如果你没有用过 github，默认打开的页面就是注册页面，如下：<br>
+<img src="https://pic3.zhimg.com/80/v2-a46ac53583f806f250fa60532c2a56aa_720w.webp" alt="" loading="lazy"></p>
+<p>注册自己的 github 账号，注册成功后，我们新建个仓库，用来存储网站的代码。点击图中的 New 按钮<br>
+<img src="https://pic3.zhimg.com/80/v2-3bf1bea821b414d34ff49b0e36c4c25a_720w.webp" alt="" loading="lazy"></p>
+<p>然后跳转到新建仓库详情页，填写仓库的基本信息。</p>
+<blockquote>
+<p>注意： 小白最好按照图中的操作说明来，避免不必要的问题</p>
+</blockquote>
+<figure data-type="image" tabindex="2"><img src="https://pic4.zhimg.com/80/v2-aa4d8532dda7d9959dc6e83a795fd3fb_720w.webp" alt="" loading="lazy"></figure>
+<p>我的 github 仓库名叫：Suremotoo， 所以我的仓库名就起： http://Suremotoo.github.io</p>
+<h2 id="三-申请-personal-access-token️️token-值要保存好">三、申请 Personal access token（⚠️⚠️Token 值要保存好）</h2>
+<p>接下来我们要申请 Personal access token，这样 Gridea 才能有权限将网站文件推送到你的仓库中。 我不直接给出申请 token 的链接，为了大家以后忘了自己还能找到该功能。 我们按照下图标的顺序，点击 「右上角自己的头像右边的小箭头」→ 「Settings」→ 「Developer settings」<br>
+<img src="https://pic4.zhimg.com/80/v2-d2359f9ea80405ccf9a3709467f247e7_720w.webp" alt="" loading="lazy"></p>
+<p>再依次选择 「Developer settings」→ 「Personal access tokens」→ 「Generate new token」<br>
+<img src="https://pic1.zhimg.com/80/v2-7a936a4423d58ba53e9a8c4d4f251f00_720w.webp" alt="" loading="lazy"></p>
+<p>我们起个名字（或者说是备注），说明这个 token 是用来干什么的。token 的权限我们只选择 Repo。<br>
+<img src="https://pic3.zhimg.com/80/v2-c3896cbe246acb5c0491541ac32a7916_720w.webp" alt="" loading="lazy"></p>
+<p>申请成功，会给你一串数字 + 字母的信息，这个就是 Token，我们一定要保存好！后面的配置中我们会用到。<br>
+<img src="https://pic3.zhimg.com/80/v2-d90d4bcded95a6abb75308044a931a22_720w.webp" alt="" loading="lazy"></p>
+<h2 id="四-配置-gridea-与-github">四、配置 Gridea 与 Github</h2>
+<blockquote>
+<p>这里以我的为例，我的 Github 用户名叫： Suremotoo</p>
+</blockquote>
+<p>配置 Gridea，来连接 Github 。可以参考下面的方法进行配置：<br>
+<img src="https://pic4.zhimg.com/80/v2-c4894d0c3f9357472ac4214c67fb0e77_720w.webp" alt="" loading="lazy"></p>
+<ul>
+<li>域名：Github Pages 对应的域名（例如：https://Suremotoo.github.io 或 https://suremotoo.site）</li>
+<li>仓库：你的静态文件存放的仓库（例如：http://Suremotoo.github.io ）</li>
+<li>分支：你的 Github Pages 对应的分支（例如：master 或 gh-pages）</li>
+<li>用户名：仓库所属用户的用户名（通常就是你的 Github 账号的昵称，例如：Suremotoo）</li>
+<li>邮箱：Git 推送时使用的邮箱（通常就是你的 Github 账号的邮箱，例如：suremotoo@163.com）</li>
+<li>Token: Git 推送时需要的 Token，用来向 Github 提交构建后的文件 这里的 token 就是 第三步 申请的 Github personal access tokens</li>
+<li>CNAME: 可通过这个【可选项】配置你自己的域名（例如：suremotoo.site）</li>
+</ul>
+<p>填写上面的信息后，点击 「检测远程连接」 按钮，如果提示 「远程连接成功」 那就 ok 啦～<br>
+<img src="https://pic4.zhimg.com/80/v2-dd19bd59932e21e74f570717bce838d7_720w.webp" alt="" loading="lazy"></p>
+<h2 id="五-使用-gitalk-为网站添加评论">五、使用 Gitalk 为网站添加评论</h2>
+<blockquote>
+<p>找不到 「Developer settings」 的位置可以参考第三步</p>
+</blockquote>
+<p>我们在进入个人 「Settings」 里，再 依次选择 「Developer settings」→ 「OAuth Apps」→ 「New OAuth App」 创建一个应用。<br>
+<img src="https://pic4.zhimg.com/80/v2-551b989c767715f8dbd2404216eeb4ab_720w.webp" alt="" loading="lazy"></p>
+<p>紧接着按照下图说明，填写注册应用信息<br>
+<img src="https://pic2.zhimg.com/80/v2-3001d552bff64319861e04757d63e05d_720w.webp" alt="" loading="lazy"></p>
+<p>填写完成之后，会有有个 ClientID 和 ClientSecret ， 我们保存下这两条信息，来配置 Gridea<br>
+<img src="https://pic4.zhimg.com/80/v2-9330aba633472b66c505a96c1a1d9363_720w.webp" alt="" loading="lazy"></p>
+<p>打开 Gridea，依次进入 「配置」→ 「评论配置」，按照下图说明填写信息：<br>
+<img src="https://pic2.zhimg.com/80/v2-522c35a1089d0da60ed4dc716af711cd_720w.webp" alt="" loading="lazy"></p>
+<p>这样评论插件就设置好了，在预览时会在文章页显示评论模块，但不会显示具体的评论信息，因为这个是本地预览，而 Github OAuth 设置的域名为线上的域名。待博客同步到线上时就可以显示啦！</p>
+<blockquote>
+<p>实在不会看不懂图文，这里我也录制了一个小视频放在 B 站：<br>
+<a href="https://www.bilibili.com/video/BV1W4411H7iS/">Gridea 快速上手-3-Gridea 与 Github的配置_哔哩哔哩_bilibili</a></p>
+</blockquote>
+<p>注意：</p>
+<ol>
+<li>
+<p>博客同步后，每一篇需要你手动去激活评论，也就是在评论的地方需要你使用 Github 先登陆一下，这样就完成了初始化，别人才能评论哟～</p>
+</li>
+<li>
+<p>这样构建出来的博客是静态网页哦～</p>
+</li>
+</ol>
+<hr>
+<p>大家也可以关注我的公众号: 浆果捕鼠草，文章也会同步更新，当然，公众号还会有一些资源可以分享给大家～</p>
+<p>本文由 @Suremotoo 综合整理。</p>
+<ul>
+<li>素材链接：<br>
+<a href="https://sspai.com/post/54212">Gridea 让你更方便的管理 Github </a></li>
+</ul>
+<p>编辑于 2021-07-07 17:14</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[随手拍到的春天！]]></title>
+        <id>https://leenut-code.github.io/post/2024-4-11-2/</id>
+        <link href="https://leenut-code.github.io/post/2024-4-11-2/">
+        </link>
+        <updated>2024-04-11T07:04:28.000Z</updated>
+        <summary type="html"><![CDATA[<p>🍀随手拍到的春天！</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>🍀随手拍到的春天！</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://i.postimg.cc/MptXKWTj/2024-4-11-2.webp" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+</feed>
