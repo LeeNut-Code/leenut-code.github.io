@@ -1,0 +1,1133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://leenut-code.github.io</id>
+    <title>LeeNut</title>
+    <updated>2024-12-19T13:32:13.602Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://leenut-code.github.io"/>
+    <link rel="self" href="https://leenut-code.github.io/atom.xml"/>
+    <subtitle>美好每一天！</subtitle>
+    <logo>https://leenut-code.github.io/images/avatar.png</logo>
+    <icon>https://leenut-code.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2024, LeeNut</rights>
+    <entry>
+        <title type="html"><![CDATA[Alist：搭建属于你的你的自有网盘]]></title>
+        <id>https://leenut-code.github.io/post/2022-11-25/</id>
+        <link href="https://leenut-code.github.io/post/2022-11-25/">
+        </link>
+        <updated>2024-11-25T11:18:56.000Z</updated>
+        <summary type="html"><![CDATA[<p>Alist 是一款简洁、高效、开源的多网盘挂载工具。通过 Alist，可以轻松整合多个网盘资源，统一管理并实现跨平台访问。本文将介绍如何下载、启动 Alist，如何挂载网盘以及如何对 Alist 进行设置和页面美化。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Alist 是一款简洁、高效、开源的多网盘挂载工具。通过 Alist，可以轻松整合多个网盘资源，统一管理并实现跨平台访问。本文将介绍如何下载、启动 Alist，如何挂载网盘以及如何对 Alist 进行设置和页面美化。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://hdgsb.com/wp-content/uploads/2023/03/1686980654-7afa6968b8f53814078c368be7a374e3.png" alt="" loading="lazy"></figure>
+<h3 id="一-如何下载-alist"><strong>一、如何下载 Alist？</strong></h3>
+<ol>
+<li>
+<p><strong>访问官网</strong><br>
+前往 <a href="https://github.com/alist-org/alist">Alist 官方 GitHub 页面</a> 下载最新版本。GitHub 提供各个平台（如 Windows、macOS、Linux）的预编译二进制文件，方便不同用户快速部署。</p>
+</li>
+<li>
+<p><strong>选择对应版本</strong></p>
+<ul>
+<li><strong>Windows 用户</strong>：下载 <code>alist-windows-amd64.exe</code>（或根据 CPU 架构选择合适的版本）。</li>
+<li><strong>macOS 用户</strong>：下载 <code>alist-darwin-amd64</code>。</li>
+<li><strong>Linux 用户</strong>：选择 <code>alist-linux-amd64</code> 或 <code>alist-linux-arm64</code>（适用于树莓派等 ARM 设备）。</li>
+</ul>
+</li>
+<li>
+<p><strong>解压与安装</strong></p>
+<ul>
+<li>下载后解压缩文件（如 <code>.zip</code> 或 <code>.tar.gz</code>）。</li>
+<li>将解压后的文件放置到您指定的目录中，方便管理。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="二-如何启动-alist"><strong>二、如何启动 Alist？</strong></h3>
+<ol>
+<li>
+<p><strong>运行程序</strong></p>
+<ul>
+<li><strong>Windows</strong>：使用终端运行命令：<pre><code class="language-bash">   /alist.exe server
+</code></pre>
+</li>
+<li><strong>macOS/Linux</strong>：使用终端运行命令：<pre><code class="language-bash">    ./alist
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>访问管理页面</strong><br>
+启动后，终端会显示 Alist 的默认访问地址（例如：<code>http://127.0.0.1:5244</code>）。打开浏览器并访问该地址。</p>
+</li>
+<li>
+<p><strong>初始化设置</strong></p>
+<ul>
+<li>第一次启动会提示设置管理员账号和密码，用于后续登录管理页面。</li>
+<li>设置完成后即可进入 Alist 的主界面。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="三-如何挂载网盘"><strong>三、如何挂载网盘？</strong></h4>
+<ol>
+<li>
+<p><strong>登录管理页面</strong><br>
+在浏览器中访问 Alist 的管理地址，输入管理员账号和密码进行登录。</p>
+</li>
+<li>
+<p><strong>添加存储服务</strong></p>
+<ul>
+<li>点击管理页面左侧菜单栏中的“挂载”选项。</li>
+<li>选择您需要挂载的网盘类型，例如：Google Drive、OneDrive、阿里云盘等。</li>
+<li>填写相关的 API 授权信息或网盘的账户登录信息。</li>
+<li>完成配置后，点击“保存”并测试挂载是否成功。<br>
+<strong><a href="https://alist.nn.ci/zh/">具体操作请看官方文档：https://alist.nn.ci/zh/</a></strong></li>
+</ul>
+</li>
+<li>
+<p><strong>验证挂载</strong></p>
+<ul>
+<li>如果挂载成功，您可以在主页面中查看网盘的目录结构和文件内容。</li>
+<li>支持文件的快速预览和下载。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<!-- more -->
+<h4 id="四-如何设置-alist-以及页面样式美化"><strong>四、如何设置 Alist 以及页面样式美化？</strong></h4>
+<ol>
+<li>
+<p><strong>基本设置</strong></p>
+<ul>
+<li>在管理页面中，点击左侧“设置”选项，调整基本配置。</li>
+<li>重要配置包括：
+<ul>
+<li><strong>端口设置</strong>：修改默认访问端口（如从 5244 改为 8080）。</li>
+<li><strong>公开访问</strong>：设置访问权限（公开、私密或特定密码访问）。</li>
+<li><strong>存储缓存</strong>：为提升性能，可开启文件缓存功能。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>页面样式设置</strong></p>
+<ul>
+<li><strong>主题切换</strong>：进入“设置 &gt; 全局”页面，自定义css样式。<br>
+<strong>我的样式：</strong><br>
+<img src="https://i.postimg.cc/fRmMJxq8/alist1.png" alt="" loading="lazy"><br>
+<strong>自定义头部</strong></li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-css">&lt;!-- 诗词功能/head */ --&gt;
+&lt;script src=&quot;https://polyfill.io/v3/polyfill.min.js?features=String.prototype.replaceAll&quot;&gt;&lt;/script&gt;
+    &lt;footer id=&quot;footer&quot; role=&quot;contentinfo&quot;&gt;
+    &lt;span id=&quot;jinrishici-sentence&quot; style=&quot;color:black; font-size:32px&quot;&gt;正在加载今日诗词....&lt;/span&gt;
+    &lt;script src=&quot;https://sdk.jinrishici.com/v2/browser/jinrishici.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+&lt;style&gt; 
+/* 白天和夜间背景图 */
+ .hope-ui-light {
+    /* background-image: url(&quot;http://pic.rmb.bdstatic.com/bjh/7569b014a1abafd5481298763300ae1d.png&quot;) !important; */
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-attachment:fixed;
+    background-position-x:center;
+}
+ .hope-ui-dark {
+    /* background-image: url(&quot;http://pic.rmb.bdstatic.com/bjh/ebe942a9de49856f389c65f25a338335.png&quot;) !important; */
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-attachment:fixed;
+    background-position-x:center;
+}
+
+/*主列表白天模式透明*/
+ .obj-box.hope-stack.hope-c-dhzjXW.hope-c-PJLV.hope-c-PJLV-igScBhH-css {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(5px)!important;
+}
+/*主列表夜间模式透明*/
+ .obj-box.hope-stack.hope-c-dhzjXW.hope-c-PJLV.hope-c-PJLV-iigjoxS-css {
+    background-color:rgb(0 0 0 / 50%) !important;
+    backdrop-filter: blur(5px)!important;
+}
+/*readme白天模式透明*/
+ .hope-c-PJLV.hope-c-PJLV-ikSunt;
+}
+/* 去除公告关闭按钮 */
+.notify-render .hope-close-button {
+display: none;
+}
+&lt;/style&gt;
+
+&lt;!--延迟加载--&gt;
+&lt;div id=&quot;customize&quot; style=&quot;display: none;&quot;&gt;
+&lt;div&gt;
+&lt;br /&gt;
+&lt;center&gt;
+&lt;div&gt;
+&lt;span class=&quot;nav-item&quot;&gt;
+&lt;a class=&quot;nav-link&quot; href=&quot;&quot; target=&quot;_blank&quot; style=&quot;color:black;&quot;&gt;
+blog|
+&lt;/a&gt;
+&lt;/span&gt;
+&lt;!--后台入口--&gt;
+&lt;span class=&quot;nav-item&quot;&gt;
+&lt;a class=&quot;nav-link&quot; href=&quot;/@manage&quot; target=&quot;_blank&quot; style=&quot;color:black;&quot;&gt;
+Manage
+&lt;/a&gt;
+&lt;/span&gt;Vsl-css {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(5px)!important;
+}
+/*readme夜间模式透明*/
+ .hope-c-PJLV.hope-c-PJLV-iiuDLME-css {
+    background-color:rgb(0 0 0 / 50%) !important;
+    backdrop-filter: blur(5px)!important;
+}
+
+/*顶部右上角切换按钮透明*/
+ .hope-ui-light .hope-c-ivMHWx-hZistB-cv.hope-icon-button {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(5px)!important;
+}
+.hope-ui-dark .hope-c-ivMHWx-hZistB-cv.hope-icon-button {
+    background-color:rgb(0 0 0 / 70%) !important;
+    backdrop-filter: blur(5px)!important;
+}
+
+/*右下角侧边栏按钮透明 第一个是白天 第二个是夜间*/
+ .hope-ui-light .hope-c-PJLV-ijgzmFG-css {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(5px)!important;
+}
+.hope-ui-dark .hope-c-PJLV-ijgzmFG-css {
+    background-color:rgb(0 0 0 / 70%) !important;
+    backdrop-filter: blur(5px)!important;
+}
+
+/*白天模式代码块透明*/
+ .hope-ui-light pre {
+    background-color: rgba(255, 255, 255, 0.4)!important;
+    backdrop-filter: blur(10px)!important;
+}
+/*夜间模式代码块透明*/
+ .hope-ui-dark pre {
+    background-color: rgba(255, 255, 255, 0)!important;
+    backdrop-filter: blur(10px)!important;
+}
+
+/*左侧侧边栏目录*/
+/*白天模式*/
+ .hope-ui-light .hope-c-PJLV-ieGWMbI-css {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(5px)!important;
+}
+/*夜间模式*/
+ .hope-ui-dark .hope-c-PJLV-ieGWMbI-css {
+    background-color:rgb(0 0 0 / 60%)!important;
+    backdrop-filter: blur(5px)!important;
+}
+/* 返回顶部 */
+ .hope-c-PJLV-ihVEsOa-css {
+    background: rgba(255, 255, 255, 0.8) !important;
+}
+.hope-ui-dark .hope-c-PJLV-ihVEsOa-css {
+    background-color:rgb(0 0 0 / 70%)!important;
+}
+
+/*正常情况未使用吸附功能*/
+/*导航条*/
+/*白天模式*/
+ .hope-ui-light .hope-c-PJLV-idaeksS-css {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+    border-radius: 10px !important;
+    backdrop-filter: blur(5px)!important;
+}
+/*夜间模式*/
+ .hope-ui-dark .hope-c-PJLV-idaeksS-css {
+    background-color:rgb(0 0 0 / 60%)!important;
+    border-radius: 10px !important;
+    backdrop-filter: blur(5px)!important;
+}
+/*顶栏*/
+ .hope-c-PJLV-ikaMhsQ-css {
+    background: rgba(255, 255, 255, 0) !important;
+}
+/* 吸附到页面顶部 */
+/*顶部*/
+ .hope-c-PJLV-icWrYmg-css {
+    background: rgba(255, 255, 255, 0) !important;
+}
+/*导航条*/
+ .hope-c-PJLV-icKsjdm-css::after {
+    background: rgba(255, 255, 255, 0) !important;
+}
+/*白天模式*/
+ .hope-ui-light .hope-c-PJLV-icKsjdm-css {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+    border-radius: 10px !important;
+}
+/*夜间模式*/
+ .hope-ui-dark .hope-c-PJLV-icKsjdm-css {
+    background-color:rgb(0 0 0 / 50%)!important;
+    border-radius: 10px !important;
+}
+
+/*仅吸附导航栏*/
+/*导航条*/
+.hope-c-PJLV-ifdXShc-css::after {
+    background: rgba(255, 255, 255, 0) !important;
+}
+/*白天模式*/
+ .hope-ui-light .hope-c-hrsMRY {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+    border-radius: 10px !important;
+}
+/*夜间模式*/
+ .hope-ui-dark .hope-c-hrsMRY {
+    background-color:rgb(0 0 0 / 50%)!important;
+    border-radius: 10px !important;
+}
+
+/*渐变背景CSS */
+#canvas-basic {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -999;
+}
+&lt;/style&gt;
+</code></pre>
+<p><strong>自定义内容</strong></p>
+<pre><code class="language-css">&lt;!-- 渐变背景初始化 --&gt;
+&lt;canvas id=&quot;canvas-basic&quot;&gt;&lt;/canvas&gt; 
+&lt;script src=&quot;https://npm.elemecdn.com/granim@2.0.0/dist/granim.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var granimInstance = new Granim({
+    element: '#canvas-basic',
+    direction: 'left-right',
+    isPausedWhenNotInView: true,
+    states : {
+        &quot;default-state&quot;: {
+            gradients: [
+                ['#a18cd1', '#fbc2eb'],
+                 ['#fff1eb', '#ace0f9'],
+                 ['#d4fc79', '#96e6a1'],
+                 ['#a1c4fd', '#c2e9fb'],
+                 ['#a8edea', '#fed6e3'],
+                 ['#9890e3', '#b1f4cf'],
+                 ['#a1c4fd', '#c2e9fb'],
+                 ['#fff1eb', '#ace0f9']
+            ]
+        }
+    }
+});
+&lt;/script&gt;
+
+&lt;style&gt;
+/* 去除底部 */
+.footer {
+display: none !important;
+}
+/* 移除本地设置中的 Aria2 */
+.hope-stack.hope-c-dhzjXW.hope-c-PJLV.hope-c-PJLV-ikjnSaO-css {
+display: none !important;
+}
+/* 移除下载选项 */
+.hope-select__trigger.hope-c-kvTTWD.hope-c-huZphZ.hope-c-kvTTWD-hYRNAb-variant-filled.hope-c-kvTTWD-gfwxhr-size-md.hope-c-huZphZ-cIGthf-cv.hope-c-PJLV.hope-c-PJLV-ijSQbqe-css {
+display: none !importa
+&lt;/div&gt;
+&lt;/center&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;/div&gt;
+&lt;!--延迟加载范围到这里结束--&gt;
+&lt;/div&gt;
+
+&lt;!--延迟加载配套使用JS--&gt;
+&lt;script&gt;
+let interval = setInterval(() =&gt; {
+if (document.querySelector(&quot;.footer&quot;)) {
+document.querySelector(&quot;#customize&quot;).style.display = &quot;&quot;;
+clearInterval(interval);
+}
+}, 200);
+&lt;/script&gt;
+</code></pre>
+<ol>
+<li>开机自启动设置（windows）<br>
+创建并编辑start-alist.bat文件</li>
+</ol>
+<pre><code class="language-bat">powershell Start-Process -WindowStyle hidden -FilePath .\alist.exe server
+</code></pre>
+<p>将文件保存到alist的安装目录，创建快捷方式到<code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup</code>.</p>
+<hr>
+<h4 id="五-总结"><strong>五、总结</strong></h4>
+<p>Alist 是一个非常实用的网盘整合工具，无需复杂的操作即可轻松管理多个网盘资源。通过本文的指导，您可以快速上手 Alist，并通过自定义设置和页面美化打造属于自己的高效网盘管理平台。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[浅谈RSS，轻松使用RSS]]></title>
+        <id>https://leenut-code.github.io/post/2024-11-15/</id>
+        <link href="https://leenut-code.github.io/post/2024-11-15/">
+        </link>
+        <updated>2024-11-15T07:18:26.000Z</updated>
+        <summary type="html"><![CDATA[<p>RSS（Really Simple Syndication，简易信息聚合）是一种开放的内容分发标准，用于订阅和自动推送网站的最新内容。当我们订阅某个网站的RSS源后，网站更新的内容会自动推送到我们的RSS阅读器中，省去访问网站的步骤，帮助我们高效获取想要的信息。RSS的应用范围非常广泛，从新闻、博客到视频和播客，RSS几乎支持一切内容类型的订阅。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>RSS（Really Simple Syndication，简易信息聚合）是一种开放的内容分发标准，用于订阅和自动推送网站的最新内容。当我们订阅某个网站的RSS源后，网站更新的内容会自动推送到我们的RSS阅读器中，省去访问网站的步骤，帮助我们高效获取想要的信息。RSS的应用范围非常广泛，从新闻、博客到视频和播客，RSS几乎支持一切内容类型的订阅。</p>
+<!-- more -->
+<hr>
+<h3 id="rss客户端的选择">RSS客户端的选择</h3>
+<p>不同平台上有多种RSS阅读器可供选择，功能各有侧重，用户可以根据自身需求选择合适的客户端。</p>
+<h4 id="1-windows平台">1 Windows平台</h4>
+<ul>
+<li>
+<p><strong>Fluent Reader</strong>：这是一个开源、跨平台的RSS阅读器，支持Windows、macOS和Linux系统，专注于提供一个简洁、易用的阅读体验，适合那些喜欢一个集成化、无干扰的RSS订阅工具的用户。<br>
+<a href="https://hyliu.me/fluent-reader/">https://hyliu.me/fluent-reader/</a><br>
+<img src="https://hyliu.me/fluent-reader/imgs/light.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p><strong>irreader</strong>：这是一个支持windows和mac的rss阅读器，支持订阅网页、RSS、Podcast 甚至 GitHub issue，并且提供了部分 RSS 源，支持推送到飞书、钉钉、企业微信、Discord、Telegram。<br>
+‍<a href="http://irreader.fatecore.com/">http://irreader.fatecore.com/</a><br>
+<img src="http://irreader.fatecore.com/libs/c/1.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p><strong>follow</strong>：万物皆可订阅，目前处于测试阶段，需要邀请码。<br>
+<a href="https://follow.is/">https://follow.is/</a></p>
+</li>
+</ul>
+<h4 id="2-android平台">2 Android平台**</h4>
+<ul>
+<li>
+<p><strong>Focus</strong>（暂停维护中……）：非常流行的RSS工具，界面简洁， 借助 RSShub 开源项目，自带丰富订阅市场，尽可能简化操作，适合普通玩家。<br>
+<a href="https://github.com/ihewro/Focus">https://github.com/ihewro/Focus</a></p>
+</li>
+<li>
+<p><strong>FeedMe</strong>：设计简洁，功能齐全，免费，支持和在线阅读器连接，提供了「中国模式」，优化国内用户的阅读体验。<br>
+<a href="https://play.google.com/store/apps/details?id=com.seazon.feedme">https://play.google.com/store/apps/details?id=com.seazon.feedme</a><br>
+<img src="https://www.feedflow.dev/images/screenshots/android-feed.webp" alt="" loading="lazy"></p>
+</li>
+</ul>
+<hr>
+<h3 id="3-如何订阅rss">3. 如何订阅RSS</h3>
+<p>订阅RSS有多种方法，通常可以直接从目标网站订阅，或者通过RSShub等工具订阅RSS源。</p>
+<h4 id="1-从目标网站订阅">1 <strong>从目标网站订阅</strong></h4>
+<ul>
+<li>许多网站在页面底部、顶部或菜单中提供“RSS”或“订阅”链接，点击链接即可获取RSS源地址。</li>
+<li>如果没有看到明确的RSS标志，可以试试在网址末尾加上“/feed”或“/rss”，这往往是网站RSS源的默认地址。</li>
+</ul>
+<h4 id="2-利用rsshub订阅">2 <strong>利用RSSHub订阅</strong></h4>
+<ul>
+<li><strong>RSSHub</strong>是一个开源RSS订阅工具。RSSHub收录了大量的RSS源，你可以从网站复制，也可以安装它的插件来帮转你订阅源。<br>
+<a href="https://rsshub.netlify.app/zh/">网站：https://rsshub.netlify.app/zh/</a><br>
+<a href="https://www.crxsoso.com/webstore/detail/kefjpfngnndepjbopdmoebkipbgkggaa">Edge/Chrome 插件：https://www.crxsoso.com/webstore/detail/kefjpfngnndepjbopdmoebkipbgkggaa</a><br>
+<a href="https://www.crxsoso.com/firefox/detail/rsshub-radar">Firefox 插件 ：https://www.crxsoso.com/firefox/detail/rsshub-radar</a><br>
+<img src="https://www.aneasystone.com/usr/uploads/2023/04/3554965339.png" alt="" loading="lazy"></li>
+</ul>
+<h4 id="3-利用阅读器提供的订阅源商店订阅"><strong>3 利用阅读器提供的订阅源商店订阅</strong></h4>
+<p>不少的阅读器提供了订阅源商店或订阅源推荐，可以以此来订阅。</p>
+<hr>
+<p>通过RSS，我们可以为自己打造一个私人订阅的内容世界，高效、有序地获取各类优质信息。在信息泛滥的时代，RSS为我们提供了独立获取信息的方式，帮助我们掌控个人的信息流。希望这篇文章能帮你更好地入门和使用RSS。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[如何更好的刷B站，”哔哩哔哩“ 客户端/浏览器插件 大合集]]></title>
+        <id>https://leenut-code.github.io/post/2024-11-4/</id>
+        <link href="https://leenut-code.github.io/post/2024-11-4/">
+        </link>
+        <updated>2024-11-04T12:32:53.000Z</updated>
+        <summary type="html"><![CDATA[<p>哔哩哔哩是我们大多数人每天都使用的网络平台，为了更好的使用此平台提供的服务，众多的开发者开发了不少的哔哩哔哩第三方客户端和浏览器插件，本文接下来将汇总和介绍这些客户端和插件。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>哔哩哔哩是我们大多数人每天都使用的网络平台，为了更好的使用此平台提供的服务，众多的开发者开发了不少的哔哩哔哩第三方客户端和浏览器插件，本文接下来将汇总和介绍这些客户端和插件。</p>
+<!-- more -->
+<h3 id="官方客户端">官方客户端</h3>
+<p>下载地址：<a href="https://app.bilibili.com/">https://app.bilibili.com/</a><br>
+play版下载地址：<a href="https://www.firepx.com/app/bilibili-google-play-and-other-version/">https://www.firepx.com/app/bilibili-google-play-and-other-version/</a></p>
+<p>官方客户端提供安卓、ios、windows、Mac、安卓Pad、iPad、车机、TV等多个平台的安装包。</p>
+<figure data-type="image" tabindex="1"><img src="https://i.postimg.cc/QMdKRr8t/bilibili-main.png" alt="bilibili-main.png" loading="lazy"></figure>
+<h3 id="桌面客户端">桌面客户端</h3>
+<h4 id="哔哩哔哩-uwp">哔哩哔哩 UWP</h4>
+<p>这是一个早期的哔哩哔哩UWP客户端，界面比较原始，并且是官方开发的，<br>
+目前这个客户端还能用来看视频。</p>
+<p>下载地址：<a href="https://apps.microsoft.com/detail/9nblggh5q5fv">https://apps.microsoft.com/detail/9nblggh5q5fv</a></p>
+<figure data-type="image" tabindex="2"><img src="https://store-images.s-microsoft.com/image/apps.65085.13510798887146259.e05ac4cc-0dee-44c1-9d60-002e37730db5.2d99a0e9-7526-4605-b6c6-9b62199b468d" alt="" loading="lazy"></figure>
+<h4 id="bilineo">BiliNeo</h4>
+<p>这是一个用来看番剧的哔哩哔哩客户端，支持android/windows/Linux等操作系统。</p>
+<p>项目地址：<a href="https://github.com/Predidit/BiliNeo">https://github.com/Predidit/BiliNeo</a></p>
+<p><img src="https://i.postimg.cc/9CdtsyGH/Bili-Neo-desktop.png" alt="" loading="lazy"><br>
+<img src="https://i.postimg.cc/fbtSH4hX/Bili-Neo-android.png" alt="" loading="lazy"></p>
+<h4 id="哔哩助理">哔哩助理</h4>
+<p>哔哩助理在 哔哩 的基础上通过 Windows App SDK 进行了重构.<br>
+哔哩助理将以更开放的态度进行开发，借助社区力量，共同构建一个有意思的 UGC 客户端。</p>
+<p>项目地址：<a href="https://github.com/Richasy/Bili.Copilot?tab=readme-ov-file">https://github.com/Richasy/Bili.Copilot?tab=readme-ov-file</a></p>
+<figure data-type="image" tabindex="3"><img src="https://bili.richasy.net/assets/home-page.Cbii5RSl.png" alt="" loading="lazy"></figure>
+<h4 id="哔哩哔哩-linux">哔哩哔哩-Linux</h4>
+<p>这是一个哔哩哔哩的Linux第三方客户端,安装包格式包括deb、rpm等。</p>
+<p>项目地址：<a href="https://github.com/msojocs/bilibili-linux">https://github.com/msojocs/bilibili-linux</a></p>
+<figure data-type="image" tabindex="4"><img src="https://raw.gitcode.com/gh_mirrors/bi/bilibili-linux/files/master/res/screenshots/1.png" alt="" loading="lazy"></figure>
+<h4 id="wiliwili">wiliwili</h4>
+<p>这是一个专为手柄用户设计的第三方 B站 客户端，支持PC、PS4、PSVita。</p>
+<p>官方网站：<a href="https://xfangfang.github.io/wiliwili/">https://xfangfang.github.io/wiliwili/</a></p>
+<h3 id="移动端">移动端</h3>
+<h4 id="bililite">BiliLite</h4>
+<p>基于Kotlin开发的第三方b站客户端 可能是你见过最小体积的b站 安装包仅2.6mb，相当于第三方flutter民间客户端，&quot;绿色软件&quot; 基于原生代码定制开发，界面流畅简洁，使用google最新media3player，耗电量降低25%(据官方文档 target sdk 34，权限仅9个，拒绝&quot;毒瘤&quot;</p>
+<p><strong>该客户端本人设备测试无法播放视频，其他设备或许可以。</strong></p>
+<p>项目地址：<a href="https://gitee.com/aluafu_byxiayu/bililitebyxiayu">https://gitee.com/aluafu_byxiayu/bililitebyxiayu</a></p>
+<h4 id="pilipala-pilipalax">PiliPala / PiliPalaX</h4>
+<p>PiliPala / PiliPalaX是一个使用 Flutter 开发的 BiliBili 第三方客户端，</p>
+<p>项目地址：<br>
+pilipala：<a href="https://github.com/guozhigq/pilipala">https://github.com/guozhigq/pilipala</a><br>
+PiliPalaX：<a href="https://github.com/orz12/PiliPalaX">https://github.com/orz12/PiliPalaX</a></p>
+<figure data-type="image" tabindex="5"><img src="https://i.postimg.cc/MTcMpbjJ/palipali.png" alt="palipali.png" loading="lazy"></figure>
+<h4 id="bili-you">Bili You</h4>
+<p>Bili You是一个类似于PiliPala用flutter制作的第三方B站客户端.</p>
+<p>项目地址：<a href="https://github.com/lucinhu/bili_you">https://github.com/lucinhu/bili_you</a></p>
+<h4 id="bilimiao哔哩喵~">bilimiao（哔哩喵~）</h4>
+<p>bilimiao原为哔哩哔哩时光机，原始功能主要为查看各个分区在每个时间段的热门视频列表，后经不断改进，功能不断完善，形成了一款安卓上的哔哩哔哩的第三方APP。</p>
+<p>项目地址：<a href="https://github.com/10miaomiao/bilimiao2">https://github.com/10miaomiao/bilimiao2</a></p>
+<h3 id="浏览器插件">浏览器插件</h3>
+<h4 id="bewlybewly">BewlyBewly</h4>
+<p>BewlyBewly 是一个用于 BiliBili 的浏览器扩展，旨在通过重新设计 BiliBili 用户界面来提升用户体验。设计灵感来自于 YouTube、Vision OS 和 iOS，从而实现了更具视觉吸引力和用户友好性的界面。</p>
+<p>项目地址：<a href="https://github.com/BewlyBewly/BewlyBewly">https://github.com/BewlyBewly/BewlyBewly</a></p>
+<figure data-type="image" tabindex="6"><img src="https://lhimg.crxsoso.com/WEszfmNcyDt9uvI0ccE0q4LUHWUJW5icdq69LYHijXxQGy1-5zSqPsgKsp1HwFYEKecH1xN3e0_v2LAXpjfSO6S5=s1280-w1280-h800" alt="" loading="lazy"></figure>
+<h4 id="bilibili-evolved">Bilibili-Evolved</h4>
+<p>这是一个强大的哔哩哔哩增强脚本 ，提供众多的附加功能。</p>
+<p>项目地址：<a href="https://github.com/the1812/Bilibili-Evolved">https://github.com/the1812/Bilibili-Evolved</a></p>
+<figure data-type="image" tabindex="7"><img src="https://i.postimg.cc/4xgWdJQx/Bilibili-Evolved.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Firefox 浏览器界面高度定制化]]></title>
+        <id>https://leenut-code.github.io/post/2024-10-30/</id>
+        <link href="https://leenut-code.github.io/post/2024-10-30/">
+        </link>
+        <updated>2024-10-31T05:21:19.000Z</updated>
+        <summary type="html"><![CDATA[<p>Firefox 浏览器作为一款注重隐私的受欢迎浏览器，他的默认界面却是比较丑陋的，本文将探讨如何使你的Firefox 浏览器界面更好看。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Firefox 浏览器作为一款注重隐私的受欢迎浏览器，他的默认界面却是比较丑陋的，本文将探讨如何使你的Firefox 浏览器界面更好看。</p>
+<!-- more -->
+<h3 id="主题">主题</h3>
+<p>Firefox 浏览器的拓展商店中有很多主题 ，用户可以下载安装这些主题。<br>
+<a href="https://addons.mozilla.org/zh-CN/firefox/themes/">地址</a></p>
+<h3 id="firefox-color拓展">Firefox Color拓展</h3>
+<p>Firefox Color拓展是Firefox出品的浏览器拓展，这个拓展可以用来修改和自定义浏览器的颜色。<br>
+<a href="https://addons.mozilla.org/zh-CN/firefox/addon/firefox-color">地址</a></p>
+<h3 id="修改界面配置文件定制界面">修改界面配置文件定制界面</h3>
+<p>Firefox 浏览器可以通过修改相关配置文件实现界面定制。</p>
+<ol>
+<li>
+<p>在 Firefox 的地址栏访问 <code>about:config</code>，忽略警告，在接下来的界面搜索 <code>toolkit.legacyUserProfileCustomizations.stylesheets</code>，并将这一项目设置为 <code>true</code><br>
+<img src="https://i.postimg.cc/44Vy236P/Firefox-aboutconfig-1.png" alt="Firefox-aboutconfig-1.png" loading="lazy"></p>
+</li>
+<li>
+<p>在 Firefox 的地址栏访问 <code>about:support</code>，选择下方的<code> Profile Folder</code>或<code>配置文件夹</code>，点击 <code>Open Folder</code>或<code>打开文件夹</code>。<br>
+<img src="https://thegeekpage.com/wp-content/uploads/2022/10/Firefox-about-support-Open-Profile-Folder-min.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>上一步打开的文件夹即为 <code>Firefox Profile</code> 根目录。在这里，我们需要创建一个名叫<code>chrome</code> 的文件夹，接下来的所有自定义样式都需要放入这一文件夹之中。</p>
+</li>
+<li>
+<p>在 chrome 文件夹内自行创建<code>userChrome.css</code>和 <code>userContent.css </code>这两个样式定义文件，在其中进行自定义即可。</p>
+</li>
+</ol>
+<blockquote>
+<p>userChrome.css 是专门用来定制 Firefox〖自身的界面〗（比如 Firefox 自己的“地址栏、搜索栏、快捷菜单、滚动条 ……”）<br>
+userContent.css 是专门用来定制 Firefox 浏览的网站 (包括新标签页、设置页面、其他的网站页面) 的界面。</p>
+</blockquote>
+<ol start="5">
+<li>熟悉css的同学可以用css进行定制，不会css的同学可以从<a href="https://firefoxcss-store.github.io/">https://firefoxcss-store.github.io/</a>下载别人的配置文件<br>
+<img src="https://i.postimg.cc/sg6gGGzj/firefoxcss-store.jpg" alt="" loading="lazy"></li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[做好安卓手机隐私安全，实现个资安全保障]]></title>
+        <id>https://leenut-code.github.io/post/2024-10-17/</id>
+        <link href="https://leenut-code.github.io/post/2024-10-17/">
+        </link>
+        <updated>2024-10-17T05:58:20.000Z</updated>
+        <summary type="html"><![CDATA[<p>在如今的数字时代，智能手机已成为生活中不可或缺的一部分。对于Android用户，尤其是在中国，隐私安全问题越来越受到关注。由于Android系统的开放性和中国特殊的互联网环境，普通用户的隐私安全面临更多的挑战。那么，普通中国用户应如何在日常生活中保护自己Android手机上的隐私安全呢？以下是一些实用的建议。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在如今的数字时代，智能手机已成为生活中不可或缺的一部分。对于Android用户，尤其是在中国，隐私安全问题越来越受到关注。由于Android系统的开放性和中国特殊的互联网环境，普通用户的隐私安全面临更多的挑战。那么，普通中国用户应如何在日常生活中保护自己Android手机上的隐私安全呢？以下是一些实用的建议。</p>
+<!-- more -->
+<h3 id="可靠的手机品牌和rom是最底层的安全保障">可靠的手机品牌和ROM，是最底层的安全保障</h3>
+<p>尽量选择信誉良好的手机品牌，尤其是那些注重隐私安全的厂商。一些良心品牌秉持“不作恶”的理念，他们的产品能够尽量做到隐私安全。购买手机时，可以选择拥有较好隐私保护记录的品牌，如Google的Pixel、Samsung等。</p>
+<p>刷机和安装第三方ROM，是保障隐私安全的重要一步。一些国产手机的系统内置一些不利于隐私安全的模块和软件，刷机和安装第三方ROM系统可以尽可能避免这些软件窃取你的隐私。</p>
+<p><strong>优先级小建议：</strong></p>
+<pre><code>Pixel &gt; Samsung &gt; 小米/魅族 &gt; oppo/vivo &gt; 华为
+</code></pre>
+<h3 id="应用程序权限管理">应用程序权限管理</h3>
+<p>很多Android应用在安装时会请求大量的权限，如访问联系人、位置、相机、麦克风等，但并不是每个应用都需要这些权限。因此，用户应审查每个应用程序请求的权限，并在安装时拒绝不必要的权限。</p>
+<p>在设置中，可以进入“应用权限管理”查看和调整已安装应用的权限，定期检查权限状态，避免应用获得过多的访问权限。<br>
+也可以通过root或adb给“权限狗”或其他权限管理软件授权来管理权限。</p>
+<p><strong>重要权限清单（不同手机情况可能不同）：</strong></p>
+<ul>
+<li>读取已安装应用信息（不建议授权）</li>
+<li>位置权限（非必要不授权，必要时建议设置为前台允许）</li>
+<li>从媒体中读取位置（不建议授权）</li>
+<li>读取存储权限（非必要不授权，必要时建议设置为前台允许）</li>
+<li>读取短信、读取通话记录、读取联系人（不建议授权）</li>
+<li>读取剪贴板内容（不建议授权，输入法可以授权，一些文本查看和编辑软件可设置为前台允许）</li>
+<li>读取日历（非日历应用不建议授权）</li>
+<li>读取手机号码、读取设备id、读取手机状态（不建议授权）</li>
+<li>相机、录音（非必要不授权，必要时建议设置为前台允许）</li>
+<li>获取账号、获取使用情况（不建议授权）</li>
+</ul>
+<h3 id="使用安全的应用商店避免安装不安全的软件">使用安全的应用商店，避免安装不安全的软件</h3>
+<p>为了确保手机上的应用程序安全可靠，避免下载到含有恶意代码或带有隐私泄露风险的软件，建议始终从可信的应用商店下载应用。在中国，虽然Google Play Store可能不完全可用，但用户可以依赖其他主流的安全应用商店，如酷安、应用宝等。</p>
+<p>通过这些应用商店下载的应用经过安全审查，能够有效降低恶意软件和不安全应用的风险。同时，避免从第三方网站或不知名的下载平台安装APK文件，因为这些来源可能会被植入恶意代码，窃取你的个人数据或控制你的设备。</p>
+<p>如果你必须安装来自不明来源的应用程序，建议在安装后立刻运行手机的安全扫描工具，对该应用进行彻底检查，确保其没有安全漏洞。</p>
+<p><strong>应用安全性优先级：</strong></p>
+<pre><code>不联网应用 &gt;&gt; 联网应用
+开源软件 &gt; 非开源软件
+国外大厂软件 &gt;&gt;&gt; 国内大厂软件
+</code></pre>
+<h3 id="网络账号安全和社交媒体安全">网络账号安全和社交媒体安全</h3>
+<p>在互联网时代，保护网络账号安全和社交媒体的安全对于个人隐私至关重要。</p>
+<p>在注册账号时，国外网络平台账号可以使用邮箱注册，建议使用Gmail（强力推荐）、outlook等安全性高的邮箱注册，不建议使用中国邮箱。临时使用的账号可以使用临时邮箱（Temp mail）注册。对于中国国内的网络平台，不建议办理网络身份证（网证、网号），一般情况下使用+86手机号注册，非必要情况（直播等属于必要情况）不要进行实名认证。注册账号后，请不要对不同平台的账号进行关联，做好网络平台内的隐私设置。建议不同平台使用不同的个人信息（昵称、头像等），请不要将国内个人账号的发言内容搬运到国外账号。</p>
+<p>使用强密码可以提升账号安全。避免使用简单密码或常见的密码组合（如“123456”或“password”）。建议使用复杂的密码，包括大小写字母、数字和符号。此外，定期更换密码，不要在多个账号上重复使用同一密码。可以使用密码生成器用来生成强密码，使用可靠的密码管理器用来保存密码。</p>
+<p>警惕钓鱼攻击：不要点击来自不明来源的链接或打开可疑的邮件和信息，这些可能是钓鱼攻击的伪装，目的是获取你的账号密码。访问重要网站时，务必手动输入网址，避免通过未知的第三方链接登录。</p>
+<p>定期检查账户活动：定期登录各个重要的账号，检查是否有可疑的登录记录或异常活动。如发现异常，立刻更改密码并检查是否绑定了不明设备。</p>
+<p>谨慎处理社交媒体信息：在社交媒体上，尽量减少公开分享个人信息，如真实姓名、地址、电话等。检查并调整社交平台的隐私设置，确保你的个人信息只对可信的好友可见，防止被陌生人追踪或利用。</p>
+<h3 id="输入法安全">输入法安全</h3>
+<p>输入法是我们日常使用手机时最频繁的工具之一，但它同时也可能成为隐私泄露的渠道。由于输入法能够记录你输入的所有信息，包括账号、密码、信用卡号等敏感内容，因此选择安全的输入法非常重要。</p>
+<p>选择可信赖的输入法：避免使用来源不明或知名度低的输入法，建议使用大厂开发并有良好隐私保护记录的输入法应用，如Google输入法、微软输入法等。国产输入法存在很大的隐私安全漏洞，一般情况请谨慎使用。</p>
+<p>关闭云同步和数据上传：许多输入法应用会提供云同步功能，将用户的输入习惯、词库甚至部分输入内容上传到服务器进行存储和分析。为了保护隐私，建议关闭云同步功能，避免输入数据被上传。你可以在输入法设置中找到并关闭“云输入”、“个性化推荐”等功能。</p>
+<p>定期清理输入法缓存：输入法会根据用户输入的内容建立个性化词库，长期使用后，输入法可能积累大量与用户相关的敏感信息。定期清理输入法的缓存和词库，确保敏感信息不会在本地或云端存储过久。</p>
+<p>使用专用的密码键盘：当你在输入账号密码或敏感信息时，尽量使用输入法中的“安全键盘”或“密码键盘”模式，这些模式通常不会收集或存储你输入的数据，能够有效防止密码泄露。</p>
+<p>关注输入法权限：输入法应用通常会申请多个权限，包括读取联系人、访问网络等。在安装输入法时，建议仔细检查并限制它们的权限，只允许必要的权限，拒绝不必要的网络访问和读取设备信息等敏感权限。</p>
+<h3 id="使用vpn保护上网隐私">使用VPN保护上网隐私</h3>
+<p>中国的网络环境存在某些限制，但用户可以使用虚拟专用网络（VPN）来保护上网隐私。通过加密网络流量，VPN能有效防止数据被第三方监视、窃取。同时，使用知名的VPN服务商，确保不会泄露用户的上网活动信息。</p>
+<blockquote>
+<p><strong>请谨慎选择和使用VPN</strong></p>
+</blockquote>
+<h3 id="避免连接不受信任的wi-fi">避免连接不受信任的Wi-Fi</h3>
+<p>公共Wi-Fi网络常常缺乏加密保护，攻击者可以轻易获取用户通过这些网络传输的敏感数据。尽量避免连接不受信任的公共Wi-Fi网络，尤其是在购物、银行操作等需要输入敏感信息时。如果必须使用公共网络，务必通过VPN加密连接。</p>
+<h3 id="设置强密码和生物识别">设置强密码和生物识别</h3>
+<p>手机密码、指纹识别或人脸识别可以有效地防止未经授权的访问。确保手机设置了强密码，不使用过于简单的密码组合如“123456”或“0000”。同时，启用生物识别功能，如指纹或面部解锁，进一步提升设备的安全性。</p>
+<h3 id="定期备份并加密敏感数据">定期备份并加密敏感数据</h3>
+<p>定期将手机上的数据进行备份，并对重要文件和数据进行加密。可以使用Google Drive、onedrive等云存储服务，需要启用双重身份验证和加密措施，确保即使设备丢失，数据也不会轻易落入他人之手。同时记得删除文件内置的隐私信息（例如：图片的exit信息）。</p>
+<h3 id="结语">结语</h3>
+<p>希望每位Android用户都能在数字世界中安全、自由地使用自己的设备，保护自己的个人信息不被侵犯。</p>
+<p>(本文由ChatGPT协助完成)</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[书单资源：韩江作品，历史、现实与人性反思的交织]]></title>
+        <id>https://leenut-code.github.io/post/2024-10-13/</id>
+        <link href="https://leenut-code.github.io/post/2024-10-13/">
+        </link>
+        <updated>2024-10-13T13:49:43.000Z</updated>
+        <summary type="html"><![CDATA[<blockquote>
+<p style="color: red;"><b>写作就像是点燃火柴，凝视火苗燃烧直至熄灭。在凝视的瞬间，向人类和人生提问。</b></p>
+<p style="text-align: right; color: red">————<b>韩江</b></p>
+</blockquote>
+]]></summary>
+        <content type="html"><![CDATA[<blockquote>
+<p style="color: red;"><b>写作就像是点燃火柴，凝视火苗燃烧直至熄灭。在凝视的瞬间，向人类和人生提问。</b></p>
+<p style="text-align: right; color: red">————<b>韩江</b></p>
+</blockquote>
+<!-- more -->
+<hr>
+<p><img src="https://news.tbs.seoul.kr/Upload/Image/20181011/00000000000000046675.jpg" alt="" loading="lazy"><br>
+韩江（한강），这位韩国作家以其深刻的文学作品赢得了世界的瞩目，并最终获得诺贝尔文学奖，标志着她在国际文学舞台上的非凡成就。她的作品充满了对历史与现实的反思，尤其是在描绘人类生命脆弱性和人性深度方面，引发了广泛的共鸣。</p>
+<p>韩江的作品常常探索极端情境下的人类状态。无论是《素食者》中主人公拒绝肉食以逃避现实的内心挣扎，还是《少年来了》对韩国现代史上光州事件的沉痛回顾，她的文字都触及了人类内心深处的恐惧、无力感和对生命的质疑。通过这些作品，韩江不单是反映个体的生存危机，更是质问整个社会在历史悲剧面前的集体失语。她对历史和社会创伤的细致描绘，不仅让读者面对沉重的过去，更让他们反思当下的现实。</p>
+<p>她的文学充满了对人性的探索，尤其是对暴力、压迫和自我毁灭的反思。在韩江的小说中，历史并非是一个遥远的背景，而是一种沉重的现实，每个人都无法逃避。她通过对个体痛苦的描绘，触发读者对人类集体命运的共情。这种对历史和现实的思考，既是对人类生存意义的追问，也是对我们如何面对共同命运的反省。</p>
+<p>韩江的作品也以其极简、冷峻的风格著称，仿佛她的文字是刀锋，在纸上剖析出人性最脆弱的部分。她以极少的语言传达极深的情感，让读者在文字的静默中体会生命的脆弱与人性的复杂。这种简练的风格，与她作品中反映的压抑与痛苦相得益彰，使其作品在读者心中留下了深刻的印象。</p>
+<p>通过韩江的作品，读者不仅感受到人类生命的脆弱，更被迫直视自身与他人的关系。她的文字并非简单地描写暴力与压迫，而是通过深层次的情感共鸣，引导我们反思人类的集体命运和道德责任。</p>
+<h3 id="韩江书单">韩江书单</h3>
+<pre><code>《素食者》（채식주의자，2007）
+《少年来了》（소년이 온다，2014）
+《白》（흰，2016）
+《不做告别》（작별하지 않는다，2021）
+《植物妻子》（내 여자의 열매，2000）
+</code></pre>
+<p>下载地址：<a href="https://wwqv.lanzout.com/b0sx56ykh">https://wwqv.lanzout.com/b0sx56ykh</a><br>
+密码：24td</p>
+<p>(本文由ChatGPT协助完成)</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[快速搭建个人博客：用 Hexo 打造你的专属空间]]></title>
+        <id>https://leenut-code.github.io/post/2024-10-11/</id>
+        <link href="https://leenut-code.github.io/post/2024-10-11/">
+        </link>
+        <updated>2024-10-11T02:48:55.000Z</updated>
+        <summary type="html"><![CDATA[<p>在当今信息化时代，搭建个人博客不仅能帮助记录日常生活和技术心得，还能提供一个展示自己思想和技能的舞台。Hexo 是一个简单、快速、强大的静态博客框架，深受开发者和写作爱好者的喜爱。本文将介绍如何用 Hexo 搭建一个博客网站，并推荐一款美观、功能丰富的主题——<a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a>。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在当今信息化时代，搭建个人博客不仅能帮助记录日常生活和技术心得，还能提供一个展示自己思想和技能的舞台。Hexo 是一个简单、快速、强大的静态博客框架，深受开发者和写作爱好者的喜爱。本文将介绍如何用 Hexo 搭建一个博客网站，并推荐一款美观、功能丰富的主题——<a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a>。</p>
+<!-- more -->
+<h4 id="第一步安装-nodejs-和-hexo"><strong>第一步：安装 Node.js 和 Hexo</strong></h4>
+<p>在搭建 Hexo 博客之前，你需要确保安装了 Node.js 和 Git。Hexo 基于 Node.js，因此 Node.js 是必须的。</p>
+<ol>
+<li>
+<p><strong>安装 Node.js</strong>：</p>
+<ul>
+<li>到 <a href="https://nodejs.org/">Node.js 官网</a> 下载并安装适合你操作系统的版本。</li>
+<li>安装后，可以在终端中输入以下命令确认是否安装成功：<pre><code class="language-bash">node -v
+npm -v
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>安装 Hexo</strong>：</p>
+<ul>
+<li>打开终端，输入以下命令来安装 Hexo：<pre><code class="language-bash">npm install -g hexo-cli
+</code></pre>
+</li>
+</ul>
+<p>这会全局安装 Hexo 命令行工具。</p>
+</li>
+</ol>
+<hr>
+<h4 id="第二步创建-hexo-博客"><strong>第二步：创建 Hexo 博客</strong></h4>
+<p>在你想创建博客的目录下，运行以下命令：</p>
+<pre><code class="language-bash">hexo init my-blog
+cd my-blog
+npm install
+</code></pre>
+<p>这将创建一个新的 Hexo 博客项目，并安装所有必要的依赖。完成后，Hexo 博客的结构就已经搭建好了。</p>
+<p>你可以通过下面的命令启动本地服务器预览博客：</p>
+<pre><code class="language-bash">hexo server -p 80
+</code></pre>
+<p>浏览器中访问 <code>http://localhost</code>，你将看到默认的 Hexo 博客页面。</p>
+<hr>
+<h4 id="第三步安装-butterfly-主题"><strong>第三步：安装 Butterfly 主题</strong></h4>
+<p>Hexo 自带的默认主题较为简单，而 Butterfly 主题凭借其丰富的功能和美观的设计，成为了许多 Hexo 用户的首选。你可以按照以下步骤安装 Butterfly 主题：</p>
+<ol>
+<li>
+<p><strong>下载主题</strong>：<br>
+在博客的根目录下运行以下命令，克隆 Butterfly 主题到 <code>themes</code> 文件夹中：</p>
+<pre><code class="language-bash">git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly
+</code></pre>
+</li>
+<li>
+<p><strong>修改配置文件</strong>：<br>
+打开 <code>hexo</code> 项目根目录下的 <code>_config.yml</code> 文件，找到 <code>theme</code> 字段，将其修改为 <code>butterfly</code>：</p>
+<pre><code class="language-yaml">theme: butterfly
+</code></pre>
+</li>
+<li>
+<p><strong>安装依赖</strong>：<br>
+进入 <code>themes/butterfly</code> 目录，安装主题所需的依赖：</p>
+<pre><code class="language-bash">npm install
+</code></pre>
+</li>
+</ol>
+<hr>
+<h4 id="第四步配置-butterfly-主题"><strong>第四步：配置 Butterfly 主题</strong></h4>
+<p>Butterfly 主题提供了极为灵活的自定义选项。你可以根据自己的需求调整外观、排版、配色等细节。</p>
+<ol>
+<li>
+<p><strong>主题配置文件</strong>：<br>
+Butterfly 主题的配置文件位于 <code>themes/butterfly/_config.yml</code>，通过修改其中的配置项，你可以自定义博客的布局和功能。</p>
+</li>
+<li>
+<p><strong>插件与样式</strong>：<br>
+Butterfly 主题支持多种插件与功能扩展，比如文章分享按钮、评论系统、代码高亮、动态背景等。你可以参考 <a href="https://butterfly.js.org/">官方文档</a> 了解如何启用这些功能。</p>
+</li>
+</ol>
+<hr>
+<h4 id="第五步生成静态页面并部署"><strong>第五步：生成静态页面并部署</strong></h4>
+<p>配置完成后，你可以生成静态页面并部署到 GitHub Pages 或其他静态托管平台。</p>
+<ol>
+<li>
+<p><strong>生成静态页面</strong>：</p>
+<pre><code class="language-bash">hexo generate
+</code></pre>
+</li>
+<li>
+<p><strong>部署到 GitHub Pages</strong>：<br>
+你可以通过 Hexo 的 <code>hexo-deployer-git</code> 插件一键部署到 GitHub Pages。首先安装插件：</p>
+<pre><code class="language-bash">npm install hexo-deployer-git --save
+</code></pre>
+<p>然后在 <code>config.yml</code> 中添加以下部署配置：</p>
+<pre><code class="language-yaml">deploy:
+  type: git
+  repo: https://github.com/yourname/your-repo.git
+  branch: gh-pages
+</code></pre>
+<p>最后，通过以下命令部署博客：</p>
+<pre><code class="language-bash">hexo deploy
+</code></pre>
+</li>
+</ol>
+<hr>
+<h4 id="总结"><strong>总结</strong></h4>
+<p>通过以上步骤，你可以轻松地使用 Hexo 搭建一个功能丰富的博客，并用 Butterfly 主题让你的博客更具吸引力。Butterfly 主题不仅提供了丰富的功能，还支持高度定制，是目前 Hexo 社区中备受推崇的主题之一。如果你正在寻找一款简洁美观、功能强大的 Hexo 主题，Butterfly 绝对是一个值得一试的选择。</p>
+<p>赶快动手打造你自己的博客吧！</p>
+<p>(本文由ChatGPT协助完成)</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[如何利用iis管理器搭建基于个人电脑的网站和FTP网盘]]></title>
+        <id>https://leenut-code.github.io/post/2024-10-8/</id>
+        <link href="https://leenut-code.github.io/post/2024-10-8/">
+        </link>
+        <updated>2024-10-08T08:46:55.000Z</updated>
+        <content type="html"><![CDATA[<p>在当今互联网时代，个人网站和网盘的搭建不再是专业技术人员的专利。通过Windows自带的IIS（Internet Information Services）管理器，普通用户也能在个人电脑上轻松搭建自己的<strong>网站</strong>和<strong>FTP网盘</strong>。本文将详细介绍如何通过IIS管理器搭建一个简单的网站和FTP服务，实现文件共享和站点管理。</p>
+<h3 id="1-安装和启用iis">1. 安装和启用IIS</h3>
+<p><strong>步骤1：启用IIS服务</strong></p>
+<ul>
+<li>打开 <strong>控制面板</strong> -&gt; <strong>程序</strong> -&gt; <strong>启用或关闭Windows功能</strong>。</li>
+<li>找到 <strong>Internet Information Services (IIS)</strong>，勾选所有相关选项，尤其是 <strong>Web管理工具</strong> 和 <strong>FTP服务器</strong>。<br>
+<img src="https://tse3-mm.cn.bing.net/th/id/OIP-C.kluhgYdrnWzT9RsNClJmfAHaHM?rs=1&amp;pid=ImgDetMain" alt="" loading="lazy"></li>
+<li>点击 <strong>确定</strong>，等待安装完成。</li>
+</ul>
+<p><strong>步骤2：启动IIS管理器</strong></p>
+<ul>
+<li>在 <strong>开始菜单</strong> 搜索 <strong>IIS管理器</strong>，点击进入。你现在已经可以通过IIS管理器来管理网站和FTP服务了。</li>
+</ul>
+<h3 id="2-使用iis管理器搭建网站">2. 使用IIS管理器搭建网站</h3>
+<p><strong>步骤1：创建站点文件夹</strong></p>
+<ul>
+<li>在硬盘上创建一个文件夹来存放你的网站文件，比如 <code>C:\MyWebsite</code>。</li>
+<li>将你要发布的HTML文件、图片、CSS、JavaScript等资源放到这个文件夹内.</li>
+<li>右键单击属性，点击“共享”选项卡-&gt;高级共享，共享此文件夹，设置权限为读取。</li>
+</ul>
+<p><strong>步骤2：配置IIS中的网站</strong></p>
+<ul>
+<li>在IIS管理器左侧树状视图中，右键点击 <strong>网站</strong>，选择 <strong>添加网站</strong>。</li>
+<li><strong>网站名称</strong>：输入你的站点名称（如 &quot;MyWebsite&quot;）。</li>
+<li><strong>物理路径</strong>：选择刚才创建的文件夹 <code>C:\MyWebsite</code>。</li>
+<li><strong>绑定设置</strong>：选择IP地址或直接使用 <code>All Unassigned</code>（所有未分配地址），端口保持为默认的 <strong>80</strong>，若想使用特定的域名访问，可在 <strong>主机名</strong> 中输入你的域名。</li>
+<li>点击 <strong>确定</strong>，网站将立即在IIS中显示。</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://i.postimg.cc/d0zvz3DC/2024-10-8-1.png" alt="" loading="lazy"></figure>
+<p><strong>步骤3：启动站点</strong></p>
+<ul>
+<li>在IIS管理器中，右键刚才创建的网站，选择 <strong>启动</strong>。</li>
+<li>现在你可以通过访问 <code>http://localhost</code>（或绑定的IP/域名）来访问你的个人网站。</li>
+</ul>
+<h3 id="3-使用iis搭建ftp网盘">3. 使用IIS搭建FTP网盘</h3>
+<p><strong>步骤1：创建FTP根目录</strong></p>
+<ul>
+<li>在你的硬盘中创建一个目录，作为FTP服务器的根目录，比如 <code>C:\MyFTP</code>。</li>
+</ul>
+<p><strong>步骤2：配置FTP站点</strong></p>
+<ul>
+<li>在IIS管理器中，右键 <strong>网站</strong> 栏目下的 <strong>FTP站点</strong>，选择 <strong>添加FTP站点</strong>。</li>
+<li><strong>站点名称</strong>：输入你FTP站点的名称（如 &quot;MyFTP&quot;）。</li>
+<li><strong>物理路径</strong>：选择 <code>C:\MyFTP</code> 作为FTP根目录。</li>
+<li><strong>绑定和SSL设置</strong>：设置IP地址为<code>All Unassigned</code>，端口选择 <strong>21</strong>（默认FTP端口）。如果不需要安全连接，选择 <strong>无SSL</strong>。</li>
+<li>点击 <strong>下一步</strong>。</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://i.postimg.cc/nzBZZxQP/2024-10-8-2.png" alt="" loading="lazy"></figure>
+<p><strong>步骤3：身份验证和授权</strong></p>
+<ul>
+<li><strong>身份验证</strong>：选择 <strong>基本</strong>。</li>
+<li><strong>授权</strong>：选择用户组和权限。你可以选择为所有用户提供读写权限，或根据需求自定义权限。</li>
+<li>完成设置后，点击 <strong>完成</strong>，FTP站点将成功创建。</li>
+</ul>
+<p><strong>步骤4：配置用户账户</strong></p>
+<ul>
+<li>打开 <strong>控制面板</strong> -&gt; <strong>用户账户</strong> -&gt; <strong>管理其他账户</strong>，添加一个本地用户或使用现有的本地账户来访问FTP。</li>
+<li>回到IIS管理器，选择 <strong>FTP身份验证</strong>，启用 <strong>基本身份验证</strong>，并设置相应的用户权限。</li>
+</ul>
+<h3 id="4-测试与使用">4. 测试与使用</h3>
+<p><strong>测试网站</strong></p>
+<ul>
+<li>在浏览器中输入 <code>http://localhost</code> 或绑定的域名/IP，查看你的个人网站是否正常显示。</li>
+</ul>
+<p><strong>测试FTP网盘</strong></p>
+<ul>
+<li>在Windows资源管理器中，输入 <code>ftp://localhost</code>，然后使用设置的账户名和密码登录。</li>
+<li>你可以通过FTP客户端（如FileZilla）或Windows自带的资源管理器，上传和下载文件。</li>
+</ul>
+<h3 id="总结">总结</h3>
+<p>通过IIS管理器，Windows用户能够轻松在自己的个人电脑上搭建网站和FTP网盘。虽然这是一个简单的本地解决方案，但适合个人学习、测试和小范围的文件共享。如果你希望部署更大规模的网站或网盘服务，可以考虑使用专业的服务器或云托管服务。</p>
+<p>（本文由Chat GPT 协助完成）</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一些好用的安卓app推荐]]></title>
+        <id>https://leenut-code.github.io/post/2024-10-3/</id>
+        <link href="https://leenut-code.github.io/post/2024-10-3/">
+        </link>
+        <updated>2024-10-03T07:43:46.000Z</updated>
+        <summary type="html"><![CDATA[<p>本文将推荐一些好用的开源app和国外app</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本文将推荐一些好用的开源app和国外app</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://p3.itc.cn/q_70/images03/20220820/983c7ac38fe145f58ed7b5109e6b5482.jpeg" alt="" loading="lazy"></figure>
+<h3 id="日历-待办">日历、待办</h3>
+<ul>
+<li>
+<p>Etar：开源日历，ui很丑<br>
+<a href="https://github.com/Etar-Group/Etar-Calendar">GitHub</a></p>
+</li>
+<li>
+<p>Google日历：可通过Google 账号，同步和导入日程<br>
+<a href="https://play.google.com/store/apps/details?id=com.google.android.calendar&amp;hl=zh&amp;pli=1">play商店</a></p>
+</li>
+<li>
+<p>一叶日历：<a href="https://www.coolapk.com/apk/me.mapleaf.calendar">酷安</a></p>
+</li>
+<li>
+<p>日历备份：用来导入和导出.ics日历文件，ics日历文件请在互联网搜索获取<br>
+<a href="https://play.google.com/store/apps/details?id=kfsoft.calendar.backup.ics&amp;hl=zh">play商店</a></p>
+</li>
+<li>
+<p>微软To Do：<a href="https://sj.qq.com/appdetail/com.microsoft.todos?channel=0002160650432d595942&amp;fromcase=60001&amp;from_wxz=1">应用宝</a></p>
+</li>
+</ul>
+<h3 id="天气">天气</h3>
+<ul>
+<li>Breezy Weather：开源天气app，数据来自国外平台<br>
+<a href="https://github.com/breezy-weather/breezy-weather">GitHub</a></li>
+</ul>
+<h3 id="笔记">笔记</h3>
+<ul>
+<li>
+<p>fairnote：支持webdav同步<br>
+<a href="https://www.ghxi.com/fairnote.html">果核剥壳</a></p>
+</li>
+<li>
+<p>SilentNotes：支持android/PC，可用多种同步方式<br>
+<a href="https://www.martinstoeckli.ch/silentnotes/">果核剥壳</a></p>
+</li>
+<li>
+<p>Notally：好像暂不支持webdav<br>
+<a href="https://github.com/OmGodse/Notally">GitHub</a></p>
+</li>
+</ul>
+<h3 id="闹钟">闹钟</h3>
+<ul>
+<li>使命闹钟：部分品牌手机振动功能失灵<br>
+<a href="https://alar.my/">官网</a></li>
+</ul>
+<h3 id="文件">文件</h3>
+<ul>
+<li>
+<p>流舟文件：支持ftp、webdav<br>
+<a href="https://www.coolapk.com/apk/com.liuzho.file.explorer">酷安</a></p>
+</li>
+<li>
+<p>质感文件：<a href="https://github.com/zhanghai/MaterialFiles/">GitHub</a></p>
+</li>
+</ul>
+<h3 id="相册">相册</h3>
+<ul>
+<li>Aves：<a href="https://github.com/deckerst/aves">GitHub</a></li>
+</ul>
+<h3 id="课表">课表</h3>
+<ul>
+<li>wake up课程表：<a href="https://www.wakeup.fun/">官网</a></li>
+</ul>
+<h3 id="翻译">翻译</h3>
+<ul>
+<li>papago：<a href="https://papago.naver.com/">官网</a></li>
+<li>DeepL：<a href="https://www.deepl.com/zh/translator">官网</a></li>
+<li>微软翻译：<a href="https://cn.bing.com/translator/">官网</a></li>
+</ul>
+<h3 id="软件管理">软件管理</h3>
+<ul>
+<li>My APK：<a href="https://www.ghxi.com/myapk.html">果核剥壳</a></li>
+</ul>
+<h3 id="播放器">播放器</h3>
+<ul>
+<li>MX播放器：<a href="https://mxtechs.net/">官网</a></li>
+<li>绿乐：<a href="https://www.coolapk.com/apk/com.yuanwofei.greenmusic">酷安</a></li>
+</ul>
+<h3 id="网盘">网盘</h3>
+<ul>
+<li>
+<p>onedrive：国内无法打开web页面，pc/android客户端可以打开，免费存储5GB<br>
+<a href="https://onedrive.live.com/">官网</a></p>
+</li>
+<li>
+<p>Koofr：网站和app无中文界面，支持连结Google drive和OneDrive，免费存储10GB<br>
+<a href="https://app.koofr.net/">官网</a></p>
+</li>
+<li>
+<p>坚果云：支持webdav，有上传流量限制<br>
+<a href="https://www.jianguoyun.com/">官网</a></p>
+</li>
+<li>
+<p>阿里云盘：存储容量很大，有一定的限速，隐私安全无保障（不建议上传关乎个人隐私的文件）<br>
+<a href="https://www.aliyundrive.com">官网</a></p>
+</li>
+<li>
+<p>Google Drive：国内无法打开web页面/app，免费存储15GB，隐私安全可保障。<br>
+<a href="https://drive.google.com//">官网</a></p>
+</li>
+</ul>
+<h3 id="邮箱">邮箱</h3>
+<ul>
+<li>outlook：<a href="https://outlook.office.com/">官网</a></li>
+<li>Gmail：<a href="https://mail.google.com/">官网</a></li>
+</ul>
+<h3 id="文档处理-图书阅览">文档处理、图书阅览</h3>
+<ul>
+<li>
+<p>Markor：用来写markdown的app。<br>
+<a href="https://github.com/gsantner/markor">GitHub</a></p>
+</li>
+<li>
+<p>Acode：手机上写代码。<br>
+<a href="https://github.com/deadlyjack/Acode">GitHub</a></p>
+</li>
+<li>
+<p>onlyoffice：<a href="https://www.onlyoffice.com/zh/desktop.aspx/">官网</a></p>
+</li>
+<li>
+<p>阅读：开源阅读<br>
+<a href="https://gedoor.github.io/">官网</a></p>
+</li>
+</ul>
+<h3 id="网络代理工具">网络代理工具</h3>
+<ul>
+<li>
+<p>clash：<a href="https://apkpure.com/cn/clash-for-android/com.github.kr328.clash">Apkpure</a></p>
+</li>
+<li>
+<p>Shadowrocket：提供免费节点。<br>
+<a href="https://apkpure.com/cn/shadowrocket-for-android/com.v2cross.proxy">Apkpure</a></p>
+</li>
+</ul>
+<h3 id="新闻">新闻</h3>
+<ul>
+<li>联合早报：第三只眼看中国<br>
+<a href="https://www.zaobao.com/">官网</a></li>
+</ul>
+<h3 id="下载器">下载器</h3>
+<ul>
+<li>ADM：支持16线程下载。<br>
+<a href="https://www.appinn.com/advanced-download-manager/">小众软件</a></li>
+</ul>
+<h3 id="即时通讯">即时通讯</h3>
+<ul>
+<li>Delta Chat：加密的电子邮箱IM，建议用来在多个设备间传输文件。<br>
+<a href="https://delta.chat/zh_CN//">官网</a></li>
+</ul>
+<h3 id="浏览器">浏览器</h3>
+<ul>
+<li>
+<p>via：小而美的浏览器，依靠webview，可定制性高，支持油猴脚本。<br>
+<a href="https://viayoo.com/zh-cn//">官网</a></p>
+</li>
+<li>
+<p>firefox：<a href="https://www.firefox.com.cn/browsers/mobile/">官网</a></p>
+</li>
+<li>
+<p>edge：<a href="https://www.microsoft.com/zh-cn/edge/download">官网</a></p>
+</li>
+</ul>
+<h3 id="社交媒体">社交媒体</h3>
+<ul>
+<li>bilimiao：开源第三方哔哩哔哩客户端。<br>
+<a href="https://github.com/10miaomiao/bilimiao2">GitHub</a></li>
+</ul>
+<h3 id="输入法">输入法</h3>
+<ul>
+<li>Gboard：谷歌键盘。<br>
+<a href="https://www.firepx.com/app/android-gboard-google-pinyin-input/">火哥分享</a></li>
+</ul>
+<h3 id="百科">百科</h3>
+<ul>
+<li>维基百科：<a href="https://github.com/wikimedia/apps-android-wikipedia">GitHub</a></li>
+</ul>
+<h3 id="设备管理-相关">设备管理 相关</h3>
+<ul>
+<li>
+<p>冰箱：用来冻结系统内置的app.<br>
+<a href="https://iceboxdoc.catchingnow.com/changelog.html">官网</a></p>
+</li>
+<li>
+<p>安装狮：安装app，可以用来绕过某些手机的app备案检测安装app.<br>
+<a href="https://github.com/dadaewq/Install-Lion">GitHub</a></p>
+</li>
+<li>
+<p>权限狗：管理app权限，保护用户隐私安全。<br>
+<a href="https://apppage.net/preview/com.web1n.permissiondog">官网</a></p>
+</li>
+<li>
+<p>小黑屋：冻结系统内置的app.<br>
+<a href="https://stopapp.https.gs/">官网</a></p>
+</li>
+</ul>
+<h3 id="自律-锁机">自律 &amp; 锁机</h3>
+<ul>
+<li>不做手机控：<a href="https://www.coolapk.com/apk/com.pl.getaway.getaway">酷安</a></li>
+<li>远离手机：<a href="https://www.coolapk.com/apk/com.lijianqiang12.silent">酷安</a></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[二次元随机图片API宝藏网站：栗次元API—举个栗子]]></title>
+        <id>https://leenut-code.github.io/post/2024-06-20/</id>
+        <link href="https://leenut-code.github.io/post/2024-06-20/">
+        </link>
+        <updated>2024-06-20T06:31:32.000Z</updated>
+        <summary type="html"><![CDATA[<p>在构建网站或应用程序时，前端开发者经常需要实现随机展示图片的功能。&quot;栗次元API—举个栗子&quot; 正是这样一个能够提供丰富二次元图片资源的API服务，它不仅满足需求，还为项目增添了一抹独特的风格。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在构建网站或应用程序时，前端开发者经常需要实现随机展示图片的功能。&quot;栗次元API—举个栗子&quot; 正是这样一个能够提供丰富二次元图片资源的API服务，它不仅满足需求，还为项目增添了一抹独特的风格。</p>
+<!-- more -->
+<h3 id="网站概览">网站概览</h3>
+<ul>
+<li>网站地址：<a href="https://t.alcy.cc//">https://t.alcy.cc//</a><br>
+该网站以其丰富的图片分类和高质量的图片资源，成为二次元爱好者和开发者的不二之选。</li>
+</ul>
+<h3 id="特色功能">特色功能</h3>
+<ul>
+<li>随机图片展示：提供多种分类的随机图片API，满足不同场景的展示需求。</li>
+<li>API支持：所有分类的API支持输出JSON格式，便于开发者集成和使用。</li>
+<li>持续更新：网站不断更新图片库，保证用户能够获取到最新、最热的二次元图片。</li>
+</ul>
+<h3 id="丰富的api">丰富的API</h3>
+<ul>
+<li>二次元自适应：🌟<a href="https://t.alcy.cc/ycy">https://t.alcy.cc/ycy</a><br>
+<img src="https://t.alcy.cc/ycy" alt="" loading="lazy"></li>
+<li>萌版自适应：🐾<a href="https://t.alcy.cc/moez">https://t.alcy.cc/moez</a><br>
+<img src="https://t.alcy.cc/moez" alt="" loading="lazy"></li>
+<li>AI自适应：🤖<a href="https://t.alcy.cc/ai">https://t.alcy.cc/ai</a><br>
+<img src="https://t.alcy.cc/ai" alt="" loading="lazy"></li>
+<li>原神自适应：🗡️<a href="https://t.alcy.cc/ysz">https://t.alcy.cc/ysz</a><br>
+<img src="https://t.alcy.cc/ysz" alt="" loading="lazy"></li>
+<li>PC横图：🖥️<a href="https://t.alcy.cc/pc">https://t.alcy.cc/pc</a><br>
+<img src="https://t.alcy.cc/pc" alt="" loading="lazy"></li>
+<li>萌版横图：🌸<a href="https://t.alcy.cc/moe">https://t.alcy.cc/moe</a><br>
+<img src="https://t.alcy.cc/moe" alt="" loading="lazy"></li>
+<li>风景横图：🏞️<a href="https://t.alcy.cc/fj">https://t.alcy.cc/fj</a><br>
+<img src="https://t.alcy.cc/fj" alt="" loading="lazy"></li>
+<li>白底横图：📸<a href="https://t.alcy.cc/bd">https://t.alcy.cc/bd</a><br>
+<img src="https://t.alcy.cc/bd" alt="" loading="lazy"></li>
+<li>原神横图：🏰<a href="https://t.alcy.cc/ys">https://t.alcy.cc/ys</a><br>
+<img src="https://t.alcy.cc/ys" alt="" loading="lazy"></li>
+<li>ACG动图：🎉<a href="https://t.alcy.cc/acg">https://t.alcy.cc/acg</a><br>
+<img src="https://t.alcy.cc/acg" alt="" loading="lazy"></li>
+<li>移动竖图：📱<a href="https://t.alcy.cc/mp">https://t.alcy.cc/mp</a><br>
+<img src="https://t.alcy.cc/mp" alt="" loading="lazy"></li>
+<li>萌版竖图：💖<a href="https://t.alcy.cc/moemp">https://t.alcy.cc/moemp</a><br>
+<img src="https://t.alcy.cc/moemp" alt="" loading="lazy"></li>
+<li>原神竖图：🗡️<a href="https://t.alcy.cc/ysmp">https://t.alcy.cc/ysmp</a><br>
+<img src="https://t.alcy.cc/ysmp" alt="" loading="lazy"></li>
+<li>AI竖图：🧠<a href="https://t.alcy.cc/aimp">https://t.alcy.cc/aimp</a><br>
+<img src="https://t.alcy.cc/aimp" alt="" loading="lazy"></li>
+<li>头像方图：🎭<a href="https://t.alcy.cc/tx">https://t.alcy.cc/tx</a><br>
+<img src="https://t.alcy.cc/tx" alt="" loading="lazy"></li>
+<li>七濑胡桃：🍑<a href="https://t.alcy.cc/lai">https://t.alcy.cc/lai</a><br>
+<img src="https://t.alcy.cc/lai" alt="" loading="lazy"></li>
+<li>小狐狸：🦊<a href="https://t.alcy.cc/xhl">https://t.alcy.cc/xh</a><br>
+<img src="https://t.alcy.cc/xhl" alt="" loading="lazy"></li>
+</ul>
+<h3 id="使用方法">使用方法</h3>
+<p>开发者可以通过添加相应的API链接，获取数据。</p>
+<h3 id="结语">结语</h3>
+<p>&quot;栗次元API—举个栗子&quot; 不仅仅是一个图片资源库，它还是一个充满活力的社区，鼓励用户分享、反馈并参与到网站的发展中来。无论是寻找灵感，还是为项目添加视觉元素，这个网站都是一个不可多得的资源。</p>
+<blockquote>
+<p>(注：文章在人工撰写后由AI润色完成)</p>
+</blockquote>
+]]></content>
+    </entry>
+</feed>
