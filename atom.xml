@@ -1,0 +1,1078 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://blog.leenut.site</id>
+    <title>LeeNut</title>
+    <updated>2025-09-25T11:58:04.041Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://blog.leenut.site"/>
+    <link rel="self" href="https://blog.leenut.site/atom.xml"/>
+    <subtitle>美好每一天！</subtitle>
+    <logo>https://blog.leenut.site/images/avatar.png</logo>
+    <icon>https://blog.leenut.site/favicon.ico</icon>
+    <rights>All rights reserved 2025, LeeNut</rights>
+    <entry>
+        <title type="html"><![CDATA[如何配置Windows OpenSSH SFTP 服务器]]></title>
+        <id>https://blog.leenut.site/post/open-ssh-sftp/</id>
+        <link href="https://blog.leenut.site/post/open-ssh-sftp/">
+        </link>
+        <updated>2025-09-25T10:33:57.000Z</updated>
+        <summary type="html"><![CDATA[<p>SFTP是用来传输文件的技术，基于SSH，与FTP相比其数据是加密传输的，相对较为安全。</p>
+<p>本文详细介绍如何在 Windows 系统上配置 OpenSSH SFTP 服务器，创建专用用户，并限制用户只能访问指定目录。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>SFTP是用来传输文件的技术，基于SSH，与FTP相比其数据是加密传输的，相对较为安全。</p>
+<p>本文详细介绍如何在 Windows 系统上配置 OpenSSH SFTP 服务器，创建专用用户，并限制用户只能访问指定目录。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/OpenSSH-SFTP.6wr3jibckb.webp" alt="" loading="lazy"></figure>
+<h3 id="环境要求">环境要求</h3>
+<ul>
+<li>Windows 10 1809 或更高版本 / Windows Server 2019 或更高版本</li>
+<li>管理员权限</li>
+</ul>
+<h3 id="安装-openssh-服务器">安装 OpenSSH 服务器</h3>
+<h4 id="方法一通过设置安装推荐">方法一：通过设置安装（推荐）</h4>
+<ol>
+<li>打开&quot;设置&quot; → &quot;应用&quot; → &quot;可选功能&quot;</li>
+<li>点击&quot;添加功能&quot;</li>
+<li>找到并选择&quot;OpenSSH 服务器&quot;</li>
+<li>点击&quot;安装&quot;</li>
+</ol>
+<p>方法二：通过 PowerShell 安装</p>
+<pre><code class="language-powershell"># 检查可用组件
+Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
+
+# 安装 OpenSSH 服务器
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+</code></pre>
+<h3 id="基本配置">基本配置</h3>
+<p>启动 SSH 服务</p>
+<pre><code class="language-powershell"># 启动服务
+Start-Service sshd
+
+# 设置开机自启
+Set-Service -Name sshd -StartupType 'Automatic'
+
+# 验证服务状态
+Get-Service sshd
+</code></pre>
+<h3 id="配置防火墙">配置防火墙</h3>
+<pre><code class="language-powershell"># 检查防火墙规则
+Get-NetFirewallRule -Name *ssh*
+
+# 如果不存在规则，创建新规则
+New-NetFirewallRule -Name &quot;OpenSSH-Server-TCP-22&quot; -DisplayName &quot;OpenSSH Server (sshd)&quot; -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+</code></pre>
+<h3 id="创建-sftp-专用用户">创建 SFTP 专用用户</h3>
+<h4 id="创建用户">创建用户</h4>
+<pre><code class="language-powershell"># 创建新用户
+$password = ConvertTo-SecureString &quot;您的密码&quot; -AsPlainText -Force
+New-LocalUser -Name &quot;sftpuser&quot; -Password $password -Description &quot;SFTP User&quot; -PasswordNeverExpires $true
+</code></pre>
+<h3 id="准备用户目录">准备用户目录</h3>
+<pre><code class="language-powershell"># 创建用户专属目录
+New-Item -ItemType Directory -Path &quot;D:\SFTPRoot&quot; -Force
+New-Item -ItemType Directory -Path &quot;D:\SFTPRoot\sftpuser&quot; -Force
+</code></pre>
+<h3 id="配置目录限制访问chroot">配置目录限制访问（Chroot）</h3>
+<h4 id="设置目录权限">设置目录权限</h4>
+<pre><code class="language-powershell"># 设置根目录权限（关键步骤）
+icacls &quot;D:\SFTPRoot&quot; /setowner &quot;Administrators&quot;
+icacls &quot;D:\SFTPRoot&quot; /inheritance:r
+icacls &quot;D:\SFTPRoot&quot; /grant &quot;Administrators:(OI)(CI)F&quot;
+icacls &quot;D:\SFTPRoot&quot; /grant &quot;SYSTEM:(OI)(CI)F&quot;
+icacls &quot;D:\SFTPRoot&quot; /grant &quot;sftpuser:(OI)(CI)RX&quot;
+
+# 设置用户子目录权限
+icacls &quot;D:\SFTPRoot\sftpuser&quot; /inheritance:r
+icacls &quot;D:\SFTPRoot\sftpuser&quot; /grant &quot;sftpuser:(OI)(CI)F&quot;
+</code></pre>
+<p>配置 SSH 服务器<br>
+编辑配置文件 C:\ProgramData\ssh\sshd_config：</p>
+<pre><code class="language-bash"># 在文件末尾添加以下配置
+Match User sftpuser
+    ForceCommand internal-sftp
+    ChrootDirectory D:\SFTPRoot
+    PermitTunnel no
+    AllowAgentForwarding no
+    AllowTcpForwarding no
+    X11Forwarding no
+    PasswordAuthentication yes
+</code></pre>
+<h3 id="重启服务应用配置">重启服务应用配置</h3>
+<pre><code class="language-powershell">Restart-Service sshd
+</code></pre>
+<h3 id="测试连接">测试连接</h3>
+<h4 id="本地测试">本地测试</h4>
+<pre><code class="language-powershell">sftp -P 22 sftpuser@localhost
+</code></pre>
+<h4 id="远程测试">远程测试</h4>
+<p>使用 SFTP 客户端（如 WinSCP、FileZilla）连接：</p>
+<ul>
+<li>主机：您的服务器 IP</li>
+<li>端口：22</li>
+<li>用户名：sftpuser</li>
+<li>密码：您设置的密码</li>
+</ul>
+<h3 id="故障排除">故障排除</h3>
+<p>####服务无法启动</p>
+<pre><code class="language-powershell"># 检查配置文件语法
+C:\Windows\System32\OpenSSH\sshd.exe -t
+
+# 查看详细错误信息
+Get-EventLog -LogName Application -Source &quot;OpenSSH&quot; -Newest 5 | Format-List *
+</code></pre>
+<p>####连接被拒绝</p>
+<pre><code class="language-powershell"># 检查端口监听状态
+netstat -ano | findstr :22
+
+# 检查防火墙设置
+Get-NetFirewallRule -Name *ssh* | Format-Table Name, Enabled, Action
+</code></pre>
+<h4 id="权限问题">权限问题</h4>
+<pre><code class="language-powershell"># 检查目录权限
+icacls &quot;D:\SFTPRoot&quot;
+icacls &quot;D:\SFTPRoot\sftpuser&quot;
+</code></pre>
+<h3 id="高级配置">高级配置</h3>
+<p>####使用密钥认证</p>
+<ol>
+<li>生成密钥对：</li>
+</ol>
+<pre><code class="language-powershell">ssh-keygen -t rsa -b 4096 -f C:\Users\用户名\.ssh\sftp_key
+</code></pre>
+<ol start="2">
+<li>将公钥复制到服务器：</li>
+</ol>
+<pre><code class="language-powershell"># 创建 .ssh 目录
+mkdir &quot;D:\SFTPRoot\sftpuser\.ssh&quot; -Force
+
+# 设置权限
+icacls &quot;D:\SFTPRoot\sftpuser\.ssh&quot; /inheritance:r
+icacls &quot;D:\SFTPRoot\sftpuser\.ssh&quot; /grant &quot;sftpuser:(OI)(CI)F&quot;
+
+# 复制公钥
+Copy-Item &quot;公钥路径&quot; &quot;D:\SFTPRoot\sftpuser\.ssh\authorized_keys&quot;
+
+# 设置 authorized_keys 文件权限
+icacls &quot;D:\SFTPRoot\sftpuser\.ssh\authorized_keys&quot; /inheritance:r
+icacls &quot;D:\SFTPRoot\sftpuser\.ssh\authorized_keys&quot; /grant &quot;sftpuser:F&quot;
+</code></pre>
+<ol start="3">
+<li>在 sshd_config 中启用密钥认证：</li>
+</ol>
+<pre><code class="language-bash">PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+</code></pre>
+<h4 id="多用户配置">多用户配置</h4>
+<p>为每个用户添加独立的 Match 块：</p>
+<pre><code class="language-bash">Match User user1
+    ForceCommand internal-sftp
+    ChrootDirectory D:\SFTPRoot\user1
+
+Match User user2
+    ForceCommand internal-sftp
+    ChrootDirectory D:\SFTPRoot\user2
+</code></pre>
+<h3 id="常用命令参考">常用命令参考</h3>
+<h4 id="服务管理">服务管理</h4>
+<pre><code class="language-powershell"># 启动服务
+Start-Service sshd
+
+# 停止服务
+Stop-Service sshd
+
+# 重启服务
+Restart-Service sshd
+
+# 检查状态
+Get-Service sshd
+</code></pre>
+<h3 id="权限管理">权限管理</h3>
+<pre><code class="language-powershell"># 查看权限
+icacls &quot;目录路径&quot;
+
+# 修改所有者
+icacls &quot;目录路径&quot; /setowner &quot;用户名&quot;
+
+# 授予权限
+icacls &quot;目录路径&quot; /grant &quot;用户名:(权限)&quot;
+
+# 移除继承
+icacls &quot;目录路径&quot; /inheritance:r
+</code></pre>
+<h3 id="注意事项">注意事项</h3>
+<ol>
+<li>Chroot 目录必须由 Administrators 或 SYSTEM 所有</li>
+<li>用户不能对 Chroot 根目录有写权限</li>
+<li>配置文件修改后必须重启服务</li>
+<li>权限设置错误可能导致服务无法启动</li>
+<li>确保防火墙允许 SSH 连接</li>
+</ol>
+<p>通过本教程，您应该能够在 Windows 系统上成功配置一个安全的 SFTP 服务器，并限制用户只能访问指定目录。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于“云服务器”、“域名”的一些看法和实践]]></title>
+        <id>https://blog.leenut.site/post/servers-Domains/</id>
+        <link href="https://blog.leenut.site/post/servers-Domains/">
+        </link>
+        <updated>2024-12-20T07:46:24.000Z</updated>
+        <summary type="html"><![CDATA[<p>最近看到阿里云有学生优惠，可以白嫖<strong>云服务器</strong>一年，于是下单了阿里云的服务器，并且注册了一个新的域名。<br>
+具体情况参考了这里：<a href="https://x1g.la/university-aliyun.html">https://x1g.la/university-aliyun.html</a><br>
+本文分享我在购买和使用云服务器以及注册域名方面的看法和经验。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>最近看到阿里云有学生优惠，可以白嫖<strong>云服务器</strong>一年，于是下单了阿里云的服务器，并且注册了一个新的域名。<br>
+具体情况参考了这里：<a href="https://x1g.la/university-aliyun.html">https://x1g.la/university-aliyun.html</a><br>
+本文分享我在购买和使用云服务器以及注册域名方面的看法和经验。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://i.postimg.cc/8zsKL72T/servers-Domains.png" alt="" loading="lazy"></figure>
+<h2 id="购买云服务器">购买云服务器</h2>
+<p>对于购买云服务器，国内外有许多服务提供商，例如阿里云、腾讯云、微软Azure和甲骨文等。建议有条件时优先选择国外的服务器。<br>
+以阿里云为例，参考[这里](<a href="https://x1g.la/university-aliyun.html">https://x1g.la/university-aliyun.html</a><br>
+在选择服务器位置的选项里请选择海外的位置（如果有海外选项），因为海内服务器需要icp备案的域名才能访问，海外的不需要。</p>
+<h2 id="云服务器的配置">云服务器的配置</h2>
+<h3 id="系统选择">系统选择</h3>
+<p>云服务器支持多种Linux发行版，推荐优先选择CentOS，稳定性和兼容性较好。</p>
+<h3 id="连接云服务器">连接云服务器</h3>
+<p>连接云服务器可以通过下载安装Xshell或其他类似的软件来实现。以下是以Xshell为例的具体步骤：<br>
+1. 点击“新建会话”。<br>
+2. 在弹出的窗口中填写服务器相关信息。<br>
+<img src="https://i.postimg.cc/DyvYyj5J/xshell1.png" alt="" loading="lazy"><br>
+<img src="https://i.postimg.cc/pVY6vbQM/xshell2.png" alt="" loading="lazy"></p>
+<h3 id="安装docker及更换镜像源">安装Docker及更换镜像源</h3>
+<p>docker是服务器重要的软件，可以通过命令获取：</p>
+<pre><code class="language-sh">curl -fsSL https://get.docker.com | bash -s docker
+</code></pre>
+<p>启动docker、查看版本和服务状态：</p>
+<pre><code class="language-sh">service docker start        
+docker version
+systemctl status docker
+</code></pre>
+<p>更换Docker镜像源以提高国内的下载速度：</p>
+<ol>
+<li>编辑 daemon.json 文件：</li>
+</ol>
+<pre><code class="language-sh">sudo vi /etc/docker/daemon.json
+</code></pre>
+<ol start="2">
+<li>在文件中添加以下内容：</li>
+</ol>
+<pre><code class="language-json">{
+&quot;registry-mirrors&quot;: [
+&quot;https://docker.m.daocloud.io&quot;,
+&quot;https://docker.nju.edu.cn&quot;,
+&quot;https://dockerproxy.com&quot;
+]
+}
+</code></pre>
+<pre><code>3. 重启docker
+</code></pre>
+<pre><code class="language-sh">service docker restart
+</code></pre>
+<h3 id="安装管理面板">安装管理面板</h3>
+<p>为了更便捷地操作Linux服务器，可以安装管理面板，例如宝塔面板或1Panel。<br>
+<a href="https://www.bt.cn/">宝塔面板：https://www.bt.cn/</a><br>
+<a href="https://1panel.cn/">1Panel：https://1panel.cn/</a></p>
+<h3 id="安装服务及设置防火墙或安全组">安装服务及设置防火墙或安全组</h3>
+<p>安装面板后可以在面板的应用商店内安装需要的应用，例如博客系统(Hexo、WordPress等)。<br>
+使用应用的端口通过浏览器访问时，需要在云服务器控制台的安全组中允许对应的端口。<br>
+<img src="https://i.postimg.cc/65Mb7r1H/aliyun-safe.png" alt="" loading="lazy"></p>
+<h2 id="关于域名">关于域名</h2>
+<h3 id="域名注册">域名注册</h3>
+<p>对于域名注册，建议优先选择国外的注册商。国内注册商需要实名认证个人信息，认证过程可能需要数小时至数天。<br>
+此外，一些平台提供免费的二级域名，对于预算有限的用户是一个不错的选择。</p>
+<h3 id="托管域名到dns服务器">托管域名到DNS服务器</h3>
+<p>注册域名后，需要将其托管到DNS服务器才能正常使用域名访问网站。知名的DNS服务商包括：</p>
+<ul>
+<li><a href="https://www.cloudns.net/">ClouDNS</a></li>
+<li><a href="https://www.cloudflare.com/zh-cn/">Cloudflare</a></li>
+</ul>
+<h4 id="以cloudflare为例的域名托管过程">以Cloudflare为例的域名托管过程</h4>
+<ol>
+<li>注册并登录Cloudflare账户。</li>
+<li>在Cloudflare仪表盘中，点击“添加站点”。</li>
+<li>输入您注册的域名，点击“开始扫描DNS记录”。</li>
+<li>根据扫描结果，确认或手动添加必要的DNS记录（例如A记录或CNAME记录）。</li>
+<li>设置完成后，Cloudflare会提供两个名称服务器地址，例如：</li>
+</ol>
+<pre><code class="language-html">      ns1.cloudflare.com
+      ns2.cloudflare.com
+</code></pre>
+<ol start="6">
+<li>登录您的域名注册商账户，将域名的名称服务器更改为Cloudflare提供的地址。</li>
+<li>等待DNS解析生效（通常需要几小时到24小时）。</li>
+<li>在Cloudflare中启用“代理状态”（橙色云图标）以使用其CDN和防护功能。<br>
+完成这些步骤后，您的域名将成功托管到Cloudflare，您可以享受其提供的免费DNS、CDN加速和安全防护服务。</li>
+</ol>
+<h3 id="关于域名是否要备案">关于域名是否要备案</h3>
+<p>关于域名是否要备案，如果服务器在海外不需要备案，如果服务器在中国则需要备案。<br>
+域名备案后网站受中国政府监管，网站内容和功能在法律和政策上受限。</p>
+<h2 id="总结">总结</h2>
+<p>购买云服务器和注册域名是建立网站的基础步骤。通过选择合适的服务器提供商和域名注册商，以及学习基本的配置和操作技能，可以快速搭建自己的互联网应用环境。希望本文的分享能为对这些领域感兴趣的朋友提供一些实用的参考。</p>
+<hr>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Alist：搭建属于你的你的自有网盘]]></title>
+        <id>https://blog.leenut.site/post/Alist/</id>
+        <link href="https://blog.leenut.site/post/Alist/">
+        </link>
+        <updated>2024-11-25T11:18:56.000Z</updated>
+        <summary type="html"><![CDATA[<p>Alist 是一款简洁、高效、开源的多网盘挂载工具。通过 Alist，可以轻松整合多个网盘资源，统一管理并实现跨平台访问。本文将介绍如何下载、启动 Alist，如何挂载网盘以及如何对 Alist 进行设置和页面美化。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Alist 是一款简洁、高效、开源的多网盘挂载工具。通过 Alist，可以轻松整合多个网盘资源，统一管理并实现跨平台访问。本文将介绍如何下载、启动 Alist，如何挂载网盘以及如何对 Alist 进行设置和页面美化。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/alist.77dxcgvi1u.webp" alt="" loading="lazy"></figure>
+<h3 id="一-如何下载-alist"><strong>一、如何下载 Alist？</strong></h3>
+<ol>
+<li>
+<p><strong>访问官网</strong><br>
+前往 <a href="https://github.com/alist-org/alist">Alist 官方 GitHub 页面</a> 下载最新版本。GitHub 提供各个平台（如 Windows、macOS、Linux）的预编译二进制文件，方便不同用户快速部署。</p>
+</li>
+<li>
+<p><strong>选择对应版本</strong></p>
+<ul>
+<li><strong>Windows 用户</strong>：下载 <code>alist-windows-amd64.exe</code>（或根据 CPU 架构选择合适的版本）。</li>
+<li><strong>macOS 用户</strong>：下载 <code>alist-darwin-amd64</code>。</li>
+<li><strong>Linux 用户</strong>：选择 <code>alist-linux-amd64</code> 或 <code>alist-linux-arm64</code>（适用于树莓派等 ARM 设备）。</li>
+</ul>
+</li>
+<li>
+<p><strong>解压与安装</strong></p>
+<ul>
+<li>下载后解压缩文件（如 <code>.zip</code> 或 <code>.tar.gz</code>）。</li>
+<li>将解压后的文件放置到您指定的目录中，方便管理。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="二-如何启动-alist"><strong>二、如何启动 Alist？</strong></h3>
+<ol>
+<li>
+<p><strong>运行程序</strong></p>
+<ul>
+<li><strong>Windows</strong>：使用终端运行命令：<pre><code class="language-bash">   /alist.exe server
+</code></pre>
+</li>
+<li><strong>macOS/Linux</strong>：使用终端运行命令：<pre><code class="language-bash">    ./alist
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>访问管理页面</strong><br>
+启动后，终端会显示 Alist 的默认访问地址（例如：<code>http://127.0.0.1:5244</code>）。打开浏览器并访问该地址。</p>
+</li>
+<li>
+<p><strong>初始化设置</strong></p>
+<ul>
+<li>第一次启动会提示设置管理员账号和密码，用于后续登录管理页面。</li>
+<li>设置完成后即可进入 Alist 的主界面。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="三-如何挂载网盘"><strong>三、如何挂载网盘？</strong></h4>
+<ol>
+<li>
+<p><strong>登录管理页面</strong><br>
+在浏览器中访问 Alist 的管理地址，输入管理员账号和密码进行登录。</p>
+</li>
+<li>
+<p><strong>添加存储服务</strong></p>
+<ul>
+<li>点击管理页面左侧菜单栏中的“挂载”选项。</li>
+<li>选择您需要挂载的网盘类型，例如：Google Drive、OneDrive、阿里云盘等。</li>
+<li>填写相关的 API 授权信息或网盘的账户登录信息。</li>
+<li>完成配置后，点击“保存”并测试挂载是否成功。<br>
+<strong><a href="https://alist.nn.ci/zh/">具体操作请看官方文档：https://alist.nn.ci/zh/</a></strong></li>
+</ul>
+</li>
+<li>
+<p><strong>验证挂载</strong></p>
+<ul>
+<li>如果挂载成功，您可以在主页面中查看网盘的目录结构和文件内容。</li>
+<li>支持文件的快速预览和下载。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<!-- more -->
+<h4 id="四-如何设置-alist-以及页面样式美化"><strong>四、如何设置 Alist 以及页面样式美化？</strong></h4>
+<ol>
+<li>
+<p><strong>基本设置</strong></p>
+<ul>
+<li>在管理页面中，点击左侧“设置”选项，调整基本配置。</li>
+<li>重要配置包括：
+<ul>
+<li><strong>端口设置</strong>：修改默认访问端口（如从 5244 改为 8080）。</li>
+<li><strong>公开访问</strong>：设置访问权限（公开、私密或特定密码访问）。</li>
+<li><strong>存储缓存</strong>：为提升性能，可开启文件缓存功能。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>页面样式设置</strong></p>
+<ul>
+<li><strong>主题切换</strong>：进入“设置 &gt; 全局”页面，自定义css样式。<br>
+推荐一个样式：<a href="https://github.com/TheSmallHanCat/Better_Alist">https://github.com/TheSmallHanCat/Better_Alist</a></li>
+</ul>
+</li>
+</ol>
+<h4 id="五-总结"><strong>五、总结</strong></h4>
+<p>Alist 是一个非常实用的网盘整合工具，无需复杂的操作即可轻松管理多个网盘资源。通过本文的指导，您可以快速上手 Alist，并通过自定义设置和页面美化打造属于自己的高效网盘管理平台。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[浅谈RSS，轻松使用RSS]]></title>
+        <id>https://blog.leenut.site/post/rss/</id>
+        <link href="https://blog.leenut.site/post/rss/">
+        </link>
+        <updated>2024-11-15T07:18:26.000Z</updated>
+        <summary type="html"><![CDATA[<p>RSS（Really Simple Syndication，简易信息聚合）是一种开放的内容分发标准，用于订阅和自动推送网站的最新内容。当我们订阅某个网站的RSS源后，网站更新的内容会自动推送到我们的RSS阅读器中，省去访问网站的步骤，帮助我们高效获取想要的信息。RSS的应用范围非常广泛，从新闻、博客到视频和播客，RSS几乎支持一切内容类型的订阅。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>RSS（Really Simple Syndication，简易信息聚合）是一种开放的内容分发标准，用于订阅和自动推送网站的最新内容。当我们订阅某个网站的RSS源后，网站更新的内容会自动推送到我们的RSS阅读器中，省去访问网站的步骤，帮助我们高效获取想要的信息。RSS的应用范围非常广泛，从新闻、博客到视频和播客，RSS几乎支持一切内容类型的订阅。</p>
+<!-- more -->
+<hr>
+<h3 id="rss客户端的选择">RSS客户端的选择</h3>
+<p>不同平台上有多种RSS阅读器可供选择，功能各有侧重，用户可以根据自身需求选择合适的客户端。</p>
+<h4 id="1-windows平台">1 Windows平台</h4>
+<ul>
+<li>
+<p><strong>Fluent Reader</strong>：这是一个开源、跨平台的RSS阅读器，支持Windows、macOS和Linux系统，专注于提供一个简洁、易用的阅读体验，适合那些喜欢一个集成化、无干扰的RSS订阅工具的用户。<br>
+<a href="https://hyliu.me/fluent-reader/">https://hyliu.me/fluent-reader/</a><br>
+<img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/fluent-rss.esvq0j1fo.webp" alt="" loading="lazy"></p>
+</li>
+<li>
+<p><strong>irreader</strong>：这是一个支持windows和mac的rss阅读器，支持订阅网页、RSS、Podcast 甚至 GitHub issue，并且提供了部分 RSS 源，支持推送到飞书、钉钉、企业微信、Discord、Telegram。<br>
+‍<a href="http://irreader.fatecore.com/">http://irreader.fatecore.com/</a><br>
+<img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/irreader.1sfeu1wjgz.webp" alt="" loading="lazy"></p>
+</li>
+<li>
+<p><strong>follow</strong>：万物皆可订阅，可以订阅很多内容，包括telegram群组、x.com的用户账号、微博账号、小红书账号、哔哩哔哩up主、YouTube的YouTuber、播客。<br>
+<a href="https://follow.is/">https://follow.is/</a></p>
+</li>
+</ul>
+<h4 id="2-android平台">2 Android平台**</h4>
+<ul>
+<li>
+<p><strong>Focus</strong>（暂停维护中……）：非常流行的RSS工具，界面简洁， 借助 RSShub 开源项目，自带丰富订阅市场，尽可能简化操作，适合普通玩家。<br>
+<a href="https://github.com/ihewro/Focus">https://github.com/ihewro/Focus</a></p>
+</li>
+<li>
+<p><strong>FeedMe</strong>：设计简洁，功能齐全，免费，支持和在线阅读器连接，提供了「中国模式」，优化国内用户的阅读体验。<br>
+<a href="https://play.google.com/store/apps/details?id=com.seazon.feedme">https://play.google.com/store/apps/details?id=com.seazon.feedme</a></p>
+</li>
+</ul>
+<hr>
+<h3 id="3-如何订阅rss">3. 如何订阅RSS</h3>
+<p>订阅RSS有多种方法，通常可以直接从目标网站订阅，或者通过RSShub等工具订阅RSS源。</p>
+<h4 id="1-从目标网站订阅">1 <strong>从目标网站订阅</strong></h4>
+<ul>
+<li>许多网站在页面底部、顶部或菜单中提供“RSS”或“订阅”链接，点击链接即可获取RSS源地址。</li>
+<li>如果没有看到明确的RSS标志，可以试试在网址末尾加上“/feed”或“/rss”，这往往是网站RSS源的默认地址。</li>
+</ul>
+<h4 id="2-利用rsshub订阅">2 <strong>利用RSSHub订阅</strong></h4>
+<ul>
+<li><strong>RSSHub</strong>是一个开源RSS订阅工具。RSSHub收录了大量的RSS源，你可以从网站复制，也可以安装它的插件来帮转你订阅源。<br>
+<a href="https://rsshub.netlify.app/zh/">网站：https://rsshub.netlify.app/zh/</a><br>
+<a href="https://www.crxsoso.com/webstore/detail/kefjpfngnndepjbopdmoebkipbgkggaa">Edge/Chrome 插件：https://www.crxsoso.com/webstore/detail/kefjpfngnndepjbopdmoebkipbgkggaa</a><br>
+<a href="https://www.crxsoso.com/firefox/detail/rsshub-radar">Firefox 插件 ：https://www.crxsoso.com/firefox/detail/rsshub-radar</a><br>
+<img src="https://www.aneasystone.com/usr/uploads/2023/04/3554965339.png" alt="" loading="lazy"></li>
+</ul>
+<h4 id="3-利用阅读器提供的订阅源商店订阅"><strong>3 利用阅读器提供的订阅源商店订阅</strong></h4>
+<p>不少的阅读器提供了订阅源商店或订阅源推荐，可以以此来订阅。</p>
+<hr>
+<p>通过RSS，我们可以为自己打造一个私人订阅的内容世界，高效、有序地获取各类优质信息。在信息泛滥的时代，RSS为我们提供了独立获取信息的方式，帮助我们掌控个人的信息流。希望这篇文章能帮你更好地入门和使用RSS。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[如何更好的刷B站，”哔哩哔哩“ 客户端/浏览器插件 大合集]]></title>
+        <id>https://blog.leenut.site/post/2024-11-4/</id>
+        <link href="https://blog.leenut.site/post/2024-11-4/">
+        </link>
+        <updated>2024-11-04T12:32:53.000Z</updated>
+        <summary type="html"><![CDATA[<p>哔哩哔哩是我们大多数人每天都使用的网络平台，为了更好的使用此平台提供的服务，众多的开发者开发了不少的哔哩哔哩第三方客户端和浏览器插件，本文接下来将汇总和介绍这些客户端和插件。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>哔哩哔哩是我们大多数人每天都使用的网络平台，为了更好的使用此平台提供的服务，众多的开发者开发了不少的哔哩哔哩第三方客户端和浏览器插件，本文接下来将汇总和介绍这些客户端和插件。</p>
+<!-- more -->
+<h3 id="官方客户端">官方客户端</h3>
+<p>下载地址：<a href="https://app.bilibili.com/">https://app.bilibili.com/</a><br>
+play版下载地址：<a href="https://www.firepx.com/app/bilibili-google-play-and-other-version/">https://www.firepx.com/app/bilibili-google-play-and-other-version/</a></p>
+<p>官方客户端提供安卓、ios、windows、Mac、安卓Pad、iPad、车机、TV等多个平台的安装包。</p>
+<figure data-type="image" tabindex="1"><img src="https://i.postimg.cc/QMdKRr8t/bilibili-main.png" alt="bilibili-main.png" loading="lazy"></figure>
+<h3 id="桌面客户端">桌面客户端</h3>
+<h4 id="bilineo">BiliNeo</h4>
+<p>这是一个用来看番剧的哔哩哔哩客户端，支持android/windows/Linux等操作系统。</p>
+<p>项目地址：<a href="https://github.com/Predidit/BiliNeo">https://github.com/Predidit/BiliNeo</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/Bili-Neo-desktop.5c1cjw1eio.webp" alt="" loading="lazy"><br>
+<img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/Bili-Neo-android.1hsl0xkfte.webp" alt="" loading="lazy"></p>
+<h4 id="哔哩助理">哔哩助理</h4>
+<p>哔哩助理在 哔哩 的基础上通过 Windows App SDK 进行了重构.<br>
+哔哩助理将以更开放的态度进行开发，借助社区力量，共同构建一个有意思的 UGC 客户端。</p>
+<p>项目地址：<a href="https://github.com/Richasy/Bili.Copilot?tab=readme-ov-file">https://github.com/Richasy/Bili.Copilot?tab=readme-ov-file</a></p>
+<figure data-type="image" tabindex="2"><img src="https://bili.richasy.net/assets/home-page.Cbii5RSl.png" alt="" loading="lazy"></figure>
+<h4 id="哔哩哔哩-linux">哔哩哔哩-Linux</h4>
+<p>这是一个哔哩哔哩的Linux第三方客户端,安装包格式包括deb、rpm等。</p>
+<p>项目地址：<a href="https://github.com/msojocs/bilibili-linux">https://github.com/msojocs/bilibili-linux</a></p>
+<figure data-type="image" tabindex="3"><img src="https://raw.gitcode.com/gh_mirrors/bi/bilibili-linux/files/master/res/screenshots/1.png" alt="" loading="lazy"></figure>
+<h4 id="wiliwili">wiliwili</h4>
+<p>这是一个专为手柄用户设计的第三方 B站 客户端，支持PC、PS4、PSVita。</p>
+<p>官方网站：<a href="https://xfangfang.github.io/wiliwili/">https://xfangfang.github.io/wiliwili/</a></p>
+<h3 id="移动端">移动端</h3>
+<h4 id="bililite">BiliLite</h4>
+<p>基于Kotlin开发的第三方b站客户端 可能是你见过最小体积的b站 安装包仅2.6mb，相当于第三方flutter民间客户端，&quot;绿色软件&quot; 基于原生代码定制开发，界面流畅简洁，使用google最新media3player，耗电量降低25%(据官方文档 target sdk 34，权限仅9个，拒绝&quot;毒瘤&quot;</p>
+<p><strong>该客户端本人设备测试无法播放视频，其他设备或许可以。</strong></p>
+<p>项目地址：<a href="https://gitee.com/aluafu_byxiayu/bililitebyxiayu">https://gitee.com/aluafu_byxiayu/bililitebyxiayu</a></p>
+<h4 id="pilipala-pilipalax-收到哔哩哔哩的律师函可能已经停更">PiliPala / PiliPalaX （收到哔哩哔哩的律师函，可能已经停更）</h4>
+<p>PiliPala / PiliPalaX是一个使用 Flutter 开发的 BiliBili 第三方客户端，</p>
+<p>项目地址：<br>
+pilipala：<a href="https://github.com/guozhigq/pilipala">https://github.com/guozhigq/pilipala</a><br>
+PiliPalaX：<a href="https://github.com/orz12/PiliPalaX">https://github.com/orz12/PiliPalaX</a></p>
+<figure data-type="image" tabindex="4"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/palipali.7i0r5ny0aq.webp" alt="palipali.png" loading="lazy"></figure>
+<h4 id="bili-you">Bili You</h4>
+<p>Bili You是一个类似于PiliPala用flutter制作的第三方B站客户端.</p>
+<p>项目地址：<a href="https://github.com/lucinhu/bili_you">https://github.com/lucinhu/bili_you</a></p>
+<h4 id="bilimiao哔哩喵~">bilimiao（哔哩喵~）</h4>
+<p>bilimiao原为哔哩哔哩时光机，原始功能主要为查看各个分区在每个时间段的热门视频列表，后经不断改进，功能不断完善，形成了一款安卓上的哔哩哔哩的第三方APP。</p>
+<p>项目地址：<a href="https://github.com/10miaomiao/bilimiao2">https://github.com/10miaomiao/bilimiao2</a></p>
+<h3 id="浏览器插件">浏览器插件</h3>
+<h4 id="bewlybewly">BewlyBewly</h4>
+<p>BewlyBewly 是一个用于 BiliBili 的浏览器扩展，旨在通过重新设计 BiliBili 用户界面来提升用户体验。设计灵感来自于 YouTube、Vision OS 和 iOS，从而实现了更具视觉吸引力和用户友好性的界面。</p>
+<p>项目地址：<a href="https://github.com/BewlyBewly/BewlyBewly">https://github.com/BewlyBewly/BewlyBewly</a></p>
+<h4 id="bilibili-evolved">Bilibili-Evolved</h4>
+<p>这是一个强大的哔哩哔哩增强脚本 ，提供众多的附加功能。</p>
+<p>项目地址：<a href="https://github.com/the1812/Bilibili-Evolved">https://github.com/the1812/Bilibili-Evolved</a></p>
+<figure data-type="image" tabindex="5"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/Bilibili-Evolved.5q7sari0xa.webp" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Firefox 浏览器界面高度定制化]]></title>
+        <id>https://blog.leenut.site/post/2024-10-30/</id>
+        <link href="https://blog.leenut.site/post/2024-10-30/">
+        </link>
+        <updated>2024-10-31T05:21:19.000Z</updated>
+        <summary type="html"><![CDATA[<p>Firefox 浏览器作为一款注重隐私的受欢迎浏览器，他的默认界面却是比较丑陋的，本文将探讨如何使你的Firefox 浏览器界面更好看。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Firefox 浏览器作为一款注重隐私的受欢迎浏览器，他的默认界面却是比较丑陋的，本文将探讨如何使你的Firefox 浏览器界面更好看。</p>
+<!-- more -->
+<h3 id="主题">主题</h3>
+<p>Firefox 浏览器的拓展商店中有很多主题 ，用户可以下载安装这些主题。<br>
+<a href="https://addons.mozilla.org/zh-CN/firefox/themes/">地址</a></p>
+<h3 id="firefox-color拓展">Firefox Color拓展</h3>
+<p>Firefox Color拓展是Firefox出品的浏览器拓展，这个拓展可以用来修改和自定义浏览器的颜色。<br>
+<a href="https://addons.mozilla.org/zh-CN/firefox/addon/firefox-color">地址</a></p>
+<h3 id="修改界面配置文件定制界面">修改界面配置文件定制界面</h3>
+<p>Firefox 浏览器可以通过修改相关配置文件实现界面定制。</p>
+<ol>
+<li>
+<p>在 Firefox 的地址栏访问 <code>about:config</code>，忽略警告，在接下来的界面搜索 <code>toolkit.legacyUserProfileCustomizations.stylesheets</code>，并将这一项目设置为 <code>true</code><br>
+<img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/Firefox-aboutconfig-1.175r7sfl5e.webp" alt="Firefox-aboutconfig-1.png" loading="lazy"></p>
+</li>
+<li>
+<p>在 Firefox 的地址栏访问 <code>about:support</code>，选择下方的<code> Profile Folder</code>或<code>配置文件夹</code>，点击 <code>Open Folder</code>或<code>打开文件夹</code>。<br>
+<img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/Firefox-about-support-Open-Profile-Folder-min.pfpj7fzm7.webp" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>上一步打开的文件夹即为 <code>Firefox Profile</code> 根目录。在这里，我们需要创建一个名叫<code>chrome</code> 的文件夹，接下来的所有自定义样式都需要放入这一文件夹之中。</p>
+</li>
+<li>
+<p>在 chrome 文件夹内自行创建<code>userChrome.css</code>和 <code>userContent.css </code>这两个样式定义文件，在其中进行自定义即可。</p>
+</li>
+</ol>
+<blockquote>
+<p>userChrome.css 是专门用来定制 Firefox〖自身的界面〗（比如 Firefox 自己的“地址栏、搜索栏、快捷菜单、滚动条 ……”）<br>
+userContent.css 是专门用来定制 Firefox 浏览的网站 (包括新标签页、设置页面、其他的网站页面) 的界面。</p>
+</blockquote>
+<ol start="5">
+<li>熟悉css的同学可以用css进行定制，不会css的同学可以从<a href="https://firefoxcss-store.github.io/">https://firefoxcss-store.github.io/</a>下载别人的配置文件<br>
+<img src="https://i.postimg.cc/sg6gGGzj/firefoxcss-store.jpg" alt="" loading="lazy"></li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[做好安卓手机隐私安全，实现个资安全保障]]></title>
+        <id>https://blog.leenut.site/post/2024-10-17/</id>
+        <link href="https://blog.leenut.site/post/2024-10-17/">
+        </link>
+        <updated>2024-10-17T05:58:20.000Z</updated>
+        <summary type="html"><![CDATA[<p>在如今的数字时代，智能手机已成为生活中不可或缺的一部分。对于Android用户，尤其是在中国，隐私安全问题越来越受到关注。由于Android系统的开放性和中国特殊的互联网环境，普通用户的隐私安全面临更多的挑战。那么，普通中国用户应如何在日常生活中保护自己Android手机上的隐私安全呢？以下是一些实用的建议。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在如今的数字时代，智能手机已成为生活中不可或缺的一部分。对于Android用户，尤其是在中国，隐私安全问题越来越受到关注。由于Android系统的开放性和中国特殊的互联网环境，普通用户的隐私安全面临更多的挑战。那么，普通中国用户应如何在日常生活中保护自己Android手机上的隐私安全呢？以下是一些实用的建议。</p>
+<!-- more -->
+<h3 id="可靠的手机品牌和rom是最底层的安全保障">可靠的手机品牌和ROM，是最底层的安全保障</h3>
+<p>尽量选择信誉良好的手机品牌，尤其是那些注重隐私安全的厂商。一些良心品牌秉持“不作恶”的理念，他们的产品能够尽量做到隐私安全。购买手机时，可以选择拥有较好隐私保护记录的品牌，如Google的Pixel、Samsung等。</p>
+<p>刷机和安装第三方ROM，是保障隐私安全的重要一步。一些国产手机的系统内置一些不利于隐私安全的模块和软件，刷机和安装第三方ROM系统可以尽可能避免这些软件窃取你的隐私。</p>
+<p><strong>优先级小建议：</strong></p>
+<pre><code>Pixel &gt; Samsung &gt; 小米/魅族 &gt; oppo/vivo &gt; 华为
+</code></pre>
+<h3 id="应用程序权限管理">应用程序权限管理</h3>
+<p>很多Android应用在安装时会请求大量的权限，如访问联系人、位置、相机、麦克风等，但并不是每个应用都需要这些权限。因此，用户应审查每个应用程序请求的权限，并在安装时拒绝不必要的权限。</p>
+<p>在设置中，可以进入“应用权限管理”查看和调整已安装应用的权限，定期检查权限状态，避免应用获得过多的访问权限。<br>
+也可以通过root或adb给“权限狗”或其他权限管理软件授权来管理权限。</p>
+<p><strong>重要权限清单（不同手机情况可能不同）：</strong></p>
+<ul>
+<li>读取已安装应用信息（不建议授权）</li>
+<li>位置权限（非必要不授权，必要时建议设置为前台允许）</li>
+<li>从媒体中读取位置（不建议授权）</li>
+<li>读取存储权限（非必要不授权，必要时建议设置为前台允许）</li>
+<li>读取短信、读取通话记录、读取联系人（不建议授权）</li>
+<li>读取剪贴板内容（不建议授权，输入法可以授权，一些文本查看和编辑软件可设置为前台允许）</li>
+<li>读取日历（非日历应用不建议授权）</li>
+<li>读取手机号码、读取设备id、读取手机状态（不建议授权）</li>
+<li>相机、录音（非必要不授权，必要时建议设置为前台允许）</li>
+<li>获取账号、获取使用情况（不建议授权）</li>
+</ul>
+<h3 id="使用安全的应用商店避免安装不安全的软件">使用安全的应用商店，避免安装不安全的软件</h3>
+<p>为了确保手机上的应用程序安全可靠，避免下载到含有恶意代码或带有隐私泄露风险的软件，建议始终从可信的应用商店下载应用。在中国，虽然Google Play Store可能不完全可用，但用户可以依赖其他主流的安全应用商店，如酷安、应用宝等。</p>
+<p>通过这些应用商店下载的应用经过安全审查，能够有效降低恶意软件和不安全应用的风险。同时，避免从第三方网站或不知名的下载平台安装APK文件，因为这些来源可能会被植入恶意代码，窃取你的个人数据或控制你的设备。</p>
+<p>如果你必须安装来自不明来源的应用程序，建议在安装后立刻运行手机的安全扫描工具，对该应用进行彻底检查，确保其没有安全漏洞。</p>
+<p><strong>应用安全性优先级：</strong></p>
+<pre><code>不联网应用 &gt;&gt; 联网应用
+开源软件 &gt; 非开源软件
+国外大厂软件 &gt;&gt;&gt; 国内大厂软件
+</code></pre>
+<h3 id="网络账号安全和社交媒体安全">网络账号安全和社交媒体安全</h3>
+<p>在互联网时代，保护网络账号安全和社交媒体的安全对于个人隐私至关重要。</p>
+<p>在注册账号时，国外网络平台账号可以使用邮箱注册，建议使用Gmail（强力推荐）、outlook等安全性高的邮箱注册，不建议使用中国邮箱。临时使用的账号可以使用临时邮箱（Temp mail）注册。对于中国国内的网络平台，不建议办理网络身份证（网证、网号），一般情况下使用+86手机号注册，非必要情况（直播等属于必要情况）不要进行实名认证。注册账号后，请不要对不同平台的账号进行关联，做好网络平台内的隐私设置。建议不同平台使用不同的个人信息（昵称、头像等），请不要将国内个人账号的发言内容搬运到国外账号。</p>
+<p>使用强密码可以提升账号安全。避免使用简单密码或常见的密码组合（如“123456”或“password”）。建议使用复杂的密码，包括大小写字母、数字和符号。此外，定期更换密码，不要在多个账号上重复使用同一密码。可以使用密码生成器用来生成强密码，使用可靠的密码管理器用来保存密码。</p>
+<p>警惕钓鱼攻击：不要点击来自不明来源的链接或打开可疑的邮件和信息，这些可能是钓鱼攻击的伪装，目的是获取你的账号密码。访问重要网站时，务必手动输入网址，避免通过未知的第三方链接登录。</p>
+<p>定期检查账户活动：定期登录各个重要的账号，检查是否有可疑的登录记录或异常活动。如发现异常，立刻更改密码并检查是否绑定了不明设备。</p>
+<p>谨慎处理社交媒体信息：在社交媒体上，尽量减少公开分享个人信息，如真实姓名、地址、电话等。检查并调整社交平台的隐私设置，确保你的个人信息只对可信的好友可见，防止被陌生人追踪或利用。</p>
+<h3 id="输入法安全">输入法安全</h3>
+<p>输入法是我们日常使用手机时最频繁的工具之一，但它同时也可能成为隐私泄露的渠道。由于输入法能够记录你输入的所有信息，包括账号、密码、信用卡号等敏感内容，因此选择安全的输入法非常重要。</p>
+<p>选择可信赖的输入法：避免使用来源不明或知名度低的输入法，建议使用大厂开发并有良好隐私保护记录的输入法应用，如Google输入法、微软输入法等。国产输入法存在很大的隐私安全漏洞，一般情况请谨慎使用。</p>
+<p>关闭云同步和数据上传：许多输入法应用会提供云同步功能，将用户的输入习惯、词库甚至部分输入内容上传到服务器进行存储和分析。为了保护隐私，建议关闭云同步功能，避免输入数据被上传。你可以在输入法设置中找到并关闭“云输入”、“个性化推荐”等功能。</p>
+<p>定期清理输入法缓存：输入法会根据用户输入的内容建立个性化词库，长期使用后，输入法可能积累大量与用户相关的敏感信息。定期清理输入法的缓存和词库，确保敏感信息不会在本地或云端存储过久。</p>
+<p>使用专用的密码键盘：当你在输入账号密码或敏感信息时，尽量使用输入法中的“安全键盘”或“密码键盘”模式，这些模式通常不会收集或存储你输入的数据，能够有效防止密码泄露。</p>
+<p>关注输入法权限：输入法应用通常会申请多个权限，包括读取联系人、访问网络等。在安装输入法时，建议仔细检查并限制它们的权限，只允许必要的权限，拒绝不必要的网络访问和读取设备信息等敏感权限。</p>
+<h3 id="使用vpn保护上网隐私">使用VPN保护上网隐私</h3>
+<p>中国的网络环境存在某些限制，但用户可以使用虚拟专用网络（VPN）来保护上网隐私。通过加密网络流量，VPN能有效防止数据被第三方监视、窃取。同时，使用知名的VPN服务商，确保不会泄露用户的上网活动信息。</p>
+<blockquote>
+<p><strong>请谨慎选择和使用VPN</strong></p>
+</blockquote>
+<h3 id="避免连接不受信任的wi-fi">避免连接不受信任的Wi-Fi</h3>
+<p>公共Wi-Fi网络常常缺乏加密保护，攻击者可以轻易获取用户通过这些网络传输的敏感数据。尽量避免连接不受信任的公共Wi-Fi网络，尤其是在购物、银行操作等需要输入敏感信息时。如果必须使用公共网络，务必通过VPN加密连接。</p>
+<h3 id="设置强密码和生物识别">设置强密码和生物识别</h3>
+<p>手机密码、指纹识别或人脸识别可以有效地防止未经授权的访问。确保手机设置了强密码，不使用过于简单的密码组合如“123456”或“0000”。同时，启用生物识别功能，如指纹或面部解锁，进一步提升设备的安全性。</p>
+<h3 id="定期备份并加密敏感数据">定期备份并加密敏感数据</h3>
+<p>定期将手机上的数据进行备份，并对重要文件和数据进行加密。可以使用Google Drive、onedrive等云存储服务，需要启用双重身份验证和加密措施，确保即使设备丢失，数据也不会轻易落入他人之手。同时记得删除文件内置的隐私信息（例如：图片的exit信息）。</p>
+<h3 id="结语">结语</h3>
+<p>希望每位Android用户都能在数字世界中安全、自由地使用自己的设备，保护自己的个人信息不被侵犯。</p>
+<hr>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[快速搭建个人博客：用 Hexo 打造你的专属空间]]></title>
+        <id>https://blog.leenut.site/post/2024-10-11/</id>
+        <link href="https://blog.leenut.site/post/2024-10-11/">
+        </link>
+        <updated>2024-10-11T02:48:55.000Z</updated>
+        <summary type="html"><![CDATA[<p>在当今信息化时代，搭建个人博客不仅能帮助记录日常生活和技术心得，还能提供一个展示自己思想和技能的舞台。Hexo 是一个简单、快速、强大的静态博客框架，深受开发者和写作爱好者的喜爱。本文将介绍如何用 Hexo 搭建一个博客网站，并推荐一款美观、功能丰富的主题——<a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a>。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在当今信息化时代，搭建个人博客不仅能帮助记录日常生活和技术心得，还能提供一个展示自己思想和技能的舞台。Hexo 是一个简单、快速、强大的静态博客框架，深受开发者和写作爱好者的喜爱。本文将介绍如何用 Hexo 搭建一个博客网站，并推荐一款美观、功能丰富的主题——<a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a>。</p>
+<!-- more -->
+<h4 id="第一步安装-nodejs-和-hexo"><strong>第一步：安装 Node.js 和 Hexo</strong></h4>
+<p>在搭建 Hexo 博客之前，你需要确保安装了 Node.js 和 Git。Hexo 基于 Node.js，因此 Node.js 是必须的。</p>
+<ol>
+<li>
+<p><strong>安装 Node.js</strong>：</p>
+<ul>
+<li>到 <a href="https://nodejs.org/">Node.js 官网</a> 下载并安装适合你操作系统的版本。</li>
+<li>安装后，可以在终端中输入以下命令确认是否安装成功：<pre><code class="language-bash">node -v
+npm -v
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>安装 Hexo</strong>：</p>
+<ul>
+<li>打开终端，输入以下命令来安装 Hexo：<pre><code class="language-bash">npm install -g hexo-cli
+</code></pre>
+</li>
+</ul>
+<p>这会全局安装 Hexo 命令行工具。</p>
+</li>
+</ol>
+<hr>
+<h4 id="第二步创建-hexo-博客"><strong>第二步：创建 Hexo 博客</strong></h4>
+<p>在你想创建博客的目录下，运行以下命令：</p>
+<pre><code class="language-bash">hexo init my-blog
+cd my-blog
+npm install
+</code></pre>
+<p>这将创建一个新的 Hexo 博客项目，并安装所有必要的依赖。完成后，Hexo 博客的结构就已经搭建好了。</p>
+<p>你可以通过下面的命令启动本地服务器预览博客：</p>
+<pre><code class="language-bash">hexo server -p 80
+</code></pre>
+<p>浏览器中访问 <code>http://localhost</code>，你将看到默认的 Hexo 博客页面。</p>
+<hr>
+<h4 id="第三步安装-butterfly-主题"><strong>第三步：安装 Butterfly 主题</strong></h4>
+<p>Hexo 自带的默认主题较为简单，而 Butterfly 主题凭借其丰富的功能和美观的设计，成为了许多 Hexo 用户的首选。你可以按照以下步骤安装 Butterfly 主题：</p>
+<ol>
+<li>
+<p><strong>下载主题</strong>：<br>
+在博客的根目录下运行以下命令，克隆 Butterfly 主题到 <code>themes</code> 文件夹中：</p>
+<pre><code class="language-bash">git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly
+</code></pre>
+</li>
+<li>
+<p><strong>修改配置文件</strong>：<br>
+打开 <code>hexo</code> 项目根目录下的 <code>_config.yml</code> 文件，找到 <code>theme</code> 字段，将其修改为 <code>butterfly</code>：</p>
+<pre><code class="language-yaml">theme: butterfly
+</code></pre>
+</li>
+<li>
+<p><strong>安装依赖</strong>：<br>
+进入 <code>themes/butterfly</code> 目录，安装主题所需的依赖：</p>
+<pre><code class="language-bash">npm install
+</code></pre>
+</li>
+</ol>
+<hr>
+<h4 id="第四步配置-butterfly-主题"><strong>第四步：配置 Butterfly 主题</strong></h4>
+<p>Butterfly 主题提供了极为灵活的自定义选项。你可以根据自己的需求调整外观、排版、配色等细节。</p>
+<ol>
+<li>
+<p><strong>主题配置文件</strong>：<br>
+Butterfly 主题的配置文件位于 <code>themes/butterfly/_config.yml</code>，通过修改其中的配置项，你可以自定义博客的布局和功能。</p>
+</li>
+<li>
+<p><strong>插件与样式</strong>：<br>
+Butterfly 主题支持多种插件与功能扩展，比如文章分享按钮、评论系统、代码高亮、动态背景等。你可以参考 <a href="https://butterfly.js.org/">官方文档</a> 了解如何启用这些功能。</p>
+</li>
+</ol>
+<hr>
+<h4 id="第五步生成静态页面并部署"><strong>第五步：生成静态页面并部署</strong></h4>
+<p>配置完成后，你可以生成静态页面并部署到 GitHub Pages 或其他静态托管平台。</p>
+<ol>
+<li>
+<p><strong>生成静态页面</strong>：</p>
+<pre><code class="language-bash">hexo generate
+</code></pre>
+</li>
+<li>
+<p><strong>部署到 GitHub Pages</strong>：<br>
+你可以通过 Hexo 的 <code>hexo-deployer-git</code> 插件一键部署到 GitHub Pages。首先安装插件：</p>
+<pre><code class="language-bash">npm install hexo-deployer-git --save
+</code></pre>
+<p>然后在 <code>config.yml</code> 中添加以下部署配置：</p>
+<pre><code class="language-yaml">deploy:
+  type: git
+  repo: https://github.com/yourname/your-repo.git
+  branch: gh-pages
+</code></pre>
+<p>最后，通过以下命令部署博客：</p>
+<pre><code class="language-bash">hexo deploy
+</code></pre>
+</li>
+</ol>
+<hr>
+<h4 id="总结"><strong>总结</strong></h4>
+<p>通过以上步骤，你可以轻松地使用 Hexo 搭建一个功能丰富的博客，并用 Butterfly 主题让你的博客更具吸引力。Butterfly 主题不仅提供了丰富的功能，还支持高度定制，是目前 Hexo 社区中备受推崇的主题之一。如果你正在寻找一款简洁美观、功能强大的 Hexo 主题，Butterfly 绝对是一个值得一试的选择。</p>
+<p>赶快动手打造你自己的博客吧！</p>
+<hr>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[如何利用iis管理器搭建基于个人电脑的网站和FTP网盘]]></title>
+        <id>https://blog.leenut.site/post/2024-10-8/</id>
+        <link href="https://blog.leenut.site/post/2024-10-8/">
+        </link>
+        <updated>2024-10-08T08:46:55.000Z</updated>
+        <summary type="html"><![CDATA[<p>在当今互联网时代，个人网站和网盘的搭建不再是专业技术人员的专利。通过Windows自带的IIS（Internet Information Services）管理器，普通用户也能在个人电脑上轻松搭建自己的<strong>网站</strong>和<strong>FTP网盘</strong>。本文将详细介绍如何通过IIS管理器搭建一个简单的网站和FTP服务，实现文件共享和站点管理。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在当今互联网时代，个人网站和网盘的搭建不再是专业技术人员的专利。通过Windows自带的IIS（Internet Information Services）管理器，普通用户也能在个人电脑上轻松搭建自己的<strong>网站</strong>和<strong>FTP网盘</strong>。本文将详细介绍如何通过IIS管理器搭建一个简单的网站和FTP服务，实现文件共享和站点管理。</p>
+<!-- more -->
+<h3 id="1-安装和启用iis">1. 安装和启用IIS</h3>
+<p><strong>步骤1：启用IIS服务</strong></p>
+<ul>
+<li>打开 <strong>控制面板</strong> -&gt; <strong>程序</strong> -&gt; <strong>启用或关闭Windows功能</strong>。</li>
+<li>找到 <strong>Internet Information Services (IIS)</strong>，勾选所有相关选项，尤其是 <strong>Web管理工具</strong> 和 <strong>FTP服务器</strong>。<br>
+<img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/start-funjpg.9kgjtqg9v6.webp" alt="" loading="lazy"></li>
+<li>点击 <strong>确定</strong>，等待安装完成。</li>
+</ul>
+<p><strong>步骤2：启动IIS管理器</strong></p>
+<ul>
+<li>在 <strong>开始菜单</strong> 搜索 <strong>IIS管理器</strong>，点击进入。你现在已经可以通过IIS管理器来管理网站和FTP服务了。</li>
+</ul>
+<h3 id="2-使用iis管理器搭建网站">2. 使用IIS管理器搭建网站</h3>
+<p><strong>步骤1：创建站点文件夹</strong></p>
+<ul>
+<li>在硬盘上创建一个文件夹来存放你的网站文件，比如 <code>C:\MyWebsite</code>。</li>
+<li>将你要发布的HTML文件、图片、CSS、JavaScript等资源放到这个文件夹内.</li>
+<li>右键单击属性，点击“共享”选项卡-&gt;高级共享，共享此文件夹，设置权限为读取。</li>
+</ul>
+<p><strong>步骤2：配置IIS中的网站</strong></p>
+<ul>
+<li>在IIS管理器左侧树状视图中，右键点击 <strong>网站</strong>，选择 <strong>添加网站</strong>。</li>
+<li><strong>网站名称</strong>：输入你的站点名称（如 &quot;MyWebsite&quot;）。</li>
+<li><strong>物理路径</strong>：选择刚才创建的文件夹 <code>C:\MyWebsite</code>。</li>
+<li><strong>绑定设置</strong>：选择IP地址或直接使用 <code>All Unassigned</code>（所有未分配地址），端口保持为默认的 <strong>80</strong>，若想使用特定的域名访问，可在 <strong>主机名</strong> 中输入你的域名。</li>
+<li>点击 <strong>确定</strong>，网站将立即在IIS中显示。</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://i.postimg.cc/d0zvz3DC/2024-10-8-1.png" alt="" loading="lazy"></figure>
+<p><strong>步骤3：启动站点</strong></p>
+<ul>
+<li>在IIS管理器中，右键刚才创建的网站，选择 <strong>启动</strong>。</li>
+<li>现在你可以通过访问 <code>http://localhost</code>（或绑定的IP/域名）来访问你的个人网站。</li>
+</ul>
+<h3 id="3-使用iis搭建ftp网盘">3. 使用IIS搭建FTP网盘</h3>
+<p><strong>步骤1：创建FTP根目录</strong></p>
+<ul>
+<li>在你的硬盘中创建一个目录，作为FTP服务器的根目录，比如 <code>C:\MyFTP</code>。</li>
+</ul>
+<p><strong>步骤2：配置FTP站点</strong></p>
+<ul>
+<li>在IIS管理器中，右键 <strong>网站</strong> 栏目下的 <strong>FTP站点</strong>，选择 <strong>添加FTP站点</strong>。</li>
+<li><strong>站点名称</strong>：输入你FTP站点的名称（如 &quot;MyFTP&quot;）。</li>
+<li><strong>物理路径</strong>：选择 <code>C:\MyFTP</code> 作为FTP根目录。</li>
+<li><strong>绑定和SSL设置</strong>：设置IP地址为<code>All Unassigned</code>，端口选择 <strong>21</strong>（默认FTP端口）。如果不需要安全连接，选择 <strong>无SSL</strong>。</li>
+<li>点击 <strong>下一步</strong>。</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://i.postimg.cc/nzBZZxQP/2024-10-8-2.png" alt="" loading="lazy"></figure>
+<p><strong>步骤3：身份验证和授权</strong></p>
+<ul>
+<li><strong>身份验证</strong>：选择 <strong>基本</strong>。</li>
+<li><strong>授权</strong>：选择用户组和权限。你可以选择为所有用户提供读写权限，或根据需求自定义权限。</li>
+<li>完成设置后，点击 <strong>完成</strong>，FTP站点将成功创建。</li>
+</ul>
+<p><strong>步骤4：配置用户账户</strong></p>
+<ul>
+<li>打开 <strong>控制面板</strong> -&gt; <strong>用户账户</strong> -&gt; <strong>管理其他账户</strong>，添加一个本地用户或使用现有的本地账户来访问FTP。</li>
+<li>回到IIS管理器，选择 <strong>FTP身份验证</strong>，启用 <strong>基本身份验证</strong>，并设置相应的用户权限。</li>
+</ul>
+<h3 id="4-测试与使用">4. 测试与使用</h3>
+<p><strong>测试网站</strong></p>
+<ul>
+<li>在浏览器中输入 <code>http://localhost</code> 或绑定的域名/IP，查看你的个人网站是否正常显示。</li>
+</ul>
+<p><strong>测试FTP网盘</strong></p>
+<ul>
+<li>在Windows资源管理器中，输入 <code>ftp://localhost</code>，然后使用设置的账户名和密码登录。</li>
+<li>你可以通过FTP客户端（如FileZilla）或Windows自带的资源管理器，上传和下载文件。</li>
+</ul>
+<h3 id="总结">总结</h3>
+<p>通过IIS管理器，Windows用户能够轻松在自己的个人电脑上搭建网站和FTP网盘。虽然这是一个简单的本地解决方案，但适合个人学习、测试和小范围的文件共享。如果你希望部署更大规模的网站或网盘服务，可以考虑使用专业的服务器或云托管服务。</p>
+<hr>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一些好用的安卓app推荐]]></title>
+        <id>https://blog.leenut.site/post/2024-10-3/</id>
+        <link href="https://blog.leenut.site/post/2024-10-3/">
+        </link>
+        <updated>2024-10-03T07:43:46.000Z</updated>
+        <summary type="html"><![CDATA[<p>本文将推荐一些好用的开源app和国外app</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>本文将推荐一些好用的开源app和国外app</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/android-1.5j4kfcf7n9.webp" alt="" loading="lazy"></figure>
+<h3 id="日历-待办">日历、待办</h3>
+<ul>
+<li>
+<p>Etar：开源日历，ui很丑<br>
+<a href="https://github.com/Etar-Group/Etar-Calendar">GitHub</a></p>
+</li>
+<li>
+<p>Google日历：可通过Google 账号，同步和导入日程<br>
+<a href="https://play.google.com/store/apps/details?id=com.google.android.calendar&amp;hl=zh&amp;pli=1">play商店</a></p>
+</li>
+<li>
+<p>一叶日历：<a href="https://www.coolapk.com/apk/me.mapleaf.calendar">酷安</a></p>
+</li>
+<li>
+<p>日历备份：用来导入和导出.ics日历文件，ics日历文件请在互联网搜索获取<br>
+<a href="https://play.google.com/store/apps/details?id=kfsoft.calendar.backup.ics&amp;hl=zh">play商店</a></p>
+</li>
+<li>
+<p>微软To Do：<a href="https://sj.qq.com/appdetail/com.microsoft.todos?channel=0002160650432d595942&amp;fromcase=60001&amp;from_wxz=1">应用宝</a></p>
+</li>
+</ul>
+<h3 id="天气">天气</h3>
+<ul>
+<li>Breezy Weather：开源天气app，数据来自国外平台<br>
+<a href="https://github.com/breezy-weather/breezy-weather">GitHub</a></li>
+</ul>
+<h3 id="笔记">笔记</h3>
+<ul>
+<li>
+<p>fairnote：支持webdav同步<br>
+<a href="https://www.ghxi.com/fairnote.html">果核剥壳</a></p>
+</li>
+<li>
+<p>SilentNotes：支持android/PC，可用多种同步方式<br>
+<a href="https://www.martinstoeckli.ch/silentnotes/">果核剥壳</a></p>
+</li>
+<li>
+<p>Notally：好像暂不支持webdav<br>
+<a href="https://github.com/OmGodse/Notally">GitHub</a></p>
+</li>
+</ul>
+<h3 id="闹钟">闹钟</h3>
+<ul>
+<li>使命闹钟：部分品牌手机振动功能失灵<br>
+<a href="https://alar.my/">官网</a></li>
+</ul>
+<h3 id="文件">文件</h3>
+<ul>
+<li>
+<p>流舟文件：支持ftp、webdav<br>
+<a href="https://www.coolapk.com/apk/com.liuzho.file.explorer">酷安</a></p>
+</li>
+<li>
+<p>质感文件：<a href="https://github.com/zhanghai/MaterialFiles/">GitHub</a></p>
+</li>
+</ul>
+<h3 id="相册">相册</h3>
+<ul>
+<li>Aves：<a href="https://github.com/deckerst/aves">GitHub</a></li>
+</ul>
+<h3 id="课表">课表</h3>
+<ul>
+<li>wake up课程表：<a href="https://www.wakeup.fun/">官网</a></li>
+</ul>
+<h3 id="翻译">翻译</h3>
+<ul>
+<li>papago：<a href="https://papago.naver.com/">官网</a></li>
+<li>DeepL：<a href="https://www.deepl.com/zh/translator">官网</a></li>
+<li>微软翻译：<a href="https://cn.bing.com/translator/">官网</a></li>
+</ul>
+<h3 id="软件管理">软件管理</h3>
+<ul>
+<li>My APK：<a href="https://www.ghxi.com/myapk.html">果核剥壳</a></li>
+</ul>
+<h3 id="播放器">播放器</h3>
+<ul>
+<li>MX播放器：<a href="https://mxtechs.net/">官网</a></li>
+<li>绿乐：<a href="https://www.coolapk.com/apk/com.yuanwofei.greenmusic">酷安</a></li>
+</ul>
+<h3 id="网盘">网盘</h3>
+<ul>
+<li>
+<p>onedrive：国内无法打开web页面，pc/android客户端可以打开，免费存储5GB<br>
+<a href="https://onedrive.live.com/">官网</a></p>
+</li>
+<li>
+<p>Koofr：网站和app无中文界面，支持连结Google drive和OneDrive，免费存储10GB<br>
+<a href="https://app.koofr.net/">官网</a></p>
+</li>
+<li>
+<p>坚果云：支持webdav，有上传流量限制<br>
+<a href="https://www.jianguoyun.com/">官网</a></p>
+</li>
+<li>
+<p>阿里云盘：存储容量很大，有一定的限速，隐私安全无保障（不建议上传关乎个人隐私的文件）<br>
+<a href="https://www.aliyundrive.com">官网</a></p>
+</li>
+<li>
+<p>Google Drive：国内无法打开web页面/app，免费存储15GB，隐私安全可保障。<br>
+<a href="https://drive.google.com//">官网</a></p>
+</li>
+</ul>
+<h3 id="邮箱">邮箱</h3>
+<ul>
+<li>outlook：<a href="https://outlook.office.com/">官网</a></li>
+<li>Gmail：<a href="https://mail.google.com/">官网</a></li>
+</ul>
+<h3 id="文档处理-图书阅览">文档处理、图书阅览</h3>
+<ul>
+<li>
+<p>Markor：用来写markdown的app。<br>
+<a href="https://github.com/gsantner/markor">GitHub</a></p>
+</li>
+<li>
+<p>Acode：手机上写代码。<br>
+<a href="https://github.com/deadlyjack/Acode">GitHub</a></p>
+</li>
+<li>
+<p>onlyoffice：<a href="https://www.onlyoffice.com/zh/desktop.aspx/">官网</a></p>
+</li>
+<li>
+<p>阅读：开源阅读<br>
+<a href="https://gedoor.github.io/">官网</a></p>
+</li>
+</ul>
+<h3 id="网络代理工具">网络代理工具</h3>
+<ul>
+<li>
+<p>clash：<a href="https://apkpure.com/cn/clash-for-android/com.github.kr328.clash">Apkpure</a></p>
+</li>
+<li>
+<p>Shadowrocket：提供免费节点。<br>
+<a href="https://apkpure.com/cn/shadowrocket-for-android/com.v2cross.proxy">Apkpure</a></p>
+</li>
+</ul>
+<h3 id="新闻">新闻</h3>
+<ul>
+<li>联合早报：第三只眼看中国<br>
+<a href="https://www.zaobao.com/">官网</a></li>
+</ul>
+<h3 id="下载器">下载器</h3>
+<ul>
+<li>ADM：支持16线程下载。<br>
+<a href="https://www.appinn.com/advanced-download-manager/">小众软件</a></li>
+</ul>
+<h3 id="即时通讯">即时通讯</h3>
+<ul>
+<li>Delta Chat：加密的电子邮箱IM，建议用来在多个设备间传输文件。<br>
+<a href="https://delta.chat/zh_CN//">官网</a></li>
+</ul>
+<h3 id="浏览器">浏览器</h3>
+<ul>
+<li>
+<p>via：小而美的浏览器，依靠webview，可定制性高，支持油猴脚本。<br>
+<a href="https://viayoo.com/zh-cn//">官网</a></p>
+</li>
+<li>
+<p>firefox：<a href="https://www.firefox.com.cn/browsers/mobile/">官网</a></p>
+</li>
+<li>
+<p>edge：<a href="https://www.microsoft.com/zh-cn/edge/download">官网</a></p>
+</li>
+</ul>
+<h3 id="社交媒体">社交媒体</h3>
+<ul>
+<li>bilimiao：开源第三方哔哩哔哩客户端。<br>
+<a href="https://github.com/10miaomiao/bilimiao2">GitHub</a></li>
+</ul>
+<h3 id="输入法">输入法</h3>
+<ul>
+<li>Gboard：谷歌键盘。<br>
+<a href="https://www.firepx.com/app/android-gboard-google-pinyin-input/">火哥分享</a></li>
+</ul>
+<h3 id="百科">百科</h3>
+<ul>
+<li>维基百科：<a href="https://github.com/wikimedia/apps-android-wikipedia">GitHub</a></li>
+</ul>
+<h3 id="设备管理-相关">设备管理 相关</h3>
+<ul>
+<li>
+<p>冰箱：用来冻结系统内置的app.<br>
+<a href="https://iceboxdoc.catchingnow.com/changelog.html">官网</a></p>
+</li>
+<li>
+<p>安装狮：安装app，可以用来绕过某些手机的app备案检测安装app.<br>
+<a href="https://github.com/dadaewq/Install-Lion">GitHub</a></p>
+</li>
+<li>
+<p>权限狗：管理app权限，保护用户隐私安全。<br>
+<a href="https://apppage.net/preview/com.web1n.permissiondog">官网</a></p>
+</li>
+<li>
+<p>小黑屋：冻结系统内置的app.<br>
+<a href="https://stopapp.https.gs/">官网</a></p>
+</li>
+</ul>
+<h3 id="自律-锁机">自律 &amp; 锁机</h3>
+<ul>
+<li>不做手机控：<a href="https://www.coolapk.com/apk/com.pl.getaway.getaway">酷安</a></li>
+<li>远离手机：<a href="https://www.coolapk.com/apk/com.lijianqiang12.silent">酷安</a></li>
+</ul>
+<p>下载链接失效，请自行通过搜索引擎搜索相关内容下载</p>
+<p>--</p>
+]]></content>
+    </entry>
+</feed>
