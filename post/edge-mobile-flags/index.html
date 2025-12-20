@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="LeeNut——分享技术与见解！">
+<meta name="description" content="美好每一天！">
+<meta name="theme-color" content="#000">
+<title>Edge mobile浏览器flags实验性功能标志 列表盘点 | LeeNut</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1766226555620">
+<link rel="stylesheet" href="/media/css/pisces.css">
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link
+  href="//fonts.loli.net/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
+
+<link href="/media/hljs/styles/default.css"
+  rel="stylesheet">
+
+<link rel="stylesheet" href="/styles/main.css">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/media/js/jquery.js"></script>
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://jsdelivr.codeqihan.com/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://jsdelivr.codeqihan.com/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<link rel="stylesheet" href="https://jsdelivr.codeqihan.com/npm/katex@0.11.1/dist/katex.min.css"
+  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src="https://jsdelivr.codeqihan.com/npm/katex@0.11.1/dist/katex.min.js"
+  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://jsdelivr.codeqihan.com/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+  <meta name="description" content="Edge mobile浏览器flags实验性功能标志 列表盘点" />
+  <meta name="keywords" content="技术,Android,浏览器" />
+</head>
+
+<body>
+  <div class="head-top-line"></div>
+  <div class="header-box">
+    <style>
+.gridea-search-input{
+    height: 30px;
+    width: 200px;
+    box-sizing: border-box;
+    padding: 0 15px 0 30px;
+    border: 1px solid #e3e3e3;
+    border-radius: 15px;
+    color: #273849;
+    outline: none;
+    transition: border-color 0.2s ease;
+    background: #fff url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='80' height='65'%3E%3Cpath d='M936.265 854.34L757.43 675.52c46.499-63.168 74.02-141.125 74.02-225.398 0-210.1-170.945-381.039-381.055-381.039S69.346 240.023 69.346 450.122c0 210.105 170.94 381.043 381.049 381.043 84.275 0 162.235-27.52 225.405-74.019l178.833 178.819c11.27 11.265 26.036 16.903 40.813 16.903 14.777 0 29.543-5.638 40.819-16.903 22.536-22.546 22.536-59.09 0-81.625zM163.14 450.122C163.14 291.733 292 162.87 450.396 162.87s287.261 128.862 287.261 287.252c0 158.39-128.867 287.252-287.261 287.252S163.14 608.512 163.14 450.122z' fill='%23C4C4C4'/%3E%3C/svg%3E") 8px 7px no-repeat;
+    background-size: 20px;
+    vertical-align: middle !important;
+}
+.gridea-search-input:focus {
+  border-color: #666666;
+  right: 0;
+}
+</style>
+
+<div class="pisces">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
+        </div>
+      </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>LeeNut</span>
+            </a>  
+          
+        </div>
+        
+          <p class="subtitle">分享生活点滴和见解！</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/" target="_self">
+                  <i class="fa fa-globe"></i> 首页
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/archives" target="_self">
+                  <i class="fa fa-globe"></i> 归档
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/tags" target="_self">
+                  <i class="fa fa-globe"></i> 标签
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/post/about" target="_self">
+                  <i class="fa fa-globe"></i> 关于
+                </a>
+              
+            </li>
+          
+          
+          
+            <li id="fa_search" class="nav-item">
+				<a href="javascript:void(0);">
+					<span class="language" data-lan="search">
+						<div class="gridea-search-div">
+							<form id="gridea-search-form" action="https://leenut.space/search/">
+								<input class="gridea-search-input" autocomplete="off" spellcheck="false" name="q"/>
+							</form>
+						</div>
+					</span>
+				</a>
+			</li>
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
+  
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout pisces ">
+      <div class="section-layout-wrapper">
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p><b><center style="color: black;">LeeNut</center></b></p>
+    
+    <div class="site-description right-motion">
+      
+        <p id="binft">美好每一天！</p>
+      
+    </div>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count"><p style="color: black;">18</p></span>
+        <span class="site-item-stat-name language" data-lan="article"><p style="color: black;">文章</p></span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count"><p style="color: black;">23</p>/</span>
+        <span class="site-item-stat-name language" data-lan="tag"><p style="color: black;">标签</p></span>
+      </a>
+    </div>
+  </div>
+  
+    
+      <div class="sidebar-item">
+        <span class="site-item-rss">
+            <i class="fa fa-rss"></i>
+            <a href="https://leenut.space/atom.xml" target="_blank">RSS</a>
+        </span>
+      </div>
+    
+  
+  
+
+  
+
+
+  <div class="sidebar-item">
+    <script type="text/javascript" id="myhk" src="https://myhkw.cn/api/player/171807673831" key="171807673831" m="1"></script>
+  </div>
+
+
+</div>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    jQuery.Velocity(hideElement, 'stop');
+    jQuery.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        jQuery.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://leenut.space/post/edge-mobile-flags/"> Edge mobile浏览器flags实验性功能标志 列表盘点 </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span style="color: black;">
+      <i class="fa fa-calendar-o"></i>
+      <span style="color: black;" data-lan="publish">发布于</span>
+      <span style="color: black;" data-t="2025-12-20 15:07:17">2025年12月20日</span>
+      <span style="color: black;">|</span>
+    </span>
+    
+    <span style="color: black;">
+      <i class="fa fa-folder-o"></i>
+      <span style="color: black;" data-lan="category-in">标签:</span>
+       
+      <a href="https://leenut.space/tag/y34y-vlf-E/"> <span>技术</span> </a>、   
+      <a href="https://leenut.space/tag/o0-XRTQaXbI/"> <span>Android</span> </a>、   
+      <a href="https://leenut.space/tag/-qOQrKMYhro/">
+        <span>浏览器</span>
+      </a>
+       
+    </span>
+    <span style="color: black;">|</span>
+    
+    <span style="color: black;">
+      <i class="fa fa-clock-o"></i>
+      <span
+        >45<span style="color: black;" data-lan="minute"
+          >分钟</span
+        ></span
+      >
+    </span>
+    <span style="color: black;">
+      <span style="color: black;">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span style="color: black;"
+        >9760<span  data-lan="words"
+          >字数</span
+        ></span
+      >
+    </span>
+    
+  </div>
+</section>
+
+            <div class="post-body next-md-body" id="post_body">
+              <p>进入相关设置，请输入edge://flags。以下表格所列标志使用于安卓手机微软Edge浏览器，部分不适用于其他平台的浏览器，请慎重使用。</p>
+<!-- more -->
+<table>
+<thead>
+<tr>
+<th>功能名称 (Name)</th>
+<th>描述 (Description)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>临时恢复 M138 过期标志 (Temporarily unexpire M138 flags)</td>
+<td>临时恢复在 M138 版本中过期的标志。这些标志将很快被移除。(Temporarily unexpire flags that expired as of M138. These flags will be removed soon.)</td>
+</tr>
+<tr>
+<td>临时恢复 M139 过期标志 (Temporarily unexpire M139 flags)</td>
+<td>临时恢复在 M139 版本中过期的标志。这些标志将很快被移除。(Temporarily unexpire flags that expired as of M139. These flags will be removed soon.)</td>
+</tr>
+<tr>
+<td>实验性 QUIC 协议 (Experimental QUIC protocol)</td>
+<td>启用实验性 QUIC 协议支持。(Enable experimental QUIC protocol support.)</td>
+</tr>
+<tr>
+<td>TLS 1.3 早期数据 (TLS 1.3 Early Data)</td>
+<td>此选项启用 TLS 1.3 早期数据，允许在恢复与兼容的 TLS 1.3 服务器的连接时，在握手期间发送 GET 请求。(This option enables TLS 1.3 Early Data, allowing GET requests to be sent during the handshake when resuming a connection to a compatible TLS 1.3 server.)</td>
+</tr>
+<tr>
+<td>在非 Root 设备上启用命令行 (Enable command line on non-rooted devices)</td>
+<td>在非 Root 设备上启用读取命令行文件（危险）。(Enable reading command line file on non-rooted devices (DANGEROUS).)</td>
+</tr>
+<tr>
+<td>并行下载 (Parallel downloading)</td>
+<td>启用并行下载以加速下载速度。(Enable parallel downloading to accelerate download speed.)</td>
+</tr>
+<tr>
+<td>启用基准测试 (Enable benchmarking)</td>
+<td>将所有功能设置为固定状态；即，禁用功能状态的随机化。如果选择&quot;默认功能状态&quot;，则将所有功能设置为其默认状态。如果选择&quot;匹配现场试验测试配置&quot;，则将所有功能设置为在现场试验测试配置中配置的状态（如果提供）。开发人员和测试人员使用此功能来诊断观察到的问题是否由非默认功能配置引起。此标志在 3 次重启后自动重置，从第 4 次重启开始将关闭。在第 3 次重启时，标志将显示为关闭，但其效果仍然有效。(Sets all features to a fixed state; that is, disables randomization for feature states. If '(Default Feature States)' is selected, sets all features to their default state. If '(Match Field Trial Testing Config)' is selected, sets all features to the state configured in the field trial testing config, if it's provided. This is used by developers and testers to diagnose whether an observed problem is caused by a non-default base::Feature configuration. This flag is automatically reset after 3 restarts and will be off from the 4th restart. On the 3rd restart, the flag will appear to be off but the effect is still active.)</td>
+</tr>
+<tr>
+<td>覆盖软件渲染列表 (Override software rendering list)</td>
+<td>覆盖内置的软件渲染列表，并在不支持的系统中启用 GPU 加速。(Overrides the built-in software rendering list and enables GPU-acceleration on unsupported system configurations.)</td>
+</tr>
+<tr>
+<td>加速的 2D 画布 (Accelerated 2D canvas)</td>
+<td>启用 GPU 来执行 2D 画布渲染，而不是使用软件渲染。(Enables the use of the GPU to perform 2d canvas rendering instead of using software rendering.)</td>
+</tr>
+<tr>
+<td>部分交换 (Partial swap)</td>
+<td>设置部分交换行为。(Sets partial swap behavior.)</td>
+</tr>
+<tr>
+<td>在 edge:// URL 上启用扩展 (Extensions on edge:// URLs)</td>
+<td>允许在 edge:// URL 上运行扩展，前提是扩展明确请求此权限。(Enables running extensions on edge:// URLs, where extensions explicitly request this permission.)</td>
+</tr>
+<tr>
+<td>显示自动填充预测 (Show Autofill predictions)</td>
+<td>将自动填充字段类型预测作为占位符文本标注在网页表单上。(Annotates web forms with Autofill field type predictions as placeholder text.)</td>
+</tr>
+<tr>
+<td>背景滤镜镜像边缘 (Backdrop Filter Mirror Edge)</td>
+<td>当对背景滤镜的背景边缘进行采样时，超出边缘的采样会镜像回背景中，而不是复制边缘的像素。(When sampling being the backdrop edge for backdrop-filter, samples beyond the edge are mirrored back into the backdrop rather than duplicating the pixels at the edge.)</td>
+</tr>
+<tr>
+<td>平滑滚动 (Smooth Scrolling)</td>
+<td>在滚动页面内容时进行平滑动画处理。(Animate smoothly when scrolling page content.)</td>
+</tr>
+<tr>
+<td>软导航启发式 (Soft Navigation Heuristics)</td>
+<td>启用软导航启发式，包括对 PerformanceObserver 的支持。此设置会覆盖其他实验设置。(Enables the soft navigation heuristics, including support for PerformanceObserver. This setting overrides other experimental settings.)</td>
+</tr>
+<tr>
+<td>WebTransport 开发者模式 (WebTransport Developer Mode)</td>
+<td>启用后，将取消用于 WebTransport over HTTP/3 的所有证书必须由已知证书根颁发的限制。(When enabled, removes the requirement that all certificates used for WebTransport over HTTP/3 are issued by a known certificate root.)</td>
+</tr>
+<tr>
+<td>最新的稳定 JavaScript 功能 (Latest stable JavaScript features)</td>
+<td>某些网页使用可能与最新 JavaScript 功能冲突的旧版或非标准 JavaScript 扩展。此标志允许禁用对这些功能的支持以兼容此类网页。(Some web pages use legacy or non-standard JavaScript extensions that may conflict with the latest JavaScript features. This flag allows disabling support of those features for compatibility with such pages.)</td>
+</tr>
+<tr>
+<td>实验性 JavaScript (Experimental JavaScript)</td>
+<td>允许网页使用实验性 JavaScript 功能。(Enable web pages to use experimental JavaScript features.)</td>
+</tr>
+<tr>
+<td>实验性 WebAssembly (Experimental WebAssembly)</td>
+<td>允许网页使用实验性 WebAssembly 功能。(Enable web pages to use experimental WebAssembly features.)</td>
+</tr>
+<tr>
+<td>WebAssembly 基线编译器 (WebAssembly baseline compiler)</td>
+<td>启用 WebAssembly 基线编译和层级提升。(Enables WebAssembly baseline compilation and tier up.)</td>
+</tr>
+<tr>
+<td>WebAssembly 延迟编译 (WebAssembly lazy compilation)</td>
+<td>启用 WebAssembly 模块的延迟（首次调用时 JIT）编译。(Enables lazy (JIT on first call) compilation of WebAssembly modules.)</td>
+</tr>
+<tr>
+<td>WebAssembly 分层 (WebAssembly tiering)</td>
+<td>启用 WebAssembly 的分层编译（如果启用了 #enable-webassembly-baseline，将层级提升到 TurboFan）。(Enables tiered compilation of WebAssembly (will tier up to TurboFan if #enable-webassembly-baseline is enabled).)</td>
+</tr>
+<tr>
+<td>未来 V8 VM 功能 (Future V8 VM features)</td>
+<td>启用即将推出和实验性的 V8 VM 功能。此标志不启用实验性 JavaScript 功能。(This enables upcoming and experimental V8 VM features. This flag does not enable experimental JavaScript features.)</td>
+</tr>
+<tr>
+<td>GPU 光栅化 (GPU rasterization)</td>
+<td>使用 GPU 对网页内容进行光栅化。(Use GPU to rasterize web content.)</td>
+</tr>
+<tr>
+<td>实验性 Web 平台功能 (Experimental Web Platform features)</td>
+<td>启用正在开发中的实验性 Web 平台功能。(Enables experimental Web Platform features that are in development.)</td>
+</tr>
+<tr>
+<td>硬件加速视频解码 (Hardware-accelerated video decode)</td>
+<td>在可用的情况下启用硬件加速视频解码。(Hardware-accelerated video decode where available.)</td>
+</tr>
+<tr>
+<td>硬件加速视频编码 (Hardware-accelerated video encode)</td>
+<td>在可用的情况下启用硬件加速视频编码。(Hardware-accelerated video encode where available.)</td>
+</tr>
+<tr>
+<td>显示自动填充签名 (Show autofill signatures)</td>
+<td>将自动填充签名作为 HTML 属性标注在网页表单上。同时标记适合密码生成的密码字段。(Annotates web forms with Autofill signatures as HTML attributes. Also marks password fields suitable for password generation.)</td>
+</tr>
+<tr>
+<td>WebGL 草案扩展 (WebGL Draft Extensions)</td>
+<td>启用此选项允许 Web 应用程序访问仍处于草案状态的 WebGL 扩展。(Enabling this option allows web applications to access the WebGL extensions that are still in draft status.)</td>
+</tr>
+<tr>
+<td>零拷贝光栅化器 (Zero-copy rasterizer)</td>
+<td>光栅线程直接写入与图块关联的 GPU 内存。(Raster threads write directly to GPU memory associated with tiles.)</td>
+</tr>
+<tr>
+<td>Vulkan</td>
+<td>使用 Vulkan 作为图形后端。(Use vulkan as the graphics backend.)</td>
+</tr>
+<tr>
+<td>隔离其他源 (Isolate additional origins)</td>
+<td>要求为额外的一组源（以逗号分隔的列表指定）使用专用进程。(Requires dedicated processes for an additional set of origins, specified as a comma-separated list.)</td>
+</tr>
+<tr>
+<td>禁用站点隔离 (Disable site isolation)</td>
+<td>禁用站点隔离。旨在诊断可能由跨进程 iframe 引起的错误。如果使用命令行开关或企业策略强制启用站点隔离，则选择退出无效。注意：这会禁用针对影响大多数计算机的 Spectre CPU 漏洞的重要缓解措施。(Disables site isolation (SitePerProcess, IsolateOrigins, etc). Intended for diagnosing bugs that may be due to out-of-process iframes. Opt-out has no effect if site isolation is force-enabled using a command line switch or using an enterprise policy. Caution: this disables important mitigations for the Spectre CPU vulnerability affecting most computers.)</td>
+</tr>
+<tr>
+<td>强制关闭小屏幕设备上文本大小自动调整的启发式方法 (Force off heuristics for inflating text sizes on devices with small screens)</td>
+<td>禁用文本自动调整大小。(Disable text autosizing.)</td>
+</tr>
+<tr>
+<td>WebXR/WebGPU 绑定 (WebXR/WebGPU Binding)</td>
+<td>为 WebXR 会话启用 WebGPU 渲染。要使用此功能，还必须启用 WebXR 投影层。(Enables rendering with WebGPU for WebXR sessions. WebXR Projection Layers must be also be enabled to use this feature.)</td>
+</tr>
+<tr>
+<td>WebXR 孵化功能 (WebXR Incubations)</td>
+<td>启用 WebXR 的实验性功能。(Enables experimental features for WebXR.)</td>
+</tr>
+<tr>
+<td>强制 WebXr 运行时 (Force WebXr Runtime)</td>
+<td>强制浏览器使用特定的运行时，即使该运行时通常不会被启用或根据连接的硬件通常不会被选中。(Force the browser to use a particular runtime, even if it would not usually be enabled or would otherwise not be selected based on the attached hardware.)</td>
+</tr>
+<tr>
+<td>WebXr 手部匿名化策略 (WebXr Hand Anonymization Strategy)</td>
+<td>强制浏览器使用特定的策略来匿名化手部数据，默认顺序有一个策略层次结构来尝试，如果所有策略都失败，则不会返回任何数据，同时此选择确实允许（不推荐的）绕过所有这些算法的替代方案。(Force the browser to use a particular strategy for anonymizing hand data, the default order has a hierarchy of strategies to try and if all of them fail, then no data will be returned, while this choice does allow the (not recommended) alternative of bypassing these algorithms all together.)</td>
+</tr>
+<tr>
+<td>边缘到底部下巴 (EdgeToEdgeBottomChin)</td>
+<td>为中间状态的边缘到边缘体验启用可滚动的底部下巴。(Enables the scrollable bottom chin for an intermediate Edge-to-Edge experience.)</td>
+</tr>
+<tr>
+<td>随处边缘到边缘 (EdgeToEdgeEverywhere)</td>
+<td>启用 Chrome 始终在系统栏下方绘制。这旨在促进在系统级别强制实施边缘到边缘的过渡。(Enables Chrome to draw below the system bars, all the time. This is intended to facilitate the transition to edge-to-edge being enforced at the system level.)</td>
+</tr>
+<tr>
+<td>平板电脑边缘到边缘 (EdgeToEdgeTablet)</td>
+<td>在平板电脑上启用 Android 功能边缘到边缘。(Enables the Android feature Edge-to-Edge on tablets.)</td>
+</tr>
+<tr>
+<td>网格标签切换器更新 (Grid tab switcher update)</td>
+<td>启用网格标签切换器中的视觉更改。(Enables the visual changes in the grid tab switcher.)</td>
+</tr>
+<tr>
+<td>阻止通过 document.write 加载的脚本 (Block scripts loaded via document.write)</td>
+<td>不允许通过 document.write 插入到主框架中的第三方解析器阻塞脚本的获取。(Disallows fetches for third-party parser-blocking scripts inserted into the main frame via document.write.)</td>
+</tr>
+<tr>
+<td>强制 UI 方向 (Force UI direction)</td>
+<td>显式强制 UI 为从左到右或从右到左模式，覆盖 UI 语言的默认方向。(Explicitly force the UI to left-to-right (LTR) or right-to-left (RTL) mode, overriding the default direction of the UI language.)</td>
+</tr>
+<tr>
+<td>强制文本方向 (Force text direction)</td>
+<td>显式强制 UI 文本的每字符方向性为从左到右或从右到左模式，覆盖字符语言的默认方向。(Explicitly force the per-character directionality of UI text to left-to-right (LTR) or right-to-left (RTL) mode, overriding the default direction of the character language.)</td>
+</tr>
+<tr>
+<td>实验性 Web Payments API 功能 (Experimental Web Payments API features)</td>
+<td>启用实验性 Web Payments API 功能。(Enable experimental Web Payments API features.)</td>
+</tr>
+<tr>
+<td>在账户选择时填充密码 (Fill passwords on account selection)</td>
+<td>当用户明确选择账户时填充密码，而不是在页面加载时自动填充凭据。(Filling of passwords when an account is explicitly selected by the user rather than autofilling credentials on page load.)</td>
+</tr>
+<tr>
+<td>强制颜色配置文件 (Force color profile)</td>
+<td>强制 Microsoft Edge 使用特定的颜色配置文件，而不是使用操作系统指定的窗口当前监视器的颜色。(Forces Microsoft Edge to use a specific color profile instead of the color of the window's current monitor, as specified by the operating system.)</td>
+</tr>
+<tr>
+<td>强制颜色 (Forced Colors)</td>
+<td>为 Web 内容启用强制颜色模式。(Enables forced colors mode for web content.)</td>
+</tr>
+<tr>
+<td>Microsoft Edge 堆分析器启动模式 (Microsoft Edge heap profiler start mode)</td>
+<td>启动堆分析服务，该服务记录采样的内存分配配置文件，每个样本都归因于一个调用堆栈。采样分辨率由 --memlog-sampling-rate 标志控制。记录的堆转储可以在 edge://tracing [category:memory-infra] 和 edge://memory-internals 中获取。此设置控制哪些进程将从其启动开始被分析。要在以后的时间分析任何给定进程，请使用 edge://memory-internals 页面。(Starts heap profiling service that records sampled memory allocation profile having each sample attributed with a callstack. The sampling resolution is controlled with --memlog-sampling-rate flag. Recorded heap dumps can be obtained at edge://tracing [category:memory-infra] and edge://memory-internals. This setting controls which processes will be profiled since their start. To profile any given process at a later time use edge://memory-internals page.)</td>
+</tr>
+<tr>
+<td>堆分析采样间隔（字节）(Heap profiling sampling interval (in bytes))</td>
+<td>堆分析服务使用泊松过程来采样分配。采样间隔的默认值为 1000000。这对于大型和/或频繁的分配产生低噪声。这意味着聚合数和大型和/或频繁的分配可以高保真地信任。较低的间隔产生更高的采样分辨率，但以更高的性能开销为代价。(Heap profiling service uses Poisson process to sample allocations. Default value for the interval between samples is 1000000 (1MB). This results in low noise for large and/or frequent allocations [size * frequency &gt;&gt; 1MB]. This means that aggregate numbers [e.g. total size of malloc-ed objects] and large and/or频繁的分配可以高保真地信任。较低的间隔产生更高的采样分辨率，但以更高的性能开销为代价。)</td>
+</tr>
+<tr>
+<td>堆分析堆栈跟踪类型 (Heap profiling stack traces type)</td>
+<td>默认情况下，堆分析服务记录本机堆栈。需要后处理步骤来符号化堆栈。&quot;带有线程名称的本机&quot;将线程名称添加为每个本机堆栈的第一帧。也可以使用跟踪事件作为标识符来记录伪堆栈。也可以同时使用两者。(By default heap profiling service records native stacks. A post-processing step is required to symbolize the stacks. 'Native with thread names' adds the thread name as the first frame of each native stack. It's also possible to record a pseudo stack using trace events as identifiers. It's also possible to do a mix of both.)</td>
+</tr>
+<tr>
+<td>启用网络日志记录到文件 (Enable network logging to file)</td>
+<td>启用网络日志记录到用户数据目录中名为 netlog.json 的文件。该文件可以导入到 edge://net-internals。(Enables network logging to a file named netlog.json in the user data directory. The file can be imported into edge://net-internals.)</td>
+</tr>
+<tr>
+<td>将不安全来源视为安全来源 (Insecure origins treated as secure)</td>
+<td>将给定的（不安全的）来源视为安全来源。多个来源可以作为逗号分隔的列表提供。来源必须指定其协议。(Treat given (insecure) origins as secure origins. Multiple origins can be supplied as a comma-separated list. Origins must have their protocol specified.)</td>
+</tr>
+<tr>
+<td>选择 ANGLE 图形后端 (Choose ANGLE graphics backend)</td>
+<td>为 ANGLE 选择图形后端。Vulkan 后端仍处于实验阶段，可能包含仍在修复中的错误。(Choose the graphics backend for ANGLE. The Vulkan backend is still experimental, and may contain bugs that are still being worked on.)</td>
+</tr>
+<tr>
+<td>Ad Selection API</td>
+<td>启用 Ad Selection API 及相关功能，如归因报告、围栏框架、共享存储、私有聚合。(Enables the Ad Selection API and associated features such as Attribution Reporting, Fenced Frames, Shared Storage, Private Aggregation.)</td>
+</tr>
+<tr>
+<td>Ad Selection API -  consented 调试令牌 (Ad Selection API - Consented Debug Token)</td>
+<td>使用提供的令牌启用 Ad Selection API 调试。在 Ad Selection API 可信服务器上运行的具有匹配令牌的隐私保护拍卖将能够记录有关拍卖的信息以启用调试。请注意，此日志记录可能包括通常保密的用户浏览历史信息。(Enables Ad Selection API debugging with the provided token. Privacy-preserving auctions running on an Ad Selection API trusted server with a matching token will be able to log information about the auction to enable debugging. Note that this logging may include information about the user's browsing history normally kept private.)</td>
+</tr>
+<tr>
+<td>Ad Selection API - 注册覆盖 (Ad Selection API - Enrollment Overrides)</td>
+<td>允许一系列网站在未注册并验证加入 Ad Selection Origin Trial 的情况下使用 Ad Selection API 功能。(Allows a list of sites to use Ad Selection API features without them being enrolled and attested into the Ad Selection Origin Trial.)</td>
+</tr>
+<tr>
+<td>在自动播放设置中显示阻止选项 (Show block option in autoplay settings)</td>
+<td>如果启用，阻止将作为媒体自动播放设置中的一个选项出现。(If enabled, block will appear as an option in media autoplay settings.)</td>
+</tr>
+<tr>
+<td>启用云策略 V2 (Enable Cloud Policy V2)</td>
+<td>启用新的云策略后端的使用。(Enables the use of a new Cloud Policy backend.)</td>
+</tr>
+<tr>
+<td>Edge SDCH (ZSDCH Content-Encoding)</td>
+<td>启用 Edge Sdch 支持。(Enables Edge Sdch support.)</td>
+</tr>
+<tr>
+<td>实验性跟踪预防功能 (Experimental Tracking Prevention Features)</td>
+<td>启用跟踪预防的即将推出和实验性改进。(Enables upcoming and experimental improvements to Tracking Prevention.)</td>
+</tr>
+<tr>
+<td>启用实验&quot;完整&quot;模式 (Enable experimentation 'full' mode)</td>
+<td>如果启用且未设置&quot;ExperimentationAndConfigurationServiceControl&quot;组策略，Edge 客户端的行为将如同组策略设置为&quot;完整模式&quot;，这将在客户端上启用实验。(If enabled and 'ExperimentationAndConfigurationServiceControl' group policy was not set, Edge client will behave as if the group policy was set to 'full mode', which will enable experimentation on the client.)</td>
+</tr>
+<tr>
+<td>Web 保护仪表板 (Web protection dashboard)</td>
+<td>启用后，您可以看到 Web 保护报告。(When enabled, you could see web protection report.)</td>
+</tr>
+<tr>
+<td>沉浸式平板电脑 NTP (Immersive tablet NTP)</td>
+<td>如果启用，平板电脑上的 NTP 将是沉浸式的，并显示类似于手机的布局。(If enabled, NTP on tablets will be immersive and display similar layouts on phones.)</td>
+</tr>
+<tr>
+<td>菜单删除数据上线 (Menu Delete Data Onboard)</td>
+<td>启用此标志以在菜单中上线删除数据。(Enable this flag to onboard delete data in menu.)</td>
+</tr>
+<tr>
+<td>视频后台播放 (Video Background Play)</td>
+<td>启用此标志以让您开启视频后台播放。(Enable this flag to let you turn on video background play.)</td>
+</tr>
+<tr>
+<td>调试 UIR (Debug UIR)</td>
+<td>如果启用，通过在令牌获取时模拟 UIR 错误来调试 UIR。(If enabled, debug UIR by mocking UIR error when token fetch.)</td>
+</tr>
+<tr>
+<td>强制获取云配置服务 (Force Fetch Cloud Config Service)</td>
+<td>如果启用，云配置服务将在启动时强制获取配置，没有任何延迟。(If enabled, the Cloud Config Service will force fetch config without any delay in the startup.)</td>
+</tr>
+<tr>
+<td>地址栏 Edge 企业提供程序 (Omnibox Edge Enterprise Provider)</td>
+<td>用 Edge 企业提供程序替换 MSB 提供程序，用于地址栏工作建议。(Replaces MSB Provider with Edge Enterprise Provider for Omnibox Work Suggestions.)</td>
+</tr>
+<tr>
+<td>地址栏 UI 隐藏稳定状态 URL 方案 (Omnibox UI Hide Steady-State URL Scheme)</td>
+<td>在地址栏中，从稳定状态显示的 URL 中隐藏方案。在编辑期间会恢复。(In the omnibox, hide the scheme from steady state displayed URLs. It is restored during editing.)</td>
+</tr>
+<tr>
+<td>地址栏 UI 隐藏稳定状态 URL 琐碎子域 (Omnibox UI Hide Steady-State URL Trivial Subdomains)</td>
+<td>在地址栏中，从稳定状态显示的 URL 中隐藏琐碎子域。隐藏的部分在编辑期间会恢复。(In the omnibox, hide trivial subdomains from steady state displayed URLs. Hidden portions are restored during editing.)</td>
+</tr>
+<tr>
+<td>Edge Android 密码保存更新底部工作表 (Edge Android password save update bottomsheet)</td>
+<td>如果启用，将为 Android 显示密码保存更新底部工作表。(If enabled, will show password save update bottomsheet for android.)</td>
+</tr>
+<tr>
+<td>语义设计系统 (Semantic Design System)</td>
+<td>启用语义设计系统。(Enables the Semantic Design System.)</td>
+</tr>
+<tr>
+<td>Web UI Web Vitals 性能测量工具 (Web UI Web Vitals Performance Measurement Tool)</td>
+<td>为 WebUI 2 应用程序启用 Web Vitals 性能测量工具。(Enables the Web Vitals Performance measurement tool for WebUI 2 apps.)</td>
+</tr>
+<tr>
+<td>在启动时启用实验负载获取 (Enable Experimentation Payload Fetch on startup)</td>
+<td>在启动时以及每次应用程序进入前台时启用实验负载获取，无论两次获取之间经过的时间如何。(Enables experimentation payload fetch on startup and every time the app enters foreground, regardless of the time passed in between the fetches.)</td>
+</tr>
+<tr>
+<td>启用设备端 AI 模型调试日志 (Enable on device AI model debug logs)</td>
+<td>启用设备端 AI 模型记录和保存调试消息的功能，这些消息可以在内部页面显示。(Enables on device AI model to log and save debug messages that can be shown in the internals page.)</td>
+</tr>
+<tr>
+<td>Copilot 最新体验 (Copilot Latest Experience)</td>
+<td>启用此标志以全面体验最新的 Copilot 增强功能。(Enable this flag to experience the latest Copilot enhancements in full.)</td>
+</tr>
+<tr>
+<td>Copilot 持久聊天 (Copilot Persistent Chat)</td>
+<td>启用此标志以在重新打开 Copilot 时恢复最近的聊天会话。(Enable this flag to restore the most recent chat session when reopening Copilot.)</td>
+</tr>
+<tr>
+<td>Copilot 建议芯片 (Copilot Suggestion Chips)</td>
+<td>启用此标志以在 Copilot 聊天界面中显示建议芯片。(Enable this flag to show suggestion chips in Copilot chat interface.)</td>
+</tr>
+<tr>
+<td>每日图片信息搜索 (Daily image information search)</td>
+<td>如果启用，每日图片信息搜索将可用。(If enabled, daily image information search will be available.)</td>
+</tr>
+<tr>
+<td>启用底部地址栏推广 (Enable bottom Omnibox Upsell)</td>
+<td>如果启用，将显示询问用户将地址栏从顶部更改为底部的对话框。(If enabled, the dialog asking user to change omnibox from top to bottom will appear.)</td>
+</tr>
+<tr>
+<td>默认底部地址栏 (Default bottom address bar)</td>
+<td>如果启用，移动版 Edge 上的地址栏将默认使用底部布局。(If enabled, the Omnibox on Edge mobile will use the bottom layout as default.)</td>
+</tr>
+<tr>
+<td>启用底部工具栏标签页滑动手势 (Enable bottom toolbar tab swipe gesture)</td>
+<td>如果启用，用户将能够水平滑动底部地址栏来切换标签页。(If enabled, the user is able to swipe the bottom omnibox horizontally to switch tabs.)</td>
+</tr>
+<tr>
+<td>上下文搜索 (Contextual Search)</td>
+<td>如果启用，将在页面底部显示上下文搜索弹出窗口。(If enabled, will show a contextual search pop-up at the bottom of the page.)</td>
+</tr>
+<tr>
+<td>Copilot Fluid Composer</td>
+<td>如果启用，copilot 体验将更改为具有可折叠覆盖层的流体布局。(If enabled, the copilot experience will change to the fluid layout with a collapsible overlay.)</td>
+</tr>
+<tr>
+<td>Copilot 原生平板电脑 (Copilot Native Tablet)</td>
+<td>启用此标志以在平板电脑布局上体验原生 copilot。(Enable this flag to experience copilot native on tablet layouts.)</td>
+</tr>
+<tr>
+<td>移动地址栏 QF 改进 V2 (Mobile Omnibox QF Improvement V2)</td>
+<td>如果启用，将支持多实体。这是对 QF 改进 V1 的增强。(If enabled, multi-entities will be supported.This is a enhancement upon QF improvement V1.)</td>
+</tr>
+<tr>
+<td>ZIP 上的扩展搜索历史 (Extended search history on ZIP)</td>
+<td>如果启用，将零输入页面上可见的搜索历史项数量从 3 扩展到更大的集合。(If enabled, expands the number of visible search history items on the Zero-Input Page (ZIP) from 3 to a larger set.)</td>
+</tr>
+<tr>
+<td>移动地址栏 ZIP 优化 (Mobile Omnibox ZIP Refinement)</td>
+<td>如果启用，ZIP 优化将应用于地址栏。(If enabled, ZIP refinement will be applied to the omnibox.)</td>
+</tr>
+<tr>
+<td>移动钱包 PPE (Mobile Wallet PPE)</td>
+<td>启用后，用户可以在移动钱包中看到 PPE 数据。(when enabled, user can see PPE data in mobile wallet.)</td>
+</tr>
+<tr>
+<td>移动钱包门票 PPE (Mobile Wallet Tickets PPE)</td>
+<td>启用后，用户可以在移动钱包中看到门票 PPE 数据。(when enabled, user can see tickets PPE data in mobile wallet.)</td>
+</tr>
+<tr>
+<td>移动钱包密码泄漏扫描 (Mobile Wallet Password Leakage Scan)</td>
+<td>启用后，移动钱包用户可以看到密码泄漏扫描按钮。(when enabled, password leakage scan button is visible to mobile wallet users.)</td>
+</tr>
+<tr>
+<td>移动钱包密码迁移 (Mobile Wallet Password Migration)</td>
+<td>启用后，原生密码管理页面将重定向到移动钱包。(when enabled, native password manage page will be redirected to mobile wallet.)</td>
+</tr>
+<tr>
+<td>Android 上的移动钱包弃用 (Mobile Wallet Deprecation On Android)</td>
+<td>启用后，移动钱包将在 Android 上被弃用。(when enabled, mobile wallet will be deprecated on Android.)</td>
+</tr>
+<tr>
+<td>Android 扩展吊销服务 (Android Extension Revocation Service)</td>
+<td>启用后，扩展吊销服务将在 Edge Android 上运行。(When enabled, extension revocation service will be running on edge android.)</td>
+</tr>
+<tr>
+<td>Android 扩展针对 SteamDB 的上下文推荐 (Android Extension Contextual Recommend for SteamDB)</td>
+<td>启用后，当用户在 Edge Android 上访问 Steam 时，可以获得 SteamDB 推荐。(When enabled, users can get SteamDB recommendations when they visit Steam on edge android.)</td>
+</tr>
+<tr>
+<td>Android 扩展 WebUI2 中心 (Android Extension WebUI2 Hub)</td>
+<td>启用后，扩展中心页面将使用 WebUI2 进行渲染。(When enabled, extension hub page will be using WebUI2 to render.)</td>
+</tr>
+<tr>
+<td>Android exo player</td>
+<td>启用后，用户可以在 Edge Android 上启用 exo 播放器。(When enabled, users can enable the exo player on edge android.)</td>
+</tr>
+<tr>
+<td>PDF 体验革新 (PDF experience revamp)</td>
+<td>如果启用，用户将拥有革新后的 PDF 体验。(If enabled, user will have the revamped PDF experience.)</td>
+</tr>
+<tr>
+<td>PDF 重排支持 (PDF Reflow support)</td>
+<td>如果启用，用户将可以使用 PDF 重排功能。(If enabled, user will have access to the PDF Reflow feature.)</td>
+</tr>
+<tr>
+<td>标签页中的 PDF 工具栏 (PDF toolbar in the tab)</td>
+<td>如果启用，用户将在标签页中拥有 PDF 的工具栏。(If enabled, user will have a toolbar for PDFs in the tab.)</td>
+</tr>
+<tr>
+<td>PDF 注释 (PDF Annotation)</td>
+<td>如果启用，用户将拥有 PDF 的注释功能。(If enabled, user will have the annotation for PDF.)</td>
+</tr>
+<tr>
+<td>启用半屏页面摘要功能 (Enable Half Screen Page Summary Feature)</td>
+<td>如果启用，将启用半屏页面摘要功能。(If enabled, will enable Half Screen Page Summary Feature.)</td>
+</tr>
+<tr>
+<td>Android ShouldInterceptUrl 异步 (Android ShouldInterceptUrl async)</td>
+<td>在 Android 上确定是否应拦截 URL 时，异步进行 IPC 调用。(IPC call asynchronously when determine whether should intercept URL on Android.)</td>
+</tr>
+<tr>
+<td>启用新标签页重构 (Enable new tab page refactor)</td>
+<td>如果启用，将启用新标签页上的架构重构。(If enabled, will enable architecture refactor on new tab page.)</td>
+</tr>
+<tr>
+<td>在底部地址栏模式下启用 NTP 新布局 (Enable NTP new layout in bottom omnibox mode)</td>
+<td>如果启用，NTP 将在底部地址栏模式下使用新的 UI 布局。(If enabled, NTP will use new UI layout in bottom omnibox mode.)</td>
+</tr>
+<tr>
+<td>在 NTP 上使用旧版页面布局设置 (Use legacy page layout settings on NTP)</td>
+<td>如果启用，将禁用新页面布局功能，并使用旧式页面布局。(If enabled, will disabled new page layout feature, and use old style page layout.)</td>
+</tr>
+<tr>
+<td>启用 NTP  topsites 暂存服务 (Enable NTP topsites staging service)</td>
+<td>如果启用，topsites 将使用暂存服务作为推荐列表和其他用途。(If enabled, topsites will use staging service as recommend list and others.)</td>
+</tr>
+<tr>
+<td>启用网站图标 v2 API (Enable favicon v2 API)</td>
+<td>如果启用，将使用网站图标 v2 API 来获取高质量网站图标。(If enabled, will use favicon v2 API to fetch high quality favicon.)</td>
+</tr>
+<tr>
+<td>启用顶级网站无边框 UI 样式 (Enable top sites no border UI style)</td>
+<td>如果启用，将为顶级网站使用无边框 UI 样式。(If enabled, will use no border UI style for top sites.)</td>
+</tr>
+<tr>
+<td>启用顶级网站提高网站图标获取性能 (Enable top sites improve favicon fetching performance)</td>
+<td>如果启用，将提高获取网站图标的性能。(If enabled, will improve the performance of fetching favicon.)</td>
+</tr>
+<tr>
+<td>启用最常访问的网站显示完整标题 (Enable most visited sites display full title)</td>
+<td>如果启用，最常访问的网站将显示完整标题，不截断。(If enabled, most visited sites will display full title, without truncation.)</td>
+</tr>
+<tr>
+<td>在添加页面中启用最常访问的网站 (Enable most visited sites in add page)</td>
+<td>如果启用，最常访问的网站将显示在添加页面中。(If enabled, most visited sites will be shown in add page.)</td>
+</tr>
+<tr>
+<td>启用删除重复的最常访问的网站 (Enable remove duplicate most visited sites)</td>
+<td>如果启用，删除重复的最常访问的网站。(If enabled, remove duplicate most visited sites.)</td>
+</tr>
+<tr>
+<td>启用显示最常访问的网站上下文推广 (Enable show most visited sites contextual upsell)</td>
+<td>如果启用，在最常访问的网站页面上显示推广，以将当前网站添加到顶级网站。(If enabled, show upsell to add current website into top sites on most visited site page.)</td>
+</tr>
+<tr>
+<td>基于 WebUI2 的奖励 (Rewards based on WebUI2)</td>
+<td>如果启用，将使用基于 WebUI2 的新奖励。(If enabled, will use the new Rewards based on WebUI2.)</td>
+</tr>
+<tr>
+<td>在 Android 上使用 WebViewPro 进行登录 (Use WebViewPro for sign-in on Android)</td>
+<td>如果启用，将在 Android 上使用 WebViewPro 进行登录。(If enabled, will use WebViewPro for sign-in on Android.)</td>
+</tr>
+<tr>
+<td>在 Android 上支持通行密钥认证 (Support passkey auth on Android)</td>
+<td>如果启用，OneAuth 将支持在 Android 上进行通行密钥认证。(If enabled, OneAuth will support passkey auth on Android.)</td>
+</tr>
+<tr>
+<td>在后台加载 OneAuth (Load OneAuth in background)</td>
+<td>如果启用，在后台线程加载 OneAuth。(If enabled, load OneAuth in background thread.)</td>
+</tr>
+<tr>
+<td>Edge Mobile 新主设置 v2 (Edge Mobile new main settings v2)</td>
+<td>如果启用，移动版 Edge 设置将默认使用 v2。(If enabled, the mobile edge settings will use v2 as default.)</td>
+</tr>
+<tr>
+<td>Edge Mobile 自定义标签页用户协议策略检查 (Edge Mobile Custom Tab User Agreement Policy Check)</td>
+<td>如果启用，将在打开自定义标签页之前执行用户协议策略检查。(If enabled, will perform user agreement policy check before opening custom tabs.)</td>
+</tr>
+<tr>
+<td>针对 AAD 的移动工作建议 (Mobile Work Suggestion For AAD)</td>
+<td>如果启用，将为 AAD 用户在地址栏中添加工作建议。(If enabled, will add work suggestion in omnibox for AAD user.)</td>
+</tr>
+<tr>
+<td>ZIP 中的移动工作建议 (Mobile Work Suggestion In ZIP)</td>
+<td>如果启用，将为 AAD 用户在 ZIP 中添加工作建议，请先为 aad 打开移动工作建议。(If enabled, will add work suggestion in ZIP for AAD user, please open mobile work suggestion for aad first.)</td>
+</tr>
+<tr>
+<td>推广 AAD 的工作建议 (Promote Work Suggestion For AAD)</td>
+<td>如果启用，将在地址栏的 URL 组中推广一个工作建议。(If enabled, will promote one work suggestion to url group in omnibox.)</td>
+</tr>
+<tr>
+<td>基于区域设置的 NTP 信息流直接重定向 (NTP feed direct redirection base on locale)</td>
+<td>如果启用，NTP 信息流将检查区域设置并加载重定向。(If enabled, NTP feed will check the locale and load redirection.)</td>
+</tr>
+<tr>
+<td>为非参与用户关闭 NTP 信息流 (Turn off NTP feed for non engaged users)</td>
+<td>如果启用，NTP 信息流将不会为非参与用户初始化。(If enabled, NTP feed will not be initialized for non engaged users.)</td>
+</tr>
+<tr>
+<td>将密码添加为 Edge 设置的 L1 条目 (Add password as the L1 entry of Edge Settings)</td>
+<td>如果启用，用户可以在 Edge 设置 L1 页面看到密码条目。(If enabled, users can see password entry in Edge Settings L1 Page.)</td>
+</tr>
+<tr>
+<td>Android 上的 Edge CUV 事件 (Edge CUV event on Android)</td>
+<td>如果启用，将发送 CUV 事件。(If enabled, will send CUV event.)</td>
+</tr>
+<tr>
+<td>反馈优化 (Feedback optimization)</td>
+<td>如果启用，反馈优化将可用。(If enabled, feedback optimization will be available.)</td>
+</tr>
+<tr>
+<td>Edge mobile 定期工作程序 (Edge mobile period worker)</td>
+<td>启用后，将启动一个定期工作程序。(When enabled, will start a period worker.)</td>
+</tr>
+<tr>
+<td>增长引擎已启用 (Growth Engine Enabled)</td>
+<td>如果启用，增长引擎将可用。(If enabled, the growth engine will be available.)</td>
+</tr>
+<tr>
+<td>增长引擎底部工作表推广已启用 (Growth Engine Bottom Sheet Upsell Enabled)</td>
+<td>如果启用，增长引擎底部工作表推广将可用。(If enabled, the growth engine bottom sheet upsell will be available.)</td>
+</tr>
+<tr>
+<td>更改应用程序图标禁止 (Change app icon prohibit)</td>
+<td>如果启用，用户将被禁止更改应用程序图标。(If enabled, user will be disabled to change the app logo.)</td>
+</tr>
+<tr>
+<td>优化移动阅读视图模型 (Optimize Mobile Reading View Model)</td>
+<td>如果启用，将优化移动阅读视图可读模型。(If enabled, will Optimize Mobile Reading View Readable Model.)</td>
+</tr>
+<tr>
+<td>启动时的 Android 默认浏览器推广 (Android default browser promo on startup)</td>
+<td>如果启用，将优化移动阅读视图可读模型。(If enabled, will Optimize Mobile Reading View Readable Model.)</td>
+</tr>
+<tr>
+<td>记录标准用户操作 (Record Sandard User Action)</td>
+<td>如果启用，将为主要页面和子视图记录标准用户操作。(If enabled, will record standard user action for prime pages and sub views.)</td>
+</tr>
+<tr>
+<td>Copilot 视频摘要 V2 (Copilot Video Summary V2)</td>
+<td>启用此标志以使用新的 Copilot 视频摘要 V2 功能进行视频摘要。(Enable this flag to use the new Copilot Video Summary V2 feature for video summarization.)</td>
+</tr>
+<tr>
+<td>Copilot 视频转录 V2 (Copilot Video Transcript V2)</td>
+<td>启用此标志以使用新的 Copilot 视频转录 V2 功能进行视频转录提取。(Enable this flag to use the new Copilot Video Transcript V2 feature for video transcript extraction.)</td>
+</tr>
+<tr>
+<td>账户转移 (Account Transfer)</td>
+<td>启用后，允许用户在扫描 Edge 桌面版提供的 QR 码后使用 Microsoft 账户登录。(Enable it to allow user sign in with Microsoft account after scanning the QR code provided by Edge Desktop.)</td>
+</tr>
+<tr>
+<td>Edge 商业 Copilot (Edge Commercial Copilot)</td>
+<td>启用它以解锁 Microsoft Edge 中围绕商业 Copilot 的各种新体验。（注意：需要使用已登录 Entra ID 账户的配置文件）(Enable it to unlock a variety of new experiences around Commercial Copilot in Microsoft Edge. (Note: Requires the profile with your Entra ID account logged in))</td>
+</tr>
+<tr>
+<td>Edge 商业 Copilot - 用于 Web 的融合 CT 插件 (Edge Commercial Copilot - Converged CT plugin for Web)</td>
+<td>启用它以使用用于 Web 的融合 CT 插件。(Enable it to use the converged CT plugin for Web.)</td>
+</tr>
+<tr>
+<td>WebSSO MSA 革新 (WebSSO MSA Revamp)</td>
+<td>Microsoft Edge 支持对 Microsoft 网站进行浏览器到 Web 的 SSO，最近我们为 MSA 用户革新了此功能。使用此标志在旧实现和新实现之间切换。(Microsoft Edge supports browser-to-web SSO to Microsoft websites, recently we have revamped this feature for MSA users. Use this flag to switch between the old and new implementations.)</td>
+</tr>
+<tr>
+<td>WebSSO AAD 革新 (WebSSO AAD Revamp)</td>
+<td>Microsoft Edge 支持对 Microsoft 网站进行浏览器到 Web 的 SSO，最近我们为 AAD 用户革新了此功能。使用此标志在旧实现和新实现之间切换。(Microsoft Edge supports browser-to-web SSO to Microsoft websites, recently we have revamped this feature for AAD users. Use this flag to switch between the old and new implementations.)</td>
+</tr>
+<tr>
+<td>在自定义标签页中使用 Microsoft Tunnel (Use Microsoft Tunnel in Custom Tabs)</td>
+<td>启用此标志以使 Microsoft Tunnel 在自定义标签页中工作。(Enable this flag to make Microsoft Tunnel work in Custom Tabs.)</td>
+</tr>
+<tr>
+<td>启用 GPU 服务日志记录 (Enable gpu service logging)</td>
+<td>启用打印实际 GL 驱动程序调用。(Enable printing the actual GL driver calls.)</td>
+</tr>
+<tr>
+<td>严格源隔离 (Strict-Origin-Isolation)</td>
+<td>加强网站隔离策略的实验性安全模式。控制站点隔离是否应使用源而不是方案和 eTLD+1。(Experimental security mode that strengthens the site isolation policy. Controls whether site isolation should use origins instead of scheme and eTLD+1.)</td>
+</tr>
+<tr>
+<td>不安全的 WebGPU 支持 (Unsafe WebGPU Support)</td>
+<td>为 WebGPU 开发提供的方便标志。在不支持的配置上启用尽力而为的 WebGPU 支持及更多</td>
+</tr>
+<tr>
+<td>功能！请注意，此标志可能暴露安全问题。(Convenience flag for WebGPU development. Enables best-effort WebGPU support on unsupported configurations and more! Note that this flag could expose security issues to websites so only use it for your own development.)</td>
+<td></td>
+</tr>
+<tr>
+<td>弹性过度滚动 (Elastic Overscroll)</td>
+<td>在触摸屏和高精度触摸板上启用弹性过度滚动。(Enables Elastic Overscrolling on touchscreens and precision touchpads.)</td>
+</tr>
+<tr>
+<td>启用实验性 Cookie 功能 (Enable experimental cookie features)</td>
+<td>启用影响设置、发送和管理 Cookie 的新功能。启用的功能可能随时更改。(Enable new features that affect setting, sending, and managing cookies. The enabled features are subject to change at any time.)</td>
+</tr>
+<tr>
+<td>启用 WebNN API (Enables WebNN API)</td>
+<td>启用 Web 机器学习神经网络 API。规范见 https://www.w3.org/TR/webnn/ (Enables the Web Machine Learning Neural Network (WebNN) API. Spec at https://www.w3.org/TR/webnn/)</td>
+</tr>
+<tr>
+<td>启用实验性 WebNN API 功能 (Enables experimental WebNN API features)</td>
+<td>在 Web 机器学习神经网络 API 中启用额外的实验性功能。需要启用 &quot;WebNN API&quot; 标志。(Enables additional, experimental features in Web Machine Learning Neural Network (WebNN) API. Requires the &quot;WebNN API&quot; flag to be enabled.)</td>
+</tr>
+<tr>
+<td>页面嵌入式权限控制（权限元素）(Page embedded permission control (permission element))</td>
+<td>启用页面嵌入式权限控制功能，该功能允许使用 HTML 'permission' 元素。(Enables the Page Embedded Permission Control feature, which allows the use of the HTML 'permission' element.)</td>
+</tr>
+<tr>
+<td>为图标更改启用 PWA 安装更新对话框 (Enable PWA install update dialog for icon changes)</td>
+<td>当 PWA 更改其图标时启用确认对话框。(Enable a confirmation dialog that shows up when a PWA changes its icon.)</td>
+</tr>
+<tr>
+<td>将 SurfaceLayerImpls 对齐到像素网格 (Align SurfaceLayerImpls to pixel grid)</td>
+<td>将 SurfaceLayerImpl 合成器纹理对齐到像素网格。当 iframe 与其父进程跨进程渲染并且未能与像素网格对齐时（例如，当父框架具有非整数比例因子时），这一点很重要。未能对齐到像素网格可能导致 iframe 的文本变得模糊。SurfaceLayerImpl 也用于 <canvas>，这也可能受益于对齐。(Align SurfaceLayerImpl compositor textures to pixel grid. This is important when an iframe is rendered cross-process to its parent, and fails to align with the pixel grid (e.g. when the parent frame has a non-integral scale factor). Failure to align to the pixel grid can result in the iframe's text becoming blurry. SurfaceLayerImpl also is used for <canvas>, which may also benefit from the alignment.)</td>
+</tr>
+<tr>
+<td>在顶级跨站点跨浏览上下文组导航中清除窗口名称 (Clear window name in top-level cross-site cross-browsing-context-group navigation)</td>
+<td>当它是顶级跨站点导航并交换 BrowsingContextGroup 时，清除保留的 window.name 属性。(Clear the preserved window.name property when it's a top-level cross-site navigation that swaps BrowsingContextGroup.)</td>
+</tr>
+<tr>
+<td>FedCmMetricsEndpoint</td>
+<td>允许 FedCM API 向身份提供商端的指标端点发送性能测量。需要启用 FedCM。(Allows the FedCM API to send performance measurement to the metrics endpoint on the identity provider side. Requires FedCM to be enabled.)</td>
+</tr>
+<tr>
+<td>FedCmWithoutWellKnownEnforcement</td>
+<td>支持不在 IdP 的 .well-known 文件中的 configURL。(Supports configURL that's not in the IdP's .well-known file.)</td>
+</tr>
+<tr>
+<td>将 Cookie 绑定到其设置源的端口 (Bind cookies to their setting origin's port)</td>
+<td>如果启用，Cookie 将只能由与最初设置 Cookie 的源具有相同端口的源访问。(If enabled, cookies will only be accessible by origins with the same port as the one that originally set the cookie.)</td>
+</tr>
+<tr>
+<td>将 Cookie 绑定到其设置源的方案 (Bind cookies to their setting origin's scheme)</td>
+<td>如果启用，Cookie 将只能由与最初设置 Cookie 的源具有相同方案的源访问。(If enabled, cookies will only be accessible by origins with the same scheme as the one that originally set the cookie.)</td>
+</tr>
+<tr>
+<td>测试第三方 Cookie 逐步淘汰 (Test Third Party Cookie Phaseout)</td>
+<td>启用以测试第三方 Cookie 的逐步淘汰。(Enable to test third-party cookie phaseout.)</td>
+</tr>
+<tr>
+<td>Skia Graphite</td>
+<td>启用 Skia Graphite。这将默认使用 Dawn 后端，但可以使用命令行标志覆盖以在非官方开发者构建上进行测试。(Enable Skia Graphite. This will use the Dawn backend by default, but can be overridden with command line flags for testing on non-official developer builds.)</td>
+</tr>
+<tr>
+<td>默认情况下源键控进程 (Origin-keyed Processes by default)</td>
+<td>为大多数页面（即，默认情况下分配给源键控代理集群的页面）启用源键控进程隔离。这提高了安全性，但也增加了创建的进程数量。注意：启用此功能也会启用&quot;默认情况下源键控代理集群&quot;。(Enables origin-keyed process isolation for most pages (i.e., those assigned to an origin-keyed agent cluster by default). This improves security but also increases the number of processes created. Note: enabling this feature also enables 'Origin-keyed Agent Clusters by default'.)</td>
+</tr>
+<tr>
+<td>启用 Perfetto 系统跟踪 (Enable Perfetto system tracing)</td>
+<td>启用后，Edge 将尝试连接到系统跟踪服务。(When enabled, Edge will attempt to connect to the system tracing service.)</td>
+</tr>
+<tr>
+<td>标签组入口点 (Tab Group Entry Points)</td>
+<td>启用创建标签组的额外入口点。(Enables additional entry points for creating tab groups.)</td>
+</tr>
+<tr>
+<td>标签组奇偶校验底部工作表 (Tab Group Parity Bottom Sheet)</td>
+<td>启用通过标签组奇偶校验底部工作表将标签页添加到标签组。(Enables adding Tabs to Tab Groups via the Tab Group Parity Bottom Sheet.)</td>
+</tr>
+<tr>
+<td>启用 container-type 属性不具有布局包含 (Enables the container-type property to have no layout containment)</td>
+<td>container-type 属性最近更改为不添加布局包含，这允许用户暂时禁用此更改。(The container-type property was recently changed to not add layout containment, this allows users to temporarily disable this change.)</td>
+</tr>
+<tr>
+<td>弃用 unload 事件 (Deprecate the unload event)</td>
+<td>控制 Permissions-Policy unload 的默认值。如果启用，unload 处理程序将被弃用，并且除非已显式设置 Permissions-Policy 来启用它们，否则不会接收 unload 事件。如果禁用，即使在其弃用的逐步推出期间，unload 处理程序将继续接收 unload 事件，除非由 Permissions-Policy 显式禁用。(Controls the default for Permissions-Policy unload. If enabled, unload handlers are deprecated and will not receive the unload event unless a Permissions-Policy to enable them has been explicitly set. If disabled, unload handlers will continue to receive the unload event unless explicitly disabled by Permissions-Policy, even during the gradual rollout of their deprecation.)</td>
+</tr>
+<tr>
+<td>归档除活动标签页外的所有标签页 (Archive all tabs except active)</td>
+<td>导致模型中的所有标签页（除了当前活动标签页）被归档。用于手动测试。(Causes all tabs in model (except the current active one) to be archived. Used for manual testing.)</td>
+</tr>
+<tr>
+<td>Android 历史记录窗格 (History Pane Android)</td>
+<td>启用显示 Hub 中显示历史记录的新窗格。(Enables showing a new pane in the hub that displays History.)</td>
+</tr>
+<tr>
+<td>书签中心窗格 (Bookmark hub pane)</td>
+<td>启用书签中心窗格。(Enables a bookmark hub pane.)</td>
+</tr>
+<tr>
+<td>CSS Masonry 布局 (CSS Masonry Layout)</td>
+<td>启用实验性 CSS Masonry 布局实现。支持简单的 masonry 布局。尚不支持子网格、分段和流外项目。使用 CSS Masonry 的语法是 <code>display: masonry</code> 与网格属性一起使用。有关 masonry 语法的更多详细信息，请参见 https://www.w3.org/TR/css-grid-3/#masonry-model。(Enable experimental CSS Masonry Layout implementation. Simple layouts with masonry are supported. Subgrid, fragmentation, and out-of-flow items are not supported yet. The syntax to use CSS Masonry is <code>display: masonry</code> together with grid properties (i.e. <code>grid-column</code>, <code>grid-row</code>, etc.). More details on masonry syntax can be found at https://www.w3.org/TR/css-grid-3/#masonry-model.)</td>
+</tr>
+<tr>
+<td>将主线程限制为 60hz (throttle-main-thread-to-60hz)</td>
+<td>将主线程更新限制为 60fps，即使 VSync 速率更高。(Throttle main thread updates to 60fps, even when VSync rate is higher.)</td>
+</tr>
+<tr>
+<td>本地网络访问检查 (Local Network Access Checks)</td>
+<td>启用本地网络访问检查。(Enables Local Network Access checks.)</td>
+</tr>
+</tbody>
+</table>
+
+            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      LeeNut
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://leenut.space/post/edge-mobile-flags/" title="Edge mobile浏览器flags实验性功能标志 列表盘点">https://leenut.space/post/edge-mobile-flags/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://leenut.space/tag/y34y-vlf-E/"># 技术</a>
+    
+      <a href="https://leenut.space/tag/o0-XRTQaXbI/"># Android</a>
+    
+      <a href="https://leenut.space/tag/-qOQrKMYhro/"># 浏览器</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="Adguard Home 与加密DNS" href="https://leenut.space/post/adh-dns/">Adguard Home 与加密DNS</a>
+        <a class="nav-mobile-next" title="Adguard Home 与加密DNS" href="https://leenut.space/post/adh-dns/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+            
+  
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-box">
+  <footer class="footer">
+    <center id="runTimeBox">
+      <p style="color: black;">已运行:<span id="run_time"></span></p>
+    </center>
+    <!-- 
+    <span id="busuanzi_container_site_pv"><p style="color: black;">浏览数:<span id="busuanzi_value_site_pv"></span> 次</p></span>
+    <span id="busuanzi_container_site_uv"><p style="color: black;">访客数:<span id="busuanzi_value_site_uv"></span> 人</p></span>
+     -->
+    <script>
+      BirthDay = new Date('04/10/2024');
+      if (BirthDay.getTime()) {
+        function runTime() {
+          str = "";
+          today = new Date();
+          timeold = today.getTime() - BirthDay.getTime();
+          msPerDay = 24 * 60 * 60 * 1000;
+          e_daysold = timeold / msPerDay;
+          daysold = Math.floor(e_daysold);
+          str += daysold + "天";
+          return str;
+        }
+        setInterval(function () {
+          $("#run_time").html(runTime());
+        }, 1000);
+      } else {
+        document.querySelector('.footer').removeChild(document.querySelector('#runTimeBox'));
+      }
+    </script>
+    <div class="poweredby">
+      <p>&copy; 2024-2026 LeeNet</p>  
+<p>Gridea & Next</p>  
+    </div>
+  </footer>
+  
+    
+        <div class="pisces back-to-top" id="back_to_top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span class="scrollpercent"> <span id="back_to_top_text">0</span>% </span>
+            
+        </div>
+        
+          
+            
+              <div class="bg-img">
+                <img src="https://t.alcy.cc/ycy" />
+              </div>
+              
+                
+                  
+                        
+                          
+
+
+                            
+</div>
+<script>
+  let sideBarOpen = "sidebar-open";
+  let body = document.body;
+  let back2Top = document.querySelector("#back_to_top"),
+    back2TopText = document.querySelector("#back_to_top_text"),
+    drawerBox = document.querySelector("#drawer_box"),
+    rightSideBar = document.querySelector(".sidebar"),
+    viewport = document.querySelector("body");
+
+  function scrollAnimation(currentY, targetY) {
+    let needScrollTop = targetY - currentY;
+    let _currentY = currentY;
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10);
+      _currentY += dist;
+      window.scrollTo(_currentY, currentY);
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY);
+      } else {
+        window.scrollTo(_currentY, targetY);
+      }
+    }, 1);
+  }
+
+  back2Top.addEventListener("click", function (e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+
+  window.addEventListener("scroll", function (e) {
+    let percent =
+      (document.scrollingElement.scrollTop /
+        (document.scrollingElement.scrollHeight -
+          document.scrollingElement.clientHeight)) *
+      100;
+    if (percent > 1 && !back2Top.classList.contains("back-top-active")) {
+      back2Top.classList.add("back-top-active");
+    }
+    if (percent == 0) {
+      back2Top.classList.remove("back-top-active");
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+  let hasCacu = false;
+  window.addEventListener("resize", function (e) {
+    calcuHeight();
+  });
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (
+      (!hasCacu && back2Top.classList.contains("pisces")) ||
+      back2Top.classList.contains("gemini")
+    ) {
+      let sideBar = document.querySelector(".sidebar");
+      let navUl = document.querySelector("#site_nav");
+      sideBar.style =
+        "margin-top:" + (navUl.offsetHeight + navUl.offsetTop + 15) + "px;";
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+
+  let open = false,
+    MOTION_TIME = 300,
+    RIGHT_MOVE_DIS = "320px";
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll(".right-motion");
+    let right = drawerBox.classList.contains("right");
+
+    let transitionDir = right
+      ? "transition.slideRightIn"
+      : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS,
+      };
+      closeProp = {
+        paddingRight: "0px",
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS,
+      };
+      closeProp = {
+        paddingLeft: "0px",
+      };
+    }
+
+    drawerBox.onclick = function () {
+      open = !open;
+      jQuery.Velocity(rightSideBar, "stop");
+      jQuery.Velocity(viewport, "stop");
+      jQuery.Velocity(rightMotions, "stop");
+      if (open) {
+        jQuery.Velocity(
+          rightSideBar,
+          {
+            width: RIGHT_MOVE_DIS,
+          },
+          {
+            duration: MOTION_TIME,
+            begin: function () {
+              jQuery.Velocity(rightMotions, transitionDir, {});
+            },
+          }
+        );
+        jQuery.Velocity(viewport, openProp, {
+          duration: MOTION_TIME,
+        });
+      } else {
+        jQuery.Velocity(
+          rightSideBar,
+          {
+            width: "0px",
+          },
+          {
+            duration: MOTION_TIME,
+            begin: function () {
+              jQuery.Velocity(rightMotions, {
+                opacity: 0,
+              });
+            },
+          }
+        );
+        jQuery.Velocity(viewport, closeProp, {
+          duration: MOTION_TIME,
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle("muse-line");
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    };
+  }
+
+  // 链接跳转
+  let newWindow = "false";
+  if (newWindow === "true") {
+    let links = document.querySelectorAll(".post-body a");
+    links.forEach((item) => {
+      if (!item.classList.contains("btn")) {
+        item.setAttribute("target", "_blank");
+      }
+    });
+  }
+
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+
+  // 离开当前页title变化
+  var leaveTitle = "亲，别走啊！";
+  var normal_title = document.title;
+  if (leaveTitle) {
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState == "hidden") {
+        normal_title = document.title;
+        document.title = leaveTitle;
+      } else {
+        document.title = normal_title;
+      }
+    });
+  }
+</script>
+
+<link rel="stylesheet" href="/media/css/jquery.fancybox.css" />
+<script src="/media/js/jquery.fancybox.js"></script>
+
+<script>
+  let images = document.querySelectorAll(".section img");
+  images.forEach((image) => {
+    var parent = image.parentElement;
+    var next = image.nextElementSibling;
+    parent.removeChild(image);
+    var aelem = document.createElement("a");
+    aelem.href = image.src;
+    aelem.dataset["fancybox"] = "images";
+    aelem.dataset["rel"] = "fancybox-button";
+    aelem.classList.add("fancybox");
+    aelem.appendChild(image);
+    parent.insertBefore(aelem, next);
+  });
+</script>
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip"> </p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        jQuery.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        jQuery.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        jQuery.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        jQuery.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      jQuery.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      jQuery.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
+  </div>
+</body>
+<input hidden id="copy" />
+<script>
+  !function () {
+    let times = document.querySelectorAll('.publish-time');
+    for (let i = 0; i < times.length; i++) {
+      let date = times[i].dataset.t;
+      let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
+      if (time < 60) {
+        str = time + '秒之前';
+      } else if (time < 3600) {
+        str = Math.floor(time / 60) + '分钟之前';
+      } else if (time >= 3600 && time < 86400) {
+        str = Math.floor(time / 3600) + '小时之前';
+      } else if (time >= 86400 && time < 259200) {
+        str = Math.floor(time / 86400) + '天之前';
+      } else {
+        str = times[i].textContent;
+      }
+      times[i].textContent = str;
+    }
+  }();
+</script>
+
+<script>
+  let language = '';
+  if (language !== '') {
+    let map = new Map();
+    if (language === 'en') {
+      map.set('search', 'Search');
+      map.set('category', 'Categories');
+      map.set('article', 'Articles');
+      map.set('tag', 'Tags');
+      map.set('top', 'Top');
+      map.set('publish', 'published');
+      map.set('minute', ' minutes');
+      map.set('read-more', 'Read More');
+      map.set('view', 'View');
+      map.set('words', ' words');
+      map.set('category-in', 'category in');
+      map.set('preview', 'Meta');
+      map.set('index', 'Toc');
+      map.set('no-archives', "You haven't created yet");
+      map.set('archives', " articles in total");
+      map.set('cloud-tags', " tags in total");
+      map.set('copyright', "Copyright: ");
+      map.set('author', "Author: ");
+      map.set('link', "Link: ");
+      map.set('leave-message', "Leave a message");
+      map.set('format', "Links Format");
+      map.set('site-name', "Name: ");
+      map.set('site-link', "Link: ");
+      map.set('site-desc', "Desc: ");
+      map.set('stat', " related results, taking ");
+      map.set('stat-time', " ms");
+      map.set('site-img', "Image: ");
+    }
+
+    if (map.size > 0) {
+      let lanElems = document.querySelectorAll('.language');
+      lanElems.forEach(elem => {
+        let lan = elem.dataset.lan, text = map.get(lan);
+        if (elem.__proto__ === HTMLInputElement.prototype) {
+          elem.placeholder = text
+        } else {
+          if (elem.dataset.count) {
+            text = elem.dataset.count + text;
+          }
+          elem.textContent = text;
+        }
+      })
+    }
+  }
+
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+
+</script>
+<script src="/media/js/motion.js"></script>
+
+
+  <script
+    src="https://jsdelivr.codeqihan.com/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <script>
+    var scroll = new SmoothScroll('a[href*="#"]', {
+      speed: 200
+    });
+  </script>
+
+
+
+<script src="/media/js/mouse/love.js"></script>
+
+
+  <script src="/media/js/cool.js"></script>
+
+
+
+  <div class="snow-container"></div>
+  <script color="0,205,205" pointer-events="auto" zIndex="-1" opacity='0.7' count="99" src="/media/js/bg/canvas-nest.js"></script>
+
+</html>

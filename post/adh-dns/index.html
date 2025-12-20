@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="LeeNut——分享技术与见解！">
+<meta name="description" content="美好每一天！">
+<meta name="theme-color" content="#000">
+<title>Adguard Home 与加密DNS | LeeNut</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1766226555620">
+<link rel="stylesheet" href="/media/css/pisces.css">
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link
+  href="//fonts.loli.net/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
+
+<link href="/media/hljs/styles/default.css"
+  rel="stylesheet">
+
+<link rel="stylesheet" href="/styles/main.css">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/media/js/jquery.js"></script>
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://jsdelivr.codeqihan.com/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://jsdelivr.codeqihan.com/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<link rel="stylesheet" href="https://jsdelivr.codeqihan.com/npm/katex@0.11.1/dist/katex.min.css"
+  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src="https://jsdelivr.codeqihan.com/npm/katex@0.11.1/dist/katex.min.js"
+  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://jsdelivr.codeqihan.com/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+  <meta name="description" content="Adguard Home 与加密DNS" />
+  <meta name="keywords" content="技术,Linux,Windows,web服务,DNS,网路安全" />
+</head>
+
+<body>
+  <div class="head-top-line"></div>
+  <div class="header-box">
+    <style>
+.gridea-search-input{
+    height: 30px;
+    width: 200px;
+    box-sizing: border-box;
+    padding: 0 15px 0 30px;
+    border: 1px solid #e3e3e3;
+    border-radius: 15px;
+    color: #273849;
+    outline: none;
+    transition: border-color 0.2s ease;
+    background: #fff url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='80' height='65'%3E%3Cpath d='M936.265 854.34L757.43 675.52c46.499-63.168 74.02-141.125 74.02-225.398 0-210.1-170.945-381.039-381.055-381.039S69.346 240.023 69.346 450.122c0 210.105 170.94 381.043 381.049 381.043 84.275 0 162.235-27.52 225.405-74.019l178.833 178.819c11.27 11.265 26.036 16.903 40.813 16.903 14.777 0 29.543-5.638 40.819-16.903 22.536-22.546 22.536-59.09 0-81.625zM163.14 450.122C163.14 291.733 292 162.87 450.396 162.87s287.261 128.862 287.261 287.252c0 158.39-128.867 287.252-287.261 287.252S163.14 608.512 163.14 450.122z' fill='%23C4C4C4'/%3E%3C/svg%3E") 8px 7px no-repeat;
+    background-size: 20px;
+    vertical-align: middle !important;
+}
+.gridea-search-input:focus {
+  border-color: #666666;
+  right: 0;
+}
+</style>
+
+<div class="pisces">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
+        </div>
+      </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>LeeNut</span>
+            </a>  
+          
+        </div>
+        
+          <p class="subtitle">分享生活点滴和见解！</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/" target="_self">
+                  <i class="fa fa-globe"></i> 首页
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/archives" target="_self">
+                  <i class="fa fa-globe"></i> 归档
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/tags" target="_self">
+                  <i class="fa fa-globe"></i> 标签
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/post/about" target="_self">
+                  <i class="fa fa-globe"></i> 关于
+                </a>
+              
+            </li>
+          
+          
+          
+            <li id="fa_search" class="nav-item">
+				<a href="javascript:void(0);">
+					<span class="language" data-lan="search">
+						<div class="gridea-search-div">
+							<form id="gridea-search-form" action="https://leenut.space/search/">
+								<input class="gridea-search-input" autocomplete="off" spellcheck="false" name="q"/>
+							</form>
+						</div>
+					</span>
+				</a>
+			</li>
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
+  
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout pisces ">
+      <div class="section-layout-wrapper">
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p><b><center style="color: black;">LeeNut</center></b></p>
+    
+    <div class="site-description right-motion">
+      
+        <p id="binft">美好每一天！</p>
+      
+    </div>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count"><p style="color: black;">18</p></span>
+        <span class="site-item-stat-name language" data-lan="article"><p style="color: black;">文章</p></span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count"><p style="color: black;">23</p>/</span>
+        <span class="site-item-stat-name language" data-lan="tag"><p style="color: black;">标签</p></span>
+      </a>
+    </div>
+  </div>
+  
+    
+      <div class="sidebar-item">
+        <span class="site-item-rss">
+            <i class="fa fa-rss"></i>
+            <a href="https://leenut.space/atom.xml" target="_blank">RSS</a>
+        </span>
+      </div>
+    
+  
+  
+
+  
+
+
+  <div class="sidebar-item">
+    <script type="text/javascript" id="myhk" src="https://myhkw.cn/api/player/171807673831" key="171807673831" m="1"></script>
+  </div>
+
+
+</div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li><a href="#dns%E7%AE%80%E8%BF%B0">DNS简述</a></li>
+<li><a href="#adguard-home">Adguard Home</a>
+<ul>
+<li><a href="#windows%E7%AB%AF%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE">Windows端安装和配置</a></li>
+<li><a href="#linux-%E7%AB%AF%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE">Linux 端安装与配置</a></li>
+<li><a href="#web%E9%9D%A2%E6%9D%BF%E9%85%8D%E7%BD%AE">web面板配置</a></li>
+<li><a href="#%E5%8A%A0%E5%AF%86dns%E9%85%8D%E7%BD%AE">加密DNS配置</a>
+<ul>
+<li><a href="#%E6%96%B9%E6%A1%88%E4%B8%80%E4%BD%BF%E7%94%A8lets-encrypt%E8%AF%81%E4%B9%A6%E6%8E%A8%E8%8D%90">方案一：使用Let's Encrypt证书（推荐）</a></li>
+<li><a href="#%E6%96%B9%E6%A1%88%E4%BA%8C%E4%BD%BF%E7%94%A8cloudflare-origin-ca%E8%AF%81%E4%B9%A6">方案二：使用Cloudflare Origin CA证书</a></li>
+</ul>
+</li>
+<li><a href="#%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">故障排除——常见问题及解决方案</a></li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    jQuery.Velocity(hideElement, 'stop');
+    jQuery.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        jQuery.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://leenut.space/post/adh-dns/"> Adguard Home 与加密DNS </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span style="color: black;">
+      <i class="fa fa-calendar-o"></i>
+      <span style="color: black;" data-lan="publish">发布于</span>
+      <span style="color: black;" data-t="2025-10-24 14:49:09">2025年10月24日</span>
+      <span style="color: black;">|</span>
+    </span>
+    
+    <span style="color: black;">
+      <i class="fa fa-folder-o"></i>
+      <span style="color: black;" data-lan="category-in">标签:</span>
+       
+      <a href="https://leenut.space/tag/y34y-vlf-E/"> <span>技术</span> </a>、   
+      <a href="https://leenut.space/tag/loKtNRZObI/"> <span>Linux</span> </a>、   
+      <a href="https://leenut.space/tag/opdECx7hI0/"> <span>Windows</span> </a>、   
+      <a href="https://leenut.space/tag/CvSIPgXmnPs/"> <span>web服务</span> </a>、   
+      <a href="https://leenut.space/tag/dXwW3iXLFhQ/"> <span>DNS</span> </a>、   
+      <a href="https://leenut.space/tag/WuFk0H3Gxvt/">
+        <span>网路安全</span>
+      </a>
+       
+    </span>
+    <span style="color: black;">|</span>
+    
+    <span style="color: black;">
+      <i class="fa fa-clock-o"></i>
+      <span
+        >9<span style="color: black;" data-lan="minute"
+          >分钟</span
+        ></span
+      >
+    </span>
+    <span style="color: black;">
+      <span style="color: black;">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span style="color: black;"
+        >2098<span  data-lan="words"
+          >字数</span
+        ></span
+      >
+    </span>
+    
+  </div>
+</section>
+
+            <div class="post-body next-md-body" id="post_body">
+              <p>DNS域名系统是我们使用网络过程中非常重要的一个系统，可以将DNS理解为互联网中的“电话簿”，它的作用是将我们常用的域名（例如：www.example.com）转换成计算机可以理解的IP地址（例如：192.0.2.1），因为计算机是通过IP地址来进行通信的。</p>
+<!-- more -->
+<h1 id="dns简述">DNS简述</h1>
+<p>假设你想给一个朋友打电话，但你手上只有朋友的名字，而没有电话号码。你去查找电话簿，输入朋友的名字，电话簿会告诉你朋友的电话号码。然后你就可以拨打这个电话号码，打通电话。朋友的名字就像是一个网站的域名，电话号码就是网站的IP地址，而电话簿就是DNS，它负责将域名转换成IP地址。当你在浏览器中输入网址时，DNS会帮助你找到对应的IP地址，然后你的计算机就能连接到正确的网站。</p>
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/blog2025/what-is-a-dns-proxy.7i0sccddez.webp" alt="what-is-a-dns-proxy" loading="lazy"></figure>
+<p>普通的DNS数据使用UDP协议通过53端口明文传输，在传输过程中可以通过抢答和劫持修改查询信息，使用户无法访问到正确的IP地址，无法访问网站，就像你问路时被人故意指错方向，让你误入假网站，甚至泄露个人信息。一些国家和DNS服务提供者通过修改自家服务器的DNS地址为错误地址，使用户无法访问正常的网站。对于这种情况，使用加密DNS可以实现避免DNS污染和劫持。</p>
+<p>加密DNS是通过加密传输的方式来保护DNS查询的安全，通常有以下方式：</p>
+<ul>
+<li>DOH （通过https传输DNS数据，默认端口443）</li>
+<li>DOT  （通过TLS传输DNS数据，端口853）</li>
+<li>DOQ （通过QUIC传输DNS数据，端口853，只有少数国家和组织能够审查此协议传输的数据）</li>
+</ul>
+<p>目前windows10/11支持加密DOH，Andorid 9+ 系统支持DOT，Firefox 和 Chrome支持DOT</p>
+<p>本文将在接下来的部分介绍Adguard Home用来配置DNS。</p>
+<h1 id="adguard-home">Adguard Home</h1>
+<p>Adguard Home 是一个用于DNS服务端软件，它通过查询上游DNS服务器的DNS记录给下游客户端实现工作，支持UDP、 TCP 、 DNS-over-TLS、DNS-over-HTTPS、h3（带有强制 HTTP/3 的加密 DNS-over-HTTPS不会回退到 HTTP/2 或更低版本）、DNS-over-QUIC、DNSCryp等协议，带有web界面，易于配置。</p>
+<h2 id="windows端安装和配置">Windows端安装和配置</h2>
+<ol>
+<li>Adguard Home 支持windows系统，可以从GitHub下载windows版本的程序<br>
+<a href="https://github.com/AdguardTeam/AdGuardHome">GitHub : https://github.com/AdguardTeam/AdGuardHome </a><br>
+下载时选择这个文件 <code>AdGuardHome_windows_amd64.zip</code></li>
+<li>将文件中的<code>AdGuardHome.exe</code> 移动到<code> ​C:\Program Files\AdGuard_Home​</code></li>
+<li>创建文件<code>run_adguardhome.bat</code>,添加以下内容到文件</li>
+</ol>
+<pre><code class="language-shell">@echo off
+
+if &quot;%1&quot; == &quot;h&quot; goto begin
+
+mshta vbscript:createobject(&quot;wscript.shell&quot;).run(&quot;&quot;&quot;%~nx0&quot;&quot; h&quot;,0)(window.close)&amp;&amp;exit
+
+:begin
+
+REM
+
+start /b adguardhome.exe
+
+exit
+
+</code></pre>
+<ol start="4">
+<li>将<code>run_adguardhome.bat</code>的快捷方式复制到<code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup</code>,以此实现开机启动。</li>
+<li>打开windows系统的设置，将DNS设置为<code>127.0.0.1</code></li>
+</ol>
+<h2 id="linux-端安装与配置">Linux 端安装与配置</h2>
+<p>Adguard Home页可以安装到Linux系统，具体有三种方式：</p>
+<ol>
+<li>方法一：官方脚本安装（推荐）</li>
+</ol>
+<pre><code class="language-bash"># 使用官方一键安装脚本
+curl -sSL https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh
+</code></pre>
+<p>安装成功后，输出信息会显示：</p>
+<ul>
+<li>AdGuard Home 服务已安装并运行</li>
+<li>管理界面访问地址（通常是 <code>http://IP:3000</code>）</li>
+<li>服务管理命令</li>
+</ul>
+<ol start="2">
+<li>方法二：手动安装</li>
+</ol>
+<pre><code class="language-bash"># 下载AdGuard Home
+wget https://static.adguard.com/adguardhome/release/AdGuardHome_linux_amd64.tar.gz
+# 解压
+tar xvf AdGuardHome_linux_amd64.tar.gz
+# 进入目录并安装
+cd AdGuardHome
+sudo ./AdGuardHome -s install
+</code></pre>
+<ol start="3">
+<li>方法三：Docker安装</li>
+</ol>
+<pre><code class="language-bash">docker run -d \
+  --name adguardhome \
+  --restart unless-stopped \
+  --network host \
+  -v $PWD/adguardhome/work:/opt/adguardhome/work \
+  -v $PWD/adguardhome/conf:/opt/adguardhome/conf \
+  adguard/adguardhome
+</code></pre>
+<ol start="4">
+<li>安装完成后可以把系统的DNS设置为127.0.0.1以此启用DNS:</li>
+</ol>
+<pre><code class="language-bash">sudo nano /etc/systemd/resolved.conf
+</code></pre>
+<p>找到 [Resolve] 部分，取消注释并修改 DNS 和 Domains 行：</p>
+<pre><code class="language-bash">[Resolve]
+DNS=127.0.0.1
+#Domains=~.
+</code></pre>
+<p>重启 systemd-resolved 服务：</p>
+<pre><code class="language-bash">sudo systemctl restart systemd-resolved
+</code></pre>
+<p>验证设置：</p>
+<pre><code class="language-bash">resolvectl status
+</code></pre>
+<p>在输出中，你应该会在 Global 部分看到 DNS Server: 127.0.0.1。</p>
+<ol start="5">
+<li>服务管理命令</li>
+</ol>
+<pre><code class="language-bash"># 启动服务
+sudo /opt/AdGuardHome/AdGuardHome -s start
+# 停止服务
+sudo /opt/AdGuardHome/AdGuardHome -s stop
+# 重启服务
+sudo /opt/AdGuardHome/AdGuardHome -s restart
+# 查看状态
+sudo /opt/AdGuardHome/AdGuardHome -s status
+</code></pre>
+<ol start="6">
+<li>防火墙配置</li>
+</ol>
+<pre><code class="language-bash"># 开放必要端口
+sudo ufw allow 3000/tcp  # 管理界面
+sudo ufw allow 53/tcp    # DNS (TCP)
+sudo ufw allow 53/udp    # DNS (UDP)
+sudo ufw allow 853/tcp   # DNS-over-TLS
+</code></pre>
+<h2 id="web面板配置">web面板配置</h2>
+<p>安装完成后，我们需要打开Adguard Home的web管理面板设置。</p>
+<ol>
+<li>打开 <a href="http://127.0.0.1:3000">http://127.0.0.1:3000</a>,按照页面的步骤完成设置，设置监听端口和账户密码。</li>
+<li>打开设置的管理面板地址<a href="http://127.0.0.1:3000">http://127.0.0.1:您设置的端口</a>，打开<code>设置</code>-&gt;<code>DNS设置</code>，在上游DNS服务器填入可用的DNS地址，可以参考以下网站的地址：<a href="https://encrypteddns.pages.dev/#cn-dns">全量加密 DNS 大全 - 安全解析隐私保护解决方案 | 国内/国际安全 DNS 解析地址推荐（DoH/DoT/QUIC）: https://encrypteddns.pages.dev/#cn-dns</a>，保存配置，测试上游服务器响应，去除无法使用的服务器地址。</li>
+<li>Adguard Home提供了其他的强大功能，例如<strong>广告过滤器</strong>、<strong>安全搜索</strong>、<strong>成人内容拦截</strong>、<strong>时间段控制</strong>、<strong>设备识别</strong>、<strong>个性化设置</strong>、 <strong>速率限制</strong>、<strong>DNSSEC 配置</strong>，大家可以按需求配置。</li>
+</ol>
+<h2 id="加密dns配置">加密DNS配置</h2>
+<p>Adguard Home 支持加密DNS，如果你的Adguard Home安装在服务器或想要在本地体验加密服务，可以启用它。</p>
+<p>在加密设置界面<code>启用加密</code>,输入你的服务器名称（ip地址或域名），设置DOH、DOT、DOQ的端口，将你的证书和私钥的路径或内容填入，保存配置后就能使用了。</p>
+<p>证书获取可以参考以下：</p>
+<h3 id="方案一使用lets-encrypt证书推荐">方案一：使用Let's Encrypt证书（推荐）</h3>
+<ol>
+<li><em><strong>*安装Certbot*</strong></em></li>
+</ol>
+<pre><code class="language-bash">
+sudo apt update
+
+sudo apt install certbot
+
+</code></pre>
+<ol start="2">
+<li><strong>申请证书</strong></li>
+</ol>
+<pre><code class="language-bash">
+sudo crtbot certonly --standalone -d 你的域名 --preferred-challenges http --agree-tos --register-unsafely-without-email
+
+</code></pre>
+<ol start="3">
+<li><strong>证书位置</strong></li>
+</ol>
+<pre><code>/etc/letsencrypt/live/你的域名/fullchain.pem
+/etc/letsencrypt/live/你的域名/privkey.pem
+</code></pre>
+<h3 id="方案二使用cloudflare-origin-ca证书">方案二：使用Cloudflare Origin CA证书</h3>
+<ol>
+<li>
+<p><strong>在Cloudflare创建证书</strong></p>
+<ul>
+<li>登录Cloudflare控制面板</li>
+<li>进入 SSL/TLS &gt; Origin Server</li>
+<li>点击&quot;Create Certificate&quot;</li>
+<li>选择15年有效期证书</li>
+<li>下载证书和私钥</li>
+</ul>
+</li>
+<li>
+<p><strong>上传证书到服务器</strong></p>
+</li>
+</ol>
+<pre><code class="language-bash"># 创建证书目录
+mkdir -p /etc/ssl/adguard
+
+# 上传证书文件
+
+# cert.pem - 证书文件
+
+# key.pem - 私钥文件
+
+</code></pre>
+<h2 id="故障排除常见问题及解决方案">故障排除——常见问题及解决方案</h2>
+<ol>
+<li>端口占用问题<br>
+<strong>检查端口占用</strong>：</li>
+</ol>
+<pre><code class="language-bash">
+sudo netstat -tulpn | grep :80
+
+sudo lsof -i :443
+
+</code></pre>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>停止占用端口的服务</li>
+<li>或使用其他端口</li>
+<li>或使用DNS挑战方式申请证书</li>
+</ul>
+<ol start="2">
+<li>防火墙问题</li>
+</ol>
+<p><strong>检查防火墙状态</strong>：</p>
+<pre><code class="language-bash">sudo ufw status
+</code></pre>
+<p><strong>开放必要端口</strong>：</p>
+<pre><code class="language-bash">
+sudo ufw allow 80/tcp    # HTTP验证
+
+sudo ufw allow 443/tcp   # HTTPS
+
+sudo ufw allow 853/tcp   # DoT
+
+</code></pre>
+<ol start="3">
+<li>无法访问管理界面</li>
+</ol>
+<p><strong>排查步骤：</strong><br>
+​    1. 检查 AdGuard Home 服务是否运行<br>
+​    2. 确认防火墙没有阻止访问<br>
+​    3. 尝试使用 <code>http://127.0.0.1:3000</code><br>
+​    4. 检查浏览器代理设置</p>
+<ol start="4">
+<li>
+<p>广告拦截效果不佳<br>
+<strong>优化建议：</strong></p>
+<ol>
+<li>添加更多过滤规则</li>
+<li>检查是否启用了合适的过滤器</li>
+<li>确认设备 DNS 设置正确</li>
+<li>清空 DNS 缓存</li>
+</ol>
+<pre><code class="language-shell">
+ipconfig /flushdns
+
+</code></pre>
+</li>
+<li>
+<p>网络速度变慢<br>
+<strong>解决方法：</strong></p>
+<ol>
+<li>更换更快的上游 DNS 服务器</li>
+<li>减少过滤规则数量</li>
+<li>检查系统资源使用情况</li>
+<li>启用缓存优化</li>
+</ol>
+</li>
+</ol>
+<h2 id="结语">结语</h2>
+<p>Adguard Home 通过提供安全的DNS保障网络访问的安全，如果你感兴趣，那么赶快来配置。</p>
+<p>参考：</p>
+<ol>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F">域名系统 - 维基百科，自由的百科全书——https://zh.wikipedia.org/wiki/域名系统</a></li>
+<li><a href="https://www.cloudflare.com/zh-tw/learning/dns/dns-over-tls/">DNS over TLS | DNS 安全性 | Cloudflare——https://www.cloudflare.com/zh-tw/learning/dns/dns-over-tls/</a></li>
+<li><a href="https://akashrajpurohit.com/blog/adguard-home-network-wide-ad-blocking-in-your-homelab/">AdGuard Home — 家庭实验室中的全网广告拦截 |阿卡什·拉杰普罗希特——https://akashrajpurohit.com/blog/adguard-home-network-wide-ad-blocking-in-your-homelab/</a></li>
+<li><a href="https://github.com/AdguardTeam/AdGuardHome">AdguardTeam/AdGuardHome: Network-wide ads &amp; trackers blocking DNS server——https://github.com/AdguardTeam/AdGuardHome</a></li>
+<li><a href="https://adguard-dns.io/kb/zh-CN/adguard-home/getting-started/">入门 | AdGuard DNS Knowledge Base——https://adguard-dns.io/kb/zh-CN/adguard-home/getting-started/</a></li>
+<li><a href="https://adguard.com/en/adguard-home/overview.html">AdGuard Home——https://adguard.com/en/adguard-home/overview.html</a></li>
+<li><a href="https://encrypteddns.pages.dev/#cn-dns">全量加密 DNS 大全 - 安全解析隐私保护解决方案 | 国内/国际安全 DNS 解析地址推荐（DoH/DoT/QUIC）——https://encrypteddns.pages.dev/#cn-dns</a></li>
+<li><a href="https://sspai.com/post/63088">AdGuard Home 安装及使用指北 - 少数派——https://sspai.com/post/63088</a></li>
+</ol>
+
+            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      LeeNut
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://leenut.space/post/adh-dns/" title="Adguard Home 与加密DNS">https://leenut.space/post/adh-dns/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://leenut.space/tag/y34y-vlf-E/"># 技术</a>
+    
+      <a href="https://leenut.space/tag/loKtNRZObI/"># Linux</a>
+    
+      <a href="https://leenut.space/tag/opdECx7hI0/"># Windows</a>
+    
+      <a href="https://leenut.space/tag/CvSIPgXmnPs/"># web服务</a>
+    
+      <a href="https://leenut.space/tag/dXwW3iXLFhQ/"># DNS</a>
+    
+      <a href="https://leenut.space/tag/WuFk0H3Gxvt/"># 网路安全</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="Edge mobile浏览器flags实验性功能标志 列表盘点" href="https://leenut.space/post/edge-mobile-flags/">Edge mobile浏览器flags实验性功能标志 列表盘点</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="Edge mobile浏览器flags实验性功能标志 列表盘点" href="https://leenut.space/post/edge-mobile-flags/">上一篇</a>
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="byedpi，深度包检测绕过工具——安装与使用教程" href="https://leenut.space/post/byedpi/">byedpi，深度包检测绕过工具——安装与使用教程</a>
+        <a class="nav-mobile-next" title="byedpi，深度包检测绕过工具——安装与使用教程" href="https://leenut.space/post/byedpi/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+            
+  
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-box">
+  <footer class="footer">
+    <center id="runTimeBox">
+      <p style="color: black;">已运行:<span id="run_time"></span></p>
+    </center>
+    <!-- 
+    <span id="busuanzi_container_site_pv"><p style="color: black;">浏览数:<span id="busuanzi_value_site_pv"></span> 次</p></span>
+    <span id="busuanzi_container_site_uv"><p style="color: black;">访客数:<span id="busuanzi_value_site_uv"></span> 人</p></span>
+     -->
+    <script>
+      BirthDay = new Date('04/10/2024');
+      if (BirthDay.getTime()) {
+        function runTime() {
+          str = "";
+          today = new Date();
+          timeold = today.getTime() - BirthDay.getTime();
+          msPerDay = 24 * 60 * 60 * 1000;
+          e_daysold = timeold / msPerDay;
+          daysold = Math.floor(e_daysold);
+          str += daysold + "天";
+          return str;
+        }
+        setInterval(function () {
+          $("#run_time").html(runTime());
+        }, 1000);
+      } else {
+        document.querySelector('.footer').removeChild(document.querySelector('#runTimeBox'));
+      }
+    </script>
+    <div class="poweredby">
+      <p>&copy; 2024-2026 LeeNet</p>  
+<p>Gridea & Next</p>  
+    </div>
+  </footer>
+  
+    
+        <div class="pisces back-to-top" id="back_to_top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span class="scrollpercent"> <span id="back_to_top_text">0</span>% </span>
+            
+        </div>
+        
+          
+            
+              <div class="bg-img">
+                <img src="https://t.alcy.cc/ycy" />
+              </div>
+              
+                
+                  
+                        
+                          
+
+
+                            
+</div>
+<script>
+  let sideBarOpen = "sidebar-open";
+  let body = document.body;
+  let back2Top = document.querySelector("#back_to_top"),
+    back2TopText = document.querySelector("#back_to_top_text"),
+    drawerBox = document.querySelector("#drawer_box"),
+    rightSideBar = document.querySelector(".sidebar"),
+    viewport = document.querySelector("body");
+
+  function scrollAnimation(currentY, targetY) {
+    let needScrollTop = targetY - currentY;
+    let _currentY = currentY;
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10);
+      _currentY += dist;
+      window.scrollTo(_currentY, currentY);
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY);
+      } else {
+        window.scrollTo(_currentY, targetY);
+      }
+    }, 1);
+  }
+
+  back2Top.addEventListener("click", function (e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+
+  window.addEventListener("scroll", function (e) {
+    let percent =
+      (document.scrollingElement.scrollTop /
+        (document.scrollingElement.scrollHeight -
+          document.scrollingElement.clientHeight)) *
+      100;
+    if (percent > 1 && !back2Top.classList.contains("back-top-active")) {
+      back2Top.classList.add("back-top-active");
+    }
+    if (percent == 0) {
+      back2Top.classList.remove("back-top-active");
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+  let hasCacu = false;
+  window.addEventListener("resize", function (e) {
+    calcuHeight();
+  });
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (
+      (!hasCacu && back2Top.classList.contains("pisces")) ||
+      back2Top.classList.contains("gemini")
+    ) {
+      let sideBar = document.querySelector(".sidebar");
+      let navUl = document.querySelector("#site_nav");
+      sideBar.style =
+        "margin-top:" + (navUl.offsetHeight + navUl.offsetTop + 15) + "px;";
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+
+  let open = false,
+    MOTION_TIME = 300,
+    RIGHT_MOVE_DIS = "320px";
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll(".right-motion");
+    let right = drawerBox.classList.contains("right");
+
+    let transitionDir = right
+      ? "transition.slideRightIn"
+      : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS,
+      };
+      closeProp = {
+        paddingRight: "0px",
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS,
+      };
+      closeProp = {
+        paddingLeft: "0px",
+      };
+    }
+
+    drawerBox.onclick = function () {
+      open = !open;
+      jQuery.Velocity(rightSideBar, "stop");
+      jQuery.Velocity(viewport, "stop");
+      jQuery.Velocity(rightMotions, "stop");
+      if (open) {
+        jQuery.Velocity(
+          rightSideBar,
+          {
+            width: RIGHT_MOVE_DIS,
+          },
+          {
+            duration: MOTION_TIME,
+            begin: function () {
+              jQuery.Velocity(rightMotions, transitionDir, {});
+            },
+          }
+        );
+        jQuery.Velocity(viewport, openProp, {
+          duration: MOTION_TIME,
+        });
+      } else {
+        jQuery.Velocity(
+          rightSideBar,
+          {
+            width: "0px",
+          },
+          {
+            duration: MOTION_TIME,
+            begin: function () {
+              jQuery.Velocity(rightMotions, {
+                opacity: 0,
+              });
+            },
+          }
+        );
+        jQuery.Velocity(viewport, closeProp, {
+          duration: MOTION_TIME,
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle("muse-line");
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    };
+  }
+
+  // 链接跳转
+  let newWindow = "false";
+  if (newWindow === "true") {
+    let links = document.querySelectorAll(".post-body a");
+    links.forEach((item) => {
+      if (!item.classList.contains("btn")) {
+        item.setAttribute("target", "_blank");
+      }
+    });
+  }
+
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+
+  // 离开当前页title变化
+  var leaveTitle = "亲，别走啊！";
+  var normal_title = document.title;
+  if (leaveTitle) {
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState == "hidden") {
+        normal_title = document.title;
+        document.title = leaveTitle;
+      } else {
+        document.title = normal_title;
+      }
+    });
+  }
+</script>
+
+<link rel="stylesheet" href="/media/css/jquery.fancybox.css" />
+<script src="/media/js/jquery.fancybox.js"></script>
+
+<script>
+  let images = document.querySelectorAll(".section img");
+  images.forEach((image) => {
+    var parent = image.parentElement;
+    var next = image.nextElementSibling;
+    parent.removeChild(image);
+    var aelem = document.createElement("a");
+    aelem.href = image.src;
+    aelem.dataset["fancybox"] = "images";
+    aelem.dataset["rel"] = "fancybox-button";
+    aelem.classList.add("fancybox");
+    aelem.appendChild(image);
+    parent.insertBefore(aelem, next);
+  });
+</script>
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip"> </p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        jQuery.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        jQuery.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        jQuery.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        jQuery.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      jQuery.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      jQuery.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
+  </div>
+</body>
+<input hidden id="copy" />
+<script>
+  !function () {
+    let times = document.querySelectorAll('.publish-time');
+    for (let i = 0; i < times.length; i++) {
+      let date = times[i].dataset.t;
+      let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
+      if (time < 60) {
+        str = time + '秒之前';
+      } else if (time < 3600) {
+        str = Math.floor(time / 60) + '分钟之前';
+      } else if (time >= 3600 && time < 86400) {
+        str = Math.floor(time / 3600) + '小时之前';
+      } else if (time >= 86400 && time < 259200) {
+        str = Math.floor(time / 86400) + '天之前';
+      } else {
+        str = times[i].textContent;
+      }
+      times[i].textContent = str;
+    }
+  }();
+</script>
+
+<script>
+  let language = '';
+  if (language !== '') {
+    let map = new Map();
+    if (language === 'en') {
+      map.set('search', 'Search');
+      map.set('category', 'Categories');
+      map.set('article', 'Articles');
+      map.set('tag', 'Tags');
+      map.set('top', 'Top');
+      map.set('publish', 'published');
+      map.set('minute', ' minutes');
+      map.set('read-more', 'Read More');
+      map.set('view', 'View');
+      map.set('words', ' words');
+      map.set('category-in', 'category in');
+      map.set('preview', 'Meta');
+      map.set('index', 'Toc');
+      map.set('no-archives', "You haven't created yet");
+      map.set('archives', " articles in total");
+      map.set('cloud-tags', " tags in total");
+      map.set('copyright', "Copyright: ");
+      map.set('author', "Author: ");
+      map.set('link', "Link: ");
+      map.set('leave-message', "Leave a message");
+      map.set('format', "Links Format");
+      map.set('site-name', "Name: ");
+      map.set('site-link', "Link: ");
+      map.set('site-desc', "Desc: ");
+      map.set('stat', " related results, taking ");
+      map.set('stat-time', " ms");
+      map.set('site-img', "Image: ");
+    }
+
+    if (map.size > 0) {
+      let lanElems = document.querySelectorAll('.language');
+      lanElems.forEach(elem => {
+        let lan = elem.dataset.lan, text = map.get(lan);
+        if (elem.__proto__ === HTMLInputElement.prototype) {
+          elem.placeholder = text
+        } else {
+          if (elem.dataset.count) {
+            text = elem.dataset.count + text;
+          }
+          elem.textContent = text;
+        }
+      })
+    }
+  }
+
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+
+</script>
+<script src="/media/js/motion.js"></script>
+
+
+  <script
+    src="https://jsdelivr.codeqihan.com/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <script>
+    var scroll = new SmoothScroll('a[href*="#"]', {
+      speed: 200
+    });
+  </script>
+
+
+
+<script src="/media/js/mouse/love.js"></script>
+
+
+  <script src="/media/js/cool.js"></script>
+
+
+
+  <div class="snow-container"></div>
+  <script color="0,205,205" pointer-events="auto" zIndex="-1" opacity='0.7' count="99" src="/media/js/bg/canvas-nest.js"></script>
+
+</html>

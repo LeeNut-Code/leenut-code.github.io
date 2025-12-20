@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="LeeNut——分享技术与见解！">
+<meta name="description" content="美好每一天！">
+<meta name="theme-color" content="#000">
+<title>做好安卓手机隐私安全，实现个资安全保障 | LeeNut</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1766226555620">
+<link rel="stylesheet" href="/media/css/pisces.css">
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link
+  href="//fonts.loli.net/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
+
+<link href="/media/hljs/styles/default.css"
+  rel="stylesheet">
+
+<link rel="stylesheet" href="/styles/main.css">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/media/js/jquery.js"></script>
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://jsdelivr.codeqihan.com/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://jsdelivr.codeqihan.com/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<link rel="stylesheet" href="https://jsdelivr.codeqihan.com/npm/katex@0.11.1/dist/katex.min.css"
+  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src="https://jsdelivr.codeqihan.com/npm/katex@0.11.1/dist/katex.min.js"
+  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://jsdelivr.codeqihan.com/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+  <meta name="description" content="做好安卓手机隐私安全，实现个资安全保障" />
+  <meta name="keywords" content="Android,网路安全" />
+</head>
+
+<body>
+  <div class="head-top-line"></div>
+  <div class="header-box">
+    <style>
+.gridea-search-input{
+    height: 30px;
+    width: 200px;
+    box-sizing: border-box;
+    padding: 0 15px 0 30px;
+    border: 1px solid #e3e3e3;
+    border-radius: 15px;
+    color: #273849;
+    outline: none;
+    transition: border-color 0.2s ease;
+    background: #fff url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='80' height='65'%3E%3Cpath d='M936.265 854.34L757.43 675.52c46.499-63.168 74.02-141.125 74.02-225.398 0-210.1-170.945-381.039-381.055-381.039S69.346 240.023 69.346 450.122c0 210.105 170.94 381.043 381.049 381.043 84.275 0 162.235-27.52 225.405-74.019l178.833 178.819c11.27 11.265 26.036 16.903 40.813 16.903 14.777 0 29.543-5.638 40.819-16.903 22.536-22.546 22.536-59.09 0-81.625zM163.14 450.122C163.14 291.733 292 162.87 450.396 162.87s287.261 128.862 287.261 287.252c0 158.39-128.867 287.252-287.261 287.252S163.14 608.512 163.14 450.122z' fill='%23C4C4C4'/%3E%3C/svg%3E") 8px 7px no-repeat;
+    background-size: 20px;
+    vertical-align: middle !important;
+}
+.gridea-search-input:focus {
+  border-color: #666666;
+  right: 0;
+}
+</style>
+
+<div class="pisces">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
+        </div>
+      </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>LeeNut</span>
+            </a>  
+          
+        </div>
+        
+          <p class="subtitle">分享生活点滴和见解！</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/" target="_self">
+                  <i class="fa fa-globe"></i> 首页
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/archives" target="_self">
+                  <i class="fa fa-globe"></i> 归档
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/tags" target="_self">
+                  <i class="fa fa-globe"></i> 标签
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/post/about" target="_self">
+                  <i class="fa fa-globe"></i> 关于
+                </a>
+              
+            </li>
+          
+          
+          
+            <li id="fa_search" class="nav-item">
+				<a href="javascript:void(0);">
+					<span class="language" data-lan="search">
+						<div class="gridea-search-div">
+							<form id="gridea-search-form" action="https://leenut.space/search/">
+								<input class="gridea-search-input" autocomplete="off" spellcheck="false" name="q"/>
+							</form>
+						</div>
+					</span>
+				</a>
+			</li>
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
+  
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout pisces ">
+      <div class="section-layout-wrapper">
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p><b><center style="color: black;">LeeNut</center></b></p>
+    
+    <div class="site-description right-motion">
+      
+        <p id="binft">美好每一天！</p>
+      
+    </div>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count"><p style="color: black;">18</p></span>
+        <span class="site-item-stat-name language" data-lan="article"><p style="color: black;">文章</p></span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count"><p style="color: black;">23</p>/</span>
+        <span class="site-item-stat-name language" data-lan="tag"><p style="color: black;">标签</p></span>
+      </a>
+    </div>
+  </div>
+  
+    
+      <div class="sidebar-item">
+        <span class="site-item-rss">
+            <i class="fa fa-rss"></i>
+            <a href="https://leenut.space/atom.xml" target="_blank">RSS</a>
+        </span>
+      </div>
+    
+  
+  
+
+  
+
+
+  <div class="sidebar-item">
+    <script type="text/javascript" id="myhk" src="https://myhkw.cn/api/player/171807673831" key="171807673831" m="1"></script>
+  </div>
+
+
+</div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%8F%AF%E9%9D%A0%E7%9A%84%E6%89%8B%E6%9C%BA%E5%93%81%E7%89%8C%E5%92%8Crom%E6%98%AF%E6%9C%80%E5%BA%95%E5%B1%82%E7%9A%84%E5%AE%89%E5%85%A8%E4%BF%9D%E9%9A%9C">可靠的手机品牌和ROM，是最底层的安全保障</a></li>
+<li><a href="#%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86">应用程序权限管理</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E5%AE%89%E5%85%A8%E7%9A%84%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97%E9%81%BF%E5%85%8D%E5%AE%89%E8%A3%85%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E8%BD%AF%E4%BB%B6">使用安全的应用商店，避免安装不安全的软件</a></li>
+<li><a href="#%E7%BD%91%E7%BB%9C%E8%B4%A6%E5%8F%B7%E5%AE%89%E5%85%A8%E5%92%8C%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93%E5%AE%89%E5%85%A8">网络账号安全和社交媒体安全</a></li>
+<li><a href="#%E8%BE%93%E5%85%A5%E6%B3%95%E5%AE%89%E5%85%A8">输入法安全</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8vpn%E4%BF%9D%E6%8A%A4%E4%B8%8A%E7%BD%91%E9%9A%90%E7%A7%81">使用VPN保护上网隐私</a></li>
+<li><a href="#%E9%81%BF%E5%85%8D%E8%BF%9E%E6%8E%A5%E4%B8%8D%E5%8F%97%E4%BF%A1%E4%BB%BB%E7%9A%84wi-fi">避免连接不受信任的Wi-Fi</a></li>
+<li><a href="#%E8%AE%BE%E7%BD%AE%E5%BC%BA%E5%AF%86%E7%A0%81%E5%92%8C%E7%94%9F%E7%89%A9%E8%AF%86%E5%88%AB">设置强密码和生物识别</a></li>
+<li><a href="#%E5%AE%9A%E6%9C%9F%E5%A4%87%E4%BB%BD%E5%B9%B6%E5%8A%A0%E5%AF%86%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE">定期备份并加密敏感数据</a></li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    jQuery.Velocity(hideElement, 'stop');
+    jQuery.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        jQuery.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://leenut.space/post/2024-10-17/"> 做好安卓手机隐私安全，实现个资安全保障 </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span style="color: black;">
+      <i class="fa fa-calendar-o"></i>
+      <span style="color: black;" data-lan="publish">发布于</span>
+      <span style="color: black;" data-t="2024-10-17 13:58:20">2024年10月17日</span>
+      <span style="color: black;">|</span>
+    </span>
+    
+    <span style="color: black;">
+      <i class="fa fa-folder-o"></i>
+      <span style="color: black;" data-lan="category-in">标签:</span>
+       
+      <a href="https://leenut.space/tag/o0-XRTQaXbI/"> <span>Android</span> </a>、   
+      <a href="https://leenut.space/tag/WuFk0H3Gxvt/">
+        <span>网路安全</span>
+      </a>
+       
+    </span>
+    <span style="color: black;">|</span>
+    
+    <span style="color: black;">
+      <i class="fa fa-clock-o"></i>
+      <span
+        >9<span style="color: black;" data-lan="minute"
+          >分钟</span
+        ></span
+      >
+    </span>
+    <span style="color: black;">
+      <span style="color: black;">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span style="color: black;"
+        >2561<span  data-lan="words"
+          >字数</span
+        ></span
+      >
+    </span>
+    
+  </div>
+</section>
+
+            <div class="post-body next-md-body" id="post_body">
+              <p>在如今的数字时代，智能手机已成为生活中不可或缺的一部分。对于Android用户，尤其是在中国，隐私安全问题越来越受到关注。由于Android系统的开放性和中国特殊的互联网环境，普通用户的隐私安全面临更多的挑战。那么，普通中国用户应如何在日常生活中保护自己Android手机上的隐私安全呢？以下是一些实用的建议。</p>
+<!-- more -->
+<h3 id="可靠的手机品牌和rom是最底层的安全保障">可靠的手机品牌和ROM，是最底层的安全保障</h3>
+<p>尽量选择信誉良好的手机品牌，尤其是那些注重隐私安全的厂商。一些良心品牌秉持“不作恶”的理念，他们的产品能够尽量做到隐私安全。购买手机时，可以选择拥有较好隐私保护记录的品牌，如Google的Pixel、Samsung等。</p>
+<p>刷机和安装第三方ROM，是保障隐私安全的重要一步。一些国产手机的系统内置一些不利于隐私安全的模块和软件，刷机和安装第三方ROM系统可以尽可能避免这些软件窃取你的隐私。</p>
+<p><strong>优先级小建议：</strong></p>
+<pre><code>Pixel &gt; Samsung &gt; 小米/魅族 &gt; oppo/vivo &gt; 华为
+</code></pre>
+<h3 id="应用程序权限管理">应用程序权限管理</h3>
+<p>很多Android应用在安装时会请求大量的权限，如访问联系人、位置、相机、麦克风等，但并不是每个应用都需要这些权限。因此，用户应审查每个应用程序请求的权限，并在安装时拒绝不必要的权限。</p>
+<p>在设置中，可以进入“应用权限管理”查看和调整已安装应用的权限，定期检查权限状态，避免应用获得过多的访问权限。<br>
+也可以通过root或adb给“权限狗”或其他权限管理软件授权来管理权限。</p>
+<p><strong>重要权限清单（不同手机情况可能不同）：</strong></p>
+<ul>
+<li>读取已安装应用信息（不建议授权）</li>
+<li>位置权限（非必要不授权，必要时建议设置为前台允许）</li>
+<li>从媒体中读取位置（不建议授权）</li>
+<li>读取存储权限（非必要不授权，必要时建议设置为前台允许）</li>
+<li>读取短信、读取通话记录、读取联系人（不建议授权）</li>
+<li>读取剪贴板内容（不建议授权，输入法可以授权，一些文本查看和编辑软件可设置为前台允许）</li>
+<li>读取日历（非日历应用不建议授权）</li>
+<li>读取手机号码、读取设备id、读取手机状态（不建议授权）</li>
+<li>相机、录音（非必要不授权，必要时建议设置为前台允许）</li>
+<li>获取账号、获取使用情况（不建议授权）</li>
+</ul>
+<h3 id="使用安全的应用商店避免安装不安全的软件">使用安全的应用商店，避免安装不安全的软件</h3>
+<p>为了确保手机上的应用程序安全可靠，避免下载到含有恶意代码或带有隐私泄露风险的软件，建议始终从可信的应用商店下载应用。在中国，虽然Google Play Store可能不完全可用，但用户可以依赖其他主流的安全应用商店，如酷安、应用宝等。</p>
+<p>通过这些应用商店下载的应用经过安全审查，能够有效降低恶意软件和不安全应用的风险。同时，避免从第三方网站或不知名的下载平台安装APK文件，因为这些来源可能会被植入恶意代码，窃取你的个人数据或控制你的设备。</p>
+<p>如果你必须安装来自不明来源的应用程序，建议在安装后立刻运行手机的安全扫描工具，对该应用进行彻底检查，确保其没有安全漏洞。</p>
+<p><strong>应用安全性优先级：</strong></p>
+<pre><code>不联网应用 &gt;&gt; 联网应用
+开源软件 &gt; 非开源软件
+国外大厂软件 &gt;&gt;&gt; 国内大厂软件
+</code></pre>
+<h3 id="网络账号安全和社交媒体安全">网络账号安全和社交媒体安全</h3>
+<p>在互联网时代，保护网络账号安全和社交媒体的安全对于个人隐私至关重要。</p>
+<p>在注册账号时，国外网络平台账号可以使用邮箱注册，建议使用Gmail（强力推荐）、outlook等安全性高的邮箱注册，不建议使用中国邮箱。临时使用的账号可以使用临时邮箱（Temp mail）注册。对于中国国内的网络平台，不建议办理网络身份证（网证、网号），一般情况下使用+86手机号注册，非必要情况（直播等属于必要情况）不要进行实名认证。注册账号后，请不要对不同平台的账号进行关联，做好网络平台内的隐私设置。建议不同平台使用不同的个人信息（昵称、头像等），请不要将国内个人账号的发言内容搬运到国外账号。</p>
+<p>使用强密码可以提升账号安全。避免使用简单密码或常见的密码组合（如“123456”或“password”）。建议使用复杂的密码，包括大小写字母、数字和符号。此外，定期更换密码，不要在多个账号上重复使用同一密码。可以使用密码生成器用来生成强密码，使用可靠的密码管理器用来保存密码。</p>
+<p>警惕钓鱼攻击：不要点击来自不明来源的链接或打开可疑的邮件和信息，这些可能是钓鱼攻击的伪装，目的是获取你的账号密码。访问重要网站时，务必手动输入网址，避免通过未知的第三方链接登录。</p>
+<p>定期检查账户活动：定期登录各个重要的账号，检查是否有可疑的登录记录或异常活动。如发现异常，立刻更改密码并检查是否绑定了不明设备。</p>
+<p>谨慎处理社交媒体信息：在社交媒体上，尽量减少公开分享个人信息，如真实姓名、地址、电话等。检查并调整社交平台的隐私设置，确保你的个人信息只对可信的好友可见，防止被陌生人追踪或利用。</p>
+<h3 id="输入法安全">输入法安全</h3>
+<p>输入法是我们日常使用手机时最频繁的工具之一，但它同时也可能成为隐私泄露的渠道。由于输入法能够记录你输入的所有信息，包括账号、密码、信用卡号等敏感内容，因此选择安全的输入法非常重要。</p>
+<p>选择可信赖的输入法：避免使用来源不明或知名度低的输入法，建议使用大厂开发并有良好隐私保护记录的输入法应用，如Google输入法、微软输入法等。国产输入法存在很大的隐私安全漏洞，一般情况请谨慎使用。</p>
+<p>关闭云同步和数据上传：许多输入法应用会提供云同步功能，将用户的输入习惯、词库甚至部分输入内容上传到服务器进行存储和分析。为了保护隐私，建议关闭云同步功能，避免输入数据被上传。你可以在输入法设置中找到并关闭“云输入”、“个性化推荐”等功能。</p>
+<p>定期清理输入法缓存：输入法会根据用户输入的内容建立个性化词库，长期使用后，输入法可能积累大量与用户相关的敏感信息。定期清理输入法的缓存和词库，确保敏感信息不会在本地或云端存储过久。</p>
+<p>使用专用的密码键盘：当你在输入账号密码或敏感信息时，尽量使用输入法中的“安全键盘”或“密码键盘”模式，这些模式通常不会收集或存储你输入的数据，能够有效防止密码泄露。</p>
+<p>关注输入法权限：输入法应用通常会申请多个权限，包括读取联系人、访问网络等。在安装输入法时，建议仔细检查并限制它们的权限，只允许必要的权限，拒绝不必要的网络访问和读取设备信息等敏感权限。</p>
+<h3 id="使用vpn保护上网隐私">使用VPN保护上网隐私</h3>
+<p>中国的网络环境存在某些限制，但用户可以使用虚拟专用网络（VPN）来保护上网隐私。通过加密网络流量，VPN能有效防止数据被第三方监视、窃取。同时，使用知名的VPN服务商，确保不会泄露用户的上网活动信息。</p>
+<blockquote>
+<p><strong>请谨慎选择和使用VPN</strong></p>
+</blockquote>
+<h3 id="避免连接不受信任的wi-fi">避免连接不受信任的Wi-Fi</h3>
+<p>公共Wi-Fi网络常常缺乏加密保护，攻击者可以轻易获取用户通过这些网络传输的敏感数据。尽量避免连接不受信任的公共Wi-Fi网络，尤其是在购物、银行操作等需要输入敏感信息时。如果必须使用公共网络，务必通过VPN加密连接。</p>
+<h3 id="设置强密码和生物识别">设置强密码和生物识别</h3>
+<p>手机密码、指纹识别或人脸识别可以有效地防止未经授权的访问。确保手机设置了强密码，不使用过于简单的密码组合如“123456”或“0000”。同时，启用生物识别功能，如指纹或面部解锁，进一步提升设备的安全性。</p>
+<h3 id="定期备份并加密敏感数据">定期备份并加密敏感数据</h3>
+<p>定期将手机上的数据进行备份，并对重要文件和数据进行加密。可以使用Google Drive、onedrive等云存储服务，需要启用双重身份验证和加密措施，确保即使设备丢失，数据也不会轻易落入他人之手。同时记得删除文件内置的隐私信息（例如：图片的exit信息）。</p>
+<h3 id="结语">结语</h3>
+<p>希望每位Android用户都能在数字世界中安全、自由地使用自己的设备，保护自己的个人信息不被侵犯。</p>
+<hr>
+
+            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      LeeNut
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://leenut.space/post/2024-10-17/" title="做好安卓手机隐私安全，实现个资安全保障">https://leenut.space/post/2024-10-17/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://leenut.space/tag/o0-XRTQaXbI/"># Android</a>
+    
+      <a href="https://leenut.space/tag/WuFk0H3Gxvt/"># 网路安全</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="Firefox 浏览器界面高度定制化" href="https://leenut.space/post/2024-10-30/">Firefox 浏览器界面高度定制化</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="Firefox 浏览器界面高度定制化" href="https://leenut.space/post/2024-10-30/">上一篇</a>
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="快速搭建个人博客：用 Hexo 打造你的专属空间" href="https://leenut.space/post/2024-10-11/">快速搭建个人博客：用 Hexo 打造你的专属空间</a>
+        <a class="nav-mobile-next" title="快速搭建个人博客：用 Hexo 打造你的专属空间" href="https://leenut.space/post/2024-10-11/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+            
+  
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-box">
+  <footer class="footer">
+    <center id="runTimeBox">
+      <p style="color: black;">已运行:<span id="run_time"></span></p>
+    </center>
+    <!-- 
+    <span id="busuanzi_container_site_pv"><p style="color: black;">浏览数:<span id="busuanzi_value_site_pv"></span> 次</p></span>
+    <span id="busuanzi_container_site_uv"><p style="color: black;">访客数:<span id="busuanzi_value_site_uv"></span> 人</p></span>
+     -->
+    <script>
+      BirthDay = new Date('04/10/2024');
+      if (BirthDay.getTime()) {
+        function runTime() {
+          str = "";
+          today = new Date();
+          timeold = today.getTime() - BirthDay.getTime();
+          msPerDay = 24 * 60 * 60 * 1000;
+          e_daysold = timeold / msPerDay;
+          daysold = Math.floor(e_daysold);
+          str += daysold + "天";
+          return str;
+        }
+        setInterval(function () {
+          $("#run_time").html(runTime());
+        }, 1000);
+      } else {
+        document.querySelector('.footer').removeChild(document.querySelector('#runTimeBox'));
+      }
+    </script>
+    <div class="poweredby">
+      <p>&copy; 2024-2026 LeeNet</p>  
+<p>Gridea & Next</p>  
+    </div>
+  </footer>
+  
+    
+        <div class="pisces back-to-top" id="back_to_top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span class="scrollpercent"> <span id="back_to_top_text">0</span>% </span>
+            
+        </div>
+        
+          
+            
+              <div class="bg-img">
+                <img src="https://t.alcy.cc/ycy" />
+              </div>
+              
+                
+                  
+                        
+                          
+
+
+                            
+</div>
+<script>
+  let sideBarOpen = "sidebar-open";
+  let body = document.body;
+  let back2Top = document.querySelector("#back_to_top"),
+    back2TopText = document.querySelector("#back_to_top_text"),
+    drawerBox = document.querySelector("#drawer_box"),
+    rightSideBar = document.querySelector(".sidebar"),
+    viewport = document.querySelector("body");
+
+  function scrollAnimation(currentY, targetY) {
+    let needScrollTop = targetY - currentY;
+    let _currentY = currentY;
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10);
+      _currentY += dist;
+      window.scrollTo(_currentY, currentY);
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY);
+      } else {
+        window.scrollTo(_currentY, targetY);
+      }
+    }, 1);
+  }
+
+  back2Top.addEventListener("click", function (e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+
+  window.addEventListener("scroll", function (e) {
+    let percent =
+      (document.scrollingElement.scrollTop /
+        (document.scrollingElement.scrollHeight -
+          document.scrollingElement.clientHeight)) *
+      100;
+    if (percent > 1 && !back2Top.classList.contains("back-top-active")) {
+      back2Top.classList.add("back-top-active");
+    }
+    if (percent == 0) {
+      back2Top.classList.remove("back-top-active");
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+  let hasCacu = false;
+  window.addEventListener("resize", function (e) {
+    calcuHeight();
+  });
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (
+      (!hasCacu && back2Top.classList.contains("pisces")) ||
+      back2Top.classList.contains("gemini")
+    ) {
+      let sideBar = document.querySelector(".sidebar");
+      let navUl = document.querySelector("#site_nav");
+      sideBar.style =
+        "margin-top:" + (navUl.offsetHeight + navUl.offsetTop + 15) + "px;";
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+
+  let open = false,
+    MOTION_TIME = 300,
+    RIGHT_MOVE_DIS = "320px";
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll(".right-motion");
+    let right = drawerBox.classList.contains("right");
+
+    let transitionDir = right
+      ? "transition.slideRightIn"
+      : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS,
+      };
+      closeProp = {
+        paddingRight: "0px",
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS,
+      };
+      closeProp = {
+        paddingLeft: "0px",
+      };
+    }
+
+    drawerBox.onclick = function () {
+      open = !open;
+      jQuery.Velocity(rightSideBar, "stop");
+      jQuery.Velocity(viewport, "stop");
+      jQuery.Velocity(rightMotions, "stop");
+      if (open) {
+        jQuery.Velocity(
+          rightSideBar,
+          {
+            width: RIGHT_MOVE_DIS,
+          },
+          {
+            duration: MOTION_TIME,
+            begin: function () {
+              jQuery.Velocity(rightMotions, transitionDir, {});
+            },
+          }
+        );
+        jQuery.Velocity(viewport, openProp, {
+          duration: MOTION_TIME,
+        });
+      } else {
+        jQuery.Velocity(
+          rightSideBar,
+          {
+            width: "0px",
+          },
+          {
+            duration: MOTION_TIME,
+            begin: function () {
+              jQuery.Velocity(rightMotions, {
+                opacity: 0,
+              });
+            },
+          }
+        );
+        jQuery.Velocity(viewport, closeProp, {
+          duration: MOTION_TIME,
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle("muse-line");
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    };
+  }
+
+  // 链接跳转
+  let newWindow = "false";
+  if (newWindow === "true") {
+    let links = document.querySelectorAll(".post-body a");
+    links.forEach((item) => {
+      if (!item.classList.contains("btn")) {
+        item.setAttribute("target", "_blank");
+      }
+    });
+  }
+
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+
+  // 离开当前页title变化
+  var leaveTitle = "亲，别走啊！";
+  var normal_title = document.title;
+  if (leaveTitle) {
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState == "hidden") {
+        normal_title = document.title;
+        document.title = leaveTitle;
+      } else {
+        document.title = normal_title;
+      }
+    });
+  }
+</script>
+
+<link rel="stylesheet" href="/media/css/jquery.fancybox.css" />
+<script src="/media/js/jquery.fancybox.js"></script>
+
+<script>
+  let images = document.querySelectorAll(".section img");
+  images.forEach((image) => {
+    var parent = image.parentElement;
+    var next = image.nextElementSibling;
+    parent.removeChild(image);
+    var aelem = document.createElement("a");
+    aelem.href = image.src;
+    aelem.dataset["fancybox"] = "images";
+    aelem.dataset["rel"] = "fancybox-button";
+    aelem.classList.add("fancybox");
+    aelem.appendChild(image);
+    parent.insertBefore(aelem, next);
+  });
+</script>
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip"> </p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        jQuery.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        jQuery.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        jQuery.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        jQuery.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      jQuery.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      jQuery.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
+  </div>
+</body>
+<input hidden id="copy" />
+<script>
+  !function () {
+    let times = document.querySelectorAll('.publish-time');
+    for (let i = 0; i < times.length; i++) {
+      let date = times[i].dataset.t;
+      let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
+      if (time < 60) {
+        str = time + '秒之前';
+      } else if (time < 3600) {
+        str = Math.floor(time / 60) + '分钟之前';
+      } else if (time >= 3600 && time < 86400) {
+        str = Math.floor(time / 3600) + '小时之前';
+      } else if (time >= 86400 && time < 259200) {
+        str = Math.floor(time / 86400) + '天之前';
+      } else {
+        str = times[i].textContent;
+      }
+      times[i].textContent = str;
+    }
+  }();
+</script>
+
+<script>
+  let language = '';
+  if (language !== '') {
+    let map = new Map();
+    if (language === 'en') {
+      map.set('search', 'Search');
+      map.set('category', 'Categories');
+      map.set('article', 'Articles');
+      map.set('tag', 'Tags');
+      map.set('top', 'Top');
+      map.set('publish', 'published');
+      map.set('minute', ' minutes');
+      map.set('read-more', 'Read More');
+      map.set('view', 'View');
+      map.set('words', ' words');
+      map.set('category-in', 'category in');
+      map.set('preview', 'Meta');
+      map.set('index', 'Toc');
+      map.set('no-archives', "You haven't created yet");
+      map.set('archives', " articles in total");
+      map.set('cloud-tags', " tags in total");
+      map.set('copyright', "Copyright: ");
+      map.set('author', "Author: ");
+      map.set('link', "Link: ");
+      map.set('leave-message', "Leave a message");
+      map.set('format', "Links Format");
+      map.set('site-name', "Name: ");
+      map.set('site-link', "Link: ");
+      map.set('site-desc', "Desc: ");
+      map.set('stat', " related results, taking ");
+      map.set('stat-time', " ms");
+      map.set('site-img', "Image: ");
+    }
+
+    if (map.size > 0) {
+      let lanElems = document.querySelectorAll('.language');
+      lanElems.forEach(elem => {
+        let lan = elem.dataset.lan, text = map.get(lan);
+        if (elem.__proto__ === HTMLInputElement.prototype) {
+          elem.placeholder = text
+        } else {
+          if (elem.dataset.count) {
+            text = elem.dataset.count + text;
+          }
+          elem.textContent = text;
+        }
+      })
+    }
+  }
+
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+
+</script>
+<script src="/media/js/motion.js"></script>
+
+
+  <script
+    src="https://jsdelivr.codeqihan.com/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <script>
+    var scroll = new SmoothScroll('a[href*="#"]', {
+      speed: 200
+    });
+  </script>
+
+
+
+<script src="/media/js/mouse/love.js"></script>
+
+
+  <script src="/media/js/cool.js"></script>
+
+
+
+  <div class="snow-container"></div>
+  <script color="0,205,205" pointer-events="auto" zIndex="-1" opacity='0.7' count="99" src="/media/js/bg/canvas-nest.js"></script>
+
+</html>
