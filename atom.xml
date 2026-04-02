@@ -1,0 +1,2401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://leenut.space</id>
+    <title>LeeNut</title>
+    <updated>2026-04-02T09:21:32.462Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://leenut.space"/>
+    <link rel="self" href="https://leenut.space/atom.xml"/>
+    <subtitle>美好每一天！</subtitle>
+    <logo>https://leenut.space/images/avatar.png</logo>
+    <icon>https://leenut.space/favicon.ico</icon>
+    <rights>All rights reserved 2026, LeeNut</rights>
+    <entry>
+        <title type="html"><![CDATA[解锁 Markdown，我的 MD 笔记：（一）Markdown 的起源与全平台工具选择]]></title>
+        <id>https://leenut.space/post/markdown1/</id>
+        <link href="https://leenut.space/post/markdown1/">
+        </link>
+        <updated>2026-03-26T11:41:07.000Z</updated>
+        <summary type="html"><![CDATA[<p>Markdown，堪称当代码字人的“摸鱼神器”！它主打一个“极简主义”，用最简单的符号代替复杂的排版指令，让你在写文档时也能拥有“沉浸式”体验。它的核心奥义在于：源码即发布。即便不看渲染后的效果，纯文本状态下也清爽易读，完全没有乱码干扰。说白了，它就是为了让你的注意力回归内容本身，告别鼠标点点点的繁琐操作，让你专注于逻辑与创作。这种“内容至上”的纯粹感，正是它能打破圈层，成为数字化办公“通用语”的根本原因！</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Markdown，堪称当代码字人的“摸鱼神器”！它主打一个“极简主义”，用最简单的符号代替复杂的排版指令，让你在写文档时也能拥有“沉浸式”体验。它的核心奥义在于：源码即发布。即便不看渲染后的效果，纯文本状态下也清爽易读，完全没有乱码干扰。说白了，它就是为了让你的注意力回归内容本身，告别鼠标点点点的繁琐操作，让你专注于逻辑与创作。这种“内容至上”的纯粹感，正是它能打破圈层，成为数字化办公“通用语”的根本原因！</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/Markdown.webp" alt="" loading="lazy"></figure>
+<h1 id="序章markdown-的前世今生">序章：Markdown 的前世今生</h1>
+<h2 id="markdown-的诞生">Markdown 的诞生</h2>
+<p>Markdown 的诞生源于一次对繁琐规则的“极简革命”。2004 年，知名科技博主 John Gruber 意识到，在撰写博客时反复手写复杂的 HTML 标签极大地破坏了创作的连贯性。他渴望一种既能像纯文本邮件般清晰易读，又能轻松转化为网页代码的工具。</p>
+<p>在这个过程中，互联网奇才 Aaron Swartz 也深度参与了语法的早期设计。两人通过邮件往返，打磨出了一套极具前瞻性的方案：用最朴素的点缀，如星号、井号和括号，来赋予文本结构。这段合作不仅诞生了 Markdown，更确立了其核心准则：标记不应喧宾夺主。这套为了“偷懒”而设计的轻量化方案，最终在两人的共同推动下，从一个极客圈的小众脚本，演变成了席卷全球的文档标准，彻底改变了数字化时代的书写逻辑。</p>
+<h2 id="应用领域">应用领域</h2>
+<p>如今，Markdown 的身影早已遍布数字化生产力的每一个角落。在编程世界，它是开源项目的“门面”，几乎所有 GitHub 仓库的 <code>README.md</code> 都由它构建，承担着项目说明与技术文档的重任。在内容创作领域，它已成为知乎、简书、掘金等主流平台的标配，让创作者能够跨平台无缝同步稿件，保持排版的一致性。</p>
+<p>进入知识管理时代，Markdown 更成为了 Obsidian、Notion 及 Logseq 等“第二大脑”类软件的核心底层，支撑着复杂的双链笔记与知识建模。甚至在严谨的学术报告中，研究者们也开始倾向于使用 Markdown 配合 Pandoc 工具，将其转化为精美的 PDF 或幻灯片。这种横跨开发、协作、个人思考与学术发布的超强适配性，使 Markdown 真正成为了互联网时代的“数字通用语”。</p>
+<h2 id="我们为什么要用它">我们为什么要用它？</h2>
+<p>推崇 Markdown 的核心理由，在于它彻底终结了“排版焦虑”。在传统的富文本编辑器中，作者往往被迫在创作文字的同时，分心处理字体、字号和对齐等视觉细节。而 Markdown 实现了<strong>内容与表现的分离</strong>：你只需通过简单的符号构建逻辑，样式则交由渲染引擎统一处理。这意味着你可以一键切换沉浸式的黑夜主题，或是精美的学术排版，而无需逐字调整。</p>
+<p>此外，Markdown 的纯文本属性赋予了它极强的生命力与安全性。它天然契合 Git 等版本控制工具，让每一行文字的增删都像代码一样清晰可追溯。更重要的是，它不受特定软件的绑架——即便三十年后当前的办公软件悉数淘汰，你依然可以用任何一个最原始的记事本程序，毫无障碍地打开并阅读这些 <code>.md</code> 文件。这种跨平台的通用性与面向未来的持久性，使其成为了构建长期数字资产的首选格式。</p>
+<h1 id="工欲善其事编辑器全平台攻略">工欲善其事：编辑器全平台攻略</h1>
+<h2 id="有哪些编辑器">有哪些编辑器？</h2>
+<p>选择一款顺手的编辑器，是开启 Markdown 高效写作的第一步。市面上的工具林林总总，但核心逻辑无非是在“原生代码的掌控感”与“成品排版的视觉美感”之间寻找平衡。对于追求极致体验的用户来说，以下工具代表了目前 Markdown 编辑器的巅峰水准。</p>
+<h3 id="windows-平台的工具">Windows 平台的工具</h3>
+<p><strong>Typora：极致的沉浸式体验</strong></p>
+<p>Typora 曾凭借其独创的“即时渲染”技术惊艳了整个文档写作圈。它打破了传统编辑器左边源码、右边预览的割裂感，当你输入完语法按下回车的那一刻，文字会立即变幻成精美的排版样式。这种沉浸感让写作更像是在精美的纸张上挥毫。</p>
+<p>正版下载地址：<a href="https://typora.io/">https://typora.io/</a><br>
+我们也可以通过互联网寻找一些破解版使用</p>
+<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/typora-1.webp" alt="typora" loading="lazy"></figure>
+<p>为了让 Typora 更加全能，我们可以使用一些增强插件。通过开源项目 <a href="https://github.com/obgnail/typora_plugin"><strong>typora_plugin</strong></a>，用户可以获得代码块增强、自动编号以及图片调整等进阶功能。</p>
+<p>下面让我们通过 <a href="https://github.com/obgnail/typora_plugin"><strong>typora_plugin</strong></a>使用插件。</p>
+<ol>
+<li>通过GitHub下载项目的文件：<a href="https://github.com/obgnail/typora_plugin/releases">https://github.com/obgnail/typora_plugin/releases</a></li>
+<li>解压下载的文件，将<code>plugin</code>文件夹移动或复制到typora的安装目录的<code>resources</code>文件夹</li>
+<li>打开<code>plugin/bin</code>文件夹，运行目录中的脚本 &quot;install_windows.ps1&quot;或&quot;install_windows_amd_x64.exe&quot;。</li>
+</ol>
+<p>如果你对审美有要求，Typora 的<a href="https://theme.typora.io/">主题商店Themes Gallery</a>提供了上百种视觉风格，只需下载 CSS 文件并放入主题文件夹，即可一键切换从科研论文到清新博客的各种外观。</p>
+<p><strong>Obsidian：构建你的第二大脑</strong></p>
+<p>如果说 Typora 是一支好用的笔，那么 <strong>Obsidian</strong> 就是一间精密图书馆。它不仅仅是一个编辑器，更是一个基于本地文件的知识管理系统。Obsidian 最大的特色在于“双向链接”，它能让你在不同的笔记之间建立神经元般的联系，最终生成一张壮观的知识图谱。</p>
+<p>下载地址：<a href="https://obsidian.md/">https://obsidian.md/</a></p>
+<p>Obsidian 的强大高度依赖其社区生态。在软件的“设置”面板中，你可以关闭受限模式来访问插件市场。无论是看板管理、日历功能，还是高级查询，都能通过安装<strong>社区插件（Community Plugins）<strong>实现。同时，Obsidian 也支持海量的</strong>外观主题</strong>，用户只需在主题浏览器中点击预览并安装，就能深度定制整套 UI。对于需要长期沉淀知识、处理复杂文献的用户来说，Obsidian 是不二之选。</p>
+<h3 id="linux-平台的利器">Linux 平台的利器</h3>
+<p><strong>Typora</strong><br>
+在 Linux 平台上，优秀的 Markdown 编辑器同样不少。Typora 也提供了 Linux 版本（安装使用同Windows版本，包括拓展/主题安装），让你能在熟悉的“所见即所得”体验中流畅写作。</p>
+<p><strong>Abricotine</strong><br>
+如果你的需求更偏向技术文档，可以试试 Abricotine。虽然它已停止开发，但凭借出色的兼容性，至今仍是许多人的心头好。它是一款专为技术写作者设计的编辑器，其特色在于强大的内联预览功能。它能实时渲染 Markdown 语法，让你直观地看到最终效果，尤其适合需要频繁插入代码块和数学公式的场景。可以从GitHub获取安装包，库的发布页面（Releases）下载最新的 .deb/.rpm 文件，安装后就可以使用了。</p>
+<p>请注意，Abricotine 项目已停止开发，但其最后一个版本在多数 Linux 发行版上仍可正常运行。</p>
+<p>GitHub地址：<a href="https://github.com/brrd/Abricotine">https://github.com/brrd/Abricotine</a></p>
+<p><strong>Apostrophe</strong><br>
+追求极致简洁和原生体验的话，Apostrophe 是个绝佳选择。它专为专注写作而设计，通过 Flatpak 即可轻松安装。<br>
+Apostrophe 主要通过 Flatpak 进行分发，这保证了其在不同发行版上的一致体验。</p>
+<p>通过 Flatpak 安装：确保你的系统已配置好 Flathub 仓库，然后在终端中执行以下命令：<br>
+<code>flatpak install flathub org.gnome.gitlab.somas.Apostrophe</code><br>
+开始写作：安装完成后，从应用菜单中启动 Apostrophe。你可以立即开始写作，并通过右上角的菜单进行主题切换或导出文档。</p>
+<p><strong>MarkText</strong><br>
+当然，如果你偏爱开源方案，MarkText 无疑是 Typora 的最佳替代品。它功能强大且界面优雅，支持 Linux、macOS 和 Windows 全平台。它 是一款完全免费且开源的 Markdown 编辑器，被许多人视为 Typora 的最佳替代品。它同样采用“所见即所得”模式，界面简洁优雅，并支持多种主题、代码高亮、数学公式和图表（Mermaid）等高级功能。</p>
+<p>MarkText 同样提供了 Flatpak 版本，安装和使用都非常方便。</p>
+<p>通过 Flatpak 安装：在终端中运行以下命令即可完成安装：<br>
+<code>flatpak install flathub com.github.marktext.marktext</code><br>
+个性化配置：启动 MarkText 后，你可以进入偏好设置，自定义字体、主题和编辑器行为，打造属于你自己的写作环境。</p>
+<h3 id="ide-玩家vs-code">IDE 玩家（VS Code）</h3>
+<p><strong>插件：Markdown Preview Enhanced</strong></p>
+<p>如果你在 VS Code 中只打算安装一个增强插件，那一定是 <code>Markdown Preview Enhanced</code>。它彻底重塑了原生的预览体验，支持同步滚动、实时预览，并完美兼容 Mermaid 绘图、LaTeX 数学公式以及复杂的表格渲染。更重要的是，它提供了强大的导出功能，让你可以直接将文档输出为精美的 PDF、HTML 甚至电子书格式，极大地弥补了 IDE 在文档分发上的短板。</p>
+<div style="text-align: center; margin-top: 20px; user-select: none;">
+    <hr style="border: 0; border-top: 1px solid #cc0000; margin-bottom: -10px; opacity: 0.2;">
+    <span style="background: #fff; padding: 0 10px; font-size: 12px; color: #cc0000; font-family: sans-serif; display: inline-block; vertical-align: middle; opacity: 0.4;">
+        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="10" height="10" style="vertical-align: text-bottom; margin-right: 2px;">
+            <path d="M512 85.33l106.67 320H938.67L682.67 597.33l106.66 341.34L512 725.33 234.67 938.67l106.66-341.34L64 405.33h320z" fill="#cc0000"></path>
+        </svg>
+        <b>AI 辅助完成</b>
+    </span>
+</div>]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Linux软件包安装全指南：从命令行到图形化工具]]></title>
+        <id>https://leenut.space/post/linux_package/</id>
+        <link href="https://leenut.space/post/linux_package/">
+        </link>
+        <updated>2026-02-10T12:24:51.000Z</updated>
+        <summary type="html"><![CDATA[<p>当你第一次尝试在Linux系统上安装软件时，可能会感到有些困惑。面对网上各式各样的教程——有的让你在黑色窗口里输入神秘命令，有的推荐去一个漂亮的“商店”里点击，还有的直接给你一个文件让你双击——该听谁的？这种多样性并非混乱，恰恰是Linux世界丰富生态和用户选择自由的体现。本文将为你系统梳理从最基础的命令行工具到便捷的图形化界面，帮助你理解每一种方法，并找到最适合自己的软件安装之道。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>当你第一次尝试在Linux系统上安装软件时，可能会感到有些困惑。面对网上各式各样的教程——有的让你在黑色窗口里输入神秘命令，有的推荐去一个漂亮的“商店”里点击，还有的直接给你一个文件让你双击——该听谁的？这种多样性并非混乱，恰恰是Linux世界丰富生态和用户选择自由的体现。本文将为你系统梳理从最基础的命令行工具到便捷的图形化界面，帮助你理解每一种方法，并找到最适合自己的软件安装之道。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/linux_package_banner.9rjx6mzzw9.webp" alt="" loading="lazy"></figure>
+<h2 id="系统类型和包类型">系统类型和包类型</h2>
+<h3 id="不同系统有哪些包类型">不同系统有哪些包类型</h3>
+<p>Linux世界主要存在两大软件包格式阵营，这通常由发行版的“血缘”关系决定。</p>
+<p>最常见的是 DEB包，它是Debian及其衍生家族（例如我们熟知的Ubuntu、Linux Mint、Deepin）所使用的标准格式。如果你从网上下载到一个以 .deb 结尾的文件，那它就属于这个阵营。</p>
+<p>另一大阵营是 RPM包，主要在Red Hat系列发行版（如Fedora、CentOS、RHEL）和openSUSE中使用，文件扩展名为 .rpm。</p>
+<p>除此之外，还有一些独立或新兴的格式。例如，追求简洁与前沿的Arch Linux及其衍生版使用由Pacman管理器处理的 .pkg.tar.zst 包。而像 AppImage、Snap 和 Flatpak 这类格式，其设计目标就是打破发行版间的壁垒，实现“一次打包，到处运行”。</p>
+<h3 id="为什么不同系统采用不同的包类型">为什么不同系统采用不同的包类型</h3>
+<p>这种差异主要源于历史发展路径和早期技术选择。Debian和Red Hat作为Linux早期两个最具影响力的发行版，各自发展出了一套完整的软件管理系统。这就像不同的国家形成了不同的语言和习俗。</p>
+<p>DEB格式与 dpkg 工具配套，而RPM格式则与 rpm 工具绑定。它们不仅在文件结构上不同，在如何处理软件依赖关系、配置文件更新和安装脚本执行等细节上也各有哲学。例如，Debian系以其对自由软件的严格审查和稳定性著称，而Red Hat系则更注重企业级功能和支持。</p>
+<h3 id="不同类型的包如何安装">不同类型的包如何安装</h3>
+<p>对于已经下载到本地的软件包文件，安装方式因其格式而异。了解不同工具的特点，可以帮助你在遇到问题时选择最合适的方案。</p>
+<ol>
+<li>DEB包的安装与卸载<br>
+DEB包是Debian、Ubuntu及其衍生系统的标准格式。</li>
+</ol>
+<ul>
+<li>使用底层dpkg命令：<br>
+这个命令直接操作包文件，但不处理依赖关系。如果缺少依赖，安装会中断。</li>
+</ul>
+<pre><code class="language-shell"># 安装DEB包
+sudo dpkg -i package_name.deb
+
+# 如果安装因依赖问题失败，可运行以下命令修复
+sudo apt install -f
+
+# 卸载DEB包（保留配置文件）
+sudo dpkg -r package_name
+# 完全卸载（删除配置文件）
+sudo dpkg -P package_name
+</code></pre>
+<ul>
+<li>使用高级APT工具：<br>
+推荐使用这种方法，因为它能自动解决依赖问题，从配置的软件源中拉取所有需要的包。</li>
+</ul>
+<pre><code class="language-shell"># 安装本地DEB包并自动处理依赖
+sudo apt install ./package_name.deb
+
+# 卸载软件（保留配置）
+sudo apt remove package_name
+# 完全卸载（删除配置）
+sudo apt purge package_name
+</code></pre>
+<ol start="2">
+<li>RPM包的安装与卸载<br>
+RPM包主要用于Fedora、RHEL、CentOS和openSUSE等发行版。</li>
+</ol>
+<ul>
+<li>使用底层rpm命令：<br>
+类似于dpkg，这个命令也不自动解决依赖。</li>
+</ul>
+<pre><code class="language-shell"># 安装RPM包（-i安装，-v显示详细信息，-h显示进度）
+sudo rpm -ivh package_name.rpm
+
+# 升级已安装的RPM包
+sudo rpm -Uvh package_name.rpm
+
+# 卸载RPM包
+sudo rpm -e package_name
+</code></pre>
+<ul>
+<li>使用高级DNF/YUM工具（推荐）：<br>
+现代RPM系发行版使用DNF（或较旧的YUM）作为包管理器，它们会自动处理依赖。</li>
+</ul>
+<pre><code class="language-shell"># 安装本地RPM包并解决依赖（DNF）
+sudo dnf install ./package_name.rpm
+# 或使用YUM
+sudo yum localinstall ./package_name.rpm
+
+# 卸载软件（DNF）
+sudo dnf remove package_name
+</code></pre>
+<h3 id="小结与建议">小结与建议</h3>
+<ul>
+<li>优先使用高级包管理器（apt install ./package.deb 或 dnf install ./package.rpm），让系统自动处理复杂的依赖关系，这是最省心的方式。</li>
+<li>当高级工具不可用或需要底层控制时，才考虑使用dpkg或rpm命令，但必须准备好手动解决可能出现的依赖错误。</li>
+</ul>
+<h2 id="包管理器">包管理器</h2>
+<h3 id="什么是包管理器">什么是包管理器?</h3>
+<p>你可以把包管理器想象成一位神通广大的“软件管家”。它的核心职责是处理令人头疼的软件依赖关系——即一个软件正常运行所需要的一系列其他库或组件。包管理器会从指定的软件仓库（Repository）中自动查找、下载并安装所有必需的部件。</p>
+<p>不同的Linux发行版配备了不同的“管家”：</p>
+<table>
+<thead>
+<tr>
+<th>包管理器</th>
+<th>主要服务的发行版家族</th>
+<th>特点简述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>APT</td>
+<td>Debian, Ubuntu, Linux Mint</td>
+<td>使用最广泛的管家之一，命令直观，软件库极其庞大。</td>
+</tr>
+<tr>
+<td>DNF</td>
+<td>Fedora, RHEL, CentOS</td>
+<td>RPM家族的新一代管家，解决了旧工具的一些性能问题。</td>
+</tr>
+<tr>
+<td>Pacman</td>
+<td>Arch Linux, Manjaro</td>
+<td>以简洁、高效、直接著称，一条命令常能完成多个操作。</td>
+</tr>
+<tr>
+<td>Zypper</td>
+<td>openSUSE</td>
+<td>以强大的依赖解析算法闻名。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="如何使用包管理器安装卸载管理软件">如何使用包管理器安装/卸载/管理软件</h3>
+<p>掌握包管理器的核心命令，是高效管理Linux系统的基础。不同发行版的命令语法虽有差异，但逻辑相通，主要围绕 更新软件源、安装/卸载软件 和升级系统这几个核心操作。</p>
+<ol>
+<li>APT (Debian, Ubuntu, Linux Mint)<br>
+APT是最常用的包管理器之一，以其强大的依赖处理和庞大的软件库著称。</li>
+</ol>
+<pre><code class="language-shell"># 更新本地软件包数据库（必须经常执行，以获取最新软件信息）
+sudo apt update
+
+# 安装一个软件包，例如编辑器 nano
+sudo apt install nano
+
+# 升级所有可升级的已安装软件包
+sudo apt upgrade
+
+# 卸载一个软件包（保留其配置文件）
+sudo apt remove nano
+# 彻底卸载软件包（同时删除配置文件）
+sudo apt purge nano
+
+# 搜索包含关键字的软件包
+apt search keyword
+
+# 清理下载的软件包缓存以释放空间
+sudo apt clean
+</code></pre>
+<ol start="2">
+<li>DNF (Fedora, RHEL, CentOS)<br>
+DNF是新一代的RPM包管理器，替代了早期的YUM，拥有更好的依赖解析性能。</li>
+</ol>
+<pre><code class="language-shell"># 安装一个软件包
+sudo dnf install nano
+
+# 检查系统更新（列出可升级的软件包）
+sudo dnf check-update
+
+# 升级所有软件包
+sudo dnf upgrade
+
+# 卸载一个软件包
+sudo dnf remove nano
+
+# 搜索软件包
+dnf search keyword
+
+# 清理所有缓存（包括软件包和元数据）
+sudo dnf clean all
+</code></pre>
+<ol start="3">
+<li>Pacman (Arch Linux, Manjaro)<br>
+Pacman以其简洁、直接的设计哲学闻名。在Arch Linux中，完整的系统更新是安装新软件前的最佳实践。</li>
+</ol>
+<pre><code class="language-shell"># 同步软件仓库并升级所有已安装的包（这是Arch的标准更新方式）
+sudo pacman -Syu
+
+# 安装一个软件包
+sudo pacman -S nano
+
+# 卸载一个软件包及其不再被需要的依赖
+sudo pacman -Rs nano
+
+# 搜索软件包（在仓库中）
+pacman -Ss keyword
+
+# 查询已安装的软件包
+pacman -Qs keyword
+
+# 清理未安装的软件包缓存
+sudo pacman -Sc
+</code></pre>
+<h3 id="小结与核心概念">小结与核心概念</h3>
+<ul>
+<li>更新 vs 升级：update（或check-update）通常只刷新可用软件包的列表；而upgrade（或upgrade）才是执行实际的下载和安装过程。</li>
+<li>卸载的区别：remove（或remove）通常只删除软件本身；而purge（APT）或带s选项的-Rs（Pacman）会尝试删除相关配置文件或孤立依赖，清理得更彻底。</li>
+<li>最佳实践：在安装新软件前，先更新软件源列表（apt update / pacman -Sy），这能确保你获取到最新的版本和依赖信息。对于Arch Linux，则更推荐直接运行pacman -Syu进行完整的系统同步与升级。</li>
+</ul>
+<h3 id="中国网络环境下的换源">中国网络环境下的换源：</h3>
+<p>由于网络连接问题，更换为国内的软件源镜像可以极大提升下载速度。以Ubuntu为例，操作通常是：</p>
+<ol>
+<li>备份原有的软件源列表：sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</li>
+<li>编辑源列表文件：sudo nano /etc/apt/sources.list</li>
+<li>将文件内的官方网址（如 archive.ubuntu.com）替换为国内镜像地址（例如清华大学的 mirrors.tuna.tsinghua.edu.cn）。<br>
+对于Fedora，可以编辑 /etc/dnf/dnf.conf 并添加 fastestmirror=True 选项，或直接修改 /etc/yum.repos.d/ 目录下文件中的 baseurl。</li>
+</ol>
+<p>其他管理操作：</p>
+<ul>
+<li>搜索软件：apt search keyword 或 dnf search keyword</li>
+<li>查看详情：apt show package-name</li>
+<li>升级软件：sudo apt upgrade package-name （仅升级指定包）</li>
+<li>卸载软件：sudo apt remove package-name （保留配置）；sudo apt purge package-name （彻底删除）</li>
+</ul>
+<h3 id="如何清理包管理的缓存">如何清理包管理的缓存</h3>
+<p>包管理器会缓存下载的软件包，定期清理可以释放磁盘空间。</p>
+<ul>
+<li>APT：sudo apt clean 会清除所有已下载的安装包缓存；sudo apt autoremove 会删除那些为了满足依赖而自动安装、但现在已不再需要的软件包。</li>
+<li>DNF：sudo dnf clean all 清理所有缓存。</li>
+<li>Pacman：sudo pacman -Sc 清理未安装包的缓存；sudo pacman -Rns $(pacman -Qtdq) 递归删除“孤儿”软件包（不再被任何程序依赖）。</li>
+</ul>
+<h2 id="flathub-snap">Flathub / Snap</h2>
+<h3 id="flathub-snap是什么">Flathub / Snap是什么</h3>
+<p>Flatpak（其主要仓库为Flathub）和 Snap 是现代的应用分发格式，旨在解决传统包管理的一些固有限制，比如软件更新滞后、跨发行版兼容性差等。</p>
+<p>它们的核心思想是容器化或沙盒化。开发者将应用及其绝大部分依赖一起打包，形成一个可以在任何Linux发行版上运行的自包含单元。同时，这种隔离也增强了安全性。</p>
+<p>简而言之，Snap由Canonical（Ubuntu背后的公司）主导推进，而Flatpak则是一个更由社区驱动的项目。两者形成了竞争与合作共存的局面。</p>
+<h3 id="如何利用它们安装卸载管理软件">如何利用它们安装/卸载/管理软件</h3>
+<p><strong>安装与设置：</strong><br>
+对于Flatpak，通常需要先安装flatpak软件包，然后添加Flathub仓库：</p>
+<pre><code class="language-shell">sudo apt install flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+</code></pre>
+<p>之后，就可以通过 flatpak install flathub org.app.Name 这样的命令来安装应用。</p>
+<p>对于Snap，多数新版本Ubuntu已预装。在其他发行版上可能需要安装snapd服务。安装应用命令类似 sudo snap install app-name。</p>
+<p><strong>国内网络优化：</strong><br>
+对于Snap，可以通过设置代理来改善连接速度：sudo snap set system proxy.http=&quot;http://代理地址:端口&quot;。Flatpak目前没有内置的镜像设置，但设置系统全局HTTP代理同样有效。</p>
+<p><strong>Flatpak 国内镜像配置（以上海交大源为例）</strong></p>
+<p>上海交通大学 Linux 用户组 (SJTUG) 提供了高质量的 Flatpak 镜像源。配置方法如下：</p>
+<ol>
+<li>添加镜像源<br>
+首先，你需要移除默认的 flathub 远程仓库，并添加对应的镜像源。</li>
+</ol>
+<pre><code class="language-shell"># 1. 移除原有的 Flathub 远程仓库
+flatpak remote-delete flathub
+
+# 2. 添加上海交大的 Flathub 镜像源
+flatpak remote-add --if-not-exists flathub https://mirror.sjtu.edu.cn/flathub/repo/flathub.flatpakrepo
+# (ai撰写，此处镜像源的可用性未验证)
+</code></pre>
+<ol start="2">
+<li>验证与设置<br>
+添加完成后，可以通过以下命令查看和设置：</li>
+</ol>
+<pre><code class="language-shell"># 列出所有已配置的远程仓库，确认 flathub 的 URL 已指向镜像
+flatpak remotes
+
+# 设置镜像源为优先（某些环境下可能需要）
+flatpak remote-modify --prio=1 flathub
+</code></pre>
+<ol start="3">
+<li>通过镜像源安装应用<br>
+配置完成后，安装命令与使用官方源无异，但数据将从国内镜像下载。</li>
+</ol>
+<pre><code class="language-shell"># 例如，安装 Flatpak 版本的 LibreOffice
+flatpak install flathub org.libreoffice.LibreOffice
+</code></pre>
+<p>管理命令：</p>
+<ul>
+<li>列出已安装应用：flatpak list / snap list</li>
+<li>更新所有应用：flatpak update / sudo snap refresh</li>
+<li>卸载应用：flatpak uninstall org.app.Name / sudo snap remove app-name</li>
+</ul>
+<p><strong>如何清理缓存</strong></p>
+<ul>
+<li>Flatpak：运行 flatpak uninstall --unused 可以清理那些已安装应用不再需要的“运行时”环境，这是释放空间的主要方法。</li>
+<li>Snap：系统会自动管理旧版本快照，你也可以通过 sudo snap set system refresh.retain=2 来限制保留的旧版本数量（例如只保留2个）。</li>
+</ul>
+<h2 id="图形化的软件包管理器新立得软件包管理器">图形化的软件包管理器——新立得软件包管理器</h2>
+<p>新立得（Synaptic）是一个经典的、功能强大的图形化包管理前端，主要服务于Debian和Ubuntu等APT系发行版。在图形化软件商店普及之前，它是许多用户管理软件的主要窗口。虽然现在不少用户转向了更现代的商店，但新立得因其信息全面、控制精细的特点，依然受到高级用户的青睐。</p>
+<h3 id="使用新立得软件包管理器">使用新立得软件包管理器</h3>
+<ol>
+<li>安装：sudo apt install synaptic</li>
+<li>启动需要管理员权限，你可以在菜单中搜索启动，或在终端输入 sudo synaptic。</li>
+<li>在界面中，你可以浏览完整的软件分类，使用搜索框快速定位软件（例如搜索某个编辑器）。</li>
+<li>找到后，右键点击软件包，可以选择“标记以便安装”，然后点击工具栏上的“应用”按钮即可执行。</li>
+<li>它的“设置”菜单下可以管理软件仓库源，方便地添加PPA或更换镜像源。</li>
+</ol>
+<p>新立得的优势在于它将APT的几乎所有功能都可视化了出来，包括查看软件包详情、依赖关系、已安装文件的列表等，给予用户极大的掌控感。</p>
+<h2 id="软件商店">软件商店</h2>
+<p>现代Linux桌面环境普遍提供了更友好、更接近移动设备体验的图形化软件商店。</p>
+<ul>
+<li>GNOME Software：GNOME桌面环境的中心化商店。界面简洁，集成了系统更新功能，并且同时支持系统原生包、Flatpak和Snap格式的应用。</li>
+<li>KDE Discover：KDE Plasma桌面的软件中心。同样界面现代，支持多种后端，并且是管理KDE桌面插件、主题等附加内容的主要入口。</li>
+<li>发行版定制商店：</li>
+<li>
+<ul>
+<li>Linux Mint 软件管理器：在APT基础上提供了更美观的界面和用户评分系统。</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Deepin 应用商店：深度操作系统的核心组件，设计精美，集成了大量国内常用的应用。</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>星火软件商店：最初为Deepin/UOS设计，现已支持其他发行版。它的一大特色是汇集了许多由国内开发者或社区适配的Linux应用，填补了官方仓库的空白，是国内用户寻找软件的一个宝贵资源。</li>
+</ul>
+</li>
+</ul>
+<p>这些商店极大地降低了Linux的使用门槛，让搜索、浏览截图、阅读评论、一键安装和更新软件变得和智能手机一样简单。</p>
+<h2 id="图形化的软件包安装器例如gdebi">图形化的软件包安装器（例如GDebi）</h2>
+<p>当你从网站下载了一个独立的 .deb 安装包文件，除了用命令行安装，使用图形化工具往往更直观。</p>
+<p>GDebi 就是这样一个轻量级工具。它的核心优点是能自动处理依赖关系。当你双击一个.deb文件并用GDebi打开后，它会分析这个包，并明确列出需要同时安装哪些额外的依赖库。你只需点击“安装”按钮，它就会调用APT来完整地安装主程序和所有依赖。</p>
+<p>安装GDebi本身很简单：sudo apt install gdebi。之后，你就可以右键点击下载的deb文件，选择“用其他应用程序打开”，然后选择GDebi。</p>
+<p>类似的工具还有KDE环境下的Qapt，以及elementary OS使用的Eddy。它们都解决了同一个痛点：让本地软件包文件的安装过程对用户更友好、更不易出错。</p>
+<h2 id="appimage便携式软件包">AppImage——便携式软件包</h2>
+<h3 id="什么是appimage包">什么是AppImage包？</h3>
+<p>AppImage 是一种创新的 “便携式” Linux 应用格式。它的核心理念是：一个应用 = 一个文件。</p>
+<p>与传统的 .deb 或 .rpm 包不同，AppImage 不要求你“安装”软件到系统中。其运行逻辑是：</p>
+<ul>
+<li>自包含：每个 AppImage 文件都将应用本身、其所有依赖库（除了一些最基础的系统库）、以及运行所需的元数据全部打包在一起，形成一个独立的单体文件。</li>
+<li>沙盒化运行：当你运行一个 AppImage 时，它会以一种临时的、沙盒化的方式将自身挂载（mount）到一个随机目录下，然后在这个独立的环境中启动应用。这个过程对用户是完全透明的。</li>
+<li>不污染系统：因为所有依赖都已自带，AppImage 几乎不会与系统已安装的库发生冲突。同时，它通常不向系统目录写入文件（除了可能在用户主目录下创建配置文件），卸载时也只需删除这一个文件即可，非常干净。<br>
+简单来说，AppImage 就像一个“绿色软件”或可执行的“光盘镜像”，让你在获得最新版应用的同时，无需担心依赖问题，也无需管理员权限（只需文件本身可执行）。</li>
+</ul>
+<h3 id="如何安装和运行appimage">如何安装和运行AppImage？</h3>
+<p>运行 AppImage 的核心步骤非常简单，但需要注意权限设置。</p>
+<ol>
+<li>下载文件：从应用的官方网站或 AppImageHub 下载扩展名为 .AppImage 的文件。</li>
+<li>赋予执行权限：这是关键且必须的一步。刚下载的文件默认可能没有执行权限。你需要通过终端命令或文件管理器的属性窗口来授权。</li>
+</ol>
+<pre><code class="language-shell"># 进入文件所在目录，为 AppImage 文件添加可执行权限
+chmod +x 软件名.AppImage
+</code></pre>
+<blockquote>
+<p>说明：chmod +x 是改变文件模式（change mode）的命令，+x 表示添加执行（execute）权限。这是 Linux 运行任何可执行程序的前提。</p>
+</blockquote>
+<ol start="3">
+<li>运行它：</li>
+</ol>
+<ul>
+<li>命令行运行：在终端中直接输入文件路径执行。<br>
+<code>./软件名.AppImage</code></li>
+<li>图形界面运行：在文件管理器（如 Nautilus、Dolphin）中双击该文件。某些桌面环境第一次运行时可能需要你确认“信任并执行”。</li>
+</ul>
+<p>重要提示：某些强大的 AppImage（如开发工具）可能需要 fuse 支持才能以挂载方式运行。如果你的系统较精简，可能需要先安装它：</p>
+<pre><code class="language-shell"># 在基于 Debian/Ubuntu 的系统上
+sudo apt install libfuse2
+</code></pre>
+<h3 id="如何使用图形化工具管理appimage">如何使用图形化工具管理AppImage？</h3>
+<p>虽然双击运行很方便，但直接使用 AppImage 也有一些不便之处，例如：</p>
+<ul>
+<li>文件散落在“下载”文件夹中。</li>
+<li>不会集成到系统应用菜单或启动器中。</li>
+<li>更新需要手动下载新版本文件。</li>
+</ul>
+<p>像 Gear Lever、AppImageLauncher 这类工具就是为了解决这些问题而生的。这里以 AppImageLauncher 为例，它是目前最流行的集成工具之一。</p>
+<ol>
+<li>安装 Gear Lever</li>
+</ol>
+<ul>
+<li>可以通过flatpak下载：</li>
+</ul>
+<pre><code class="language-shell">flatpak install flathub it.mijorus.gearlever
+</code></pre>
+<ol start="2">
+<li>将appimage包拖入到软件或手动添加进软件</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/%E6%88%AA%E5%9B%BE-2026-04-02-17-11-27.73uiwvje9v.webp" alt="" loading="lazy"></figure>
+<h2 id="总结驾驭多样性自由选择你的linux软件之路">总结：驾驭多样性，自由选择你的Linux软件之路</h2>
+<p>走过这一趟从命令行到图形化界面的探索之旅，你会发现，Linux世界软件安装方式的多样性并非杂乱无章，而是一幅层次分明、各有侧重的生态图谱。这种“混乱”的表象之下，是Linux哲学中至关重要的模块化设计和用户选择自由的体现。</p>
+<p>我们可以将主要方式归纳为三个清晰的层次：</p>
+<ol>
+<li>
+<p>系统基石：原生包管理器（APT, DNF, Pacman）<br>
+这是系统的根基。通过 sudo apt install 或 sudo pacman -S 等命令，你获得的是与发行版深度集成、经过充分测试、最稳定可靠的软件。它管理着系统的核心组件，是维护系统健康的首选。</p>
+</li>
+<li>
+<p>现代扩展：通用容器格式（Flatpak, Snap）<br>
+这是生态的延伸。当你需要最新版本的应用程序，或是系统仓库中未收录的软件时，Flatpak和Snap提供了完美的解决方案。它们通过沙盒技术，以安全隔离为代价，换来了出色的跨发行版兼容性和便捷的更新。通过Flathub商店或 snap install 命令，你可以轻松获取大量现代应用。</p>
+</li>
+<li>
+<p>极致便携：自包含应用（AppImage）<br>
+这是灵活性的代表。一个文件，即点即用，无需安装，不污染系统。AppImage是分享、测试或使用便携软件的理想选择，尤其适合没有系统管理员权限的场景。配合AppImageLauncher等工具，它也能很好地融入桌面环境。</p>
+</li>
+</ol>
+<p>那么，面对具体需求，该如何选择？一条简单的决策逻辑可以帮你快速定位：</p>
+<ul>
+<li>追求稳定、管理核心工具 → 使用发行版原生包管理器。</li>
+<li>需要最新版软件、特定应用或增强安全性 → 优先查看 Flathub 或 Snap商店。</li>
+<li>临时使用、软件测试、或需要绝对便携 → 下载 AppImage。</li>
+<li>新手入门，追求简单直观 → 打开系统自带的图形化软件商店（如GNOME Software）。</li>
+<li>安装本地下载的.deb/.rpm文件 → 使用 GDebi 等图形安装器。</li>
+</ul>
+<p>最后，强大的包管理器也需维护。请记住定期执行 sudo apt autoremove 或 sudo pacman -Sc 来清理无用缓存，这能让你的系统保持清爽。</p>
+<p>Linux的强大，不在于规定你“必须”如何做，而在于为你提供了“可以”如何做的多种可能。理解每一种工具背后的设计逻辑和适用边界，你就能从被动的软件使用者，转变为主动的系统驾驭者。现在，就根据你的实际需求，自信地选择最适合的那条路径，开始你的探索吧。</p>
+<div style="text-align: center; margin-top: 20px; user-select: none;">
+    <hr style="border: 0; border-top: 1px solid #cc0000; margin-bottom: -10px; opacity: 0.2;">
+    <span style="background: #fff; padding: 0 10px; font-size: 12px; color: #cc0000; font-family: sans-serif; display: inline-block; vertical-align: middle; opacity: 0.4;">
+        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="10" height="10" style="vertical-align: text-bottom; margin-right: 2px;">
+            <path d="M512 85.33l106.67 320H938.67L682.67 597.33l106.66 341.34L512 725.33 234.67 938.67l106.66-341.34L64 405.33h320z" fill="#cc0000"></path>
+        </svg>
+        <b>AI 辅助完成</b>
+    </span>
+</div>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一次Linux蓝牙音频连接故障修复：从“连接失败”到完美播放]]></title>
+        <id>https://leenut.space/post/lanyaerji/</id>
+        <link href="https://leenut.space/post/lanyaerji/">
+        </link>
+        <updated>2026-01-20T09:15:14.000Z</updated>
+        <summary type="html"><![CDATA[<p>最近新买了一个头戴式蓝牙耳机，发现电脑无法连接，随后整理资料和询问AI，经过不断折腾解决了问题，以下是对相关解决方案的记录。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>最近新买了一个头戴式蓝牙耳机，发现电脑无法连接，随后整理资料和询问AI，经过不断折腾解决了问题，以下是对相关解决方案的记录。</p>
+<!-- more -->
+<p>“蓝牙已连接”，但就是没有声音——这可能是Linux用户在使用蓝牙音频设备时最常遇到的挫败感之一。近日，我在我的Ubuntu 22.04的机器配置蓝牙耳机时，我遇到了典型的<code>br-connection-profile-unavailable</code>错误。经过一系列排查，最终不仅解决了连接问题，还修复了因PipeWire音频服务配置错误导致的系统音频完全崩溃。</p>
+<p>本文将完整记录这次故障排除的全过程，涵盖从基础检查到深入系统诊断的各个步骤，旨在为遇到类似问题的用户提供一个清晰的解决路线图。</p>
+<h2 id="第一阶段问题诊断与基础修复">第一阶段：问题诊断与基础修复</h2>
+<h3 id="11-初始状态确认">1.1 初始状态确认</h3>
+<p>首先，通过<code>systemctl status bluetooth</code>确认蓝牙服务正在运行。这是所有蓝牙操作的基础。如果服务未激活，需要执行：</p>
+<pre><code class="language-bash">sudo systemctl start bluetooth
+sudo systemctl enable bluetooth  # 设置开机自启
+</code></pre>
+<h3 id="12-音频支持组件检查">1.2 音频支持组件检查</h3>
+<p>对于Ubuntu 22.04及其衍生版，蓝牙音频支持依赖于PipeWire及其相关组件。通过以下命令安装必要软件包：</p>
+<pre><code class="language-bash">sudo apt update
+sudo apt install pulseaudio-module-bluetooth libspa-0.2-bluetooth pipewire-audio
+</code></pre>
+<p><strong>关键提示</strong>：安装完成后必须重启系统，确保所有组件正确加载。</p>
+<h2 id="第二阶段深入排查与权限修复">第二阶段：深入排查与权限修复</h2>
+<h3 id="21-音频服务状态验证">2.1 音频服务状态验证</h3>
+<p>通过<code>pactl list sinks short</code>命令检查音频输出设备列表时，发现完全没有蓝牙音频设备，只有本地声卡。这意味着虽然蓝牙管理器显示“已连接”，但音频子系统并未识别蓝牙设备。</p>
+<p>进一步检查发现，用户账户缺少必要的音频组权限：</p>
+<pre><code class="language-bash">$ groups
+user adm cdrom sudo dip plugdev users lpadmin sambashare
+</code></pre>
+<p>注意输出中缺少<code>audio</code>和<code>pulse-access</code>组。</p>
+<h3 id="22-权限修复步骤">2.2 权限修复步骤</h3>
+<ol>
+<li>
+<p><strong>添加用户到音频组</strong>：</p>
+<pre><code class="language-bash">sudo usermod -a -G audio,pulse-access $USER
+</code></pre>
+</li>
+<li>
+<p><strong>完全注销并重新登录</strong>：这一步至关重要，因为组权限变更只在新的登录会话中生效。</p>
+</li>
+<li>
+<p><strong>重新验证权限</strong>：</p>
+<pre><code class="language-bash">$ groups 
+user adm cdrom sudo audio dip plugdev users lpadmin sambashare pulse-access
+</code></pre>
+</li>
+</ol>
+<h2 id="第三阶段pipewire服务崩溃与修复">第三阶段：PipeWire服务崩溃与修复</h2>
+<h3 id="31-发现问题">3.1 发现问题</h3>
+<p>当尝试使用<code>pactl info</code>测试音频服务器连接时，遇到“拒绝连接”错误。检查PipeWire服务状态发现：</p>
+<pre><code class="language-bash">$ systemctl --user status pipewire
+Active: failed (Result: exit-code)
+</code></pre>
+<h3 id="32-诊断服务崩溃原因">3.2 诊断服务崩溃原因</h3>
+<p>直接运行PipeWire可执行文件获取详细错误信息：</p>
+<pre><code class="language-bash">$ /usr/bin/pipewire
+[W] mod.jackdbus-detect | [module-jackdbus-:216 on_is_started_received()] 
+Failed to receive jackdbus reply: org.freedesktop.DBus.Error.ServiceUnknown: 
+The name org.jackaudio.service was not provided by any .service files
+</code></pre>
+<p>错误表明PipeWire尝试加载<code>module-jackdbus-detect</code>模块，但系统中不存在JACK音频服务。</p>
+<h3 id="33-修复pipewire配置">3.3 修复PipeWire配置</h3>
+<ol>
+<li>
+<p><strong>创建干净的用户配置</strong>：</p>
+<pre><code class="language-bash">rm -rf ~/.config/pipewire
+mkdir -p ~/.config/pipewire/
+</code></pre>
+</li>
+<li>
+<p><strong>创建正确的配置文件</strong>：</p>
+<pre><code class="language-bash">cat &lt;&lt; 'EOF' &gt; ~/.config/pipewire/pipewire.conf
+context.modules = [
+    { name = libpipewire-module-rtkit
+      args = { nice.level = -11 }
+      flags = [ ifexists nofail ]
+    }
+    { name = libpipewire-module-protocol-native }
+    { name = libpipewire-module-profiler }
+    { name = libpipewire-module-spa-node-factory }
+    { name = libpipewire-module-client-node }
+    { name = libpipewire-module-client-device }
+    { name = libpipewire-module-bluez5-discover }
+]
+.include /usr/share/pipewire/pipewire.conf
+EOF
+</code></pre>
+</li>
+<li>
+<p><strong>重启音频服务</strong>：</p>
+<pre><code class="language-bash">systemctl --user restart pipewire pipewire-pulse wireplumber
+</code></pre>
+</li>
+</ol>
+<h2 id="第四阶段蓝牙音频模块加载">第四阶段：蓝牙音频模块加载</h2>
+<h3 id="41-验证服务状态">4.1 验证服务状态</h3>
+<p>修复后确认服务运行正常：</p>
+<pre><code class="language-bash">$ systemctl --user status pipewire
+Active: active (running) since Thu 2026-01-01 15:31:43 HKT; 2s ago
+</code></pre>
+<h3 id="42-加载蓝牙音频支持模块">4.2 加载蓝牙音频支持模块</h3>
+<p>即使服务运行，蓝牙音频模块可能仍未加载。手动加载模块：</p>
+<pre><code class="language-bash">pactl load-module module-bluez5-discover
+</code></pre>
+<p>如果遇到“无此实体”错误，需要确保相关库文件已安装：</p>
+<pre><code class="language-bash">sudo apt install --reinstall libspa-0.2-bluetooth
+</code></pre>
+<h3 id="43-重新连接蓝牙设备">4.3 重新连接蓝牙设备</h3>
+<p>在蓝牙控制台中正确连接设备：</p>
+<pre><code class="language-bash">bluetoothctl
+connect 41:42:8E:0B:4A:4D  # 使用设备MAC地址，不要添加名称
+</code></pre>
+<h2 id="第五阶段验证与最终配置">第五阶段：验证与最终配置</h2>
+<h3 id="51-确认音频设备识别">5.1 确认音频设备识别</h3>
+<p>成功连接后，验证蓝牙音频设备是否被识别：</p>
+<pre><code class="language-bash">$ pactl list sinks short | grep blue
+56  bluez_output.41_42_8E_0B_4A_4D.a2dp-sink  PipeWire  s16le 2ch 44100Hz  RUNNING
+</code></pre>
+<h3 id="52-设置为默认音频输出">5.2 设置为默认音频输出</h3>
+<p>将蓝牙设备设为默认音频输出：</p>
+<pre><code class="language-bash">pactl set-default-sink bluez_output.41_42_8E_0B_4A_4D.a2dp-sink
+</code></pre>
+<p>或使用图形界面工具<code>pavucontrol</code>进行选择。</p>
+<h2 id="故障排除总结">故障排除总结</h2>
+<h3 id="常见问题与解决方案">常见问题与解决方案</h3>
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/Linux%E8%93%9D%E7%89%99%E9%9F%B3%E9%A2%91%E8%BF%9E%E6%8E%A5%E6%95%85%E9%9A%9C-2.3yey364460.webp" alt="" loading="lazy"></figure>
+<br>
+<table>
+<thead>
+<tr>
+<th>问题现象</th>
+<th>可能原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>br-connection-profile-unavailable</code></td>
+<td>缺少音频配置文件支持</td>
+<td>安装<code>pulseaudio-module-bluetooth</code>等组件</td>
+</tr>
+<tr>
+<td>连接成功但无音频设备</td>
+<td>PipeWire蓝牙模块未加载</td>
+<td>执行<code>pactl load-module module-bluez5-discover</code></td>
+</tr>
+<tr>
+<td><code>pactl</code>命令“拒绝连接”</td>
+<td>用户不在音频组中/服务未运行</td>
+<td>添加用户到<code>audio</code>和<code>pulse-access</code>组，重启服务</td>
+</tr>
+<tr>
+<td>PipeWire服务崩溃</td>
+<td>配置错误或模块缺失</td>
+<td>清理<code>~/.config/pipewire/</code>目录，重新配置</td>
+</tr>
+</tbody>
+</table>
+<h3 id="系统架构理解">系统架构理解</h3>
+<p>了解Linux蓝牙音频架构有助于问题诊断：</p>
+<pre><code>蓝牙设备 ↔ BlueZ蓝牙守护进程 ↔ PipeWire蓝牙模块 ↔ PipeWire音频服务 ↔ 应用程序
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/Linux%E8%93%9D%E7%89%99%E9%9F%B3%E9%A2%91%E8%BF%9E%E6%8E%A5%E6%95%85%E9%9A%9C-1.2vf8sa8aa6.webp" alt="" loading="lazy"></figure>
+<p>故障可能发生在任一环节，需要系统性排查。</p>
+<h2 id="结语">结语</h2>
+<p>Linux桌面环境中的蓝牙音频支持已经取得了长足进步，但在特定配置下仍可能出现问题。通过理解系统各组件的作用和交互方式，大多数问题都可以得到解决。</p>
+<p>关键要点：</p>
+<ol>
+<li><strong>权限是基础</strong>：确保用户在<code>audio</code>和<code>pulse-access</code>组中</li>
+<li><strong>服务状态是关键</strong>：定期检查<code>bluetooth</code>和<code>pipewire</code>服务状态</li>
+<li><strong>配置要简洁</strong>：避免不必要的复杂配置，特别是用户级配置</li>
+<li><strong>重启很重要</strong>：许多更改需要重启服务或系统才能生效</li>
+</ol>
+<p>希望这篇详细的故障排除记录能帮助更多用户解决Linux下的蓝牙音频问题，享受无线音频的自由与便捷。</p>
+<hr>
+<p><em>本文基于实际故障排除案例整理，系统环境为Ubuntu 22.04 with PipeWire。不同发行版或版本的具体命令可能略有不同，但解决思路相通。</em></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Edge mobile浏览器flags实验性功能标志 列表盘点]]></title>
+        <id>https://leenut.space/post/edge-mobile-flags/</id>
+        <link href="https://leenut.space/post/edge-mobile-flags/">
+        </link>
+        <updated>2025-12-20T07:07:17.000Z</updated>
+        <summary type="html"><![CDATA[<p>进入相关设置，请输入edge://flags。以下表格所列标志使用于安卓手机微软Edge浏览器，部分不适用于其他平台的浏览器，请慎重使用。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>进入相关设置，请输入edge://flags。以下表格所列标志使用于安卓手机微软Edge浏览器，部分不适用于其他平台的浏览器，请慎重使用。</p>
+<!-- more -->
+<table>
+<thead>
+<tr>
+<th>功能名称 (Name)</th>
+<th>描述 (Description)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>临时恢复 M138 过期标志 (Temporarily unexpire M138 flags)</td>
+<td>临时恢复在 M138 版本中过期的标志。这些标志将很快被移除。(Temporarily unexpire flags that expired as of M138. These flags will be removed soon.)</td>
+</tr>
+<tr>
+<td>临时恢复 M139 过期标志 (Temporarily unexpire M139 flags)</td>
+<td>临时恢复在 M139 版本中过期的标志。这些标志将很快被移除。(Temporarily unexpire flags that expired as of M139. These flags will be removed soon.)</td>
+</tr>
+<tr>
+<td>实验性 QUIC 协议 (Experimental QUIC protocol)</td>
+<td>启用实验性 QUIC 协议支持。(Enable experimental QUIC protocol support.)</td>
+</tr>
+<tr>
+<td>TLS 1.3 早期数据 (TLS 1.3 Early Data)</td>
+<td>此选项启用 TLS 1.3 早期数据，允许在恢复与兼容的 TLS 1.3 服务器的连接时，在握手期间发送 GET 请求。(This option enables TLS 1.3 Early Data, allowing GET requests to be sent during the handshake when resuming a connection to a compatible TLS 1.3 server.)</td>
+</tr>
+<tr>
+<td>在非 Root 设备上启用命令行 (Enable command line on non-rooted devices)</td>
+<td>在非 Root 设备上启用读取命令行文件（危险）。(Enable reading command line file on non-rooted devices (DANGEROUS).)</td>
+</tr>
+<tr>
+<td>并行下载 (Parallel downloading)</td>
+<td>启用并行下载以加速下载速度。(Enable parallel downloading to accelerate download speed.)</td>
+</tr>
+<tr>
+<td>启用基准测试 (Enable benchmarking)</td>
+<td>将所有功能设置为固定状态；即，禁用功能状态的随机化。如果选择&quot;默认功能状态&quot;，则将所有功能设置为其默认状态。如果选择&quot;匹配现场试验测试配置&quot;，则将所有功能设置为在现场试验测试配置中配置的状态（如果提供）。开发人员和测试人员使用此功能来诊断观察到的问题是否由非默认功能配置引起。此标志在 3 次重启后自动重置，从第 4 次重启开始将关闭。在第 3 次重启时，标志将显示为关闭，但其效果仍然有效。(Sets all features to a fixed state; that is, disables randomization for feature states. If '(Default Feature States)' is selected, sets all features to their default state. If '(Match Field Trial Testing Config)' is selected, sets all features to the state configured in the field trial testing config, if it's provided. This is used by developers and testers to diagnose whether an observed problem is caused by a non-default base::Feature configuration. This flag is automatically reset after 3 restarts and will be off from the 4th restart. On the 3rd restart, the flag will appear to be off but the effect is still active.)</td>
+</tr>
+<tr>
+<td>覆盖软件渲染列表 (Override software rendering list)</td>
+<td>覆盖内置的软件渲染列表，并在不支持的系统中启用 GPU 加速。(Overrides the built-in software rendering list and enables GPU-acceleration on unsupported system configurations.)</td>
+</tr>
+<tr>
+<td>加速的 2D 画布 (Accelerated 2D canvas)</td>
+<td>启用 GPU 来执行 2D 画布渲染，而不是使用软件渲染。(Enables the use of the GPU to perform 2d canvas rendering instead of using software rendering.)</td>
+</tr>
+<tr>
+<td>部分交换 (Partial swap)</td>
+<td>设置部分交换行为。(Sets partial swap behavior.)</td>
+</tr>
+<tr>
+<td>在 edge:// URL 上启用扩展 (Extensions on edge:// URLs)</td>
+<td>允许在 edge:// URL 上运行扩展，前提是扩展明确请求此权限。(Enables running extensions on edge:// URLs, where extensions explicitly request this permission.)</td>
+</tr>
+<tr>
+<td>显示自动填充预测 (Show Autofill predictions)</td>
+<td>将自动填充字段类型预测作为占位符文本标注在网页表单上。(Annotates web forms with Autofill field type predictions as placeholder text.)</td>
+</tr>
+<tr>
+<td>背景滤镜镜像边缘 (Backdrop Filter Mirror Edge)</td>
+<td>当对背景滤镜的背景边缘进行采样时，超出边缘的采样会镜像回背景中，而不是复制边缘的像素。(When sampling being the backdrop edge for backdrop-filter, samples beyond the edge are mirrored back into the backdrop rather than duplicating the pixels at the edge.)</td>
+</tr>
+<tr>
+<td>平滑滚动 (Smooth Scrolling)</td>
+<td>在滚动页面内容时进行平滑动画处理。(Animate smoothly when scrolling page content.)</td>
+</tr>
+<tr>
+<td>软导航启发式 (Soft Navigation Heuristics)</td>
+<td>启用软导航启发式，包括对 PerformanceObserver 的支持。此设置会覆盖其他实验设置。(Enables the soft navigation heuristics, including support for PerformanceObserver. This setting overrides other experimental settings.)</td>
+</tr>
+<tr>
+<td>WebTransport 开发者模式 (WebTransport Developer Mode)</td>
+<td>启用后，将取消用于 WebTransport over HTTP/3 的所有证书必须由已知证书根颁发的限制。(When enabled, removes the requirement that all certificates used for WebTransport over HTTP/3 are issued by a known certificate root.)</td>
+</tr>
+<tr>
+<td>最新的稳定 JavaScript 功能 (Latest stable JavaScript features)</td>
+<td>某些网页使用可能与最新 JavaScript 功能冲突的旧版或非标准 JavaScript 扩展。此标志允许禁用对这些功能的支持以兼容此类网页。(Some web pages use legacy or non-standard JavaScript extensions that may conflict with the latest JavaScript features. This flag allows disabling support of those features for compatibility with such pages.)</td>
+</tr>
+<tr>
+<td>实验性 JavaScript (Experimental JavaScript)</td>
+<td>允许网页使用实验性 JavaScript 功能。(Enable web pages to use experimental JavaScript features.)</td>
+</tr>
+<tr>
+<td>实验性 WebAssembly (Experimental WebAssembly)</td>
+<td>允许网页使用实验性 WebAssembly 功能。(Enable web pages to use experimental WebAssembly features.)</td>
+</tr>
+<tr>
+<td>WebAssembly 基线编译器 (WebAssembly baseline compiler)</td>
+<td>启用 WebAssembly 基线编译和层级提升。(Enables WebAssembly baseline compilation and tier up.)</td>
+</tr>
+<tr>
+<td>WebAssembly 延迟编译 (WebAssembly lazy compilation)</td>
+<td>启用 WebAssembly 模块的延迟（首次调用时 JIT）编译。(Enables lazy (JIT on first call) compilation of WebAssembly modules.)</td>
+</tr>
+<tr>
+<td>WebAssembly 分层 (WebAssembly tiering)</td>
+<td>启用 WebAssembly 的分层编译（如果启用了 #enable-webassembly-baseline，将层级提升到 TurboFan）。(Enables tiered compilation of WebAssembly (will tier up to TurboFan if #enable-webassembly-baseline is enabled).)</td>
+</tr>
+<tr>
+<td>未来 V8 VM 功能 (Future V8 VM features)</td>
+<td>启用即将推出和实验性的 V8 VM 功能。此标志不启用实验性 JavaScript 功能。(This enables upcoming and experimental V8 VM features. This flag does not enable experimental JavaScript features.)</td>
+</tr>
+<tr>
+<td>GPU 光栅化 (GPU rasterization)</td>
+<td>使用 GPU 对网页内容进行光栅化。(Use GPU to rasterize web content.)</td>
+</tr>
+<tr>
+<td>实验性 Web 平台功能 (Experimental Web Platform features)</td>
+<td>启用正在开发中的实验性 Web 平台功能。(Enables experimental Web Platform features that are in development.)</td>
+</tr>
+<tr>
+<td>硬件加速视频解码 (Hardware-accelerated video decode)</td>
+<td>在可用的情况下启用硬件加速视频解码。(Hardware-accelerated video decode where available.)</td>
+</tr>
+<tr>
+<td>硬件加速视频编码 (Hardware-accelerated video encode)</td>
+<td>在可用的情况下启用硬件加速视频编码。(Hardware-accelerated video encode where available.)</td>
+</tr>
+<tr>
+<td>显示自动填充签名 (Show autofill signatures)</td>
+<td>将自动填充签名作为 HTML 属性标注在网页表单上。同时标记适合密码生成的密码字段。(Annotates web forms with Autofill signatures as HTML attributes. Also marks password fields suitable for password generation.)</td>
+</tr>
+<tr>
+<td>WebGL 草案扩展 (WebGL Draft Extensions)</td>
+<td>启用此选项允许 Web 应用程序访问仍处于草案状态的 WebGL 扩展。(Enabling this option allows web applications to access the WebGL extensions that are still in draft status.)</td>
+</tr>
+<tr>
+<td>零拷贝光栅化器 (Zero-copy rasterizer)</td>
+<td>光栅线程直接写入与图块关联的 GPU 内存。(Raster threads write directly to GPU memory associated with tiles.)</td>
+</tr>
+<tr>
+<td>Vulkan</td>
+<td>使用 Vulkan 作为图形后端。(Use vulkan as the graphics backend.)</td>
+</tr>
+<tr>
+<td>隔离其他源 (Isolate additional origins)</td>
+<td>要求为额外的一组源（以逗号分隔的列表指定）使用专用进程。(Requires dedicated processes for an additional set of origins, specified as a comma-separated list.)</td>
+</tr>
+<tr>
+<td>禁用站点隔离 (Disable site isolation)</td>
+<td>禁用站点隔离。旨在诊断可能由跨进程 iframe 引起的错误。如果使用命令行开关或企业策略强制启用站点隔离，则选择退出无效。注意：这会禁用针对影响大多数计算机的 Spectre CPU 漏洞的重要缓解措施。(Disables site isolation (SitePerProcess, IsolateOrigins, etc). Intended for diagnosing bugs that may be due to out-of-process iframes. Opt-out has no effect if site isolation is force-enabled using a command line switch or using an enterprise policy. Caution: this disables important mitigations for the Spectre CPU vulnerability affecting most computers.)</td>
+</tr>
+<tr>
+<td>强制关闭小屏幕设备上文本大小自动调整的启发式方法 (Force off heuristics for inflating text sizes on devices with small screens)</td>
+<td>禁用文本自动调整大小。(Disable text autosizing.)</td>
+</tr>
+<tr>
+<td>WebXR/WebGPU 绑定 (WebXR/WebGPU Binding)</td>
+<td>为 WebXR 会话启用 WebGPU 渲染。要使用此功能，还必须启用 WebXR 投影层。(Enables rendering with WebGPU for WebXR sessions. WebXR Projection Layers must be also be enabled to use this feature.)</td>
+</tr>
+<tr>
+<td>WebXR 孵化功能 (WebXR Incubations)</td>
+<td>启用 WebXR 的实验性功能。(Enables experimental features for WebXR.)</td>
+</tr>
+<tr>
+<td>强制 WebXr 运行时 (Force WebXr Runtime)</td>
+<td>强制浏览器使用特定的运行时，即使该运行时通常不会被启用或根据连接的硬件通常不会被选中。(Force the browser to use a particular runtime, even if it would not usually be enabled or would otherwise not be selected based on the attached hardware.)</td>
+</tr>
+<tr>
+<td>WebXr 手部匿名化策略 (WebXr Hand Anonymization Strategy)</td>
+<td>强制浏览器使用特定的策略来匿名化手部数据，默认顺序有一个策略层次结构来尝试，如果所有策略都失败，则不会返回任何数据，同时此选择确实允许（不推荐的）绕过所有这些算法的替代方案。(Force the browser to use a particular strategy for anonymizing hand data, the default order has a hierarchy of strategies to try and if all of them fail, then no data will be returned, while this choice does allow the (not recommended) alternative of bypassing these algorithms all together.)</td>
+</tr>
+<tr>
+<td>边缘到底部下巴 (EdgeToEdgeBottomChin)</td>
+<td>为中间状态的边缘到边缘体验启用可滚动的底部下巴。(Enables the scrollable bottom chin for an intermediate Edge-to-Edge experience.)</td>
+</tr>
+<tr>
+<td>随处边缘到边缘 (EdgeToEdgeEverywhere)</td>
+<td>启用 Chrome 始终在系统栏下方绘制。这旨在促进在系统级别强制实施边缘到边缘的过渡。(Enables Chrome to draw below the system bars, all the time. This is intended to facilitate the transition to edge-to-edge being enforced at the system level.)</td>
+</tr>
+<tr>
+<td>平板电脑边缘到边缘 (EdgeToEdgeTablet)</td>
+<td>在平板电脑上启用 Android 功能边缘到边缘。(Enables the Android feature Edge-to-Edge on tablets.)</td>
+</tr>
+<tr>
+<td>网格标签切换器更新 (Grid tab switcher update)</td>
+<td>启用网格标签切换器中的视觉更改。(Enables the visual changes in the grid tab switcher.)</td>
+</tr>
+<tr>
+<td>阻止通过 document.write 加载的脚本 (Block scripts loaded via document.write)</td>
+<td>不允许通过 document.write 插入到主框架中的第三方解析器阻塞脚本的获取。(Disallows fetches for third-party parser-blocking scripts inserted into the main frame via document.write.)</td>
+</tr>
+<tr>
+<td>强制 UI 方向 (Force UI direction)</td>
+<td>显式强制 UI 为从左到右或从右到左模式，覆盖 UI 语言的默认方向。(Explicitly force the UI to left-to-right (LTR) or right-to-left (RTL) mode, overriding the default direction of the UI language.)</td>
+</tr>
+<tr>
+<td>强制文本方向 (Force text direction)</td>
+<td>显式强制 UI 文本的每字符方向性为从左到右或从右到左模式，覆盖字符语言的默认方向。(Explicitly force the per-character directionality of UI text to left-to-right (LTR) or right-to-left (RTL) mode, overriding the default direction of the character language.)</td>
+</tr>
+<tr>
+<td>实验性 Web Payments API 功能 (Experimental Web Payments API features)</td>
+<td>启用实验性 Web Payments API 功能。(Enable experimental Web Payments API features.)</td>
+</tr>
+<tr>
+<td>在账户选择时填充密码 (Fill passwords on account selection)</td>
+<td>当用户明确选择账户时填充密码，而不是在页面加载时自动填充凭据。(Filling of passwords when an account is explicitly selected by the user rather than autofilling credentials on page load.)</td>
+</tr>
+<tr>
+<td>强制颜色配置文件 (Force color profile)</td>
+<td>强制 Microsoft Edge 使用特定的颜色配置文件，而不是使用操作系统指定的窗口当前监视器的颜色。(Forces Microsoft Edge to use a specific color profile instead of the color of the window's current monitor, as specified by the operating system.)</td>
+</tr>
+<tr>
+<td>强制颜色 (Forced Colors)</td>
+<td>为 Web 内容启用强制颜色模式。(Enables forced colors mode for web content.)</td>
+</tr>
+<tr>
+<td>Microsoft Edge 堆分析器启动模式 (Microsoft Edge heap profiler start mode)</td>
+<td>启动堆分析服务，该服务记录采样的内存分配配置文件，每个样本都归因于一个调用堆栈。采样分辨率由 --memlog-sampling-rate 标志控制。记录的堆转储可以在 edge://tracing [category:memory-infra] 和 edge://memory-internals 中获取。此设置控制哪些进程将从其启动开始被分析。要在以后的时间分析任何给定进程，请使用 edge://memory-internals 页面。(Starts heap profiling service that records sampled memory allocation profile having each sample attributed with a callstack. The sampling resolution is controlled with --memlog-sampling-rate flag. Recorded heap dumps can be obtained at edge://tracing [category:memory-infra] and edge://memory-internals. This setting controls which processes will be profiled since their start. To profile any given process at a later time use edge://memory-internals page.)</td>
+</tr>
+<tr>
+<td>堆分析采样间隔（字节）(Heap profiling sampling interval (in bytes))</td>
+<td>堆分析服务使用泊松过程来采样分配。采样间隔的默认值为 1000000。这对于大型和/或频繁的分配产生低噪声。这意味着聚合数和大型和/或频繁的分配可以高保真地信任。较低的间隔产生更高的采样分辨率，但以更高的性能开销为代价。(Heap profiling service uses Poisson process to sample allocations. Default value for the interval between samples is 1000000 (1MB). This results in low noise for large and/or frequent allocations [size * frequency &gt;&gt; 1MB]. This means that aggregate numbers [e.g. total size of malloc-ed objects] and large and/or频繁的分配可以高保真地信任。较低的间隔产生更高的采样分辨率，但以更高的性能开销为代价。)</td>
+</tr>
+<tr>
+<td>堆分析堆栈跟踪类型 (Heap profiling stack traces type)</td>
+<td>默认情况下，堆分析服务记录本机堆栈。需要后处理步骤来符号化堆栈。&quot;带有线程名称的本机&quot;将线程名称添加为每个本机堆栈的第一帧。也可以使用跟踪事件作为标识符来记录伪堆栈。也可以同时使用两者。(By default heap profiling service records native stacks. A post-processing step is required to symbolize the stacks. 'Native with thread names' adds the thread name as the first frame of each native stack. It's also possible to record a pseudo stack using trace events as identifiers. It's also possible to do a mix of both.)</td>
+</tr>
+<tr>
+<td>启用网络日志记录到文件 (Enable network logging to file)</td>
+<td>启用网络日志记录到用户数据目录中名为 netlog.json 的文件。该文件可以导入到 edge://net-internals。(Enables network logging to a file named netlog.json in the user data directory. The file can be imported into edge://net-internals.)</td>
+</tr>
+<tr>
+<td>将不安全来源视为安全来源 (Insecure origins treated as secure)</td>
+<td>将给定的（不安全的）来源视为安全来源。多个来源可以作为逗号分隔的列表提供。来源必须指定其协议。(Treat given (insecure) origins as secure origins. Multiple origins can be supplied as a comma-separated list. Origins must have their protocol specified.)</td>
+</tr>
+<tr>
+<td>选择 ANGLE 图形后端 (Choose ANGLE graphics backend)</td>
+<td>为 ANGLE 选择图形后端。Vulkan 后端仍处于实验阶段，可能包含仍在修复中的错误。(Choose the graphics backend for ANGLE. The Vulkan backend is still experimental, and may contain bugs that are still being worked on.)</td>
+</tr>
+<tr>
+<td>Ad Selection API</td>
+<td>启用 Ad Selection API 及相关功能，如归因报告、围栏框架、共享存储、私有聚合。(Enables the Ad Selection API and associated features such as Attribution Reporting, Fenced Frames, Shared Storage, Private Aggregation.)</td>
+</tr>
+<tr>
+<td>Ad Selection API -  consented 调试令牌 (Ad Selection API - Consented Debug Token)</td>
+<td>使用提供的令牌启用 Ad Selection API 调试。在 Ad Selection API 可信服务器上运行的具有匹配令牌的隐私保护拍卖将能够记录有关拍卖的信息以启用调试。请注意，此日志记录可能包括通常保密的用户浏览历史信息。(Enables Ad Selection API debugging with the provided token. Privacy-preserving auctions running on an Ad Selection API trusted server with a matching token will be able to log information about the auction to enable debugging. Note that this logging may include information about the user's browsing history normally kept private.)</td>
+</tr>
+<tr>
+<td>Ad Selection API - 注册覆盖 (Ad Selection API - Enrollment Overrides)</td>
+<td>允许一系列网站在未注册并验证加入 Ad Selection Origin Trial 的情况下使用 Ad Selection API 功能。(Allows a list of sites to use Ad Selection API features without them being enrolled and attested into the Ad Selection Origin Trial.)</td>
+</tr>
+<tr>
+<td>在自动播放设置中显示阻止选项 (Show block option in autoplay settings)</td>
+<td>如果启用，阻止将作为媒体自动播放设置中的一个选项出现。(If enabled, block will appear as an option in media autoplay settings.)</td>
+</tr>
+<tr>
+<td>启用云策略 V2 (Enable Cloud Policy V2)</td>
+<td>启用新的云策略后端的使用。(Enables the use of a new Cloud Policy backend.)</td>
+</tr>
+<tr>
+<td>Edge SDCH (ZSDCH Content-Encoding)</td>
+<td>启用 Edge Sdch 支持。(Enables Edge Sdch support.)</td>
+</tr>
+<tr>
+<td>实验性跟踪预防功能 (Experimental Tracking Prevention Features)</td>
+<td>启用跟踪预防的即将推出和实验性改进。(Enables upcoming and experimental improvements to Tracking Prevention.)</td>
+</tr>
+<tr>
+<td>启用实验&quot;完整&quot;模式 (Enable experimentation 'full' mode)</td>
+<td>如果启用且未设置&quot;ExperimentationAndConfigurationServiceControl&quot;组策略，Edge 客户端的行为将如同组策略设置为&quot;完整模式&quot;，这将在客户端上启用实验。(If enabled and 'ExperimentationAndConfigurationServiceControl' group policy was not set, Edge client will behave as if the group policy was set to 'full mode', which will enable experimentation on the client.)</td>
+</tr>
+<tr>
+<td>Web 保护仪表板 (Web protection dashboard)</td>
+<td>启用后，您可以看到 Web 保护报告。(When enabled, you could see web protection report.)</td>
+</tr>
+<tr>
+<td>沉浸式平板电脑 NTP (Immersive tablet NTP)</td>
+<td>如果启用，平板电脑上的 NTP 将是沉浸式的，并显示类似于手机的布局。(If enabled, NTP on tablets will be immersive and display similar layouts on phones.)</td>
+</tr>
+<tr>
+<td>菜单删除数据上线 (Menu Delete Data Onboard)</td>
+<td>启用此标志以在菜单中上线删除数据。(Enable this flag to onboard delete data in menu.)</td>
+</tr>
+<tr>
+<td>视频后台播放 (Video Background Play)</td>
+<td>启用此标志以让您开启视频后台播放。(Enable this flag to let you turn on video background play.)</td>
+</tr>
+<tr>
+<td>调试 UIR (Debug UIR)</td>
+<td>如果启用，通过在令牌获取时模拟 UIR 错误来调试 UIR。(If enabled, debug UIR by mocking UIR error when token fetch.)</td>
+</tr>
+<tr>
+<td>强制获取云配置服务 (Force Fetch Cloud Config Service)</td>
+<td>如果启用，云配置服务将在启动时强制获取配置，没有任何延迟。(If enabled, the Cloud Config Service will force fetch config without any delay in the startup.)</td>
+</tr>
+<tr>
+<td>地址栏 Edge 企业提供程序 (Omnibox Edge Enterprise Provider)</td>
+<td>用 Edge 企业提供程序替换 MSB 提供程序，用于地址栏工作建议。(Replaces MSB Provider with Edge Enterprise Provider for Omnibox Work Suggestions.)</td>
+</tr>
+<tr>
+<td>地址栏 UI 隐藏稳定状态 URL 方案 (Omnibox UI Hide Steady-State URL Scheme)</td>
+<td>在地址栏中，从稳定状态显示的 URL 中隐藏方案。在编辑期间会恢复。(In the omnibox, hide the scheme from steady state displayed URLs. It is restored during editing.)</td>
+</tr>
+<tr>
+<td>地址栏 UI 隐藏稳定状态 URL 琐碎子域 (Omnibox UI Hide Steady-State URL Trivial Subdomains)</td>
+<td>在地址栏中，从稳定状态显示的 URL 中隐藏琐碎子域。隐藏的部分在编辑期间会恢复。(In the omnibox, hide trivial subdomains from steady state displayed URLs. Hidden portions are restored during editing.)</td>
+</tr>
+<tr>
+<td>Edge Android 密码保存更新底部工作表 (Edge Android password save update bottomsheet)</td>
+<td>如果启用，将为 Android 显示密码保存更新底部工作表。(If enabled, will show password save update bottomsheet for android.)</td>
+</tr>
+<tr>
+<td>语义设计系统 (Semantic Design System)</td>
+<td>启用语义设计系统。(Enables the Semantic Design System.)</td>
+</tr>
+<tr>
+<td>Web UI Web Vitals 性能测量工具 (Web UI Web Vitals Performance Measurement Tool)</td>
+<td>为 WebUI 2 应用程序启用 Web Vitals 性能测量工具。(Enables the Web Vitals Performance measurement tool for WebUI 2 apps.)</td>
+</tr>
+<tr>
+<td>在启动时启用实验负载获取 (Enable Experimentation Payload Fetch on startup)</td>
+<td>在启动时以及每次应用程序进入前台时启用实验负载获取，无论两次获取之间经过的时间如何。(Enables experimentation payload fetch on startup and every time the app enters foreground, regardless of the time passed in between the fetches.)</td>
+</tr>
+<tr>
+<td>启用设备端 AI 模型调试日志 (Enable on device AI model debug logs)</td>
+<td>启用设备端 AI 模型记录和保存调试消息的功能，这些消息可以在内部页面显示。(Enables on device AI model to log and save debug messages that can be shown in the internals page.)</td>
+</tr>
+<tr>
+<td>Copilot 最新体验 (Copilot Latest Experience)</td>
+<td>启用此标志以全面体验最新的 Copilot 增强功能。(Enable this flag to experience the latest Copilot enhancements in full.)</td>
+</tr>
+<tr>
+<td>Copilot 持久聊天 (Copilot Persistent Chat)</td>
+<td>启用此标志以在重新打开 Copilot 时恢复最近的聊天会话。(Enable this flag to restore the most recent chat session when reopening Copilot.)</td>
+</tr>
+<tr>
+<td>Copilot 建议芯片 (Copilot Suggestion Chips)</td>
+<td>启用此标志以在 Copilot 聊天界面中显示建议芯片。(Enable this flag to show suggestion chips in Copilot chat interface.)</td>
+</tr>
+<tr>
+<td>每日图片信息搜索 (Daily image information search)</td>
+<td>如果启用，每日图片信息搜索将可用。(If enabled, daily image information search will be available.)</td>
+</tr>
+<tr>
+<td>启用底部地址栏推广 (Enable bottom Omnibox Upsell)</td>
+<td>如果启用，将显示询问用户将地址栏从顶部更改为底部的对话框。(If enabled, the dialog asking user to change omnibox from top to bottom will appear.)</td>
+</tr>
+<tr>
+<td>默认底部地址栏 (Default bottom address bar)</td>
+<td>如果启用，移动版 Edge 上的地址栏将默认使用底部布局。(If enabled, the Omnibox on Edge mobile will use the bottom layout as default.)</td>
+</tr>
+<tr>
+<td>启用底部工具栏标签页滑动手势 (Enable bottom toolbar tab swipe gesture)</td>
+<td>如果启用，用户将能够水平滑动底部地址栏来切换标签页。(If enabled, the user is able to swipe the bottom omnibox horizontally to switch tabs.)</td>
+</tr>
+<tr>
+<td>上下文搜索 (Contextual Search)</td>
+<td>如果启用，将在页面底部显示上下文搜索弹出窗口。(If enabled, will show a contextual search pop-up at the bottom of the page.)</td>
+</tr>
+<tr>
+<td>Copilot Fluid Composer</td>
+<td>如果启用，copilot 体验将更改为具有可折叠覆盖层的流体布局。(If enabled, the copilot experience will change to the fluid layout with a collapsible overlay.)</td>
+</tr>
+<tr>
+<td>Copilot 原生平板电脑 (Copilot Native Tablet)</td>
+<td>启用此标志以在平板电脑布局上体验原生 copilot。(Enable this flag to experience copilot native on tablet layouts.)</td>
+</tr>
+<tr>
+<td>移动地址栏 QF 改进 V2 (Mobile Omnibox QF Improvement V2)</td>
+<td>如果启用，将支持多实体。这是对 QF 改进 V1 的增强。(If enabled, multi-entities will be supported.This is a enhancement upon QF improvement V1.)</td>
+</tr>
+<tr>
+<td>ZIP 上的扩展搜索历史 (Extended search history on ZIP)</td>
+<td>如果启用，将零输入页面上可见的搜索历史项数量从 3 扩展到更大的集合。(If enabled, expands the number of visible search history items on the Zero-Input Page (ZIP) from 3 to a larger set.)</td>
+</tr>
+<tr>
+<td>移动地址栏 ZIP 优化 (Mobile Omnibox ZIP Refinement)</td>
+<td>如果启用，ZIP 优化将应用于地址栏。(If enabled, ZIP refinement will be applied to the omnibox.)</td>
+</tr>
+<tr>
+<td>移动钱包 PPE (Mobile Wallet PPE)</td>
+<td>启用后，用户可以在移动钱包中看到 PPE 数据。(when enabled, user can see PPE data in mobile wallet.)</td>
+</tr>
+<tr>
+<td>移动钱包门票 PPE (Mobile Wallet Tickets PPE)</td>
+<td>启用后，用户可以在移动钱包中看到门票 PPE 数据。(when enabled, user can see tickets PPE data in mobile wallet.)</td>
+</tr>
+<tr>
+<td>移动钱包密码泄漏扫描 (Mobile Wallet Password Leakage Scan)</td>
+<td>启用后，移动钱包用户可以看到密码泄漏扫描按钮。(when enabled, password leakage scan button is visible to mobile wallet users.)</td>
+</tr>
+<tr>
+<td>移动钱包密码迁移 (Mobile Wallet Password Migration)</td>
+<td>启用后，原生密码管理页面将重定向到移动钱包。(when enabled, native password manage page will be redirected to mobile wallet.)</td>
+</tr>
+<tr>
+<td>Android 上的移动钱包弃用 (Mobile Wallet Deprecation On Android)</td>
+<td>启用后，移动钱包将在 Android 上被弃用。(when enabled, mobile wallet will be deprecated on Android.)</td>
+</tr>
+<tr>
+<td>Android 扩展吊销服务 (Android Extension Revocation Service)</td>
+<td>启用后，扩展吊销服务将在 Edge Android 上运行。(When enabled, extension revocation service will be running on edge android.)</td>
+</tr>
+<tr>
+<td>Android 扩展针对 SteamDB 的上下文推荐 (Android Extension Contextual Recommend for SteamDB)</td>
+<td>启用后，当用户在 Edge Android 上访问 Steam 时，可以获得 SteamDB 推荐。(When enabled, users can get SteamDB recommendations when they visit Steam on edge android.)</td>
+</tr>
+<tr>
+<td>Android 扩展 WebUI2 中心 (Android Extension WebUI2 Hub)</td>
+<td>启用后，扩展中心页面将使用 WebUI2 进行渲染。(When enabled, extension hub page will be using WebUI2 to render.)</td>
+</tr>
+<tr>
+<td>Android exo player</td>
+<td>启用后，用户可以在 Edge Android 上启用 exo 播放器。(When enabled, users can enable the exo player on edge android.)</td>
+</tr>
+<tr>
+<td>PDF 体验革新 (PDF experience revamp)</td>
+<td>如果启用，用户将拥有革新后的 PDF 体验。(If enabled, user will have the revamped PDF experience.)</td>
+</tr>
+<tr>
+<td>PDF 重排支持 (PDF Reflow support)</td>
+<td>如果启用，用户将可以使用 PDF 重排功能。(If enabled, user will have access to the PDF Reflow feature.)</td>
+</tr>
+<tr>
+<td>标签页中的 PDF 工具栏 (PDF toolbar in the tab)</td>
+<td>如果启用，用户将在标签页中拥有 PDF 的工具栏。(If enabled, user will have a toolbar for PDFs in the tab.)</td>
+</tr>
+<tr>
+<td>PDF 注释 (PDF Annotation)</td>
+<td>如果启用，用户将拥有 PDF 的注释功能。(If enabled, user will have the annotation for PDF.)</td>
+</tr>
+<tr>
+<td>启用半屏页面摘要功能 (Enable Half Screen Page Summary Feature)</td>
+<td>如果启用，将启用半屏页面摘要功能。(If enabled, will enable Half Screen Page Summary Feature.)</td>
+</tr>
+<tr>
+<td>Android ShouldInterceptUrl 异步 (Android ShouldInterceptUrl async)</td>
+<td>在 Android 上确定是否应拦截 URL 时，异步进行 IPC 调用。(IPC call asynchronously when determine whether should intercept URL on Android.)</td>
+</tr>
+<tr>
+<td>启用新标签页重构 (Enable new tab page refactor)</td>
+<td>如果启用，将启用新标签页上的架构重构。(If enabled, will enable architecture refactor on new tab page.)</td>
+</tr>
+<tr>
+<td>在底部地址栏模式下启用 NTP 新布局 (Enable NTP new layout in bottom omnibox mode)</td>
+<td>如果启用，NTP 将在底部地址栏模式下使用新的 UI 布局。(If enabled, NTP will use new UI layout in bottom omnibox mode.)</td>
+</tr>
+<tr>
+<td>在 NTP 上使用旧版页面布局设置 (Use legacy page layout settings on NTP)</td>
+<td>如果启用，将禁用新页面布局功能，并使用旧式页面布局。(If enabled, will disabled new page layout feature, and use old style page layout.)</td>
+</tr>
+<tr>
+<td>启用 NTP  topsites 暂存服务 (Enable NTP topsites staging service)</td>
+<td>如果启用，topsites 将使用暂存服务作为推荐列表和其他用途。(If enabled, topsites will use staging service as recommend list and others.)</td>
+</tr>
+<tr>
+<td>启用网站图标 v2 API (Enable favicon v2 API)</td>
+<td>如果启用，将使用网站图标 v2 API 来获取高质量网站图标。(If enabled, will use favicon v2 API to fetch high quality favicon.)</td>
+</tr>
+<tr>
+<td>启用顶级网站无边框 UI 样式 (Enable top sites no border UI style)</td>
+<td>如果启用，将为顶级网站使用无边框 UI 样式。(If enabled, will use no border UI style for top sites.)</td>
+</tr>
+<tr>
+<td>启用顶级网站提高网站图标获取性能 (Enable top sites improve favicon fetching performance)</td>
+<td>如果启用，将提高获取网站图标的性能。(If enabled, will improve the performance of fetching favicon.)</td>
+</tr>
+<tr>
+<td>启用最常访问的网站显示完整标题 (Enable most visited sites display full title)</td>
+<td>如果启用，最常访问的网站将显示完整标题，不截断。(If enabled, most visited sites will display full title, without truncation.)</td>
+</tr>
+<tr>
+<td>在添加页面中启用最常访问的网站 (Enable most visited sites in add page)</td>
+<td>如果启用，最常访问的网站将显示在添加页面中。(If enabled, most visited sites will be shown in add page.)</td>
+</tr>
+<tr>
+<td>启用删除重复的最常访问的网站 (Enable remove duplicate most visited sites)</td>
+<td>如果启用，删除重复的最常访问的网站。(If enabled, remove duplicate most visited sites.)</td>
+</tr>
+<tr>
+<td>启用显示最常访问的网站上下文推广 (Enable show most visited sites contextual upsell)</td>
+<td>如果启用，在最常访问的网站页面上显示推广，以将当前网站添加到顶级网站。(If enabled, show upsell to add current website into top sites on most visited site page.)</td>
+</tr>
+<tr>
+<td>基于 WebUI2 的奖励 (Rewards based on WebUI2)</td>
+<td>如果启用，将使用基于 WebUI2 的新奖励。(If enabled, will use the new Rewards based on WebUI2.)</td>
+</tr>
+<tr>
+<td>在 Android 上使用 WebViewPro 进行登录 (Use WebViewPro for sign-in on Android)</td>
+<td>如果启用，将在 Android 上使用 WebViewPro 进行登录。(If enabled, will use WebViewPro for sign-in on Android.)</td>
+</tr>
+<tr>
+<td>在 Android 上支持通行密钥认证 (Support passkey auth on Android)</td>
+<td>如果启用，OneAuth 将支持在 Android 上进行通行密钥认证。(If enabled, OneAuth will support passkey auth on Android.)</td>
+</tr>
+<tr>
+<td>在后台加载 OneAuth (Load OneAuth in background)</td>
+<td>如果启用，在后台线程加载 OneAuth。(If enabled, load OneAuth in background thread.)</td>
+</tr>
+<tr>
+<td>Edge Mobile 新主设置 v2 (Edge Mobile new main settings v2)</td>
+<td>如果启用，移动版 Edge 设置将默认使用 v2。(If enabled, the mobile edge settings will use v2 as default.)</td>
+</tr>
+<tr>
+<td>Edge Mobile 自定义标签页用户协议策略检查 (Edge Mobile Custom Tab User Agreement Policy Check)</td>
+<td>如果启用，将在打开自定义标签页之前执行用户协议策略检查。(If enabled, will perform user agreement policy check before opening custom tabs.)</td>
+</tr>
+<tr>
+<td>针对 AAD 的移动工作建议 (Mobile Work Suggestion For AAD)</td>
+<td>如果启用，将为 AAD 用户在地址栏中添加工作建议。(If enabled, will add work suggestion in omnibox for AAD user.)</td>
+</tr>
+<tr>
+<td>ZIP 中的移动工作建议 (Mobile Work Suggestion In ZIP)</td>
+<td>如果启用，将为 AAD 用户在 ZIP 中添加工作建议，请先为 aad 打开移动工作建议。(If enabled, will add work suggestion in ZIP for AAD user, please open mobile work suggestion for aad first.)</td>
+</tr>
+<tr>
+<td>推广 AAD 的工作建议 (Promote Work Suggestion For AAD)</td>
+<td>如果启用，将在地址栏的 URL 组中推广一个工作建议。(If enabled, will promote one work suggestion to url group in omnibox.)</td>
+</tr>
+<tr>
+<td>基于区域设置的 NTP 信息流直接重定向 (NTP feed direct redirection base on locale)</td>
+<td>如果启用，NTP 信息流将检查区域设置并加载重定向。(If enabled, NTP feed will check the locale and load redirection.)</td>
+</tr>
+<tr>
+<td>为非参与用户关闭 NTP 信息流 (Turn off NTP feed for non engaged users)</td>
+<td>如果启用，NTP 信息流将不会为非参与用户初始化。(If enabled, NTP feed will not be initialized for non engaged users.)</td>
+</tr>
+<tr>
+<td>将密码添加为 Edge 设置的 L1 条目 (Add password as the L1 entry of Edge Settings)</td>
+<td>如果启用，用户可以在 Edge 设置 L1 页面看到密码条目。(If enabled, users can see password entry in Edge Settings L1 Page.)</td>
+</tr>
+<tr>
+<td>Android 上的 Edge CUV 事件 (Edge CUV event on Android)</td>
+<td>如果启用，将发送 CUV 事件。(If enabled, will send CUV event.)</td>
+</tr>
+<tr>
+<td>反馈优化 (Feedback optimization)</td>
+<td>如果启用，反馈优化将可用。(If enabled, feedback optimization will be available.)</td>
+</tr>
+<tr>
+<td>Edge mobile 定期工作程序 (Edge mobile period worker)</td>
+<td>启用后，将启动一个定期工作程序。(When enabled, will start a period worker.)</td>
+</tr>
+<tr>
+<td>增长引擎已启用 (Growth Engine Enabled)</td>
+<td>如果启用，增长引擎将可用。(If enabled, the growth engine will be available.)</td>
+</tr>
+<tr>
+<td>增长引擎底部工作表推广已启用 (Growth Engine Bottom Sheet Upsell Enabled)</td>
+<td>如果启用，增长引擎底部工作表推广将可用。(If enabled, the growth engine bottom sheet upsell will be available.)</td>
+</tr>
+<tr>
+<td>更改应用程序图标禁止 (Change app icon prohibit)</td>
+<td>如果启用，用户将被禁止更改应用程序图标。(If enabled, user will be disabled to change the app logo.)</td>
+</tr>
+<tr>
+<td>优化移动阅读视图模型 (Optimize Mobile Reading View Model)</td>
+<td>如果启用，将优化移动阅读视图可读模型。(If enabled, will Optimize Mobile Reading View Readable Model.)</td>
+</tr>
+<tr>
+<td>启动时的 Android 默认浏览器推广 (Android default browser promo on startup)</td>
+<td>如果启用，将优化移动阅读视图可读模型。(If enabled, will Optimize Mobile Reading View Readable Model.)</td>
+</tr>
+<tr>
+<td>记录标准用户操作 (Record Sandard User Action)</td>
+<td>如果启用，将为主要页面和子视图记录标准用户操作。(If enabled, will record standard user action for prime pages and sub views.)</td>
+</tr>
+<tr>
+<td>Copilot 视频摘要 V2 (Copilot Video Summary V2)</td>
+<td>启用此标志以使用新的 Copilot 视频摘要 V2 功能进行视频摘要。(Enable this flag to use the new Copilot Video Summary V2 feature for video summarization.)</td>
+</tr>
+<tr>
+<td>Copilot 视频转录 V2 (Copilot Video Transcript V2)</td>
+<td>启用此标志以使用新的 Copilot 视频转录 V2 功能进行视频转录提取。(Enable this flag to use the new Copilot Video Transcript V2 feature for video transcript extraction.)</td>
+</tr>
+<tr>
+<td>账户转移 (Account Transfer)</td>
+<td>启用后，允许用户在扫描 Edge 桌面版提供的 QR 码后使用 Microsoft 账户登录。(Enable it to allow user sign in with Microsoft account after scanning the QR code provided by Edge Desktop.)</td>
+</tr>
+<tr>
+<td>Edge 商业 Copilot (Edge Commercial Copilot)</td>
+<td>启用它以解锁 Microsoft Edge 中围绕商业 Copilot 的各种新体验。（注意：需要使用已登录 Entra ID 账户的配置文件）(Enable it to unlock a variety of new experiences around Commercial Copilot in Microsoft Edge. (Note: Requires the profile with your Entra ID account logged in))</td>
+</tr>
+<tr>
+<td>Edge 商业 Copilot - 用于 Web 的融合 CT 插件 (Edge Commercial Copilot - Converged CT plugin for Web)</td>
+<td>启用它以使用用于 Web 的融合 CT 插件。(Enable it to use the converged CT plugin for Web.)</td>
+</tr>
+<tr>
+<td>WebSSO MSA 革新 (WebSSO MSA Revamp)</td>
+<td>Microsoft Edge 支持对 Microsoft 网站进行浏览器到 Web 的 SSO，最近我们为 MSA 用户革新了此功能。使用此标志在旧实现和新实现之间切换。(Microsoft Edge supports browser-to-web SSO to Microsoft websites, recently we have revamped this feature for MSA users. Use this flag to switch between the old and new implementations.)</td>
+</tr>
+<tr>
+<td>WebSSO AAD 革新 (WebSSO AAD Revamp)</td>
+<td>Microsoft Edge 支持对 Microsoft 网站进行浏览器到 Web 的 SSO，最近我们为 AAD 用户革新了此功能。使用此标志在旧实现和新实现之间切换。(Microsoft Edge supports browser-to-web SSO to Microsoft websites, recently we have revamped this feature for AAD users. Use this flag to switch between the old and new implementations.)</td>
+</tr>
+<tr>
+<td>在自定义标签页中使用 Microsoft Tunnel (Use Microsoft Tunnel in Custom Tabs)</td>
+<td>启用此标志以使 Microsoft Tunnel 在自定义标签页中工作。(Enable this flag to make Microsoft Tunnel work in Custom Tabs.)</td>
+</tr>
+<tr>
+<td>启用 GPU 服务日志记录 (Enable gpu service logging)</td>
+<td>启用打印实际 GL 驱动程序调用。(Enable printing the actual GL driver calls.)</td>
+</tr>
+<tr>
+<td>严格源隔离 (Strict-Origin-Isolation)</td>
+<td>加强网站隔离策略的实验性安全模式。控制站点隔离是否应使用源而不是方案和 eTLD+1。(Experimental security mode that strengthens the site isolation policy. Controls whether site isolation should use origins instead of scheme and eTLD+1.)</td>
+</tr>
+<tr>
+<td>不安全的 WebGPU 支持 (Unsafe WebGPU Support)</td>
+<td>为 WebGPU 开发提供的方便标志。在不支持的配置上启用尽力而为的 WebGPU 支持及更多</td>
+</tr>
+<tr>
+<td>功能！请注意，此标志可能暴露安全问题。(Convenience flag for WebGPU development. Enables best-effort WebGPU support on unsupported configurations and more! Note that this flag could expose security issues to websites so only use it for your own development.)</td>
+<td></td>
+</tr>
+<tr>
+<td>弹性过度滚动 (Elastic Overscroll)</td>
+<td>在触摸屏和高精度触摸板上启用弹性过度滚动。(Enables Elastic Overscrolling on touchscreens and precision touchpads.)</td>
+</tr>
+<tr>
+<td>启用实验性 Cookie 功能 (Enable experimental cookie features)</td>
+<td>启用影响设置、发送和管理 Cookie 的新功能。启用的功能可能随时更改。(Enable new features that affect setting, sending, and managing cookies. The enabled features are subject to change at any time.)</td>
+</tr>
+<tr>
+<td>启用 WebNN API (Enables WebNN API)</td>
+<td>启用 Web 机器学习神经网络 API。规范见 https://www.w3.org/TR/webnn/ (Enables the Web Machine Learning Neural Network (WebNN) API. Spec at https://www.w3.org/TR/webnn/)</td>
+</tr>
+<tr>
+<td>启用实验性 WebNN API 功能 (Enables experimental WebNN API features)</td>
+<td>在 Web 机器学习神经网络 API 中启用额外的实验性功能。需要启用 &quot;WebNN API&quot; 标志。(Enables additional, experimental features in Web Machine Learning Neural Network (WebNN) API. Requires the &quot;WebNN API&quot; flag to be enabled.)</td>
+</tr>
+<tr>
+<td>页面嵌入式权限控制（权限元素）(Page embedded permission control (permission element))</td>
+<td>启用页面嵌入式权限控制功能，该功能允许使用 HTML 'permission' 元素。(Enables the Page Embedded Permission Control feature, which allows the use of the HTML 'permission' element.)</td>
+</tr>
+<tr>
+<td>为图标更改启用 PWA 安装更新对话框 (Enable PWA install update dialog for icon changes)</td>
+<td>当 PWA 更改其图标时启用确认对话框。(Enable a confirmation dialog that shows up when a PWA changes its icon.)</td>
+</tr>
+<tr>
+<td>将 SurfaceLayerImpls 对齐到像素网格 (Align SurfaceLayerImpls to pixel grid)</td>
+<td>将 SurfaceLayerImpl 合成器纹理对齐到像素网格。当 iframe 与其父进程跨进程渲染并且未能与像素网格对齐时（例如，当父框架具有非整数比例因子时），这一点很重要。未能对齐到像素网格可能导致 iframe 的文本变得模糊。SurfaceLayerImpl 也用于 <canvas>，这也可能受益于对齐。(Align SurfaceLayerImpl compositor textures to pixel grid. This is important when an iframe is rendered cross-process to its parent, and fails to align with the pixel grid (e.g. when the parent frame has a non-integral scale factor). Failure to align to the pixel grid can result in the iframe's text becoming blurry. SurfaceLayerImpl also is used for <canvas>, which may also benefit from the alignment.)</td>
+</tr>
+<tr>
+<td>在顶级跨站点跨浏览上下文组导航中清除窗口名称 (Clear window name in top-level cross-site cross-browsing-context-group navigation)</td>
+<td>当它是顶级跨站点导航并交换 BrowsingContextGroup 时，清除保留的 window.name 属性。(Clear the preserved window.name property when it's a top-level cross-site navigation that swaps BrowsingContextGroup.)</td>
+</tr>
+<tr>
+<td>FedCmMetricsEndpoint</td>
+<td>允许 FedCM API 向身份提供商端的指标端点发送性能测量。需要启用 FedCM。(Allows the FedCM API to send performance measurement to the metrics endpoint on the identity provider side. Requires FedCM to be enabled.)</td>
+</tr>
+<tr>
+<td>FedCmWithoutWellKnownEnforcement</td>
+<td>支持不在 IdP 的 .well-known 文件中的 configURL。(Supports configURL that's not in the IdP's .well-known file.)</td>
+</tr>
+<tr>
+<td>将 Cookie 绑定到其设置源的端口 (Bind cookies to their setting origin's port)</td>
+<td>如果启用，Cookie 将只能由与最初设置 Cookie 的源具有相同端口的源访问。(If enabled, cookies will only be accessible by origins with the same port as the one that originally set the cookie.)</td>
+</tr>
+<tr>
+<td>将 Cookie 绑定到其设置源的方案 (Bind cookies to their setting origin's scheme)</td>
+<td>如果启用，Cookie 将只能由与最初设置 Cookie 的源具有相同方案的源访问。(If enabled, cookies will only be accessible by origins with the same scheme as the one that originally set the cookie.)</td>
+</tr>
+<tr>
+<td>测试第三方 Cookie 逐步淘汰 (Test Third Party Cookie Phaseout)</td>
+<td>启用以测试第三方 Cookie 的逐步淘汰。(Enable to test third-party cookie phaseout.)</td>
+</tr>
+<tr>
+<td>Skia Graphite</td>
+<td>启用 Skia Graphite。这将默认使用 Dawn 后端，但可以使用命令行标志覆盖以在非官方开发者构建上进行测试。(Enable Skia Graphite. This will use the Dawn backend by default, but can be overridden with command line flags for testing on non-official developer builds.)</td>
+</tr>
+<tr>
+<td>默认情况下源键控进程 (Origin-keyed Processes by default)</td>
+<td>为大多数页面（即，默认情况下分配给源键控代理集群的页面）启用源键控进程隔离。这提高了安全性，但也增加了创建的进程数量。注意：启用此功能也会启用&quot;默认情况下源键控代理集群&quot;。(Enables origin-keyed process isolation for most pages (i.e., those assigned to an origin-keyed agent cluster by default). This improves security but also increases the number of processes created. Note: enabling this feature also enables 'Origin-keyed Agent Clusters by default'.)</td>
+</tr>
+<tr>
+<td>启用 Perfetto 系统跟踪 (Enable Perfetto system tracing)</td>
+<td>启用后，Edge 将尝试连接到系统跟踪服务。(When enabled, Edge will attempt to connect to the system tracing service.)</td>
+</tr>
+<tr>
+<td>标签组入口点 (Tab Group Entry Points)</td>
+<td>启用创建标签组的额外入口点。(Enables additional entry points for creating tab groups.)</td>
+</tr>
+<tr>
+<td>标签组奇偶校验底部工作表 (Tab Group Parity Bottom Sheet)</td>
+<td>启用通过标签组奇偶校验底部工作表将标签页添加到标签组。(Enables adding Tabs to Tab Groups via the Tab Group Parity Bottom Sheet.)</td>
+</tr>
+<tr>
+<td>启用 container-type 属性不具有布局包含 (Enables the container-type property to have no layout containment)</td>
+<td>container-type 属性最近更改为不添加布局包含，这允许用户暂时禁用此更改。(The container-type property was recently changed to not add layout containment, this allows users to temporarily disable this change.)</td>
+</tr>
+<tr>
+<td>弃用 unload 事件 (Deprecate the unload event)</td>
+<td>控制 Permissions-Policy unload 的默认值。如果启用，unload 处理程序将被弃用，并且除非已显式设置 Permissions-Policy 来启用它们，否则不会接收 unload 事件。如果禁用，即使在其弃用的逐步推出期间，unload 处理程序将继续接收 unload 事件，除非由 Permissions-Policy 显式禁用。(Controls the default for Permissions-Policy unload. If enabled, unload handlers are deprecated and will not receive the unload event unless a Permissions-Policy to enable them has been explicitly set. If disabled, unload handlers will continue to receive the unload event unless explicitly disabled by Permissions-Policy, even during the gradual rollout of their deprecation.)</td>
+</tr>
+<tr>
+<td>归档除活动标签页外的所有标签页 (Archive all tabs except active)</td>
+<td>导致模型中的所有标签页（除了当前活动标签页）被归档。用于手动测试。(Causes all tabs in model (except the current active one) to be archived. Used for manual testing.)</td>
+</tr>
+<tr>
+<td>Android 历史记录窗格 (History Pane Android)</td>
+<td>启用显示 Hub 中显示历史记录的新窗格。(Enables showing a new pane in the hub that displays History.)</td>
+</tr>
+<tr>
+<td>书签中心窗格 (Bookmark hub pane)</td>
+<td>启用书签中心窗格。(Enables a bookmark hub pane.)</td>
+</tr>
+<tr>
+<td>CSS Masonry 布局 (CSS Masonry Layout)</td>
+<td>启用实验性 CSS Masonry 布局实现。支持简单的 masonry 布局。尚不支持子网格、分段和流外项目。使用 CSS Masonry 的语法是 <code>display: masonry</code> 与网格属性一起使用。有关 masonry 语法的更多详细信息，请参见 https://www.w3.org/TR/css-grid-3/#masonry-model。(Enable experimental CSS Masonry Layout implementation. Simple layouts with masonry are supported. Subgrid, fragmentation, and out-of-flow items are not supported yet. The syntax to use CSS Masonry is <code>display: masonry</code> together with grid properties (i.e. <code>grid-column</code>, <code>grid-row</code>, etc.). More details on masonry syntax can be found at https://www.w3.org/TR/css-grid-3/#masonry-model.)</td>
+</tr>
+<tr>
+<td>将主线程限制为 60hz (throttle-main-thread-to-60hz)</td>
+<td>将主线程更新限制为 60fps，即使 VSync 速率更高。(Throttle main thread updates to 60fps, even when VSync rate is higher.)</td>
+</tr>
+<tr>
+<td>本地网络访问检查 (Local Network Access Checks)</td>
+<td>启用本地网络访问检查。(Enables Local Network Access checks.)</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Adguard Home 与加密DNS]]></title>
+        <id>https://leenut.space/post/adh-dns/</id>
+        <link href="https://leenut.space/post/adh-dns/">
+        </link>
+        <updated>2025-10-24T06:49:09.000Z</updated>
+        <summary type="html"><![CDATA[<p>DNS域名系统是我们使用网络过程中非常重要的一个系统，可以将DNS理解为互联网中的“电话簿”，它的作用是将我们常用的域名（例如：www.example.com）转换成计算机可以理解的IP地址（例如：192.0.2.1），因为计算机是通过IP地址来进行通信的。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>DNS域名系统是我们使用网络过程中非常重要的一个系统，可以将DNS理解为互联网中的“电话簿”，它的作用是将我们常用的域名（例如：www.example.com）转换成计算机可以理解的IP地址（例如：192.0.2.1），因为计算机是通过IP地址来进行通信的。</p>
+<!-- more -->
+<h1 id="dns简述">DNS简述</h1>
+<p>假设你想给一个朋友打电话，但你手上只有朋友的名字，而没有电话号码。你去查找电话簿，输入朋友的名字，电话簿会告诉你朋友的电话号码。然后你就可以拨打这个电话号码，打通电话。朋友的名字就像是一个网站的域名，电话号码就是网站的IP地址，而电话簿就是DNS，它负责将域名转换成IP地址。当你在浏览器中输入网址时，DNS会帮助你找到对应的IP地址，然后你的计算机就能连接到正确的网站。</p>
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/blog2025/what-is-a-dns-proxy.7i0sccddez.webp" alt="what-is-a-dns-proxy" loading="lazy"></figure>
+<p>普通的DNS数据使用UDP协议通过53端口明文传输，在传输过程中可以通过抢答和劫持修改查询信息，使用户无法访问到正确的IP地址，无法访问网站，就像你问路时被人故意指错方向，让你误入假网站，甚至泄露个人信息。一些国家和DNS服务提供者通过修改自家服务器的DNS地址为错误地址，使用户无法访问正常的网站。对于这种情况，使用加密DNS可以实现避免DNS污染和劫持。</p>
+<p>加密DNS是通过加密传输的方式来保护DNS查询的安全，通常有以下方式：</p>
+<ul>
+<li>DOH （通过https传输DNS数据，默认端口443）</li>
+<li>DOT  （通过TLS传输DNS数据，端口853）</li>
+<li>DOQ （通过QUIC传输DNS数据，端口853，只有少数国家和组织能够审查此协议传输的数据）</li>
+</ul>
+<p>目前windows10/11支持加密DOH，Andorid 9+ 系统支持DOT，Firefox 和 Chrome支持DOT</p>
+<p>本文将在接下来的部分介绍Adguard Home用来配置DNS。</p>
+<h1 id="adguard-home">Adguard Home</h1>
+<p>Adguard Home 是一个用于DNS服务端软件，它通过查询上游DNS服务器的DNS记录给下游客户端实现工作，支持UDP、 TCP 、 DNS-over-TLS、DNS-over-HTTPS、h3（带有强制 HTTP/3 的加密 DNS-over-HTTPS不会回退到 HTTP/2 或更低版本）、DNS-over-QUIC、DNSCryp等协议，带有web界面，易于配置。</p>
+<h2 id="windows端安装和配置">Windows端安装和配置</h2>
+<ol>
+<li>Adguard Home 支持windows系统，可以从GitHub下载windows版本的程序<br>
+<a href="https://github.com/AdguardTeam/AdGuardHome">GitHub : https://github.com/AdguardTeam/AdGuardHome </a><br>
+下载时选择这个文件 <code>AdGuardHome_windows_amd64.zip</code></li>
+<li>将文件中的<code>AdGuardHome.exe</code> 移动到<code> ​C:\Program Files\AdGuard_Home​</code></li>
+<li>创建文件<code>run_adguardhome.bat</code>,添加以下内容到文件</li>
+</ol>
+<pre><code class="language-shell">@echo off
+
+if &quot;%1&quot; == &quot;h&quot; goto begin
+
+mshta vbscript:createobject(&quot;wscript.shell&quot;).run(&quot;&quot;&quot;%~nx0&quot;&quot; h&quot;,0)(window.close)&amp;&amp;exit
+
+:begin
+
+REM
+
+start /b adguardhome.exe
+
+exit
+
+</code></pre>
+<ol start="4">
+<li>将<code>run_adguardhome.bat</code>的快捷方式复制到<code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup</code>,以此实现开机启动。</li>
+<li>打开windows系统的设置，将DNS设置为<code>127.0.0.1</code></li>
+</ol>
+<h2 id="linux-端安装与配置">Linux 端安装与配置</h2>
+<p>Adguard Home页可以安装到Linux系统，具体有三种方式：</p>
+<ol>
+<li>方法一：官方脚本安装（推荐）</li>
+</ol>
+<pre><code class="language-bash"># 使用官方一键安装脚本
+curl -sSL https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh
+</code></pre>
+<p>安装成功后，输出信息会显示：</p>
+<ul>
+<li>AdGuard Home 服务已安装并运行</li>
+<li>管理界面访问地址（通常是 <code>http://IP:3000</code>）</li>
+<li>服务管理命令</li>
+</ul>
+<ol start="2">
+<li>方法二：手动安装</li>
+</ol>
+<pre><code class="language-bash"># 下载AdGuard Home
+wget https://static.adguard.com/adguardhome/release/AdGuardHome_linux_amd64.tar.gz
+# 解压
+tar xvf AdGuardHome_linux_amd64.tar.gz
+# 进入目录并安装
+cd AdGuardHome
+sudo ./AdGuardHome -s install
+</code></pre>
+<ol start="3">
+<li>方法三：Docker安装</li>
+</ol>
+<pre><code class="language-bash">docker run -d \
+  --name adguardhome \
+  --restart unless-stopped \
+  --network host \
+  -v $PWD/adguardhome/work:/opt/adguardhome/work \
+  -v $PWD/adguardhome/conf:/opt/adguardhome/conf \
+  adguard/adguardhome
+</code></pre>
+<ol start="4">
+<li>安装完成后可以把系统的DNS设置为127.0.0.1以此启用DNS:</li>
+</ol>
+<pre><code class="language-bash">sudo nano /etc/systemd/resolved.conf
+</code></pre>
+<p>找到 [Resolve] 部分，取消注释并修改 DNS 和 Domains 行：</p>
+<pre><code class="language-bash">[Resolve]
+DNS=127.0.0.1
+#Domains=~.
+</code></pre>
+<p>重启 systemd-resolved 服务：</p>
+<pre><code class="language-bash">sudo systemctl restart systemd-resolved
+</code></pre>
+<p>验证设置：</p>
+<pre><code class="language-bash">resolvectl status
+</code></pre>
+<p>在输出中，你应该会在 Global 部分看到 DNS Server: 127.0.0.1。</p>
+<ol start="5">
+<li>服务管理命令</li>
+</ol>
+<pre><code class="language-bash"># 启动服务
+sudo /opt/AdGuardHome/AdGuardHome -s start
+# 停止服务
+sudo /opt/AdGuardHome/AdGuardHome -s stop
+# 重启服务
+sudo /opt/AdGuardHome/AdGuardHome -s restart
+# 查看状态
+sudo /opt/AdGuardHome/AdGuardHome -s status
+</code></pre>
+<ol start="6">
+<li>防火墙配置</li>
+</ol>
+<pre><code class="language-bash"># 开放必要端口
+sudo ufw allow 3000/tcp  # 管理界面
+sudo ufw allow 53/tcp    # DNS (TCP)
+sudo ufw allow 53/udp    # DNS (UDP)
+sudo ufw allow 853/tcp   # DNS-over-TLS
+</code></pre>
+<h2 id="web面板配置">web面板配置</h2>
+<p>安装完成后，我们需要打开Adguard Home的web管理面板设置。</p>
+<ol>
+<li>打开 <a href="http://127.0.0.1:3000">http://127.0.0.1:3000</a>,按照页面的步骤完成设置，设置监听端口和账户密码。</li>
+<li>打开设置的管理面板地址<a href="http://127.0.0.1:3000">http://127.0.0.1:您设置的端口</a>，打开<code>设置</code>-&gt;<code>DNS设置</code>，在上游DNS服务器填入可用的DNS地址，可以参考以下网站的地址：<a href="https://encrypteddns.pages.dev/#cn-dns">全量加密 DNS 大全 - 安全解析隐私保护解决方案 | 国内/国际安全 DNS 解析地址推荐（DoH/DoT/QUIC）: https://encrypteddns.pages.dev/#cn-dns</a>，保存配置，测试上游服务器响应，去除无法使用的服务器地址。</li>
+<li>Adguard Home提供了其他的强大功能，例如<strong>广告过滤器</strong>、<strong>安全搜索</strong>、<strong>成人内容拦截</strong>、<strong>时间段控制</strong>、<strong>设备识别</strong>、<strong>个性化设置</strong>、 <strong>速率限制</strong>、<strong>DNSSEC 配置</strong>，大家可以按需求配置。</li>
+</ol>
+<h2 id="加密dns配置">加密DNS配置</h2>
+<p>Adguard Home 支持加密DNS，如果你的Adguard Home安装在服务器或想要在本地体验加密服务，可以启用它。</p>
+<p>在加密设置界面<code>启用加密</code>,输入你的服务器名称（ip地址或域名），设置DOH、DOT、DOQ的端口，将你的证书和私钥的路径或内容填入，保存配置后就能使用了。</p>
+<p>证书获取可以参考以下：</p>
+<h3 id="方案一使用lets-encrypt证书推荐">方案一：使用Let's Encrypt证书（推荐）</h3>
+<ol>
+<li><em><strong>*安装Certbot*</strong></em></li>
+</ol>
+<pre><code class="language-bash">
+sudo apt update
+
+sudo apt install certbot
+
+</code></pre>
+<ol start="2">
+<li><strong>申请证书</strong></li>
+</ol>
+<pre><code class="language-bash">
+sudo crtbot certonly --standalone -d 你的域名 --preferred-challenges http --agree-tos --register-unsafely-without-email
+
+</code></pre>
+<ol start="3">
+<li><strong>证书位置</strong></li>
+</ol>
+<pre><code>/etc/letsencrypt/live/你的域名/fullchain.pem
+/etc/letsencrypt/live/你的域名/privkey.pem
+</code></pre>
+<h3 id="方案二使用cloudflare-origin-ca证书">方案二：使用Cloudflare Origin CA证书</h3>
+<ol>
+<li>
+<p><strong>在Cloudflare创建证书</strong></p>
+<ul>
+<li>登录Cloudflare控制面板</li>
+<li>进入 SSL/TLS &gt; Origin Server</li>
+<li>点击&quot;Create Certificate&quot;</li>
+<li>选择15年有效期证书</li>
+<li>下载证书和私钥</li>
+</ul>
+</li>
+<li>
+<p><strong>上传证书到服务器</strong></p>
+</li>
+</ol>
+<pre><code class="language-bash"># 创建证书目录
+mkdir -p /etc/ssl/adguard
+
+# 上传证书文件
+
+# cert.pem - 证书文件
+
+# key.pem - 私钥文件
+
+</code></pre>
+<h2 id="故障排除常见问题及解决方案">故障排除——常见问题及解决方案</h2>
+<ol>
+<li>端口占用问题<br>
+<strong>检查端口占用</strong>：</li>
+</ol>
+<pre><code class="language-bash">
+sudo netstat -tulpn | grep :80
+
+sudo lsof -i :443
+
+</code></pre>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>停止占用端口的服务</li>
+<li>或使用其他端口</li>
+<li>或使用DNS挑战方式申请证书</li>
+</ul>
+<ol start="2">
+<li>防火墙问题</li>
+</ol>
+<p><strong>检查防火墙状态</strong>：</p>
+<pre><code class="language-bash">sudo ufw status
+</code></pre>
+<p><strong>开放必要端口</strong>：</p>
+<pre><code class="language-bash">
+sudo ufw allow 80/tcp    # HTTP验证
+
+sudo ufw allow 443/tcp   # HTTPS
+
+sudo ufw allow 853/tcp   # DoT
+
+</code></pre>
+<ol start="3">
+<li>无法访问管理界面</li>
+</ol>
+<p><strong>排查步骤：</strong><br>
+​    1. 检查 AdGuard Home 服务是否运行<br>
+​    2. 确认防火墙没有阻止访问<br>
+​    3. 尝试使用 <code>http://127.0.0.1:3000</code><br>
+​    4. 检查浏览器代理设置</p>
+<ol start="4">
+<li>
+<p>广告拦截效果不佳<br>
+<strong>优化建议：</strong></p>
+<ol>
+<li>添加更多过滤规则</li>
+<li>检查是否启用了合适的过滤器</li>
+<li>确认设备 DNS 设置正确</li>
+<li>清空 DNS 缓存</li>
+</ol>
+<pre><code class="language-shell">
+ipconfig /flushdns
+
+</code></pre>
+</li>
+<li>
+<p>网络速度变慢<br>
+<strong>解决方法：</strong></p>
+<ol>
+<li>更换更快的上游 DNS 服务器</li>
+<li>减少过滤规则数量</li>
+<li>检查系统资源使用情况</li>
+<li>启用缓存优化</li>
+</ol>
+</li>
+</ol>
+<h2 id="结语">结语</h2>
+<p>Adguard Home 通过提供安全的DNS保障网络访问的安全，如果你感兴趣，那么赶快来配置。</p>
+<p>参考：</p>
+<ol>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F">域名系统 - 维基百科，自由的百科全书——https://zh.wikipedia.org/wiki/域名系统</a></li>
+<li><a href="https://www.cloudflare.com/zh-tw/learning/dns/dns-over-tls/">DNS over TLS | DNS 安全性 | Cloudflare——https://www.cloudflare.com/zh-tw/learning/dns/dns-over-tls/</a></li>
+<li><a href="https://akashrajpurohit.com/blog/adguard-home-network-wide-ad-blocking-in-your-homelab/">AdGuard Home — 家庭实验室中的全网广告拦截 |阿卡什·拉杰普罗希特——https://akashrajpurohit.com/blog/adguard-home-network-wide-ad-blocking-in-your-homelab/</a></li>
+<li><a href="https://github.com/AdguardTeam/AdGuardHome">AdguardTeam/AdGuardHome: Network-wide ads &amp; trackers blocking DNS server——https://github.com/AdguardTeam/AdGuardHome</a></li>
+<li><a href="https://adguard-dns.io/kb/zh-CN/adguard-home/getting-started/">入门 | AdGuard DNS Knowledge Base——https://adguard-dns.io/kb/zh-CN/adguard-home/getting-started/</a></li>
+<li><a href="https://adguard.com/en/adguard-home/overview.html">AdGuard Home——https://adguard.com/en/adguard-home/overview.html</a></li>
+<li><a href="https://encrypteddns.pages.dev/#cn-dns">全量加密 DNS 大全 - 安全解析隐私保护解决方案 | 国内/国际安全 DNS 解析地址推荐（DoH/DoT/QUIC）——https://encrypteddns.pages.dev/#cn-dns</a></li>
+<li><a href="https://sspai.com/post/63088">AdGuard Home 安装及使用指北 - 少数派——https://sspai.com/post/63088</a></li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[byedpi，深度包检测绕过工具——安装与使用教程]]></title>
+        <id>https://leenut.space/post/byedpi/</id>
+        <link href="https://leenut.space/post/byedpi/">
+        </link>
+        <updated>2025-10-04T07:13:17.000Z</updated>
+        <summary type="html"><![CDATA[<p>byedpi是一个通过本地socks5代理实现绕过深度包检测的网络工具，本文将介绍此工具如何安装和使用。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>byedpi是一个通过本地socks5代理实现绕过深度包检测的网络工具，本文将介绍此工具如何安装和使用。</p>
+<!-- more -->
+<blockquote>
+<p>此工具开源于GitHub，readme使用俄文，地址：<br>
+<a href="https://github.com/hufrea/byedpi">Bypass DPI ——https://github.com/hufrea/</a></p>
+</blockquote>
+<h2 id="安装">安装</h2>
+<p>byedpi支持windows和linux系统，开发者在releases中提供windows版本的程序，用户可以自行下载安装；对于linux系统，用户可以克隆代码，自行编译程序。</p>
+<h3 id="windows版本的安装">Windows版本的安装</h3>
+<ol>
+<li>打开<a href="https://github.com/hufrea/byedpi/releases/">https://github.com/hufrea/byedpi/releases/</a>，<br>
+选择最新的发行版，下载windows版本的程序（例如byedpi-17.3-x86_64-w64.zip）。</li>
+<li>解压程序，将程序目录放在指定的目录，例如<code>C:\Program Files</code>。</li>
+<li>编辑<code>byedpi.bat</code>,删除原有内容，写入以下内容：</li>
+</ol>
+<pre><code class="language-shell">@echo off
+title ByeDPI
+if &quot;%1&quot; == &quot;h&quot; goto begin
+mshta vbscript:createobject(&quot;wscript.shell&quot;).run(&quot;&quot;&quot;%~nx0&quot;&quot; h&quot;,0)(window.close)&amp;&amp;exit
+:begin
+REM
+
+start /b ciadpi.exe --split 1 --mod-http hcsmix,dcsmix,rmspace --tlsrec 0+s
+
+exit
+</code></pre>
+<ol start="4">
+<li>为<code>byedpi.bat</code>文件创建快捷方式，将快捷方式剪切到<br>
+<code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup</code>，<br>
+用来实现程序的开机启动。</li>
+<li>运行<code>service_install.bat</code>,安装程序的服务。</li>
+</ol>
+<h3 id="linux版本的安装">Linux版本的安装</h3>
+<ol>
+<li>安装依赖（如有需要）<br>
+大多数 Linux 发行版默认已包含 gcc 和 make。如果没有，先安装它们：</li>
+</ol>
+<pre><code class="language-shell">sudo apt update
+sudo apt install build-essential   # Debian/Ubuntu
+# 或
+sudo yum groupinstall &quot;Development Tools&quot;   # CentOS/RHEL
+</code></pre>
+<ol start="2">
+<li>克隆 byedpi 源码</li>
+</ol>
+<pre><code class="language-bash">git clone https://github.com/hufrea/byedpi.git
+cd byedpi
+</code></pre>
+<ol start="3">
+<li>编译 byedpi</li>
+</ol>
+<pre><code class="language-sh">make
+</code></pre>
+<p>编译成功后，会生成可执行文件 <code>ciadpi</code>。</p>
+<ol start="4">
+<li>编辑服务配置文件，<code>sudo nano /etc/systemd/system/ciadpi.service</code><br>
+内容参考如下（请根据你的实际路径修改）：</li>
+</ol>
+<pre><code class="language-ini">[Unit]
+Description=byedpi ciadpi proxy service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/user/byedpi/ciadpi --ip 127.0.0.1 --split 1 --drop-sack --mod-http hcsmix,dcsmix,rmspace --tlsrec 0+s
+Restart=on-failure
+StandardOutput=append:/var/log/ciadpi/ciadpi.log
+StandardError=append:/var/log/ciadpi/ciadpi.err
+WorkingDirectory=/home/user/byedpi
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<blockquote>
+<p><strong>注意：</strong></p>
+<ul>
+<li><code>/home/user/byedpi/ciadpi</code> 请替换为你的实际路径。</li>
+<li><code>StandardOutput</code>/<code>StandardError</code> 需要 systemd 245+，若不支持可用第三方日志工具。</li>
+</ul>
+</blockquote>
+<ol start="5">
+<li>启用并启动服务，运行程序</li>
+</ol>
+<pre><code class="language-bash">sudo systemctl daemon-reload
+sudo systemctl enable ciadpi
+sudo systemctl start ciadpi
+</code></pre>
+<hr>
+<h2 id="程序的使用">程序的使用</h2>
+<h3 id="设置加密dns">设置加密DNS</h3>
+<p>此程序需要配合审查区域以外的加密DNS使用，包括DOH（dns only htps）、DOQ（dns only quic）、DOT（dns only tls）。<br>
+加密DNS的地址可以从此处获取：<br>
+<a href="https://encrypteddns.pages.dev/#cn-dns">https://encrypteddns.pages.dev/</a><br>
+主要有以下方式（此处内容不是本文重点，仅简要列出，不做详细说明）：</p>
+<ol>
+<li>使用浏览器的加密DNS设置。</li>
+<li>使用adguard home等软件实现DNS加密。</li>
+</ol>
+<h3 id="使用sock5代理">使用sock5代理</h3>
+<p>byedpi通过本地sock5代理，实现DPI绕过。用户可以通过设置代理使用。</p>
+<ol>
+<li>使用系统的全局代理设置<br>
+Windows和Linux支持系统全局代理，以Windows为例：转到<code>设置</code>-&gt;<code>网络和Internet</code>-&gt;<code>代理</code>-&gt;<code>手动设置代理</code>-&gt;<code>使用代理服务器</code>，点击<code>设置</code>，打开开关，地址：<code>127.0.01</code>，端口<code>1080</code>，保存设置。</li>
+</ol>
+<blockquote>
+<p>不建议使用全局代理，因为会影响很多于不涉及DPI的网站。</p>
+</blockquote>
+<ol start="2">
+<li>使用软件的代理设置<br>
+很多软件自带了代理设置，例如火狐浏览器等，用户可以在设置中启动相关设置，建议在使用访问相关网站服务时使用代理，其余时间关闭代理。<br>
+对于使用Chromium内核的浏览器，可以使用<code>代理助手</code>拓展，下载地址：<br>
+<a href="https://www.crxsoso.com/webstore/detail/mnloefcpaepkpmhaoipjkpikbnkmbnic">https://www.crxsoso.com/webstore/detail/mnloefcpaepkpmhaoipjkpikbnkmbnic</a>。</li>
+</ol>
+<hr>
+<h2 id="参数使用说明">参数使用说明</h2>
+<pre><code>ciadpi --disorder 1 --auto=torst --tlsrec 1+s
+ciadpi --fake -1 --ttl 8
+</code></pre>
+<p>以下内容为参数说明，使用AI翻译自原项目的readme：</p>
+<pre><code class="language-shell">- `-i, --ip &lt;ip&gt;`  
+  监听的 IP，默认 0.0.0.0
+
+- `-p, --port &lt;num&gt;`  
+  监听端口，默认 1080
+
+- `-D, --daemon`  
+  以守护进程方式运行，仅支持 Linux 和 BSD
+
+- `-w, --pidfile &lt;文件名&gt;`  
+  PID 文件位置
+
+- `-E, --transparent`  
+  透明代理模式（此时 SOCKS 不工作）
+
+- `-c, --max-conn &lt;数量&gt;`  
+  最大客户端连接数，默认 512
+
+- `-I, --conn-ip &lt;ip&gt;`  
+  出站连接绑定的地址，默认 ::
+
+- `-b, --buf-size &lt;大小&gt;`  
+  每次接收/发送的最大数据量，单位字节，默认 16384
+
+- `-g, --def-ttl &lt;数值&gt;`  
+  所有出站连接的 TTL
+
+- `-N, --no-domain`  
+  禁止域名解析（避免同步解析带来的迟滞或卡死）
+
+- `-U, --no-udp`  
+  不代理 UDP
+
+- `-F, --tfo`  
+  启用 TCP Fast Open（仅 Linux 4.11+）
+
+- `-A, --auto &lt;t,r,s,n&gt;`  
+  自动绕过（触发事件时自动应用参数）
+
+  触发事件包括：
+  - torst：超时或服务器在首次请求后重置连接
+  - redirect：HTTP 重定向且域名不同
+  - ssl_err：ClientHello 后未收到 ServerHello 或 session_id 异常
+  - none：跳过此组（如受域名/协议限制）
+
+- `-L, --auto-mode &lt;0-3&gt;`  
+  自动模式详见原文
+
+- `-u, --cache-ttl &lt;秒&gt;`  
+  缓存生存时间，默认 100800（28 小时）
+
+- `-y, --cache-dump &lt;文件|-》`  
+  导出缓存到文件或标准输出
+
+- `-T, --timeout &lt;秒&gt;`  
+  等待首包响应超时时间
+
+- `-K, --proto &lt;t,h,u,i&gt;`  
+  协议白名单：tls,http,udp,ipv4
+
+- `-H, --hosts &lt;文件|:字符串&gt;`  
+  限定参数作用的域名列表
+
+- `-j, --ipset &lt;文件|:字符串&gt;`  
+  指定 IP/子网白名单
+
+- `-V, --pf &lt;端口[-端口]&gt;`  
+  端口范围白名单
+
+- `-R, --round &lt;数值[-数值]&gt;`  
+  对哪些请求应用混淆，默认 1（第一个请求）
+
+- `-s, --split &lt;参数&gt;`  
+  按指定位置拆包，格式详见原文  
+  例如 `--split 3 --split 7`：先拆为1-3，再3-7，再7-末尾
+
+- `-d, --disorder &lt;参数&gt;`  
+  拆包并乱序发送
+
+- `-o, --oob &lt;参数&gt;`  
+  拆包并作为 OOB 数据发送
+
+- `-q, --disoob &lt;参数&gt;`  
+  拆包并乱序以 OOB 数据发送
+
+- `-f, --fake &lt;参数&gt;`  
+  插入伪造包
+
+- `-t, --ttl &lt;数值&gt;`  
+  伪造包 TTL，默认 8
+
+- `-S, --md5sig`  
+  伪造包带 TCP MD5 签名（仅 Linux）
+
+- `-O, --fake-offset &lt;参数&gt;`  
+  伪造数据起始偏移
+
+- `-l, --fake-data &lt;文件|:字符串&gt;`  
+  使用自定义伪造数据包
+
+- `-e, --oob-data &lt;字符&gt;`  
+  自定义 OOB 数据，默认 'a'
+
+- `-n, --fake-sni &lt;字符串&gt;`  
+  动态更改伪造包的 SNI
+
+- `-Q, --fake-tls-mod &lt;r,o&gt;`  
+  伪造 TLS ClientHello：r 随机，o 原始
+
+- `-M, --mod-http &lt;h[,d,r]&gt;`  
+  修改 HTTP 包  
+  - hcsmix: Host 字段大小写混合  
+  - dcsmix: Host 字段域名大小写混合  
+  - rmspace: 移除 Host 字段空格
+
+- `-r, --tlsrec &lt;参数&gt;`  
+  在指定偏移拆分 TLS record
+
+- `-a, --udp-fake &lt;数量&gt;`  
+  伪造 UDP 包数量
+
+- `-Y, --drop-sack`  
+  忽略带 TCP SACK 扩展的数据包（仅 Linux）
+
+</code></pre>
+<hr>
+<h2 id="其他类似项目">其他类似项目</h2>
+<ul>
+<li>ByeDPI for Android，安卓项目<br>
+<a href="https://github.com/dovecoteescapee/ByeDPIAndroid">https://github.com/dovecoteescapee/ByeDPIAndroi</a></li>
+<li>ByeByeDPI Android，安卓项目，对前一个项目的优化<br>
+<a href="https://github.com/romanvht/ByeByeDPI">https://github.com/romanvht/ByeByeDPI</a></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[如何配置Windows OpenSSH SFTP 服务器]]></title>
+        <id>https://leenut.space/post/open-ssh-sftp/</id>
+        <link href="https://leenut.space/post/open-ssh-sftp/">
+        </link>
+        <updated>2025-09-25T10:33:57.000Z</updated>
+        <summary type="html"><![CDATA[<p>SFTP是用来传输文件的技术，基于SSH，与FTP相比其数据是加密传输的，相对较为安全。</p>
+<p>本文详细介绍如何在 Windows 系统上配置 OpenSSH SFTP 服务器，创建专用用户，并限制用户只能访问指定目录。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>SFTP是用来传输文件的技术，基于SSH，与FTP相比其数据是加密传输的，相对较为安全。</p>
+<p>本文详细介绍如何在 Windows 系统上配置 OpenSSH SFTP 服务器，创建专用用户，并限制用户只能访问指定目录。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/OpenSSH-SFTP.6wr3jibckb.webp" alt="" loading="lazy"></figure>
+<h3 id="环境要求">环境要求</h3>
+<ul>
+<li>Windows 10 1809 或更高版本 / Windows Server 2019 或更高版本</li>
+<li>管理员权限</li>
+</ul>
+<h3 id="安装-openssh-服务器">安装 OpenSSH 服务器</h3>
+<h4 id="方法一通过设置安装推荐">方法一：通过设置安装（推荐）</h4>
+<ol>
+<li>打开&quot;设置&quot; → &quot;应用&quot; → &quot;可选功能&quot;</li>
+<li>点击&quot;添加功能&quot;</li>
+<li>找到并选择&quot;OpenSSH 服务器&quot;</li>
+<li>点击&quot;安装&quot;</li>
+</ol>
+<p>方法二：通过 PowerShell 安装</p>
+<pre><code class="language-powershell"># 检查可用组件
+Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
+
+# 安装 OpenSSH 服务器
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+</code></pre>
+<h3 id="基本配置">基本配置</h3>
+<p>启动 SSH 服务</p>
+<pre><code class="language-powershell"># 启动服务
+Start-Service sshd
+
+# 设置开机自启
+Set-Service -Name sshd -StartupType 'Automatic'
+
+# 验证服务状态
+Get-Service sshd
+</code></pre>
+<h3 id="配置防火墙">配置防火墙</h3>
+<pre><code class="language-powershell"># 检查防火墙规则
+Get-NetFirewallRule -Name *ssh*
+
+# 如果不存在规则，创建新规则
+New-NetFirewallRule -Name &quot;OpenSSH-Server-TCP-22&quot; -DisplayName &quot;OpenSSH Server (sshd)&quot; -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+</code></pre>
+<h3 id="创建-sftp-专用用户">创建 SFTP 专用用户</h3>
+<h4 id="创建用户">创建用户</h4>
+<pre><code class="language-powershell"># 创建新用户
+$password = ConvertTo-SecureString &quot;您的密码&quot; -AsPlainText -Force
+New-LocalUser -Name &quot;sftpuser&quot; -Password $password -Description &quot;SFTP User&quot; -PasswordNeverExpires $true
+</code></pre>
+<h3 id="准备用户目录">准备用户目录</h3>
+<pre><code class="language-powershell"># 创建用户专属目录
+New-Item -ItemType Directory -Path &quot;D:\SFTPRoot&quot; -Force
+New-Item -ItemType Directory -Path &quot;D:\SFTPRoot\sftpuser&quot; -Force
+</code></pre>
+<h3 id="配置目录限制访问chroot">配置目录限制访问（Chroot）</h3>
+<h4 id="设置目录权限">设置目录权限</h4>
+<pre><code class="language-powershell"># 设置根目录权限（关键步骤）
+icacls &quot;D:\SFTPRoot&quot; /setowner &quot;Administrators&quot;
+icacls &quot;D:\SFTPRoot&quot; /inheritance:r
+icacls &quot;D:\SFTPRoot&quot; /grant &quot;Administrators:(OI)(CI)F&quot;
+icacls &quot;D:\SFTPRoot&quot; /grant &quot;SYSTEM:(OI)(CI)F&quot;
+icacls &quot;D:\SFTPRoot&quot; /grant &quot;sftpuser:(OI)(CI)RX&quot;
+
+# 设置用户子目录权限
+icacls &quot;D:\SFTPRoot\sftpuser&quot; /inheritance:r
+icacls &quot;D:\SFTPRoot\sftpuser&quot; /grant &quot;sftpuser:(OI)(CI)F&quot;
+</code></pre>
+<p>配置 SSH 服务器<br>
+编辑配置文件 C:\ProgramData\ssh\sshd_config：</p>
+<pre><code class="language-bash"># 在文件末尾添加以下配置
+Match User sftpuser
+    ForceCommand internal-sftp
+    ChrootDirectory D:\SFTPRoot
+    PermitTunnel no
+    AllowAgentForwarding no
+    AllowTcpForwarding no
+    X11Forwarding no
+    PasswordAuthentication yes
+</code></pre>
+<h3 id="重启服务应用配置">重启服务应用配置</h3>
+<pre><code class="language-powershell">Restart-Service sshd
+</code></pre>
+<h3 id="测试连接">测试连接</h3>
+<h4 id="本地测试">本地测试</h4>
+<pre><code class="language-powershell">sftp -P 22 sftpuser@localhost
+</code></pre>
+<h4 id="远程测试">远程测试</h4>
+<p>使用 SFTP 客户端（如 WinSCP、FileZilla）连接：</p>
+<ul>
+<li>主机：您的服务器 IP</li>
+<li>端口：22</li>
+<li>用户名：sftpuser</li>
+<li>密码：您设置的密码</li>
+</ul>
+<h3 id="故障排除">故障排除</h3>
+<p>####服务无法启动</p>
+<pre><code class="language-powershell"># 检查配置文件语法
+C:\Windows\System32\OpenSSH\sshd.exe -t
+
+# 查看详细错误信息
+Get-EventLog -LogName Application -Source &quot;OpenSSH&quot; -Newest 5 | Format-List *
+</code></pre>
+<p>####连接被拒绝</p>
+<pre><code class="language-powershell"># 检查端口监听状态
+netstat -ano | findstr :22
+
+# 检查防火墙设置
+Get-NetFirewallRule -Name *ssh* | Format-Table Name, Enabled, Action
+</code></pre>
+<h4 id="权限问题">权限问题</h4>
+<pre><code class="language-powershell"># 检查目录权限
+icacls &quot;D:\SFTPRoot&quot;
+icacls &quot;D:\SFTPRoot\sftpuser&quot;
+</code></pre>
+<h3 id="高级配置">高级配置</h3>
+<p>####使用密钥认证</p>
+<ol>
+<li>生成密钥对：</li>
+</ol>
+<pre><code class="language-powershell">ssh-keygen -t rsa -b 4096 -f C:\Users\用户名\.ssh\sftp_key
+</code></pre>
+<ol start="2">
+<li>将公钥复制到服务器：</li>
+</ol>
+<pre><code class="language-powershell"># 创建 .ssh 目录
+mkdir &quot;D:\SFTPRoot\sftpuser\.ssh&quot; -Force
+
+# 设置权限
+icacls &quot;D:\SFTPRoot\sftpuser\.ssh&quot; /inheritance:r
+icacls &quot;D:\SFTPRoot\sftpuser\.ssh&quot; /grant &quot;sftpuser:(OI)(CI)F&quot;
+
+# 复制公钥
+Copy-Item &quot;公钥路径&quot; &quot;D:\SFTPRoot\sftpuser\.ssh\authorized_keys&quot;
+
+# 设置 authorized_keys 文件权限
+icacls &quot;D:\SFTPRoot\sftpuser\.ssh\authorized_keys&quot; /inheritance:r
+icacls &quot;D:\SFTPRoot\sftpuser\.ssh\authorized_keys&quot; /grant &quot;sftpuser:F&quot;
+</code></pre>
+<ol start="3">
+<li>在 sshd_config 中启用密钥认证：</li>
+</ol>
+<pre><code class="language-bash">PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+</code></pre>
+<h4 id="多用户配置">多用户配置</h4>
+<p>为每个用户添加独立的 Match 块：</p>
+<pre><code class="language-bash">Match User user1
+    ForceCommand internal-sftp
+    ChrootDirectory D:\SFTPRoot\user1
+
+Match User user2
+    ForceCommand internal-sftp
+    ChrootDirectory D:\SFTPRoot\user2
+</code></pre>
+<h3 id="常用命令参考">常用命令参考</h3>
+<h4 id="服务管理">服务管理</h4>
+<pre><code class="language-powershell"># 启动服务
+Start-Service sshd
+
+# 停止服务
+Stop-Service sshd
+
+# 重启服务
+Restart-Service sshd
+
+# 检查状态
+Get-Service sshd
+</code></pre>
+<h3 id="权限管理">权限管理</h3>
+<pre><code class="language-powershell"># 查看权限
+icacls &quot;目录路径&quot;
+
+# 修改所有者
+icacls &quot;目录路径&quot; /setowner &quot;用户名&quot;
+
+# 授予权限
+icacls &quot;目录路径&quot; /grant &quot;用户名:(权限)&quot;
+
+# 移除继承
+icacls &quot;目录路径&quot; /inheritance:r
+</code></pre>
+<h3 id="注意事项">注意事项</h3>
+<ol>
+<li>Chroot 目录必须由 Administrators 或 SYSTEM 所有</li>
+<li>用户不能对 Chroot 根目录有写权限</li>
+<li>配置文件修改后必须重启服务</li>
+<li>权限设置错误可能导致服务无法启动</li>
+<li>确保防火墙允许 SSH 连接</li>
+</ol>
+<p>通过本教程，您应该能够在 Windows 系统上成功配置一个安全的 SFTP 服务器，并限制用户只能访问指定目录。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于“云服务器”、“域名”的一些看法和实践]]></title>
+        <id>https://leenut.space/post/servers-Domains/</id>
+        <link href="https://leenut.space/post/servers-Domains/">
+        </link>
+        <updated>2024-12-20T07:46:24.000Z</updated>
+        <summary type="html"><![CDATA[<p>最近看到阿里云有学生优惠，可以白嫖<strong>云服务器</strong>一年，于是下单了阿里云的服务器，并且注册了一个新的域名。<br>
+具体情况参考了这里：<a href="https://x1g.la/university-aliyun.html">https://x1g.la/university-aliyun.html</a><br>
+本文分享我在购买和使用云服务器以及注册域名方面的看法和经验。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>最近看到阿里云有学生优惠，可以白嫖<strong>云服务器</strong>一年，于是下单了阿里云的服务器，并且注册了一个新的域名。<br>
+具体情况参考了这里：<a href="https://x1g.la/university-aliyun.html">https://x1g.la/university-aliyun.html</a><br>
+本文分享我在购买和使用云服务器以及注册域名方面的看法和经验。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://i.postimg.cc/8zsKL72T/servers-Domains.png" alt="" loading="lazy"></figure>
+<h2 id="购买云服务器">购买云服务器</h2>
+<p>对于购买云服务器，国内外有许多服务提供商，例如阿里云、腾讯云、微软Azure和甲骨文等。建议有条件时优先选择国外的服务器。<br>
+以阿里云为例，参考[这里](<a href="https://x1g.la/university-aliyun.html">https://x1g.la/university-aliyun.html</a><br>
+在选择服务器位置的选项里请选择海外的位置（如果有海外选项），因为海内服务器需要icp备案的域名才能访问，海外的不需要。</p>
+<h2 id="云服务器的配置">云服务器的配置</h2>
+<h3 id="系统选择">系统选择</h3>
+<p>云服务器支持多种Linux发行版，推荐优先选择CentOS，稳定性和兼容性较好。</p>
+<h3 id="连接云服务器">连接云服务器</h3>
+<p>连接云服务器可以通过下载安装Xshell或其他类似的软件来实现。以下是以Xshell为例的具体步骤：<br>
+1. 点击“新建会话”。<br>
+2. 在弹出的窗口中填写服务器相关信息。<br>
+<img src="https://i.postimg.cc/DyvYyj5J/xshell1.png" alt="" loading="lazy"><br>
+<img src="https://i.postimg.cc/pVY6vbQM/xshell2.png" alt="" loading="lazy"></p>
+<h3 id="安装docker及更换镜像源">安装Docker及更换镜像源</h3>
+<p>docker是服务器重要的软件，可以通过命令获取：</p>
+<pre><code class="language-sh">curl -fsSL https://get.docker.com | bash -s docker
+</code></pre>
+<p>启动docker、查看版本和服务状态：</p>
+<pre><code class="language-sh">service docker start        
+docker version
+systemctl status docker
+</code></pre>
+<p>更换Docker镜像源以提高国内的下载速度：</p>
+<ol>
+<li>编辑 daemon.json 文件：</li>
+</ol>
+<pre><code class="language-sh">sudo vi /etc/docker/daemon.json
+</code></pre>
+<ol start="2">
+<li>在文件中添加以下内容：</li>
+</ol>
+<pre><code class="language-json">{
+&quot;registry-mirrors&quot;: [
+&quot;https://docker.m.daocloud.io&quot;,
+&quot;https://docker.nju.edu.cn&quot;,
+&quot;https://dockerproxy.com&quot;
+]
+}
+</code></pre>
+<pre><code>3. 重启docker
+</code></pre>
+<pre><code class="language-sh">service docker restart
+</code></pre>
+<h3 id="安装管理面板">安装管理面板</h3>
+<p>为了更便捷地操作Linux服务器，可以安装管理面板，例如宝塔面板或1Panel。<br>
+<a href="https://www.bt.cn/">宝塔面板：https://www.bt.cn/</a><br>
+<a href="https://1panel.cn/">1Panel：https://1panel.cn/</a></p>
+<h3 id="安装服务及设置防火墙或安全组">安装服务及设置防火墙或安全组</h3>
+<p>安装面板后可以在面板的应用商店内安装需要的应用，例如博客系统(Hexo、WordPress等)。<br>
+使用应用的端口通过浏览器访问时，需要在云服务器控制台的安全组中允许对应的端口。<br>
+<img src="https://i.postimg.cc/65Mb7r1H/aliyun-safe.png" alt="" loading="lazy"></p>
+<h2 id="关于域名">关于域名</h2>
+<h3 id="域名注册">域名注册</h3>
+<p>对于域名注册，建议优先选择国外的注册商。国内注册商需要实名认证个人信息，认证过程可能需要数小时至数天。<br>
+此外，一些平台提供免费的二级域名，对于预算有限的用户是一个不错的选择。</p>
+<h3 id="托管域名到dns服务器">托管域名到DNS服务器</h3>
+<p>注册域名后，需要将其托管到DNS服务器才能正常使用域名访问网站。知名的DNS服务商包括：</p>
+<ul>
+<li><a href="https://www.cloudns.net/">ClouDNS</a></li>
+<li><a href="https://www.cloudflare.com/zh-cn/">Cloudflare</a></li>
+</ul>
+<h4 id="以cloudflare为例的域名托管过程">以Cloudflare为例的域名托管过程</h4>
+<ol>
+<li>注册并登录Cloudflare账户。</li>
+<li>在Cloudflare仪表盘中，点击“添加站点”。</li>
+<li>输入您注册的域名，点击“开始扫描DNS记录”。</li>
+<li>根据扫描结果，确认或手动添加必要的DNS记录（例如A记录或CNAME记录）。</li>
+<li>设置完成后，Cloudflare会提供两个名称服务器地址，例如：</li>
+</ol>
+<pre><code class="language-html">      ns1.cloudflare.com
+      ns2.cloudflare.com
+</code></pre>
+<ol start="6">
+<li>登录您的域名注册商账户，将域名的名称服务器更改为Cloudflare提供的地址。</li>
+<li>等待DNS解析生效（通常需要几小时到24小时）。</li>
+<li>在Cloudflare中启用“代理状态”（橙色云图标）以使用其CDN和防护功能。<br>
+完成这些步骤后，您的域名将成功托管到Cloudflare，您可以享受其提供的免费DNS、CDN加速和安全防护服务。</li>
+</ol>
+<h3 id="关于域名是否要备案">关于域名是否要备案</h3>
+<p>关于域名是否要备案，如果服务器在海外不需要备案，如果服务器在中国则需要备案。<br>
+域名备案后网站受中国政府监管，网站内容和功能在法律和政策上受限。</p>
+<h2 id="总结">总结</h2>
+<p>购买云服务器和注册域名是建立网站的基础步骤。通过选择合适的服务器提供商和域名注册商，以及学习基本的配置和操作技能，可以快速搭建自己的互联网应用环境。希望本文的分享能为对这些领域感兴趣的朋友提供一些实用的参考。</p>
+<hr>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Alist：搭建属于你的你的自有网盘]]></title>
+        <id>https://leenut.space/post/Alist/</id>
+        <link href="https://leenut.space/post/Alist/">
+        </link>
+        <updated>2024-11-25T11:18:56.000Z</updated>
+        <summary type="html"><![CDATA[<p>Alist 是一款简洁、高效、开源的多网盘挂载工具。通过 Alist，可以轻松整合多个网盘资源，统一管理并实现跨平台访问。本文将介绍如何下载、启动 Alist，如何挂载网盘以及如何对 Alist 进行设置和页面美化。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Alist 是一款简洁、高效、开源的多网盘挂载工具。通过 Alist，可以轻松整合多个网盘资源，统一管理并实现跨平台访问。本文将介绍如何下载、启动 Alist，如何挂载网盘以及如何对 Alist 进行设置和页面美化。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/alist.77dxcgvi1u.webp" alt="" loading="lazy"></figure>
+<h3 id="一-如何下载-alist"><strong>一、如何下载 Alist？</strong></h3>
+<ol>
+<li>
+<p><strong>访问官网</strong><br>
+前往 <a href="https://github.com/alist-org/alist">Alist 官方 GitHub 页面</a> 下载最新版本。GitHub 提供各个平台（如 Windows、macOS、Linux）的预编译二进制文件，方便不同用户快速部署。</p>
+</li>
+<li>
+<p><strong>选择对应版本</strong></p>
+<ul>
+<li><strong>Windows 用户</strong>：下载 <code>alist-windows-amd64.exe</code>（或根据 CPU 架构选择合适的版本）。</li>
+<li><strong>macOS 用户</strong>：下载 <code>alist-darwin-amd64</code>。</li>
+<li><strong>Linux 用户</strong>：选择 <code>alist-linux-amd64</code> 或 <code>alist-linux-arm64</code>（适用于树莓派等 ARM 设备）。</li>
+</ul>
+</li>
+<li>
+<p><strong>解压与安装</strong></p>
+<ul>
+<li>下载后解压缩文件（如 <code>.zip</code> 或 <code>.tar.gz</code>）。</li>
+<li>将解压后的文件放置到您指定的目录中，方便管理。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="二-如何启动-alist"><strong>二、如何启动 Alist？</strong></h3>
+<ol>
+<li>
+<p><strong>运行程序</strong></p>
+<ul>
+<li><strong>Windows</strong>：使用终端运行命令：<pre><code class="language-bash">   /alist.exe server
+</code></pre>
+</li>
+<li><strong>macOS/Linux</strong>：使用终端运行命令：<pre><code class="language-bash">    ./alist
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>访问管理页面</strong><br>
+启动后，终端会显示 Alist 的默认访问地址（例如：<code>http://127.0.0.1:5244</code>）。打开浏览器并访问该地址。</p>
+</li>
+<li>
+<p><strong>初始化设置</strong></p>
+<ul>
+<li>第一次启动会提示设置管理员账号和密码，用于后续登录管理页面。</li>
+<li>设置完成后即可进入 Alist 的主界面。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="三-如何挂载网盘"><strong>三、如何挂载网盘？</strong></h4>
+<ol>
+<li>
+<p><strong>登录管理页面</strong><br>
+在浏览器中访问 Alist 的管理地址，输入管理员账号和密码进行登录。</p>
+</li>
+<li>
+<p><strong>添加存储服务</strong></p>
+<ul>
+<li>点击管理页面左侧菜单栏中的“挂载”选项。</li>
+<li>选择您需要挂载的网盘类型，例如：Google Drive、OneDrive、阿里云盘等。</li>
+<li>填写相关的 API 授权信息或网盘的账户登录信息。</li>
+<li>完成配置后，点击“保存”并测试挂载是否成功。<br>
+<strong><a href="https://alist.nn.ci/zh/">具体操作请看官方文档：https://alist.nn.ci/zh/</a></strong></li>
+</ul>
+</li>
+<li>
+<p><strong>验证挂载</strong></p>
+<ul>
+<li>如果挂载成功，您可以在主页面中查看网盘的目录结构和文件内容。</li>
+<li>支持文件的快速预览和下载。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<!-- more -->
+<h4 id="四-如何设置-alist-以及页面样式美化"><strong>四、如何设置 Alist 以及页面样式美化？</strong></h4>
+<ol>
+<li>
+<p><strong>基本设置</strong></p>
+<ul>
+<li>在管理页面中，点击左侧“设置”选项，调整基本配置。</li>
+<li>重要配置包括：
+<ul>
+<li><strong>端口设置</strong>：修改默认访问端口（如从 5244 改为 8080）。</li>
+<li><strong>公开访问</strong>：设置访问权限（公开、私密或特定密码访问）。</li>
+<li><strong>存储缓存</strong>：为提升性能，可开启文件缓存功能。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>页面样式设置</strong></p>
+<ul>
+<li><strong>主题切换</strong>：进入“设置 &gt; 全局”页面，自定义css样式。<br>
+推荐一个样式：<a href="https://github.com/TheSmallHanCat/Better_Alist">https://github.com/TheSmallHanCat/Better_Alist</a></li>
+</ul>
+</li>
+</ol>
+<h4 id="五-总结"><strong>五、总结</strong></h4>
+<p>Alist 是一个非常实用的网盘整合工具，无需复杂的操作即可轻松管理多个网盘资源。通过本文的指导，您可以快速上手 Alist，并通过自定义设置和页面美化打造属于自己的高效网盘管理平台。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[浅谈RSS，轻松使用RSS]]></title>
+        <id>https://leenut.space/post/rss/</id>
+        <link href="https://leenut.space/post/rss/">
+        </link>
+        <updated>2024-11-15T07:18:26.000Z</updated>
+        <summary type="html"><![CDATA[<p>RSS（Really Simple Syndication，简易信息聚合）是一种开放的内容分发标准，用于订阅和自动推送网站的最新内容。当我们订阅某个网站的RSS源后，网站更新的内容会自动推送到我们的RSS阅读器中，省去访问网站的步骤，帮助我们高效获取想要的信息。RSS的应用范围非常广泛，从新闻、博客到视频和播客，RSS几乎支持一切内容类型的订阅。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>RSS（Really Simple Syndication，简易信息聚合）是一种开放的内容分发标准，用于订阅和自动推送网站的最新内容。当我们订阅某个网站的RSS源后，网站更新的内容会自动推送到我们的RSS阅读器中，省去访问网站的步骤，帮助我们高效获取想要的信息。RSS的应用范围非常广泛，从新闻、博客到视频和播客，RSS几乎支持一切内容类型的订阅。</p>
+<!-- more -->
+<hr>
+<h3 id="rss客户端的选择">RSS客户端的选择</h3>
+<p>不同平台上有多种RSS阅读器可供选择，功能各有侧重，用户可以根据自身需求选择合适的客户端。</p>
+<h4 id="1-windows平台">1 Windows平台</h4>
+<ul>
+<li>
+<p><strong>Fluent Reader</strong>：这是一个开源、跨平台的RSS阅读器，支持Windows、macOS和Linux系统，专注于提供一个简洁、易用的阅读体验，适合那些喜欢一个集成化、无干扰的RSS订阅工具的用户。<br>
+<a href="https://hyliu.me/fluent-reader/">https://hyliu.me/fluent-reader/</a><br>
+<img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/fluent-rss.esvq0j1fo.webp" alt="" loading="lazy"></p>
+</li>
+<li>
+<p><strong>irreader</strong>：这是一个支持windows和mac的rss阅读器，支持订阅网页、RSS、Podcast 甚至 GitHub issue，并且提供了部分 RSS 源，支持推送到飞书、钉钉、企业微信、Discord、Telegram。<br>
+‍<a href="http://irreader.fatecore.com/">http://irreader.fatecore.com/</a><br>
+<img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/before-blog/irreader.1sfeu1wjgz.webp" alt="" loading="lazy"></p>
+</li>
+<li>
+<p><strong>follow</strong>：万物皆可订阅，可以订阅很多内容，包括telegram群组、x.com的用户账号、微博账号、小红书账号、哔哩哔哩up主、YouTube的YouTuber、播客。<br>
+<a href="https://follow.is/">https://follow.is/</a></p>
+</li>
+</ul>
+<h4 id="2-android平台">2 Android平台**</h4>
+<ul>
+<li>
+<p><strong>Focus</strong>（暂停维护中……）：非常流行的RSS工具，界面简洁， 借助 RSShub 开源项目，自带丰富订阅市场，尽可能简化操作，适合普通玩家。<br>
+<a href="https://github.com/ihewro/Focus">https://github.com/ihewro/Focus</a></p>
+</li>
+<li>
+<p><strong>FeedMe</strong>：设计简洁，功能齐全，免费，支持和在线阅读器连接，提供了「中国模式」，优化国内用户的阅读体验。<br>
+<a href="https://play.google.com/store/apps/details?id=com.seazon.feedme">https://play.google.com/store/apps/details?id=com.seazon.feedme</a></p>
+</li>
+</ul>
+<hr>
+<h3 id="3-如何订阅rss">3. 如何订阅RSS</h3>
+<p>订阅RSS有多种方法，通常可以直接从目标网站订阅，或者通过RSShub等工具订阅RSS源。</p>
+<h4 id="1-从目标网站订阅">1 <strong>从目标网站订阅</strong></h4>
+<ul>
+<li>许多网站在页面底部、顶部或菜单中提供“RSS”或“订阅”链接，点击链接即可获取RSS源地址。</li>
+<li>如果没有看到明确的RSS标志，可以试试在网址末尾加上“/feed”或“/rss”，这往往是网站RSS源的默认地址。</li>
+</ul>
+<h4 id="2-利用rsshub订阅">2 <strong>利用RSSHub订阅</strong></h4>
+<ul>
+<li><strong>RSSHub</strong>是一个开源RSS订阅工具。RSSHub收录了大量的RSS源，你可以从网站复制，也可以安装它的插件来帮转你订阅源。<br>
+<a href="https://rsshub.netlify.app/zh/">网站：https://rsshub.netlify.app/zh/</a><br>
+<a href="https://www.crxsoso.com/webstore/detail/kefjpfngnndepjbopdmoebkipbgkggaa">Edge/Chrome 插件：https://www.crxsoso.com/webstore/detail/kefjpfngnndepjbopdmoebkipbgkggaa</a><br>
+<a href="https://www.crxsoso.com/firefox/detail/rsshub-radar">Firefox 插件 ：https://www.crxsoso.com/firefox/detail/rsshub-radar</a><br>
+<img src="https://www.aneasystone.com/usr/uploads/2023/04/3554965339.png" alt="" loading="lazy"></li>
+</ul>
+<h4 id="3-利用阅读器提供的订阅源商店订阅"><strong>3 利用阅读器提供的订阅源商店订阅</strong></h4>
+<p>不少的阅读器提供了订阅源商店或订阅源推荐，可以以此来订阅。</p>
+<hr>
+<p>通过RSS，我们可以为自己打造一个私人订阅的内容世界，高效、有序地获取各类优质信息。在信息泛滥的时代，RSS为我们提供了独立获取信息的方式，帮助我们掌控个人的信息流。希望这篇文章能帮你更好地入门和使用RSS。</p>
+]]></content>
+    </entry>
+</feed>
