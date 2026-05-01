@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="LeeNut&#39;s Space">
+<meta name="description" content="LeeNut&#39;s Space-分享生活点滴和见解！">
+<meta name="theme-color" content="rgba(0, 0, 0, 0.7)">
+<title>Linux软件包安装全指南：从命令行到图形化工具 | LeeNut&#39;s Space</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1777614531872">
+<link rel="stylesheet" href="/media/css/pisces.css">
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link
+  href="//fonts.loli.net/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
+
+<link href="/media/hljs/styles/default.css"
+  rel="stylesheet">
+
+<link rel="stylesheet" href="/styles/main.css">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/media/js/jquery.js"></script>
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://jsdelivr.codeqihan.com/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://jsdelivr.codeqihan.com/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<link rel="stylesheet" href="https://jsdelivr.codeqihan.com/npm/katex@0.11.1/dist/katex.min.css"
+  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ["\\(", "\\)"]],
+      displayMath: [['$$', '$$'], ["\\[", "\\]"]]
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'a', 'annotation', 'annotation-xml'],
+      ignoreHtmlClass: 'tex2jax_ignore|crayon-.*', // 'crayon-' 开头的类，属于Wordpress代码高亮库，这部分不需要处理，否则会导致显示不正确,这部分是正则式，多条之间用'|'分割
+      processHtmlClass: 'tex2jax_process'
+    },
+    //禁用右键菜单	
+    renderActions: {
+      addMenu: [0, '', '']
+    }
+  };
+</script>
+<script type="text/javascript"
+  src="https://jsdelivr.codeqihan.com/npm/mathjax@3.2.2/es5/mml-chtml.min.js"></script>
+
+
+
+
+
+
+  <meta name="description" content="Linux软件包安装全指南：从命令行到图形化工具" />
+  <meta name="keywords" content="Linux,技术" />
+</head>
+
+<body>
+  <div class="head-top-line"></div>
+  <div class="header-box">
+    <style>
+.gridea-search-input{
+    height: 30px;
+    width: 200px;
+    box-sizing: border-box;
+    padding: 0 15px 0 30px;
+    border: 1px solid #e3e3e3;
+    border-radius: 15px;
+    color: #273849;
+    outline: none;
+    transition: border-color 0.2s ease;
+    background: #fff url("data:image/svg+xml,%3Csvg class='icon' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='80' height='65'%3E%3Cpath d='M936.265 854.34L757.43 675.52c46.499-63.168 74.02-141.125 74.02-225.398 0-210.1-170.945-381.039-381.055-381.039S69.346 240.023 69.346 450.122c0 210.105 170.94 381.043 381.049 381.043 84.275 0 162.235-27.52 225.405-74.019l178.833 178.819c11.27 11.265 26.036 16.903 40.813 16.903 14.777 0 29.543-5.638 40.819-16.903 22.536-22.546 22.536-59.09 0-81.625zM163.14 450.122C163.14 291.733 292 162.87 450.396 162.87s287.261 128.862 287.261 287.252c0 158.39-128.867 287.252-287.261 287.252S163.14 608.512 163.14 450.122z' fill='%23C4C4C4'/%3E%3C/svg%3E") 8px 7px no-repeat;
+    background-size: 20px;
+    vertical-align: middle !important;
+}
+.gridea-search-input:focus {
+  border-color: #666666;
+  right: 0;
+}
+</style>
+
+<div class="pisces">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
+        </div>
+      </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>LeeNut&#39;s Space</span>
+            </a>  
+          
+        </div>
+        
+          <p class="subtitle">分享生活点滴和见解！</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/" target="_self">
+                  <i class="fa fa-globe"></i> 首页
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/archives" target="_self">
+                  <i class="fa fa-globe"></i> 归档
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/tags" target="_self">
+                  <i class="fa fa-globe"></i> 标签
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="https://ai-image.leenut.space/" target="_self">
+                  <i class="fa fa-globe"></i> AI生图
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="https://nut-md.leenut.space/" target="_self">
+                  <i class="fa fa-globe"></i> Nut.md
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/post/about" target="_self">
+                  <i class="fa fa-globe"></i> 关于
+                </a>
+              
+            </li>
+          
+          
+          
+            <li id="fa_search" class="nav-item">
+				<a href="javascript:void(0);">
+					<span class="language" data-lan="search">
+						<div class="gridea-search-div">
+							<form id="gridea-search-form" action="https://leenut.space/search/">
+								<input class="gridea-search-input" autocomplete="off" spellcheck="false" name="q"/>
+							</form>
+						</div>
+					</span>
+				</a>
+			</li>
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
+  
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout pisces ">
+      <div class="section-layout-wrapper">
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p><b><center style="color: black;">LeeNut</center></b></p>
+    
+    <div class="site-description right-motion">
+      
+        <p id="binft">分享生活点滴和见解！</p>
+      
+    </div>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count"><p style="color: black;">23</p></span>
+        <span class="site-item-stat-name language" data-lan="article"><p style="color: black;">文章</p></span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count"><p style="color: black;">29</p></span>
+        <span class="site-item-stat-name language" data-lan="tag"><p style="color: black;">标签</p></span>
+      </a>
+    </div>
+  </div>
+  
+    
+      <div class="sidebar-item">
+        <span class="site-item-rss">
+            <i class="fa fa-rss"></i>
+            <a href="https://leenut.space/atom.xml" target="_blank">RSS</a>
+        </span>
+      </div>
+    
+  
+  
+    <div class="sidebar-item sidebar-item-social">
+      <div class="social-item">
+        
+          
+            <a href="mailto:leenut@leenut.com">
+              <i class="fa fa-envelope" title="mail"></i>
+            </a>
+          
+            <a href="https://github.com/LeeNut-Code/">
+              <i class="fa fa-github-alt" title="GitHub"></i>
+            </a>
+          
+        
+        
+      </div>
+    </div>
+  
+
+  
+
+
+  <div class="sidebar-item">
+    <script type="text/javascript" id="myhk" src="https://myhkw.cn/api/player/171807673831" key="171807673831" m="1"></script>
+  </div>
+
+</div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E7%B1%BB%E5%9E%8B">系统类型和包类型</a>
+<ul>
+<li><a href="#%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8C%85%E7%B1%BB%E5%9E%8B">不同系统有哪些包类型</a></li>
+<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%E7%B3%BB%E7%BB%9F%E9%87%87%E7%94%A8%E4%B8%8D%E5%90%8C%E7%9A%84%E5%8C%85%E7%B1%BB%E5%9E%8B">为什么不同系统采用不同的包类型</a></li>
+<li><a href="#%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8C%85%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85">不同类型的包如何安装</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93%E4%B8%8E%E5%BB%BA%E8%AE%AE">小结与建议</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8">包管理器</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8">什么是包管理器?</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E5%AE%89%E8%A3%85%E5%8D%B8%E8%BD%BD%E7%AE%A1%E7%90%86%E8%BD%AF%E4%BB%B6">如何使用包管理器安装/卸载/管理软件</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93%E4%B8%8E%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5">小结与核心概念</a></li>
+<li><a href="#%E4%B8%AD%E5%9B%BD%E7%BD%91%E7%BB%9C%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E6%8D%A2%E6%BA%90">中国网络环境下的换源：</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E6%B8%85%E7%90%86%E5%8C%85%E7%AE%A1%E7%90%86%E7%9A%84%E7%BC%93%E5%AD%98">如何清理包管理的缓存</a></li>
+</ul>
+</li>
+<li><a href="#flathub-snap">Flathub / Snap</a>
+<ul>
+<li><a href="#flathub-snap%E6%98%AF%E4%BB%80%E4%B9%88">Flathub / Snap是什么</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%E5%AE%83%E4%BB%AC%E5%AE%89%E8%A3%85%E5%8D%B8%E8%BD%BD%E7%AE%A1%E7%90%86%E8%BD%AF%E4%BB%B6">如何利用它们安装/卸载/管理软件</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%BE%E5%BD%A2%E5%8C%96%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8%E6%96%B0%E7%AB%8B%E5%BE%97%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8">图形化的软件包管理器——新立得软件包管理器</a>
+<ul>
+<li><a href="#%E4%BD%BF%E7%94%A8%E6%96%B0%E7%AB%8B%E5%BE%97%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8">使用新立得软件包管理器</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BD%AF%E4%BB%B6%E5%95%86%E5%BA%97">软件商店</a></li>
+<li><a href="#%E5%9B%BE%E5%BD%A2%E5%8C%96%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85%E5%99%A8%E4%BE%8B%E5%A6%82gdebi">图形化的软件包安装器（例如GDebi）</a></li>
+<li><a href="#appimage%E4%BE%BF%E6%90%BA%E5%BC%8F%E8%BD%AF%E4%BB%B6%E5%8C%85">AppImage——便携式软件包</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFappimage%E5%8C%85">什么是AppImage包？</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%E5%92%8C%E8%BF%90%E8%A1%8Cappimage">如何安装和运行AppImage？</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%9B%BE%E5%BD%A2%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%A1%E7%90%86appimage">如何使用图形化工具管理AppImage？</a></li>
+</ul>
+</li>
+<li><a href="#%E6%80%BB%E7%BB%93%E9%A9%BE%E9%A9%AD%E5%A4%9A%E6%A0%B7%E6%80%A7%E8%87%AA%E7%94%B1%E9%80%89%E6%8B%A9%E4%BD%A0%E7%9A%84linux%E8%BD%AF%E4%BB%B6%E4%B9%8B%E8%B7%AF">总结：驾驭多样性，自由选择你的Linux软件之路</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    jQuery.Velocity(hideElement, 'stop');
+    jQuery.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        jQuery.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://leenut.space/post/linux_package/"> Linux软件包安装全指南：从命令行到图形化工具 </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span style="color: black;">
+      <i class="fa fa-calendar-o"></i>
+      <span style="color: black;" data-lan="publish">发布于</span>
+      <span style="color: black;" data-t="2026-02-10 16:15:06">2026-02-10</span>
+      <span style="color: black;">|</span>
+    </span>
+    
+    <span style="color: black;">
+      <i class="fa fa-folder-o"></i>
+      <span style="color: black;" data-lan="category-in">标签:</span>
+       
+      <a href="https://leenut.space/tag/0SwQoMSwujZ/"> <span>Linux</span> </a>、   
+      <a href="https://leenut.space/tag/et9tYYXc765/">
+        <span>技术</span>
+      </a>
+       
+    </span>
+    <span style="color: black;">|</span>
+    
+    <span style="color: black;">
+      <i class="fa fa-clock-o"></i>
+      <span
+        >21<span style="color: black;" data-lan="minute"
+          >分钟</span
+        ></span
+      >
+    </span>
+    <span style="color: black;">
+      <span style="color: black;">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span style="color: black;"
+        >5489<span  data-lan="words"
+          >字数</span
+        ></span
+      >
+    </span>
+    
+  </div>
+</section>
+
+            <div class="post-body next-md-body" id="post_body">
+              <p>当你第一次尝试在Linux系统上安装软件时，可能会感到有些困惑。面对网上各式各样的教程——有的让你在黑色窗口里输入神秘命令，有的推荐去一个漂亮的“商店”里点击，还有的直接给你一个文件让你双击——该听谁的？这种多样性并非混乱，恰恰是Linux世界丰富生态和用户选择自由的体现。本文将为你系统梳理从最基础的命令行工具到便捷的图形化界面，帮助你理解每一种方法，并找到最适合自己的软件安装之道。</p>
+<!-- more -->
+<figure data-type="image" tabindex="1"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/linux_package_banner.9rjx6mzzw9.webp" alt="" loading="lazy"></figure>
+<h2 id="系统类型和包类型">系统类型和包类型</h2>
+<h3 id="不同系统有哪些包类型">不同系统有哪些包类型</h3>
+<p>Linux世界主要存在两大软件包格式阵营，这通常由发行版的“血缘”关系决定。</p>
+<p>最常见的是 DEB包，它是Debian及其衍生家族（例如我们熟知的Ubuntu、Linux Mint、Deepin）所使用的标准格式。如果你从网上下载到一个以 .deb 结尾的文件，那它就属于这个阵营。</p>
+<p>另一大阵营是 RPM包，主要在Red Hat系列发行版（如Fedora、CentOS、RHEL）和openSUSE中使用，文件扩展名为 .rpm。</p>
+<p>除此之外，还有一些独立或新兴的格式。例如，追求简洁与前沿的Arch Linux及其衍生版使用由Pacman管理器处理的 .pkg.tar.zst 包。而像 AppImage、Snap 和 Flatpak 这类格式，其设计目标就是打破发行版间的壁垒，实现“一次打包，到处运行”。</p>
+<h3 id="为什么不同系统采用不同的包类型">为什么不同系统采用不同的包类型</h3>
+<p>这种差异主要源于历史发展路径和早期技术选择。Debian和Red Hat作为Linux早期两个最具影响力的发行版，各自发展出了一套完整的软件管理系统。这就像不同的国家形成了不同的语言和习俗。</p>
+<p>DEB格式与 dpkg 工具配套，而RPM格式则与 rpm 工具绑定。它们不仅在文件结构上不同，在如何处理软件依赖关系、配置文件更新和安装脚本执行等细节上也各有哲学。例如，Debian系以其对自由软件的严格审查和稳定性著称，而Red Hat系则更注重企业级功能和支持。</p>
+<h3 id="不同类型的包如何安装">不同类型的包如何安装</h3>
+<p>对于已经下载到本地的软件包文件，安装方式因其格式而异。了解不同工具的特点，可以帮助你在遇到问题时选择最合适的方案。</p>
+<ol>
+<li>DEB包的安装与卸载<br>
+DEB包是Debian、Ubuntu及其衍生系统的标准格式。</li>
+</ol>
+<ul>
+<li>使用底层dpkg命令：<br>
+这个命令直接操作包文件，但不处理依赖关系。如果缺少依赖，安装会中断。</li>
+</ul>
+<pre><code class="language-shell"># 安装DEB包
+sudo dpkg -i package_name.deb
+
+# 如果安装因依赖问题失败，可运行以下命令修复
+sudo apt install -f
+
+# 卸载DEB包（保留配置文件）
+sudo dpkg -r package_name
+# 完全卸载（删除配置文件）
+sudo dpkg -P package_name
+</code></pre>
+<ul>
+<li>使用高级APT工具：<br>
+推荐使用这种方法，因为它能自动解决依赖问题，从配置的软件源中拉取所有需要的包。</li>
+</ul>
+<pre><code class="language-shell"># 安装本地DEB包并自动处理依赖
+sudo apt install ./package_name.deb
+
+# 卸载软件（保留配置）
+sudo apt remove package_name
+# 完全卸载（删除配置）
+sudo apt purge package_name
+</code></pre>
+<ol start="2">
+<li>RPM包的安装与卸载<br>
+RPM包主要用于Fedora、RHEL、CentOS和openSUSE等发行版。</li>
+</ol>
+<ul>
+<li>使用底层rpm命令：<br>
+类似于dpkg，这个命令也不自动解决依赖。</li>
+</ul>
+<pre><code class="language-shell"># 安装RPM包（-i安装，-v显示详细信息，-h显示进度）
+sudo rpm -ivh package_name.rpm
+
+# 升级已安装的RPM包
+sudo rpm -Uvh package_name.rpm
+
+# 卸载RPM包
+sudo rpm -e package_name
+</code></pre>
+<ul>
+<li>使用高级DNF/YUM工具（推荐）：<br>
+现代RPM系发行版使用DNF（或较旧的YUM）作为包管理器，它们会自动处理依赖。</li>
+</ul>
+<pre><code class="language-shell"># 安装本地RPM包并解决依赖（DNF）
+sudo dnf install ./package_name.rpm
+# 或使用YUM
+sudo yum localinstall ./package_name.rpm
+
+# 卸载软件（DNF）
+sudo dnf remove package_name
+</code></pre>
+<h3 id="小结与建议">小结与建议</h3>
+<ul>
+<li>优先使用高级包管理器（apt install ./package.deb 或 dnf install ./package.rpm），让系统自动处理复杂的依赖关系，这是最省心的方式。</li>
+<li>当高级工具不可用或需要底层控制时，才考虑使用dpkg或rpm命令，但必须准备好手动解决可能出现的依赖错误。</li>
+</ul>
+<h2 id="包管理器">包管理器</h2>
+<h3 id="什么是包管理器">什么是包管理器?</h3>
+<p>你可以把包管理器想象成一位神通广大的“软件管家”。它的核心职责是处理令人头疼的软件依赖关系——即一个软件正常运行所需要的一系列其他库或组件。包管理器会从指定的软件仓库（Repository）中自动查找、下载并安装所有必需的部件。</p>
+<p>不同的Linux发行版配备了不同的“管家”：</p>
+<table>
+<thead>
+<tr>
+<th>包管理器</th>
+<th>主要服务的发行版家族</th>
+<th>特点简述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>APT</td>
+<td>Debian, Ubuntu, Linux Mint</td>
+<td>使用最广泛的管家之一，命令直观，软件库极其庞大。</td>
+</tr>
+<tr>
+<td>DNF</td>
+<td>Fedora, RHEL, CentOS</td>
+<td>RPM家族的新一代管家，解决了旧工具的一些性能问题。</td>
+</tr>
+<tr>
+<td>Pacman</td>
+<td>Arch Linux, Manjaro</td>
+<td>以简洁、高效、直接著称，一条命令常能完成多个操作。</td>
+</tr>
+<tr>
+<td>Zypper</td>
+<td>openSUSE</td>
+<td>以强大的依赖解析算法闻名。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="如何使用包管理器安装卸载管理软件">如何使用包管理器安装/卸载/管理软件</h3>
+<p>掌握包管理器的核心命令，是高效管理Linux系统的基础。不同发行版的命令语法虽有差异，但逻辑相通，主要围绕 更新软件源、安装/卸载软件 和升级系统这几个核心操作。</p>
+<ol>
+<li>APT (Debian, Ubuntu, Linux Mint)<br>
+APT是最常用的包管理器之一，以其强大的依赖处理和庞大的软件库著称。</li>
+</ol>
+<pre><code class="language-shell"># 更新本地软件包数据库（必须经常执行，以获取最新软件信息）
+sudo apt update
+
+# 安装一个软件包，例如编辑器 nano
+sudo apt install nano
+
+# 升级所有可升级的已安装软件包
+sudo apt upgrade
+
+# 卸载一个软件包（保留其配置文件）
+sudo apt remove nano
+# 彻底卸载软件包（同时删除配置文件）
+sudo apt purge nano
+
+# 搜索包含关键字的软件包
+apt search keyword
+
+# 清理下载的软件包缓存以释放空间
+sudo apt clean
+</code></pre>
+<ol start="2">
+<li>DNF (Fedora, RHEL, CentOS)<br>
+DNF是新一代的RPM包管理器，替代了早期的YUM，拥有更好的依赖解析性能。</li>
+</ol>
+<pre><code class="language-shell"># 安装一个软件包
+sudo dnf install nano
+
+# 检查系统更新（列出可升级的软件包）
+sudo dnf check-update
+
+# 升级所有软件包
+sudo dnf upgrade
+
+# 卸载一个软件包
+sudo dnf remove nano
+
+# 搜索软件包
+dnf search keyword
+
+# 清理所有缓存（包括软件包和元数据）
+sudo dnf clean all
+</code></pre>
+<ol start="3">
+<li>Pacman (Arch Linux, Manjaro)<br>
+Pacman以其简洁、直接的设计哲学闻名。在Arch Linux中，完整的系统更新是安装新软件前的最佳实践。</li>
+</ol>
+<pre><code class="language-shell"># 同步软件仓库并升级所有已安装的包（这是Arch的标准更新方式）
+sudo pacman -Syu
+
+# 安装一个软件包
+sudo pacman -S nano
+
+# 卸载一个软件包及其不再被需要的依赖
+sudo pacman -Rs nano
+
+# 搜索软件包（在仓库中）
+pacman -Ss keyword
+
+# 查询已安装的软件包
+pacman -Qs keyword
+
+# 清理未安装的软件包缓存
+sudo pacman -Sc
+</code></pre>
+<h3 id="小结与核心概念">小结与核心概念</h3>
+<ul>
+<li>更新 vs 升级：update（或check-update）通常只刷新可用软件包的列表；而upgrade（或upgrade）才是执行实际的下载和安装过程。</li>
+<li>卸载的区别：remove（或remove）通常只删除软件本身；而purge（APT）或带s选项的-Rs（Pacman）会尝试删除相关配置文件或孤立依赖，清理得更彻底。</li>
+<li>最佳实践：在安装新软件前，先更新软件源列表（apt update / pacman -Sy），这能确保你获取到最新的版本和依赖信息。对于Arch Linux，则更推荐直接运行pacman -Syu进行完整的系统同步与升级。</li>
+</ul>
+<h3 id="中国网络环境下的换源">中国网络环境下的换源：</h3>
+<p>由于网络连接问题，更换为国内的软件源镜像可以极大提升下载速度。以Ubuntu为例，操作通常是：</p>
+<ol>
+<li>备份原有的软件源列表：sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</li>
+<li>编辑源列表文件：sudo nano /etc/apt/sources.list</li>
+<li>将文件内的官方网址（如 archive.ubuntu.com）替换为国内镜像地址（例如清华大学的 mirrors.tuna.tsinghua.edu.cn）。<br>
+对于Fedora，可以编辑 /etc/dnf/dnf.conf 并添加 fastestmirror=True 选项，或直接修改 /etc/yum.repos.d/ 目录下文件中的 baseurl。</li>
+</ol>
+<p>其他管理操作：</p>
+<ul>
+<li>搜索软件：apt search keyword 或 dnf search keyword</li>
+<li>查看详情：apt show package-name</li>
+<li>升级软件：sudo apt upgrade package-name （仅升级指定包）</li>
+<li>卸载软件：sudo apt remove package-name （保留配置）；sudo apt purge package-name （彻底删除）</li>
+</ul>
+<h3 id="如何清理包管理的缓存">如何清理包管理的缓存</h3>
+<p>包管理器会缓存下载的软件包，定期清理可以释放磁盘空间。</p>
+<ul>
+<li>APT：sudo apt clean 会清除所有已下载的安装包缓存；sudo apt autoremove 会删除那些为了满足依赖而自动安装、但现在已不再需要的软件包。</li>
+<li>DNF：sudo dnf clean all 清理所有缓存。</li>
+<li>Pacman：sudo pacman -Sc 清理未安装包的缓存；sudo pacman -Rns $(pacman -Qtdq) 递归删除“孤儿”软件包（不再被任何程序依赖）。</li>
+</ul>
+<h2 id="flathub-snap">Flathub / Snap</h2>
+<h3 id="flathub-snap是什么">Flathub / Snap是什么</h3>
+<p>Flatpak（其主要仓库为Flathub）和 Snap 是现代的应用分发格式，旨在解决传统包管理的一些固有限制，比如软件更新滞后、跨发行版兼容性差等。</p>
+<p>它们的核心思想是容器化或沙盒化。开发者将应用及其绝大部分依赖一起打包，形成一个可以在任何Linux发行版上运行的自包含单元。同时，这种隔离也增强了安全性。</p>
+<p>简而言之，Snap由Canonical（Ubuntu背后的公司）主导推进，而Flatpak则是一个更由社区驱动的项目。两者形成了竞争与合作共存的局面。</p>
+<h3 id="如何利用它们安装卸载管理软件">如何利用它们安装/卸载/管理软件</h3>
+<p><strong>安装与设置：</strong><br>
+对于Flatpak，通常需要先安装flatpak软件包，然后添加Flathub仓库：</p>
+<pre><code class="language-shell">sudo apt install flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+</code></pre>
+<p>之后，就可以通过 flatpak install flathub org.app.Name 这样的命令来安装应用。</p>
+<p>对于Snap，多数新版本Ubuntu已预装。在其他发行版上可能需要安装snapd服务。安装应用命令类似 sudo snap install app-name。</p>
+<p><strong>国内网络优化：</strong><br>
+对于Snap，可以通过设置代理来改善连接速度：sudo snap set system proxy.http=&quot;http://代理地址:端口&quot;。Flatpak目前没有内置的镜像设置，但设置系统全局HTTP代理同样有效。</p>
+<p><strong>Flatpak 国内镜像配置（以上海交大源为例）</strong></p>
+<p>上海交通大学 Linux 用户组 (SJTUG) 提供了高质量的 Flatpak 镜像源。配置方法如下：</p>
+<ol>
+<li>添加镜像源<br>
+首先，你需要移除默认的 flathub 远程仓库，并添加对应的镜像源。</li>
+</ol>
+<pre><code class="language-shell"># 1. 移除原有的 Flathub 远程仓库
+flatpak remote-delete flathub
+
+# 2. 添加上海交大的 Flathub 镜像源
+flatpak remote-add --if-not-exists flathub https://mirror.sjtu.edu.cn/flathub/repo/flathub.flatpakrepo
+# (ai撰写，此处镜像源的可用性未验证)
+</code></pre>
+<ol start="2">
+<li>验证与设置<br>
+添加完成后，可以通过以下命令查看和设置：</li>
+</ol>
+<pre><code class="language-shell"># 列出所有已配置的远程仓库，确认 flathub 的 URL 已指向镜像
+flatpak remotes
+
+# 设置镜像源为优先（某些环境下可能需要）
+flatpak remote-modify --prio=1 flathub
+</code></pre>
+<ol start="3">
+<li>通过镜像源安装应用<br>
+配置完成后，安装命令与使用官方源无异，但数据将从国内镜像下载。</li>
+</ol>
+<pre><code class="language-shell"># 例如，安装 Flatpak 版本的 LibreOffice
+flatpak install flathub org.libreoffice.LibreOffice
+</code></pre>
+<p>管理命令：</p>
+<ul>
+<li>列出已安装应用：flatpak list / snap list</li>
+<li>更新所有应用：flatpak update / sudo snap refresh</li>
+<li>卸载应用：flatpak uninstall org.app.Name / sudo snap remove app-name</li>
+</ul>
+<p><strong>如何清理缓存</strong></p>
+<ul>
+<li>Flatpak：运行 flatpak uninstall --unused 可以清理那些已安装应用不再需要的“运行时”环境，这是释放空间的主要方法。</li>
+<li>Snap：系统会自动管理旧版本快照，你也可以通过 sudo snap set system refresh.retain=2 来限制保留的旧版本数量（例如只保留2个）。</li>
+</ul>
+<h2 id="图形化的软件包管理器新立得软件包管理器">图形化的软件包管理器——新立得软件包管理器</h2>
+<p>新立得（Synaptic）是一个经典的、功能强大的图形化包管理前端，主要服务于Debian和Ubuntu等APT系发行版。在图形化软件商店普及之前，它是许多用户管理软件的主要窗口。虽然现在不少用户转向了更现代的商店，但新立得因其信息全面、控制精细的特点，依然受到高级用户的青睐。</p>
+<h3 id="使用新立得软件包管理器">使用新立得软件包管理器</h3>
+<ol>
+<li>安装：sudo apt install synaptic</li>
+<li>启动需要管理员权限，你可以在菜单中搜索启动，或在终端输入 sudo synaptic。</li>
+<li>在界面中，你可以浏览完整的软件分类，使用搜索框快速定位软件（例如搜索某个编辑器）。</li>
+<li>找到后，右键点击软件包，可以选择“标记以便安装”，然后点击工具栏上的“应用”按钮即可执行。</li>
+<li>它的“设置”菜单下可以管理软件仓库源，方便地添加PPA或更换镜像源。</li>
+</ol>
+<p>新立得的优势在于它将APT的几乎所有功能都可视化了出来，包括查看软件包详情、依赖关系、已安装文件的列表等，给予用户极大的掌控感。</p>
+<h2 id="软件商店">软件商店</h2>
+<p>现代Linux桌面环境普遍提供了更友好、更接近移动设备体验的图形化软件商店。</p>
+<ul>
+<li>GNOME Software：GNOME桌面环境的中心化商店。界面简洁，集成了系统更新功能，并且同时支持系统原生包、Flatpak和Snap格式的应用。</li>
+<li>KDE Discover：KDE Plasma桌面的软件中心。同样界面现代，支持多种后端，并且是管理KDE桌面插件、主题等附加内容的主要入口。</li>
+<li>发行版定制商店：</li>
+<li>
+<ul>
+<li>Linux Mint 软件管理器：在APT基础上提供了更美观的界面和用户评分系统。</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>Deepin 应用商店：深度操作系统的核心组件，设计精美，集成了大量国内常用的应用。</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>星火软件商店：最初为Deepin/UOS设计，现已支持其他发行版。它的一大特色是汇集了许多由国内开发者或社区适配的Linux应用，填补了官方仓库的空白，是国内用户寻找软件的一个宝贵资源。</li>
+</ul>
+</li>
+</ul>
+<p>这些商店极大地降低了Linux的使用门槛，让搜索、浏览截图、阅读评论、一键安装和更新软件变得和智能手机一样简单。</p>
+<h2 id="图形化的软件包安装器例如gdebi">图形化的软件包安装器（例如GDebi）</h2>
+<p>当你从网站下载了一个独立的 .deb 安装包文件，除了用命令行安装，使用图形化工具往往更直观。</p>
+<p>GDebi 就是这样一个轻量级工具。它的核心优点是能自动处理依赖关系。当你双击一个.deb文件并用GDebi打开后，它会分析这个包，并明确列出需要同时安装哪些额外的依赖库。你只需点击“安装”按钮，它就会调用APT来完整地安装主程序和所有依赖。</p>
+<p>安装GDebi本身很简单：sudo apt install gdebi。之后，你就可以右键点击下载的deb文件，选择“用其他应用程序打开”，然后选择GDebi。</p>
+<p>类似的工具还有KDE环境下的Qapt，以及elementary OS使用的Eddy。它们都解决了同一个痛点：让本地软件包文件的安装过程对用户更友好、更不易出错。</p>
+<h2 id="appimage便携式软件包">AppImage——便携式软件包</h2>
+<h3 id="什么是appimage包">什么是AppImage包？</h3>
+<p>AppImage 是一种创新的 “便携式” Linux 应用格式。它的核心理念是：一个应用 = 一个文件。</p>
+<p>与传统的 .deb 或 .rpm 包不同，AppImage 不要求你“安装”软件到系统中。其运行逻辑是：</p>
+<ul>
+<li>自包含：每个 AppImage 文件都将应用本身、其所有依赖库（除了一些最基础的系统库）、以及运行所需的元数据全部打包在一起，形成一个独立的单体文件。</li>
+<li>沙盒化运行：当你运行一个 AppImage 时，它会以一种临时的、沙盒化的方式将自身挂载（mount）到一个随机目录下，然后在这个独立的环境中启动应用。这个过程对用户是完全透明的。</li>
+<li>不污染系统：因为所有依赖都已自带，AppImage 几乎不会与系统已安装的库发生冲突。同时，它通常不向系统目录写入文件（除了可能在用户主目录下创建配置文件），卸载时也只需删除这一个文件即可，非常干净。<br>
+简单来说，AppImage 就像一个“绿色软件”或可执行的“光盘镜像”，让你在获得最新版应用的同时，无需担心依赖问题，也无需管理员权限（只需文件本身可执行）。</li>
+</ul>
+<h3 id="如何安装和运行appimage">如何安装和运行AppImage？</h3>
+<p>运行 AppImage 的核心步骤非常简单，但需要注意权限设置。</p>
+<ol>
+<li>下载文件：从应用的官方网站或 AppImageHub 下载扩展名为 .AppImage 的文件。</li>
+<li>赋予执行权限：这是关键且必须的一步。刚下载的文件默认可能没有执行权限。你需要通过终端命令或文件管理器的属性窗口来授权。</li>
+</ol>
+<pre><code class="language-shell"># 进入文件所在目录，为 AppImage 文件添加可执行权限
+chmod +x 软件名.AppImage
+</code></pre>
+<blockquote>
+<p>说明：chmod +x 是改变文件模式（change mode）的命令，+x 表示添加执行（execute）权限。这是 Linux 运行任何可执行程序的前提。</p>
+</blockquote>
+<ol start="3">
+<li>运行它：</li>
+</ol>
+<ul>
+<li>命令行运行：在终端中直接输入文件路径执行。<br>
+<code>./软件名.AppImage</code></li>
+<li>图形界面运行：在文件管理器（如 Nautilus、Dolphin）中双击该文件。某些桌面环境第一次运行时可能需要你确认“信任并执行”。</li>
+</ul>
+<p>重要提示：某些强大的 AppImage（如开发工具）可能需要 fuse 支持才能以挂载方式运行。如果你的系统较精简，可能需要先安装它：</p>
+<pre><code class="language-shell"># 在基于 Debian/Ubuntu 的系统上
+sudo apt install libfuse2
+</code></pre>
+<h3 id="如何使用图形化工具管理appimage">如何使用图形化工具管理AppImage？</h3>
+<p>虽然双击运行很方便，但直接使用 AppImage 也有一些不便之处，例如：</p>
+<ul>
+<li>文件散落在“下载”文件夹中。</li>
+<li>不会集成到系统应用菜单或启动器中。</li>
+<li>更新需要手动下载新版本文件。</li>
+</ul>
+<p>像 Gear Lever、AppImageLauncher 这类工具就是为了解决这些问题而生的。这里以 AppImageLauncher 为例，它是目前最流行的集成工具之一。</p>
+<ol>
+<li>安装 Gear Lever</li>
+</ol>
+<ul>
+<li>可以通过flatpak下载：</li>
+</ul>
+<pre><code class="language-shell">flatpak install flathub it.mijorus.gearlever
+</code></pre>
+<ol start="2">
+<li>将appimage包拖入到软件或手动添加进软件</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/%E6%88%AA%E5%9B%BE-2026-04-02-17-11-27.73uiwvje9v.webp" alt="" loading="lazy"></figure>
+<h2 id="总结驾驭多样性自由选择你的linux软件之路">总结：驾驭多样性，自由选择你的Linux软件之路</h2>
+<p>走过这一趟从命令行到图形化界面的探索之旅，你会发现，Linux世界软件安装方式的多样性并非杂乱无章，而是一幅层次分明、各有侧重的生态图谱。这种“混乱”的表象之下，是Linux哲学中至关重要的模块化设计和用户选择自由的体现。</p>
+<p>我们可以将主要方式归纳为三个清晰的层次：</p>
+<ol>
+<li>
+<p>系统基石：原生包管理器（APT, DNF, Pacman）<br>
+这是系统的根基。通过 sudo apt install 或 sudo pacman -S 等命令，你获得的是与发行版深度集成、经过充分测试、最稳定可靠的软件。它管理着系统的核心组件，是维护系统健康的首选。</p>
+</li>
+<li>
+<p>现代扩展：通用容器格式（Flatpak, Snap）<br>
+这是生态的延伸。当你需要最新版本的应用程序，或是系统仓库中未收录的软件时，Flatpak和Snap提供了完美的解决方案。它们通过沙盒技术，以安全隔离为代价，换来了出色的跨发行版兼容性和便捷的更新。通过Flathub商店或 snap install 命令，你可以轻松获取大量现代应用。</p>
+</li>
+<li>
+<p>极致便携：自包含应用（AppImage）<br>
+这是灵活性的代表。一个文件，即点即用，无需安装，不污染系统。AppImage是分享、测试或使用便携软件的理想选择，尤其适合没有系统管理员权限的场景。配合AppImageLauncher等工具，它也能很好地融入桌面环境。</p>
+</li>
+</ol>
+<p>那么，面对具体需求，该如何选择？一条简单的决策逻辑可以帮你快速定位：</p>
+<ul>
+<li>追求稳定、管理核心工具 → 使用发行版原生包管理器。</li>
+<li>需要最新版软件、特定应用或增强安全性 → 优先查看 Flathub 或 Snap商店。</li>
+<li>临时使用、软件测试、或需要绝对便携 → 下载 AppImage。</li>
+<li>新手入门，追求简单直观 → 打开系统自带的图形化软件商店（如GNOME Software）。</li>
+<li>安装本地下载的.deb/.rpm文件 → 使用 GDebi 等图形安装器。</li>
+</ul>
+<p>最后，强大的包管理器也需维护。请记住定期执行 sudo apt autoremove 或 sudo pacman -Sc 来清理无用缓存，这能让你的系统保持清爽。</p>
+<p>Linux的强大，不在于规定你“必须”如何做，而在于为你提供了“可以”如何做的多种可能。理解每一种工具背后的设计逻辑和适用边界，你就能从被动的软件使用者，转变为主动的系统驾驭者。现在，就根据你的实际需求，自信地选择最适合的那条路径，开始你的探索吧。</p>
+<div style="text-align: center; margin-top: 20px; user-select: none;">
+    <hr style="border: 0; border-top: 1px solid #cc0000; margin-bottom: -10px; opacity: 0.2;">
+    <span style="background: #fff; padding: 0 10px; font-size: 12px; color: #cc0000; font-family: sans-serif; display: inline-block; vertical-align: middle; opacity: 0.4;">
+        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="10" height="10" style="vertical-align: text-bottom; margin-right: 2px;">
+            <path d="M512 85.33l106.67 320H938.67L682.67 597.33l106.66 341.34L512 725.33 234.67 938.67l106.66-341.34L64 405.33h320z" fill="#cc0000"></path>
+        </svg>
+        <b>AI 辅助完成</b>
+    </span>
+</div>
+            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      LeeNut
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://leenut.space/post/linux_package/" title="Linux软件包安装全指南：从命令行到图形化工具">https://leenut.space/post/linux_package/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://leenut.space/tag/0SwQoMSwujZ/"># Linux</a>
+    
+      <a href="https://leenut.space/tag/et9tYYXc765/"># 技术</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="解锁 Markdown，我的 MD 笔记：（一）Markdown 的起源与全平台工具选择" href="https://leenut.space/post/markdown1/">解锁 Markdown，我的 MD 笔记：（一）Markdown 的起源与全平台工具选择</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="解锁 Markdown，我的 MD 笔记：（一）Markdown 的起源与全平台工具选择" href="https://leenut.space/post/markdown1/">上一篇</a>
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="一次Linux蓝牙音频连接故障修复：从“连接失败”到完美播放" href="https://leenut.space/post/lanyaerji/">一次Linux蓝牙音频连接故障修复：从“连接失败”到完美播放</a>
+        <a class="nav-mobile-next" title="一次Linux蓝牙音频连接故障修复：从“连接失败”到完美播放" href="https://leenut.space/post/lanyaerji/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+            
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'Ov23lifFGfShBYgllroJ',
+    clientSecret: 'e23fd71fee9bb3d29ec93b59d6a2b7e25b15b4e9',
+    repo: 'leenut-code.github.io',
+    owner: 'LeeNut-Code',
+    admin: ['LeeNut-Code'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+  gitalk.render('gitalk-container')
+</script>
+  
+  
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-box">
+  <footer class="footer">
+    <center id="runTimeBox">
+      <p style="color: black;">已运行:<span id="run_time"></span></p>
+    </center>
+    <!-- 
+    <span id="busuanzi_container_site_pv"><p style="color: black;">浏览数:<span id="busuanzi_value_site_pv"></span> 次</p></span>
+    <span id="busuanzi_container_site_uv"><p style="color: black;">访客数:<span id="busuanzi_value_site_uv"></span> 人</p></span>
+     -->
+    <script>
+      BirthDay = new Date('2024-04-11');
+      if (BirthDay.getTime()) {
+        function runTime() {
+          str = "";
+          today = new Date();
+          timeold = today.getTime() - BirthDay.getTime();
+          msPerDay = 24 * 60 * 60 * 1000;
+          e_daysold = timeold / msPerDay;
+          daysold = Math.floor(e_daysold);
+          str += daysold + "天";
+          return str;
+        }
+        setInterval(function () {
+          $("#run_time").html(runTime());
+        }, 1000);
+      } else {
+        document.querySelector('.footer').removeChild(document.querySelector('#runTimeBox'));
+      }
+    </script>
+    <div class="poweredby">
+      <p>&copy; 2024-2026 LeeNet</p> <p>Gridea & Next</p>
+    </div>
+  </footer>
+  
+    
+        <div class="pisces back-to-top" id="back_to_top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span class="scrollpercent"> <span id="back_to_top_text">0</span>% </span>
+            
+        </div>
+        
+          
+            
+              <div class="bg-img">
+                <img src="https://t.alcy.cc/ycy" />
+              </div>
+              
+                
+                  
+                        
+                          
+
+
+                            
+</div>
+<script>
+  let sideBarOpen = "sidebar-open";
+  let body = document.body;
+  let back2Top = document.querySelector("#back_to_top"),
+    back2TopText = document.querySelector("#back_to_top_text"),
+    drawerBox = document.querySelector("#drawer_box"),
+    rightSideBar = document.querySelector(".sidebar"),
+    viewport = document.querySelector("body");
+
+  function scrollAnimation(currentY, targetY) {
+    let needScrollTop = targetY - currentY;
+    let _currentY = currentY;
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10);
+      _currentY += dist;
+      window.scrollTo(_currentY, currentY);
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY);
+      } else {
+        window.scrollTo(_currentY, targetY);
+      }
+    }, 1);
+  }
+
+  back2Top.addEventListener("click", function (e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+
+  window.addEventListener("scroll", function (e) {
+    let percent =
+      (document.scrollingElement.scrollTop /
+        (document.scrollingElement.scrollHeight -
+          document.scrollingElement.clientHeight)) *
+      100;
+    if (percent > 1 && !back2Top.classList.contains("back-top-active")) {
+      back2Top.classList.add("back-top-active");
+    }
+    if (percent == 0) {
+      back2Top.classList.remove("back-top-active");
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+  let hasCacu = false;
+  window.addEventListener("resize", function (e) {
+    calcuHeight();
+  });
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (
+      (!hasCacu && back2Top.classList.contains("pisces")) ||
+      back2Top.classList.contains("gemini")
+    ) {
+      let sideBar = document.querySelector(".sidebar");
+      let navUl = document.querySelector("#site_nav");
+      sideBar.style =
+        "margin-top:" + (navUl.offsetHeight + navUl.offsetTop + 15) + "px;";
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+
+  let open = false,
+    MOTION_TIME = 300,
+    RIGHT_MOVE_DIS = "320px";
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll(".right-motion");
+    let right = drawerBox.classList.contains("right");
+
+    let transitionDir = right
+      ? "transition.slideRightIn"
+      : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS,
+      };
+      closeProp = {
+        paddingRight: "0px",
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS,
+      };
+      closeProp = {
+        paddingLeft: "0px",
+      };
+    }
+
+    drawerBox.onclick = function () {
+      open = !open;
+      jQuery.Velocity(rightSideBar, "stop");
+      jQuery.Velocity(viewport, "stop");
+      jQuery.Velocity(rightMotions, "stop");
+      if (open) {
+        jQuery.Velocity(
+          rightSideBar,
+          {
+            width: RIGHT_MOVE_DIS,
+          },
+          {
+            duration: MOTION_TIME,
+            begin: function () {
+              jQuery.Velocity(rightMotions, transitionDir, {});
+            },
+          }
+        );
+        jQuery.Velocity(viewport, openProp, {
+          duration: MOTION_TIME,
+        });
+      } else {
+        jQuery.Velocity(
+          rightSideBar,
+          {
+            width: "0px",
+          },
+          {
+            duration: MOTION_TIME,
+            begin: function () {
+              jQuery.Velocity(rightMotions, {
+                opacity: 0,
+              });
+            },
+          }
+        );
+        jQuery.Velocity(viewport, closeProp, {
+          duration: MOTION_TIME,
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle("muse-line");
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    };
+  }
+
+  // 链接跳转
+  let newWindow = "false";
+  if (newWindow === "true") {
+    let links = document.querySelectorAll(".post-body a");
+    links.forEach((item) => {
+      if (!item.classList.contains("btn")) {
+        item.setAttribute("target", "_blank");
+      }
+    });
+  }
+
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+
+  // 离开当前页title变化
+  var leaveTitle = "亲，不要走啊！";
+  var normal_title = document.title;
+  if (leaveTitle) {
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState == "hidden") {
+        normal_title = document.title;
+        document.title = leaveTitle;
+      } else {
+        document.title = normal_title;
+      }
+    });
+  }
+</script>
+
+<link rel="stylesheet" href="/media/css/jquery.fancybox.css" />
+<script src="/media/js/jquery.fancybox.js"></script>
+
+<script>
+  let images = document.querySelectorAll(".section img");
+  images.forEach((image) => {
+    var parent = image.parentElement;
+    var next = image.nextElementSibling;
+    parent.removeChild(image);
+    var aelem = document.createElement("a");
+    aelem.href = image.src;
+    aelem.dataset["fancybox"] = "images";
+    aelem.dataset["rel"] = "fancybox-button";
+    aelem.classList.add("fancybox");
+    aelem.appendChild(image);
+    parent.insertBefore(aelem, next);
+  });
+</script>
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip"> </p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        jQuery.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        jQuery.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        jQuery.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        jQuery.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      jQuery.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      jQuery.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
+  </div>
+</body>
+<input hidden id="copy" />
+<script>
+  !function () {
+    let times = document.querySelectorAll('.publish-time');
+    for (let i = 0; i < times.length; i++) {
+      let date = times[i].dataset.t;
+      let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
+      if (time < 60) {
+        str = time + '秒之前';
+      } else if (time < 3600) {
+        str = Math.floor(time / 60) + '分钟之前';
+      } else if (time >= 3600 && time < 86400) {
+        str = Math.floor(time / 3600) + '小时之前';
+      } else if (time >= 86400 && time < 259200) {
+        str = Math.floor(time / 86400) + '天之前';
+      } else {
+        str = times[i].textContent;
+      }
+      times[i].textContent = str;
+    }
+  }();
+</script>
+
+<script>
+  let language = '';
+  if (language !== '') {
+    let map = new Map();
+    if (language === 'en') {
+      map.set('search', 'Search');
+      map.set('category', 'Categories');
+      map.set('article', 'Articles');
+      map.set('tag', 'Tags');
+      map.set('top', 'Top');
+      map.set('publish', 'published');
+      map.set('minute', ' minutes');
+      map.set('read-more', 'Read More');
+      map.set('view', 'View');
+      map.set('words', ' words');
+      map.set('category-in', 'category in');
+      map.set('preview', 'Meta');
+      map.set('index', 'Toc');
+      map.set('no-archives', "You haven't created yet");
+      map.set('archives', " articles in total");
+      map.set('cloud-tags', " tags in total");
+      map.set('copyright', "Copyright: ");
+      map.set('author', "Author: ");
+      map.set('link', "Link: ");
+      map.set('leave-message', "Leave a message");
+      map.set('format', "Links Format");
+      map.set('site-name', "Name: ");
+      map.set('site-link', "Link: ");
+      map.set('site-desc', "Desc: ");
+      map.set('stat', " related results, taking ");
+      map.set('stat-time', " ms");
+      map.set('site-img', "Image: ");
+    }
+
+    if (map.size > 0) {
+      let lanElems = document.querySelectorAll('.language');
+      lanElems.forEach(elem => {
+        let lan = elem.dataset.lan, text = map.get(lan);
+        if (elem.__proto__ === HTMLInputElement.prototype) {
+          elem.placeholder = text
+        } else {
+          if (elem.dataset.count) {
+            text = elem.dataset.count + text;
+          }
+          elem.textContent = text;
+        }
+      })
+    }
+  }
+
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+
+</script>
+<script src="/media/js/motion.js"></script>
+
+
+  <script
+    src="https://jsdelivr.codeqihan.com/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <script>
+    var scroll = new SmoothScroll('a[href*="#"]', {
+      speed: 200
+    });
+  </script>
+
+
+
+<script src="/media/js/mouse/star.js"></script>
+
+
+  <script src="/media/js/cool.js"></script>
+
+
+
+  <script src="https://jsdelivr.codeqihan.com/gh/yremp/yremp-js@1.5/sakura.js"></script>
+
+</html>
