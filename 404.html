@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="description" content="404 - 页面未找到">
+  <title>404 - 页面未找到</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Monda", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: linear-gradient(135deg, #c4cbf1 0%, #dbbd8e 50%, #c4cbf1 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://t.alcy.cc/ycy');
+      background-size: cover;
+      background-position: center;
+      filter: blur(8px);
+      z-index: 0;
+    }
+    .error-container {
+      width: 512px;
+      height: 512px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12),
+                  0 3px 1px -2px rgba(0, 0, 0, 0.06),
+                  0 1px 5px 0 rgba(0, 0, 0, 0.12);
+      position: relative;
+      z-index: 1;
+    }
+    .error-code {
+      font-size: 80px;
+      font-weight: 400;
+      color: #6580fa;
+      line-height: 1;
+      margin-bottom: 25px;
+    }
+    .error-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .error-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.25);
+      color: #5c7cfa;
+      text-decoration: none;
+      border-radius: 25px;
+      font-size: 13px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .error-link:hover {
+      background: rgba(255, 255, 255, 0.4);
+      color: #9074c2;
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+    .error-text {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .error-container {
+        width: 320px;
+        height: 320px;
+        padding: 20px;
+      }
+      .error-code {
+        font-size: 60px;
+        margin-bottom: 20px;
+      }
+      .error-links {
+        gap: 8px;
+      }
+      .error-link {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      .error-text {
+        font-size: 14px;
+        margin-top: 15px;
+      }
+    }
+    @media (max-width: 360px) {
+      .error-container {
+        width: 280px;
+        height: 280px;
+      }
+      .error-code {
+        font-size: 50px;
+      }
+      .error-text {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="error-container">
+    <div class="error-code">404</div>
+    <div class="error-links">
+      <a href="/" class="error-link">
+        <i class="fa fa-home"></i> 首页
+      </a>
+      <a href="/archives/" class="error-link">
+        <i class="fa fa-archive"></i> 归档
+      </a>
+      <a href="/tags/" class="error-link">
+        <i class="fa fa-tags"></i> 标签
+      </a>
+    </div>
+    <p class="error-text">你迷路了，但我会带你回家</p>
+  </div>
+</body>
+
+</html>
