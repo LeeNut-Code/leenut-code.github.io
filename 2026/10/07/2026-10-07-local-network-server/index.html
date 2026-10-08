@@ -1,0 +1,1079 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  <link rel="canonical" href="https://leenut.space/2026/10/07/2026-10-07-local-network-server/">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>无宽带也能搭家庭服务器：4G 随身 WiFi + 旧 NUC 的本地网络方案 - LeeNut's Space</title>
+
+  
+    <meta name="description" content="家里没有拉宽带，手上有一张 4G 卡和一台吃灰的旧 NUC，于是干脆用随身 WiFi 当出口、旧路由器当中继、NUC 当服务器，搭了一套完整的家庭网络：NAS 共享、Docker 服务、DNS 分层、代理出口全都有。本文记录这套网络的结构和搭建过程，以及踩过的坑。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无宽带也能搭家庭服务器：4G 随身 WiFi + 旧 NUC 的本地网络方案">
+<meta property="og:url" content="https://leenut.space/2026/10/07/2026-10-07-local-network-server/">
+<meta property="og:site_name" content="LeeNut&#39;s Space">
+<meta property="og:description" content="家里没有拉宽带，手上有一张 4G 卡和一台吃灰的旧 NUC，于是干脆用随身 WiFi 当出口、旧路由器当中继、NUC 当服务器，搭了一套完整的家庭网络：NAS 共享、Docker 服务、DNS 分层、代理出口全都有。本文记录这套网络的结构和搭建过程，以及踩过的坑。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-10/local-network-explain.37cfde02.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-10/local-network-geek.png">
+<meta property="article:published_time" content="2026-10-07T09:30:00.000Z">
+<meta property="article:modified_time" content="2026-10-08T05:11:15.318Z">
+<meta property="article:author" content="LeeNut">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Debian">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="DNS">
+<meta property="article:tag" content="Samba">
+<meta property="article:tag" content="NAS">
+<meta property="article:tag" content="家庭网络">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-10/local-network-explain.37cfde02.png">
+  
+  
+  
+  <meta name="keywords" content="Linux,Debian,Docker,DNS,Samba,NAS,家庭网络">
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="LeeNut's Space" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LeeNut","sameAs":[]},"dateCreated":"2026-10-07T17:30:00+08:00","dateModified":"2026-10-08T13:11:15+08:00","datePublished":"2026-10-07T17:30:00+08:00","description":"家里没有拉宽带，手上有一张 4G 卡和一台吃灰的旧 NUC，于是干脆用随身 WiFi 当出口、旧路由器当中继、NUC 当服务器，搭了一套完整的家庭网络：NAS 共享、Docker 服务、DNS 分层、代理出口全都有。本文记录这套网络的结构和搭建过程，以及踩过的坑。\n","headline":"无宽带也能搭家庭服务器：4G 随身 WiFi + 旧 NUC 的本地网络方案","mainEntityOfPage":{"@type":"WebPage","@id":"https://leenut.space/2026/10/07/2026-10-07-local-network-server/"},"publisher":{"@type":"Organization","name":"LeeNut","sameAs":[]},"url":"https://leenut.space/2026/10/07/2026-10-07-local-network-server/","keywords":"Linux, Debian, Docker, DNS, Samba, NAS, 家庭网络","thumbnailUrl":"https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-10/local-network-cover.8cce1590.png","image":1}</script>
+  
+</head>
+<body>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-09/logo/mascot-1-chestnut-coder.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main"><div style='line-height:1.2'>LeeNut's<br>Space</div></div><div class="sub cap">分享生活点滴和见解！</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="AI生图" target="_blank" rel="noopener" href="https://ai-image.leenut.space/" style="color:#7C4DFF"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M3.845 3.845a2.883 2.883 0 0 0 0 4.077L5.432 9.51c.012-.014.555.503.568.49l4-4c.013-.013-.504-.556-.49-.568L7.922 3.845a2.883 2.883 0 0 0-4.077 0m1.288 11.462a.483.483 0 0 1 .9 0l.157.4a.48.48 0 0 0 .272.273l.398.157a.486.486 0 0 1 0 .903l-.398.158a.48.48 0 0 0-.272.273l-.157.4a.483.483 0 0 1-.9 0l-.157-.4a.48.48 0 0 0-.272-.273l-.398-.158a.486.486 0 0 1 0-.903l.398-.157a.48.48 0 0 0 .272-.274z" opacity=".5"/><path fill="currentColor" d="M19.967 9.13a.483.483 0 0 1 .9 0l.156.399c.05.125.148.224.273.273l.398.158a.486.486 0 0 1 0 .902l-.398.158a.5.5 0 0 0-.273.273l-.156.4a.483.483 0 0 1-.9 0l-.157-.4a.5.5 0 0 0-.272-.273l-.398-.158a.486.486 0 0 1 0-.902l.398-.158a.5.5 0 0 0 .272-.273z" opacity=".2"/><path fill="currentColor" d="M16.1 2.307a.483.483 0 0 1 .9 0l.43 1.095a.48.48 0 0 0 .272.274l1.091.432a.486.486 0 0 1 0 .903l-1.09.432a.5.5 0 0 0-.273.273L17 6.81a.483.483 0 0 1-.9 0l-.43-1.095a.5.5 0 0 0-.273-.273l-1.09-.432a.486.486 0 0 1 0-.903l1.09-.432a.5.5 0 0 0 .273-.274z" opacity=".7"/><path fill="currentColor" d="M10.568 6.49c-.012.014-.555-.503-.568-.49l-4 4c-.013.013.504.556.49.568l9.588 9.587a2.883 2.883 0 1 0 4.078-4.077z"/></svg></a><a class="nav-item" title="me.LeeNut" target="_blank" rel="noopener" href="https://me.leenut.space/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="6" r="4"/><path d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z" opacity=".5"/></g></svg></a><a class="nav-item" title="Github收藏夹" target="_blank" rel="noopener" href="https://github-favorites.leenut.space/" style="color:#FA6400"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/10/07/2026-10-07-local-network-server/"><span class="title">无宽带也能搭家庭服务器：4G 随身 WiFi + 旧 NUC 的本地网络方案</span></a><a class="item title" href="/2026/09/07/symlink-tutorial/"><span class="title">符号链接（Symlink）创建教程：把文件夹「搬走」而不留痕迹</span></a><a class="item title" href="/2026/07/05/github_favorites_202606/"><span class="title">我的Github项目收藏——2026.06</span></a><a class="item title" href="/2024/04/25/2024-04-25/"><span class="title">基于Android的开源服务器软件KSWEB</span></a><a class="item title" href="/2024/05/02/2024-05-02/"><span class="title">Intel Unison：无缝协同，手机与电脑间的桥梁</span></a><a class="item title" href="/2024/04/11/2024-4-11-2/"><span class="title">随手拍到的春天！</span></a><a class="item title" href="/2024/11/15/rss/"><span class="title">浅谈RSS，轻松使用RSS</span></a><a class="item title" href="/2024/12/20/servers-Domains/"><span class="title">关于“云服务器”、“域名”的一些看法和实践</span></a><a class="item title" href="/2026/04/15/workers-ai/"><span class="title">Cloudflare Workers AI 使用教程：调用与工具集成实践</span></a><a class="item title" href="/2025/12/20/edge-mobile-flags/"><span class="title">Edge mobile浏览器flags实验性功能标志 列表盘点</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top"><img class="lazy bg" data-src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-10/local-network-cover.8cce1590.png">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-10-07T09:30:00.000Z">2026-10-07</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-10-08T05:11:15.318Z">2026-10-08</time></span><span class="sep"></span><span class="text wordcount">2.4k</span><span class="sep"></span><span class="text min2read">10 分钟</span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>无宽带也能搭家庭服务器：4G 随身 WiFi + 旧 NUC 的本地网络方案</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>家里没有拉宽带，手上有一张 4G 卡和一台吃灰的旧 NUC，于是干脆用随身 WiFi 当出口、旧路由器当中继、NUC 当服务器，搭了一套完整的家庭网络：NAS 共享、Docker 服务、DNS 分层、代理出口全都有。本文记录这套网络的结构和搭建过程，以及踩过的坑。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-10/local-network-explain.37cfde02.png" alt="家庭网络结构示意"></p>
+<span id="more"></span>
+
+<h2 id="网络拓扑"><a href="#网络拓扑" class="headerlink" title="网络拓扑"></a>网络拓扑</h2><p>先上结构图：</p>
+<pre class="mermaid">flowchart TB
+    LTE["4G LTE FDD<br/>广电 192 号段<br/>出口 223.160.x.x（中国移动）"] --> UFI
+    subgraph UFI ["随身 WiFi 192.168.43.1（出口）"]
+        A["PLERY（COMFAST 贴牌）<br/>4G Hostless Modem<br/>SSID: UEI-WIFI"]
+    end
+    UFI -->|Wi-Fi| XIAOMI
+    subgraph XIAOMI ["小米路由器 192.168.43.2（中继）"]
+        B["R4AC<br/>SSID: UEI-WIFI-wan"]
+    end
+    XIAOMI -->|有线| SPC
+    XIAOMI -->|Wi-Fi| LAPTOP
+    XIAOMI -->|Wi-Fi| PHONE
+    subgraph SPC ["家庭服务器 SPC"]
+        C1["有线 192.168.43.136（主）"]
+        C2["无线 192.168.43.132（备）"]
+        C3["Debian 13 + Docker 全家桶"]
+    end
+    subgraph LAPTOP ["笔记本电脑 192.168.43.63"]
+        D["Arch Linux<br/>DNS: AdGuardHome<br/>代理: WARP + Clash Party"]
+    end
+    subgraph PHONE ["手机 192.168.43.152"]
+        E["Android"]
+    end</pre>
+
+<h3 id="各设备分工"><a href="#各设备分工" class="headerlink" title="各设备分工"></a>各设备分工</h3><table>
+<thead>
+<tr>
+<th>设备</th>
+<th>IP</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>随身 WiFi（PLERY，COMFAST 贴牌）</td>
+<td>192.168.43.1</td>
+<td><strong>出口</strong>。4G LTE FDD，广电 192 号段，固件是「4G Hostless Modem」类型（ZTE 方案），内置 DNS（53 端口），带电池</td>
+</tr>
+<tr>
+<td>小米路由器 R4AC</td>
+<td>192.168.43.2</td>
+<td><strong>中继</strong>。无线桥接随身 WiFi，自己再广播 SSID「UEI-WIFI-wan」（2.4G + 5G）</td>
+</tr>
+<tr>
+<td>家庭服务器 SPC</td>
+<td>192.168.43.136（有线，主）&#x2F; 192.168.43.132（无线，备）</td>
+<td>DHCP 服务方、DNS（SmartDNS）、Samba&#x2F;NAS、Docker 服务栈</td>
+</tr>
+<tr>
+<td>笔记本电脑</td>
+<td>192.168.43.63</td>
+<td>日常主力机（Arch Linux），DNS 走本机 AdGuardHome</td>
+</tr>
+<tr>
+<td>手机</td>
+<td>192.168.43.152</td>
+<td>普通客户端</td>
+</tr>
+</tbody></table>
+<p>服务器是 Intel NUC（CRESCENTBAY），跑 Debian 13 (trixie)，7.7G 内存：111G SSD 做系统盘，465G 的 HGST 机械盘做数据盘。有线和无线双链路都配了静态 IP，有线优先（metric 默认）、无线备用（metric 600）——有线断了自动切 WiFi。</p>
+<p>顺便说一句，随身 WiFi 这个东西本质就是一块带电池的 4G 模组 + 路由固件，管理后台的接口（<code>/reqproc/proc_post</code>）和 ZTE 的 goform 族一脉相承，用命令行直接调接口比网页后台方便得多，后面会提到。</p>
+<h2 id="寻址与-DHCP：服务器统一管理"><a href="#寻址与-DHCP：服务器统一管理" class="headerlink" title="寻址与 DHCP：服务器统一管理"></a>寻址与 DHCP：服务器统一管理</h2><p>所有设备的 IP 都是固定的，但实现方式分两层：</p>
+<ul>
+<li><strong>服务器、笔记本、手机、小米路由</strong>这些”自己人”用静态配置或 DHCP 保留；</li>
+<li><strong>来宾&#x2F;临时设备</strong>走 DHCP 地址池。</li>
+</ul>
+<p>DHCP 由服务器上的 dnsmasq 负责（只做 DHCP，不做 DNS，所以 <code>port=0</code>）：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/dnsmasq.d/lan-dhcp.conf</span></span><br><span class="line"><span class="attr">port</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">interface</span>=enp1s0</span><br><span class="line"><span class="attr">except-interface</span>=lo</span><br><span class="line">bind-dynamic</span><br><span class="line"></span><br><span class="line"><span class="attr">dhcp-range</span>=<span class="number">192.168</span>.<span class="number">43.160</span>,<span class="number">192.168</span>.<span class="number">43.250</span>,<span class="number">255.255</span>.<span class="number">255.0</span>,<span class="number">12</span>h</span><br><span class="line"><span class="attr">dhcp-option</span>=option:router,<span class="number">192.168</span>.<span class="number">43.1</span></span><br><span class="line"><span class="attr">dhcp-option</span>=option:dns-server,<span class="number">192.168</span>.<span class="number">43.136</span>,<span class="number">192.168</span>.<span class="number">43.132</span></span><br><span class="line">dhcp-authoritative</span><br><span class="line"><span class="attr">dhcp-leasefile</span>=/var/lib/misc/dnsmasq.leases</span><br><span class="line"></span><br><span class="line"><span class="comment"># 已知静态设备保留（在地址池之外，防误发）</span></span><br><span class="line"><span class="attr">dhcp-host</span>=<span class="number">14</span>:<span class="number">13</span>:<span class="number">33</span>:a3:cb:<span class="number">77</span>,<span class="number">192.168</span>.<span class="number">43.63</span>,laptop</span><br><span class="line"><span class="attr">dhcp-host</span>=d4:da:<span class="number">21</span>:<span class="number">68</span>:<span class="number">87</span>:c5,<span class="number">192.168</span>.<span class="number">43.2</span>,xiaomi-ap</span><br></pre></td></tr></table></figure>
+
+<p>几个要点：</p>
+<ul>
+<li><code>dhcp-authoritative</code>：这个网络里只有这一个 DHCP 服务方，客户端不用等旧租约过期；</li>
+<li><code>dhcp-option=option:router</code> 把网关指回随身 WiFi（192.168.43.1），服务器自己不做转发；</li>
+<li><code>dhcp-option=option:dns-server</code> 把 DNS 指向服务器自己（.136&#x2F;.132），这样来宾设备连上来就自动用上 SmartDNS；</li>
+<li>地址池 192.168.43.160–250，12 小时租约，和固定设备的地址完全错开。</li>
+</ul>
+<h2 id="DNS-分层：SmartDNS-AdGuardHome"><a href="#DNS-分层：SmartDNS-AdGuardHome" class="headerlink" title="DNS 分层：SmartDNS + AdGuardHome"></a>DNS 分层：SmartDNS + AdGuardHome</h2><p>DNS 没有只做一层，而是按设备分了两套：</p>
+<h3 id="服务器：SmartDNS（Docker）"><a href="#服务器：SmartDNS（Docker）" class="headerlink" title="服务器：SmartDNS（Docker）"></a>服务器：SmartDNS（Docker）</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/smartdns/smartdns.conf（挂载进容器）</span></span><br><span class="line"><span class="string">bind</span> [<span class="string">::</span>]<span class="string">:53</span></span><br><span class="line"><span class="string">server-https</span> <span class="string">https://xxxxx.cloudflare-gateway.com/dns-query</span></span><br><span class="line"><span class="string">server-tls</span>  <span class="string">tls://xxxxx.cloudflare-gateway.com</span></span><br><span class="line"><span class="string">server-tls</span>  <span class="string">tls://223.5.5.5</span> <span class="string">-fallback</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地域名映射，局域网内直接用域名访问</span></span><br><span class="line"><span class="string">address</span> <span class="string">/spc.local/192.168.43.132,192.168.43.136</span></span><br><span class="line"><span class="string">address</span> <span class="string">/hpc.local/192.168.43.63</span></span><br><span class="line"><span class="string">address</span> <span class="string">/dns.local/192.168.43.136,192.168.43.132</span></span><br><span class="line"></span><br><span class="line"><span class="string">plugin</span> <span class="string">/usr/local/lib/smartdns/smartdns_ui.so</span></span><br><span class="line"><span class="string">smartdns-ui.ip</span> <span class="string">http://[::]:6080</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>上游主用 <strong>Cloudflare Gateway 的加密 DNS</strong>（DoH&#x2F;DoT），备 <code>tls://223.5.5.5</code> 仅在主不可用时启用；</li>
+<li><code>spc.local</code> 这类本地域名直接映射 IP，局域网内不用记 IP；</li>
+<li>自带仪表盘插件，<code>http://192.168.43.136:6080</code> 可以看查询日志。</li>
+</ul>
+<p>然后服务器的 <code>/etc/resolv.conf</code> 指向 <code>127.0.0.1</code> 和 <code>::1</code>，并 <code>chattr +i</code> 锁住防止被覆盖——这一步很关键，后面踩坑里细说。</p>
+<h3 id="笔记本：AdGuardHome"><a href="#笔记本：AdGuardHome" class="headerlink" title="笔记本：AdGuardHome"></a>笔记本：AdGuardHome</h3><p>笔记本的 DNS 查询由部署在本机的 AdGuardHome 负责（53 端口），上游同样是加密 DNS，fallback 阿里 DoT。好处是本机能看查询日志、加过滤规则，而且不受网络切换影响（换网络不用改 DNS 配置）。</p>
+<p>两套 DNS 的上游一致，所以解析结果在全网是一致的；区别只是本机多了过滤和日志能力。</p>
+<h2 id="存储-NAS：ntfs3-Samba-自动挂载"><a href="#存储-NAS：ntfs3-Samba-自动挂载" class="headerlink" title="存储 &#x2F; NAS：ntfs3 + Samba + 自动挂载"></a>存储 &#x2F; NAS：ntfs3 + Samba + 自动挂载</h2><h3 id="数据盘挂载"><a href="#数据盘挂载" class="headerlink" title="数据盘挂载"></a>数据盘挂载</h3><p>465G 机械盘是 NTFS 格式（还要兼顾 Windows 直插），用内核 <code>ntfs3</code> 驱动挂载（性能比 ntfs-3g&#x2F;fuseblk 好很多）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UUID=8E8083B380839FF7  /mnt/data  ntfs3  defaults,uid=1000,gid=1000,umask=022,windows_names,nofail  0  0</span><br></pre></td></tr></table></figure>
+
+<p><code>windows_names</code> 这个选项是 SMB 共享 NTFS 盘的关键——它保证文件名兼容 Windows（不允许 Windows 非法的字符），不然 SMB 客户端写入时容易出问题。<code>nofail</code> 防止盘故障卡开机。</p>
+<h3 id="Samba-共享"><a href="#Samba-共享" class="headerlink" title="Samba 共享"></a>Samba 共享</h3><p><code>/etc/samba/smb.conf</code> 加一个 <code>[data]</code> 段指向 <code>/mnt/data</code>，仅限 user 访问；<code>[homes]</code> 段（Debian 默认只读+隐藏）改成 <code>browseable = yes</code>、<code>read only = no</code>，这样每用户自动映射自己的主目录。</p>
+<h3 id="客户端自动挂载"><a href="#客户端自动挂载" class="headerlink" title="客户端自动挂载"></a>客户端自动挂载</h3><p>笔记本这边 fstab 一行搞定：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//192.168.43.136/data  /mnt/SPC-data  cifs  credentials=/etc/samba/cred,vers=3.0,uid=1000,gid=1000,iocharset=utf8,soft,_netdev,nofail,x-systemd.automount,x-systemd.idle-timeout=60,x-gvfs-show,x-gvfs-name=SPC-data  0  0</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>credentials</code></td>
+<td>密码从单独文件读（root 600），不出现在 fstab</td>
+</tr>
+<tr>
+<td><code>x-systemd.automount</code> + <code>idle-timeout=60</code></td>
+<td>按需挂载：访问 <code>/mnt/SPC-data</code> 才连接，60 秒无访问自动断开</td>
+</tr>
+<tr>
+<td><code>soft</code> + <code>nofail</code></td>
+<td>服务器不在线时开机不卡、不报错</td>
+</tr>
+<tr>
+<td><code>x-gvfs-show</code> &#x2F; <code>x-gvfs-name</code></td>
+<td>文件管理器侧栏显示为「SPC-data」</td>
+</tr>
+</tbody></table>
+<p>⚠️ 配完不要用 <code>mount /mnt/SPC-data</code> 手动挂——会绕过 automount 单元导致它显示 inactive；用 <code>systemctl start &#39;mnt-SPC\x2ddata.automount&#39;</code> 直接启动单元。</p>
+<h2 id="Docker-服务栈"><a href="#Docker-服务栈" class="headerlink" title="Docker 服务栈"></a>Docker 服务栈</h2><p>服务器上跑的容器（全部 <code>restart=always</code>，开机&#x2F;崩溃自动拉起）：</p>
+<table>
+<thead>
+<tr>
+<th>容器</th>
+<th>镜像</th>
+<th>端口</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>smartdns</td>
+<td>pymumu&#x2F;smartdns</td>
+<td>53&#x2F;udp + 6080</td>
+<td>DNS + 仪表盘</td>
+</tr>
+<tr>
+<td>v2raya</td>
+<td>v2raya&#x2F;v2raya</td>
+<td>2017 面板；7890&#x2F;7891&#x2F;7892 代理</td>
+<td>代理出口</td>
+</tr>
+<tr>
+<td>dpanel (lite)</td>
+<td>dpanel&#x2F;dpanel:lite</td>
+<td>8807</td>
+<td>Docker 管理面板</td>
+</tr>
+<tr>
+<td>sun-panel</td>
+<td>hslr&#x2F;sun-panel</td>
+<td>3002</td>
+<td>导航页</td>
+</tr>
+<tr>
+<td>openlist</td>
+<td>openlistteam&#x2F;openlist</td>
+<td>5244</td>
+<td>网盘</td>
+</tr>
+<tr>
+<td>jellyfin</td>
+<td>jellyfin&#x2F;jellyfin</td>
+<td>8096</td>
+<td>媒体服务器</td>
+</tr>
+</tbody></table>
+<p>另外 nginx + Nginx-UI（:9000）用 systemd 二进制部署，跑了一个局域网 F-Droid 仓库（:2867，一百多个 APK，<code>update-fdroid.sh</code> 维护），给家里的安卓设备做应用源。</p>
+<p>国内拉 Docker 镜像是个老大难，<code>/etc/docker/daemon.json</code> 里配了 19 个镜像加速源，实测一个挂了会自动换下一个。拉镜像失败的模式基本是”单层卡死&#x2F;EOF”——这是上游的问题，换镜像源重试即可。</p>
+<h2 id="代理链路"><a href="#代理链路" class="headerlink" title="代理链路"></a>代理链路</h2><h3 id="笔记本"><a href="#笔记本" class="headerlink" title="笔记本"></a>笔记本</h3><ul>
+<li><strong>WARP</strong>：<code>warp-cli</code> 以 WarpProxy 模式跑在 <code>127.0.0.1:40000</code>（MASQUE 协议）；</li>
+<li><strong>Clash Party</strong>（mihomo）：mixed 端口 7890 &#x2F; socks 7891 &#x2F; http 7892，rule 模式，TUN 关闭。可以连洛杉矶的 VPS，也可以把 WARP 分享出去；</li>
+</ul>
+<h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><p>v2rayA 面板（2017）管理，socks&#x2F;http&#x2F;rule-http 三个 inbound 全绑 <code>0.0.0.0</code>，局域网内任何设备都能直接用 <code>http://192.168.43.136:7890</code> 当代理，出口走远程 VPS。</p>
+<h2 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h2><ul>
+<li>服务器每天 <strong>23:30 自动关机</strong>（root crontab：<code>30 23 * * * /sbin/shutdown -h now</code>）；</li>
+<li>每天早上 9 点用用户级 crontab 拉起两个随身 WiFi 自动化脚本（<code>flock -n</code> 防重入，守护常驻时跳过，崩溃后下次 9 点自动重启）：<ul>
+<li><code>battery-watch.py</code>：电量监控守护；</li>
+<li><code>enforce-cycle.py</code>：定时执行 WiFi 配置维护。</li>
+</ul>
+</li>
+</ul>
+<p>随身 WiFi 的管理我写了一个命令行工具（Python 单文件，纯标准库），直接调设备接口实现登录&#x2F;状态&#x2F;流量&#x2F;限额&#x2F;WiFi 配置&#x2F;MAC 过滤等，比网页后台省事得多。</p>
+<h2 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h2><p>这部分是最有价值的，每条都是实际踩过的：</p>
+<ol>
+<li><strong>ifupdown 的 wpa-roam 会卡死</strong>：Debian 上用 <code>wpa-roam</code> 配双 SSID，<code>wpa_action</code> 接管 ifup&#x2F;ifdown 状态后，<code>ifup</code> 会循环失败（<code>wpa_action is managing ifup/ifdown state</code>），杀进程、删 pid 文件都没用。<strong>换 systemd-networkd + wpa_supplicant@wlp2s0 干净解决</strong>。</li>
+<li><strong><code>/etc/cron.d</code> 的定时任务不生效</strong>：文件在 cron 重启后写入可能不被监听。<strong>用 root 的 crontab（spool 方式）可靠</strong>。</li>
+<li><strong>sudoers 语法</strong>：<code>pwfeedback</code>（密码显示星号）必须写 <code>Defaults pwfeedback</code>，裸写 <code>pwfeedback</code> 会报语法错导致 sudo 崩。</li>
+<li><strong>卸载 dhcpcd 会留空 resolv.conf</strong>：DNS 全挂。修复后记得 <code>chattr +i /etc/resolv.conf</code> 锁住。</li>
+<li><strong>Docker 镜像单层拉不动</strong>：所有镜像源都卡在同一层 → 换 tag，或直连下载官方二进制本地构建。</li>
+<li><strong>Java 容器内存限制</strong>：komga 用 512M 硬限会被 cgroup OOM 反复杀掉（重启 39 次）。正确方案是容器 <code>--memory=1g --memory-swap=1g</code> + <code>JAVA_TOOL_OPTIONS=&quot;-Xmx512m -Xms256m&quot;</code>——堆封在 512M，元空间等非堆用剩余空间，总占用封在 1G 内。</li>
+<li><strong>NTFS 盘共享给 SMB</strong>：挂载必须加 <code>windows_names</code>，否则文件名兼容性问题。</li>
+<li><strong>SSH 首连新 IP 挂起</strong>：要确认主机指纹，脚本化时记得 <code>-o StrictHostKeyChecking=accept-new</code>。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-10/local-network-geek.png" alt="一图了解本方案的四个角色"></p>
+<p>没有宽带也完全能搭一套好用的家庭网络：4G 随身 WiFi 当出口（配合流量限额防超），旧路由器当中继扩展覆盖，NUC 当服务器把 NAS、DNS、Docker 服务全扛起来。整个方案最值得投入的两件事：<strong>DNS 分层</strong>（服务端 SmartDNS + 客户端 AdGuardHome，全网解析一致还能过滤）和 <strong>DHCP 统一管理</strong>（固定设备保留 + 来宾池，来宾连上来自动用上内网 DNS）。剩下的就是踩坑攒经验了。</p>
+<p>参考：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/mokeyish/smartdns">SmartDNS</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/AdguardTeam/AdGuardHome">AdGuard Home</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/v2rayA/v2rayA">v2rayA</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.freedesktop.org/software/systemd/man/latest/systemd-networkd.html">systemd-networkd 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://thekelleys.org.uk/dnsmasq/doc.html">dnsmasq 手册</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.kernel.org/filesystems/ntfs3.html">ntfs3 内核文档</a></li>
+</ol>
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/09/07/symlink-tutorial/">符号链接（Symlink）创建教程：把文件夹「搬走」而不留痕迹</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LeeNut</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91"><span class="toc-text">网络拓扑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E8%AE%BE%E5%A4%87%E5%88%86%E5%B7%A5"><span class="toc-text">各设备分工</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BB%E5%9D%80%E4%B8%8E-DHCP%EF%BC%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BB%9F%E4%B8%80%E7%AE%A1%E7%90%86"><span class="toc-text">寻址与 DHCP：服务器统一管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS-%E5%88%86%E5%B1%82%EF%BC%9ASmartDNS-AdGuardHome"><span class="toc-text">DNS 分层：SmartDNS + AdGuardHome</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%9ASmartDNS%EF%BC%88Docker%EF%BC%89"><span class="toc-text">服务器：SmartDNS（Docker）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%94%E8%AE%B0%E6%9C%AC%EF%BC%9AAdGuardHome"><span class="toc-text">笔记本：AdGuardHome</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8-NAS%EF%BC%9Antfs3-Samba-%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD"><span class="toc-text">存储 &#x2F; NAS：ntfs3 + Samba + 自动挂载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%9B%98%E6%8C%82%E8%BD%BD"><span class="toc-text">数据盘挂载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Samba-%E5%85%B1%E4%BA%AB"><span class="toc-text">Samba 共享</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD"><span class="toc-text">客户端自动挂载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-%E6%9C%8D%E5%8A%A1%E6%A0%88"><span class="toc-text">Docker 服务栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E9%93%BE%E8%B7%AF"><span class="toc-text">代理链路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%94%E8%AE%B0%E6%9C%AC"><span class="toc-text">笔记本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">服务器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="toc-text">定时任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95"><span class="toc-text">踩坑记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":"leenut.space","officialHosts":["localhost"],"encoded":"bGVlbnV0LnNwYWNl"};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-09/logo/mascot-1-chestnut-coder.png`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script defer type="text/javascript" src="https://gcore.jsdelivr.net/npm/mermaid@v9/dist/mermaid.min.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    var mermaid_config = {
+      startOnLoad: true,
+      theme:
+        "auto" == "auto" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "neutral",
+      logLevel: 3,
+      themeVariables: {
+        darkMode: true
+      },
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: "linear"
+      },
+      gantt: {
+        axisFormat: "%Y/%m/%d"
+      },
+      sequence: {
+        actorMargin: 50
+      }
+    }
+    mermaid.initialize(mermaid_config);
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+<script src="https://gcore.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script><script type="text/javascript" id="myhk" src="https://myhkw.cn/api/player/171807673831" key="171807673831" m="1"></script>
+</div></body></html>

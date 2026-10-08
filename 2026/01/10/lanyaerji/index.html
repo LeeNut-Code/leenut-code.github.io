@@ -1,0 +1,947 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  <link rel="canonical" href="https://leenut.space/2026/01/10/lanyaerji/">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>一次Linux蓝牙音频连接故障修复：从“连接失败”到完美播放 - LeeNut's Space</title>
+
+  
+    <meta name="description" content="最近新买了一个头戴式蓝牙耳机，发现电脑无法连接，随后整理资料和询问AI，经过不断折腾解决了问题，以下是对相关解决方案的记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一次Linux蓝牙音频连接故障修复：从“连接失败”到完美播放">
+<meta property="og:url" content="https://leenut.space/2026/01/10/lanyaerji/">
+<meta property="og:site_name" content="LeeNut&#39;s Space">
+<meta property="og:description" content="最近新买了一个头戴式蓝牙耳机，发现电脑无法连接，随后整理资料和询问AI，经过不断折腾解决了问题，以下是对相关解决方案的记录。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-01/Linux%E8%93%9D%E7%89%99%E9%9F%B3%E9%A2%91%E8%BF%9E%E6%8E%A5%E6%95%85%E9%9A%9C-2.3yey364460.webp">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-01/Linux%E8%93%9D%E7%89%99%E9%9F%B3%E9%A2%91%E8%BF%9E%E6%8E%A5%E6%95%85%E9%9A%9C-1.2vf8sa8aa6.webp">
+<meta property="article:published_time" content="2026-01-10T08:15:03.000Z">
+<meta property="article:modified_time" content="2026-09-08T03:34:43.311Z">
+<meta property="article:author" content="LeeNut">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="l蓝牙">
+<meta property="article:tag" content="设备问题">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-01/Linux%E8%93%9D%E7%89%99%E9%9F%B3%E9%A2%91%E8%BF%9E%E6%8E%A5%E6%95%85%E9%9A%9C-2.3yey364460.webp">
+  
+  
+  
+  <meta name="keywords" content="Linux,l蓝牙,设备问题">
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="LeeNut's Space" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LeeNut","sameAs":[]},"dateCreated":"2026-01-10T16:15:03+08:00","dateModified":"2026-09-08T11:34:43+08:00","datePublished":"2026-01-10T16:15:03+08:00","description":"最近新买了一个头戴式蓝牙耳机，发现电脑无法连接，随后整理资料和询问AI，经过不断折腾解决了问题，以下是对相关解决方案的记录。","headline":"一次Linux蓝牙音频连接故障修复：从“连接失败”到完美播放","mainEntityOfPage":{"@type":"WebPage","@id":"https://leenut.space/2026/01/10/lanyaerji/"},"publisher":{"@type":"Organization","name":"LeeNut","sameAs":[]},"url":"https://leenut.space/2026/01/10/lanyaerji/","keywords":"Linux, l蓝牙, 设备问题","thumbnailUrl":"https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-01/Linux蓝牙音频连接故障-封面.39loj5gl5t.webp","image":1}</script>
+  
+</head>
+<body>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-09/logo/mascot-1-chestnut-coder.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main"><div style='line-height:1.2'>LeeNut's<br>Space</div></div><div class="sub cap">分享生活点滴和见解！</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="AI生图" target="_blank" rel="noopener" href="https://ai-image.leenut.space/" style="color:#7C4DFF"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M3.845 3.845a2.883 2.883 0 0 0 0 4.077L5.432 9.51c.012-.014.555.503.568.49l4-4c.013-.013-.504-.556-.49-.568L7.922 3.845a2.883 2.883 0 0 0-4.077 0m1.288 11.462a.483.483 0 0 1 .9 0l.157.4a.48.48 0 0 0 .272.273l.398.157a.486.486 0 0 1 0 .903l-.398.158a.48.48 0 0 0-.272.273l-.157.4a.483.483 0 0 1-.9 0l-.157-.4a.48.48 0 0 0-.272-.273l-.398-.158a.486.486 0 0 1 0-.903l.398-.157a.48.48 0 0 0 .272-.274z" opacity=".5"/><path fill="currentColor" d="M19.967 9.13a.483.483 0 0 1 .9 0l.156.399c.05.125.148.224.273.273l.398.158a.486.486 0 0 1 0 .902l-.398.158a.5.5 0 0 0-.273.273l-.156.4a.483.483 0 0 1-.9 0l-.157-.4a.5.5 0 0 0-.272-.273l-.398-.158a.486.486 0 0 1 0-.902l.398-.158a.5.5 0 0 0 .272-.273z" opacity=".2"/><path fill="currentColor" d="M16.1 2.307a.483.483 0 0 1 .9 0l.43 1.095a.48.48 0 0 0 .272.274l1.091.432a.486.486 0 0 1 0 .903l-1.09.432a.5.5 0 0 0-.273.273L17 6.81a.483.483 0 0 1-.9 0l-.43-1.095a.5.5 0 0 0-.273-.273l-1.09-.432a.486.486 0 0 1 0-.903l1.09-.432a.5.5 0 0 0 .273-.274z" opacity=".7"/><path fill="currentColor" d="M10.568 6.49c-.012.014-.555-.503-.568-.49l-4 4c-.013.013.504.556.49.568l9.588 9.587a2.883 2.883 0 1 0 4.078-4.077z"/></svg></a><a class="nav-item" title="me.LeeNut" target="_blank" rel="noopener" href="https://me.leenut.space/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="6" r="4"/><path d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z" opacity=".5"/></g></svg></a><a class="nav-item" title="Github收藏夹" target="_blank" rel="noopener" href="https://github-favorites.leenut.space/" style="color:#FA6400"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/10/07/2026-10-07-local-network-server/"><span class="title">无宽带也能搭家庭服务器：4G 随身 WiFi + 旧 NUC 的本地网络方案</span></a><a class="item title" href="/2026/09/07/symlink-tutorial/"><span class="title">符号链接（Symlink）创建教程：把文件夹「搬走」而不留痕迹</span></a><a class="item title" href="/2026/07/05/github_favorites_202606/"><span class="title">我的Github项目收藏——2026.06</span></a><a class="item title" href="/2024/04/25/2024-04-25/"><span class="title">基于Android的开源服务器软件KSWEB</span></a><a class="item title" href="/2024/05/02/2024-05-02/"><span class="title">Intel Unison：无缝协同，手机与电脑间的桥梁</span></a><a class="item title" href="/2024/04/11/2024-4-11-2/"><span class="title">随手拍到的春天！</span></a><a class="item title" href="/2024/11/15/rss/"><span class="title">浅谈RSS，轻松使用RSS</span></a><a class="item title" href="/2024/12/20/servers-Domains/"><span class="title">关于“云服务器”、“域名”的一些看法和实践</span></a><a class="item title" href="/2026/04/15/workers-ai/"><span class="title">Cloudflare Workers AI 使用教程：调用与工具集成实践</span></a><a class="item title" href="/2025/12/20/edge-mobile-flags/"><span class="title">Edge mobile浏览器flags实验性功能标志 列表盘点</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top"><img class="lazy bg" data-src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-01/Linux蓝牙音频连接故障-封面.39loj5gl5t.webp">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-01-10T08:15:03.000Z">2026-01-10</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-09-08T03:34:43.311Z">2026-09-08</time></span><span class="sep"></span><span class="text wordcount">1.6k</span><span class="sep"></span><span class="text min2read">6 分钟</span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>一次Linux蓝牙音频连接故障修复：从“连接失败”到完美播放</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>最近新买了一个头戴式蓝牙耳机，发现电脑无法连接，随后整理资料和询问AI，经过不断折腾解决了问题，以下是对相关解决方案的记录。</p>
+<span id="more"></span>
+
+<p>“蓝牙已连接”，但就是没有声音——这可能是Linux用户在使用蓝牙音频设备时最常遇到的挫败感之一。近日，我在我的Ubuntu 22.04的机器配置蓝牙耳机时，我遇到了典型的<code>br-connection-profile-unavailable</code>错误。经过一系列排查，最终不仅解决了连接问题，还修复了因PipeWire音频服务配置错误导致的系统音频完全崩溃。</p>
+<p>本文将完整记录这次故障排除的全过程，涵盖从基础检查到深入系统诊断的各个步骤，旨在为遇到类似问题的用户提供一个清晰的解决路线图。</p>
+<h2 id="第一阶段：问题诊断与基础修复"><a href="#第一阶段：问题诊断与基础修复" class="headerlink" title="第一阶段：问题诊断与基础修复"></a>第一阶段：问题诊断与基础修复</h2><h3 id="1-1-初始状态确认"><a href="#1-1-初始状态确认" class="headerlink" title="1.1 初始状态确认"></a>1.1 初始状态确认</h3><p>首先，通过<code>systemctl status bluetooth</code>确认蓝牙服务正在运行。这是所有蓝牙操作的基础。如果服务未激活，需要执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start bluetooth</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> bluetooth  <span class="comment"># 设置开机自启</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-音频支持组件检查"><a href="#1-2-音频支持组件检查" class="headerlink" title="1.2 音频支持组件检查"></a>1.2 音频支持组件检查</h3><p>对于Ubuntu 22.04及其衍生版，蓝牙音频支持依赖于PipeWire及其相关组件。通过以下命令安装必要软件包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install pulseaudio-module-bluetooth libspa-0.2-bluetooth pipewire-audio</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键提示</strong>：安装完成后必须重启系统，确保所有组件正确加载。</p>
+<h2 id="第二阶段：深入排查与权限修复"><a href="#第二阶段：深入排查与权限修复" class="headerlink" title="第二阶段：深入排查与权限修复"></a>第二阶段：深入排查与权限修复</h2><h3 id="2-1-音频服务状态验证"><a href="#2-1-音频服务状态验证" class="headerlink" title="2.1 音频服务状态验证"></a>2.1 音频服务状态验证</h3><p>通过<code>pactl list sinks short</code>命令检查音频输出设备列表时，发现完全没有蓝牙音频设备，只有本地声卡。这意味着虽然蓝牙管理器显示“已连接”，但音频子系统并未识别蓝牙设备。</p>
+<p>进一步检查发现，用户账户缺少必要的音频组权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">groups</span></span><br><span class="line">user adm cdrom <span class="built_in">sudo</span> dip plugdev <span class="built_in">users</span> lpadmin sambashare</span><br></pre></td></tr></table></figure>
+
+<p>注意输出中缺少<code>audio</code>和<code>pulse-access</code>组。</p>
+<h3 id="2-2-权限修复步骤"><a href="#2-2-权限修复步骤" class="headerlink" title="2.2 权限修复步骤"></a>2.2 权限修复步骤</h3><ol>
+<li><p><strong>添加用户到音频组</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> usermod -a -G audio,pulse-access <span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>完全注销并重新登录</strong>：这一步至关重要，因为组权限变更只在新的登录会话中生效。</p>
+</li>
+<li><p><strong>重新验证权限</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">groups</span> </span><br><span class="line">user adm cdrom <span class="built_in">sudo</span> audio dip plugdev <span class="built_in">users</span> lpadmin sambashare pulse-access</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="第三阶段：PipeWire服务崩溃与修复"><a href="#第三阶段：PipeWire服务崩溃与修复" class="headerlink" title="第三阶段：PipeWire服务崩溃与修复"></a>第三阶段：PipeWire服务崩溃与修复</h2><h3 id="3-1-发现问题"><a href="#3-1-发现问题" class="headerlink" title="3.1 发现问题"></a>3.1 发现问题</h3><p>当尝试使用<code>pactl info</code>测试音频服务器连接时，遇到“拒绝连接”错误。检查PipeWire服务状态发现：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl --user status pipewire</span><br><span class="line">Active: failed (Result: exit-code)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-诊断服务崩溃原因"><a href="#3-2-诊断服务崩溃原因" class="headerlink" title="3.2 诊断服务崩溃原因"></a>3.2 诊断服务崩溃原因</h3><p>直接运行PipeWire可执行文件获取详细错误信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/bin/pipewire</span><br><span class="line">[W] mod.jackdbus-detect | [module-jackdbus-:216 on_is_started_received()] </span><br><span class="line">Failed to receive jackdbus reply: org.freedesktop.DBus.Error.ServiceUnknown: </span><br><span class="line">The name org.jackaudio.service was not provided by any .service files</span><br></pre></td></tr></table></figure>
+
+<p>错误表明PipeWire尝试加载<code>module-jackdbus-detect</code>模块，但系统中不存在JACK音频服务。</p>
+<h3 id="3-3-修复PipeWire配置"><a href="#3-3-修复PipeWire配置" class="headerlink" title="3.3 修复PipeWire配置"></a>3.3 修复PipeWire配置</h3><ol>
+<li><p><strong>创建干净的用户配置</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf ~/.config/pipewire</span><br><span class="line"><span class="built_in">mkdir</span> -p ~/.config/pipewire/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建正确的配置文件</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">&#x27;EOF&#x27;</span> &gt; ~/.config/pipewire/pipewire.conf</span><br><span class="line">context.modules = [</span><br><span class="line">    &#123; name = libpipewire-module-rtkit</span><br><span class="line">      args = &#123; nice.level = -11 &#125;</span><br><span class="line">      flags = [ ifexists nofail ]</span><br><span class="line">    &#125;</span><br><span class="line">    &#123; name = libpipewire-module-protocol-native &#125;</span><br><span class="line">    &#123; name = libpipewire-module-profiler &#125;</span><br><span class="line">    &#123; name = libpipewire-module-spa-node-factory &#125;</span><br><span class="line">    &#123; name = libpipewire-module-client-node &#125;</span><br><span class="line">    &#123; name = libpipewire-module-client-device &#125;</span><br><span class="line">    &#123; name = libpipewire-module-bluez5-discover &#125;</span><br><span class="line">]</span><br><span class="line">.include /usr/share/pipewire/pipewire.conf</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>重启音频服务</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl --user restart pipewire pipewire-pulse wireplumber</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="第四阶段：蓝牙音频模块加载"><a href="#第四阶段：蓝牙音频模块加载" class="headerlink" title="第四阶段：蓝牙音频模块加载"></a>第四阶段：蓝牙音频模块加载</h2><h3 id="4-1-验证服务状态"><a href="#4-1-验证服务状态" class="headerlink" title="4.1 验证服务状态"></a>4.1 验证服务状态</h3><p>修复后确认服务运行正常：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl --user status pipewire</span><br><span class="line">Active: active (running) since Thu 2026-01-01 15:31:43 HKT; 2s ago</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-加载蓝牙音频支持模块"><a href="#4-2-加载蓝牙音频支持模块" class="headerlink" title="4.2 加载蓝牙音频支持模块"></a>4.2 加载蓝牙音频支持模块</h3><p>即使服务运行，蓝牙音频模块可能仍未加载。手动加载模块：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pactl load-module module-bluez5-discover</span><br></pre></td></tr></table></figure>
+
+<p>如果遇到“无此实体”错误，需要确保相关库文件已安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install --reinstall libspa-0.2-bluetooth</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-重新连接蓝牙设备"><a href="#4-3-重新连接蓝牙设备" class="headerlink" title="4.3 重新连接蓝牙设备"></a>4.3 重新连接蓝牙设备</h3><p>在蓝牙控制台中正确连接设备：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bluetoothctl</span><br><span class="line">connect 41:42:8E:0B:4A:4D  <span class="comment"># 使用设备MAC地址，不要添加名称</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="第五阶段：验证与最终配置"><a href="#第五阶段：验证与最终配置" class="headerlink" title="第五阶段：验证与最终配置"></a>第五阶段：验证与最终配置</h2><h3 id="5-1-确认音频设备识别"><a href="#5-1-确认音频设备识别" class="headerlink" title="5.1 确认音频设备识别"></a>5.1 确认音频设备识别</h3><p>成功连接后，验证蓝牙音频设备是否被识别：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pactl list sinks short | grep blue</span><br><span class="line">56  bluez_output.41_42_8E_0B_4A_4D.a2dp-sink  PipeWire  s16le 2ch 44100Hz  RUNNING</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-设置为默认音频输出"><a href="#5-2-设置为默认音频输出" class="headerlink" title="5.2 设置为默认音频输出"></a>5.2 设置为默认音频输出</h3><p>将蓝牙设备设为默认音频输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pactl set-default-sink bluez_output.41_42_8E_0B_4A_4D.a2dp-sink</span><br></pre></td></tr></table></figure>
+
+<p>或使用图形界面工具<code>pavucontrol</code>进行选择。</p>
+<h2 id="故障排除总结"><a href="#故障排除总结" class="headerlink" title="故障排除总结"></a>故障排除总结</h2><h3 id="常见问题与解决方案"><a href="#常见问题与解决方案" class="headerlink" title="常见问题与解决方案"></a>常见问题与解决方案</h3><p><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-01/Linux%E8%93%9D%E7%89%99%E9%9F%B3%E9%A2%91%E8%BF%9E%E6%8E%A5%E6%95%85%E9%9A%9C-2.3yey364460.webp"></p>
+<br>
+
+<table>
+<thead>
+<tr>
+<th>问题现象</th>
+<th>可能原因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>br-connection-profile-unavailable</code></td>
+<td>缺少音频配置文件支持</td>
+<td>安装<code>pulseaudio-module-bluetooth</code>等组件</td>
+</tr>
+<tr>
+<td>连接成功但无音频设备</td>
+<td>PipeWire蓝牙模块未加载</td>
+<td>执行<code>pactl load-module module-bluez5-discover</code></td>
+</tr>
+<tr>
+<td><code>pactl</code>命令“拒绝连接”</td>
+<td>用户不在音频组中&#x2F;服务未运行</td>
+<td>添加用户到<code>audio</code>和<code>pulse-access</code>组，重启服务</td>
+</tr>
+<tr>
+<td>PipeWire服务崩溃</td>
+<td>配置错误或模块缺失</td>
+<td>清理<code>~/.config/pipewire/</code>目录，重新配置</td>
+</tr>
+</tbody></table>
+<h3 id="系统架构理解"><a href="#系统架构理解" class="headerlink" title="系统架构理解"></a>系统架构理解</h3><p>了解Linux蓝牙音频架构有助于问题诊断：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">蓝牙设备 ↔ BlueZ蓝牙守护进程 ↔ PipeWire蓝牙模块 ↔ PipeWire音频服务 ↔ 应用程序</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-01/Linux%E8%93%9D%E7%89%99%E9%9F%B3%E9%A2%91%E8%BF%9E%E6%8E%A5%E6%95%85%E9%9A%9C-1.2vf8sa8aa6.webp"></p>
+<p>故障可能发生在任一环节，需要系统性排查。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Linux桌面环境中的蓝牙音频支持已经取得了长足进步，但在特定配置下仍可能出现问题。通过理解系统各组件的作用和交互方式，大多数问题都可以得到解决。</p>
+<p>关键要点：</p>
+<ol>
+<li><strong>权限是基础</strong>：确保用户在<code>audio</code>和<code>pulse-access</code>组中</li>
+<li><strong>服务状态是关键</strong>：定期检查<code>bluetooth</code>和<code>pipewire</code>服务状态</li>
+<li><strong>配置要简洁</strong>：避免不必要的复杂配置，特别是用户级配置</li>
+<li><strong>重启很重要</strong>：许多更改需要重启服务或系统才能生效</li>
+</ol>
+<p>希望这篇详细的故障排除记录能帮助更多用户解决Linux下的蓝牙音频问题，享受无线音频的自由与便捷。</p>
+<hr>
+<p><em>本文基于实际故障排除案例整理，系统环境为Ubuntu 22.04 with PipeWire。不同发行版或版本的具体命令可能略有不同，但解决思路相通。</em></p>
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2026/02/10/linux_package/">Linux软件包安装全指南：从命令行到图形化工具</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/12/20/edge-mobile-flags/">Edge mobile浏览器flags实验性功能标志 列表盘点</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LeeNut</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%9A%E9%97%AE%E9%A2%98%E8%AF%8A%E6%96%AD%E4%B8%8E%E5%9F%BA%E7%A1%80%E4%BF%AE%E5%A4%8D"><span class="toc-text">第一阶段：问题诊断与基础修复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%88%9D%E5%A7%8B%E7%8A%B6%E6%80%81%E7%A1%AE%E8%AE%A4"><span class="toc-text">1.1 初始状态确认</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E9%9F%B3%E9%A2%91%E6%94%AF%E6%8C%81%E7%BB%84%E4%BB%B6%E6%A3%80%E6%9F%A5"><span class="toc-text">1.2 音频支持组件检查</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%9A%E6%B7%B1%E5%85%A5%E6%8E%92%E6%9F%A5%E4%B8%8E%E6%9D%83%E9%99%90%E4%BF%AE%E5%A4%8D"><span class="toc-text">第二阶段：深入排查与权限修复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E9%9F%B3%E9%A2%91%E6%9C%8D%E5%8A%A1%E7%8A%B6%E6%80%81%E9%AA%8C%E8%AF%81"><span class="toc-text">2.1 音频服务状态验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%9D%83%E9%99%90%E4%BF%AE%E5%A4%8D%E6%AD%A5%E9%AA%A4"><span class="toc-text">2.2 权限修复步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%EF%BC%9APipeWire%E6%9C%8D%E5%8A%A1%E5%B4%A9%E6%BA%83%E4%B8%8E%E4%BF%AE%E5%A4%8D"><span class="toc-text">第三阶段：PipeWire服务崩溃与修复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%8F%91%E7%8E%B0%E9%97%AE%E9%A2%98"><span class="toc-text">3.1 发现问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E8%AF%8A%E6%96%AD%E6%9C%8D%E5%8A%A1%E5%B4%A9%E6%BA%83%E5%8E%9F%E5%9B%A0"><span class="toc-text">3.2 诊断服务崩溃原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E4%BF%AE%E5%A4%8DPipeWire%E9%85%8D%E7%BD%AE"><span class="toc-text">3.3 修复PipeWire配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E9%98%B6%E6%AE%B5%EF%BC%9A%E8%93%9D%E7%89%99%E9%9F%B3%E9%A2%91%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD"><span class="toc-text">第四阶段：蓝牙音频模块加载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E9%AA%8C%E8%AF%81%E6%9C%8D%E5%8A%A1%E7%8A%B6%E6%80%81"><span class="toc-text">4.1 验证服务状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%8A%A0%E8%BD%BD%E8%93%9D%E7%89%99%E9%9F%B3%E9%A2%91%E6%94%AF%E6%8C%81%E6%A8%A1%E5%9D%97"><span class="toc-text">4.2 加载蓝牙音频支持模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E9%87%8D%E6%96%B0%E8%BF%9E%E6%8E%A5%E8%93%9D%E7%89%99%E8%AE%BE%E5%A4%87"><span class="toc-text">4.3 重新连接蓝牙设备</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E9%98%B6%E6%AE%B5%EF%BC%9A%E9%AA%8C%E8%AF%81%E4%B8%8E%E6%9C%80%E7%BB%88%E9%85%8D%E7%BD%AE"><span class="toc-text">第五阶段：验证与最终配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E7%A1%AE%E8%AE%A4%E9%9F%B3%E9%A2%91%E8%AE%BE%E5%A4%87%E8%AF%86%E5%88%AB"><span class="toc-text">5.1 确认音频设备识别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E8%AE%BE%E7%BD%AE%E4%B8%BA%E9%BB%98%E8%AE%A4%E9%9F%B3%E9%A2%91%E8%BE%93%E5%87%BA"><span class="toc-text">5.2 设置为默认音频输出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4%E6%80%BB%E7%BB%93"><span class="toc-text">故障排除总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">常见问题与解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E7%90%86%E8%A7%A3"><span class="toc-text">系统架构理解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":"leenut.space","officialHosts":["localhost"],"encoded":"bGVlbnV0LnNwYWNl"};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-09/logo/mascot-1-chestnut-coder.png`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+<script src="https://gcore.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script><script type="text/javascript" id="myhk" src="https://myhkw.cn/api/player/171807673831" key="171807673831" m="1"></script>
+</div></body></html>

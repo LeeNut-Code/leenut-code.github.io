@@ -1,0 +1,991 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  <link rel="canonical" href="https://leenut.space/2025/10/24/adh-dns/">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>Adguard Home 与加密DNS - LeeNut's Space</title>
+
+  
+    <meta name="description" content="DNS域名系统是我们使用网络过程中非常重要的一个系统，可以将DNS理解为互联网中的“电话簿”，它的作用是将我们常用的域名（例如：www.example.com）转换成计算机可以理解的IP地址（例如：192.0.2.1），因为计算机是通过IP地址来进行通信的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Adguard Home 与加密DNS">
+<meta property="og:url" content="https://leenut.space/2025/10/24/adh-dns/">
+<meta property="og:site_name" content="LeeNut&#39;s Space">
+<meta property="og:description" content="DNS域名系统是我们使用网络过程中非常重要的一个系统，可以将DNS理解为互联网中的“电话簿”，它的作用是将我们常用的域名（例如：www.example.com）转换成计算机可以理解的IP地址（例如：192.0.2.1），因为计算机是通过IP地址来进行通信的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2025-10/what-is-a-dns-proxy.7i0sccddez.webp">
+<meta property="article:published_time" content="2025-10-24T08:14:52.000Z">
+<meta property="article:modified_time" content="2026-09-08T03:34:43.301Z">
+<meta property="article:author" content="LeeNut">
+<meta property="article:tag" content="web服务">
+<meta property="article:tag" content="网路安全">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="DNS">
+<meta property="article:tag" content="技术">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2025-10/what-is-a-dns-proxy.7i0sccddez.webp">
+  
+  
+  
+  <meta name="keywords" content="web服务,网路安全,Windows,Linux,DNS,技术">
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="LeeNut's Space" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"LeeNut","sameAs":[]},"dateCreated":"2025-10-24T16:14:52+08:00","dateModified":"2026-09-08T11:34:43+08:00","datePublished":"2025-10-24T16:14:52+08:00","description":"DNS域名系统是我们使用网络过程中非常重要的一个系统，可以将DNS理解为互联网中的“电话簿”，它的作用是将我们常用的域名（例如：www.example.com）转换成计算机可以理解的IP地址（例如：192.0.2.1），因为计算机是通过IP地址来进行通信的。","headline":"Adguard Home 与加密DNS","mainEntityOfPage":{"@type":"WebPage","@id":"https://leenut.space/2025/10/24/adh-dns/"},"publisher":{"@type":"Organization","name":"LeeNut","sameAs":[]},"url":"https://leenut.space/2025/10/24/adh-dns/","keywords":"web服务, 网路安全, Windows, Linux, DNS, 技术","thumbnailUrl":"https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2025-10/adguard-home.2obxg7qrne.webp","image":1}</script>
+  
+</head>
+<body>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-09/logo/mascot-1-chestnut-coder.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main"><div style='line-height:1.2'>LeeNut's<br>Space</div></div><div class="sub cap">分享生活点滴和见解！</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"><a class="nav-item" title="AI生图" target="_blank" rel="noopener" href="https://ai-image.leenut.space/" style="color:#7C4DFF"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M3.845 3.845a2.883 2.883 0 0 0 0 4.077L5.432 9.51c.012-.014.555.503.568.49l4-4c.013-.013-.504-.556-.49-.568L7.922 3.845a2.883 2.883 0 0 0-4.077 0m1.288 11.462a.483.483 0 0 1 .9 0l.157.4a.48.48 0 0 0 .272.273l.398.157a.486.486 0 0 1 0 .903l-.398.158a.48.48 0 0 0-.272.273l-.157.4a.483.483 0 0 1-.9 0l-.157-.4a.48.48 0 0 0-.272-.273l-.398-.158a.486.486 0 0 1 0-.903l.398-.157a.48.48 0 0 0 .272-.274z" opacity=".5"/><path fill="currentColor" d="M19.967 9.13a.483.483 0 0 1 .9 0l.156.399c.05.125.148.224.273.273l.398.158a.486.486 0 0 1 0 .902l-.398.158a.5.5 0 0 0-.273.273l-.156.4a.483.483 0 0 1-.9 0l-.157-.4a.5.5 0 0 0-.272-.273l-.398-.158a.486.486 0 0 1 0-.902l.398-.158a.5.5 0 0 0 .272-.273z" opacity=".2"/><path fill="currentColor" d="M16.1 2.307a.483.483 0 0 1 .9 0l.43 1.095a.48.48 0 0 0 .272.274l1.091.432a.486.486 0 0 1 0 .903l-1.09.432a.5.5 0 0 0-.273.273L17 6.81a.483.483 0 0 1-.9 0l-.43-1.095a.5.5 0 0 0-.273-.273l-1.09-.432a.486.486 0 0 1 0-.903l1.09-.432a.5.5 0 0 0 .273-.274z" opacity=".7"/><path fill="currentColor" d="M10.568 6.49c-.012.014-.555-.503-.568-.49l-4 4c-.013.013.504.556.49.568l9.588 9.587a2.883 2.883 0 1 0 4.078-4.077z"/></svg></a><a class="nav-item" title="me.LeeNut" target="_blank" rel="noopener" href="https://me.leenut.space/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="6" r="4"/><path d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z" opacity=".5"/></g></svg></a><a class="nav-item" title="Github收藏夹" target="_blank" rel="noopener" href="https://github-favorites.leenut.space/" style="color:#FA6400"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg></a></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/10/07/2026-10-07-local-network-server/"><span class="title">无宽带也能搭家庭服务器：4G 随身 WiFi + 旧 NUC 的本地网络方案</span></a><a class="item title" href="/2026/09/07/symlink-tutorial/"><span class="title">符号链接（Symlink）创建教程：把文件夹「搬走」而不留痕迹</span></a><a class="item title" href="/2026/07/05/github_favorites_202606/"><span class="title">我的Github项目收藏——2026.06</span></a><a class="item title" href="/2024/04/25/2024-04-25/"><span class="title">基于Android的开源服务器软件KSWEB</span></a><a class="item title" href="/2024/05/02/2024-05-02/"><span class="title">Intel Unison：无缝协同，手机与电脑间的桥梁</span></a><a class="item title" href="/2024/04/11/2024-4-11-2/"><span class="title">随手拍到的春天！</span></a><a class="item title" href="/2024/11/15/rss/"><span class="title">浅谈RSS，轻松使用RSS</span></a><a class="item title" href="/2024/12/20/servers-Domains/"><span class="title">关于“云服务器”、“域名”的一些看法和实践</span></a><a class="item title" href="/2026/04/15/workers-ai/"><span class="title">Cloudflare Workers AI 使用教程：调用与工具集成实践</span></a><a class="item title" href="/2025/12/20/edge-mobile-flags/"><span class="title">Edge mobile浏览器flags实验性功能标志 列表盘点</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top"><img class="lazy bg" data-src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2025-10/adguard-home.2obxg7qrne.webp">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2025-10-24T08:14:52.000Z">2025-10-24</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-09-08T03:34:43.301Z">2026-09-08</time></span><span class="sep"></span><span class="text wordcount">2.1k</span><span class="sep"></span><span class="text min2read">8 分钟</span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Adguard Home 与加密DNS</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><p>DNS域名系统是我们使用网络过程中非常重要的一个系统，可以将DNS理解为互联网中的“电话簿”，它的作用是将我们常用的域名（例如：<a href="http://www.example.com）转换成计算机可以理解的IP地址（例如：192.0.2.1），因为计算机是通过IP地址来进行通信的。">www.example.com）转换成计算机可以理解的IP地址（例如：192.0.2.1），因为计算机是通过IP地址来进行通信的。</a></p>
+<span id="more"></span>
+
+<h1 id="DNS简述"><a href="#DNS简述" class="headerlink" title="DNS简述"></a>DNS简述</h1><p>假设你想给一个朋友打电话，但你手上只有朋友的名字，而没有电话号码。你去查找电话簿，输入朋友的名字，电话簿会告诉你朋友的电话号码。然后你就可以拨打这个电话号码，打通电话。朋友的名字就像是一个网站的域名，电话号码就是网站的IP地址，而电话簿就是DNS，它负责将域名转换成IP地址。当你在浏览器中输入网址时，DNS会帮助你找到对应的IP地址，然后你的计算机就能连接到正确的网站。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2025-10/what-is-a-dns-proxy.7i0sccddez.webp" alt="what-is-a-dns-proxy"></p>
+<p>普通的DNS数据使用UDP协议通过53端口明文传输，在传输过程中可以通过抢答和劫持修改查询信息，使用户无法访问到正确的IP地址，无法访问网站，就像你问路时被人故意指错方向，让你误入假网站，甚至泄露个人信息。一些国家和DNS服务提供者通过修改自家服务器的DNS地址为错误地址，使用户无法访问正常的网站。对于这种情况，使用加密DNS可以实现避免DNS污染和劫持。</p>
+<p>加密DNS是通过加密传输的方式来保护DNS查询的安全，通常有以下方式：</p>
+<ul>
+<li>DOH （通过https传输DNS数据，默认端口443）</li>
+<li>DOT  （通过TLS传输DNS数据，端口853）</li>
+<li>DOQ （通过QUIC传输DNS数据，端口853，只有少数国家和组织能够审查此协议传输的数据）</li>
+</ul>
+<p>目前windows10&#x2F;11支持加密DOH，Andorid 9+ 系统支持DOT，Firefox 和 Chrome支持DOT</p>
+<p>本文将在接下来的部分介绍Adguard Home用来配置DNS。</p>
+<h1 id="Adguard-Home"><a href="#Adguard-Home" class="headerlink" title="Adguard Home"></a>Adguard Home</h1><p>Adguard Home 是一个用于DNS服务端软件，它通过查询上游DNS服务器的DNS记录给下游客户端实现工作，支持UDP、 TCP 、 DNS-over-TLS、DNS-over-HTTPS、h3（带有强制 HTTP&#x2F;3 的加密 DNS-over-HTTPS不会回退到 HTTP&#x2F;2 或更低版本）、DNS-over-QUIC、DNSCryp等协议，带有web界面，易于配置。</p>
+<h2 id="Windows端安装和配置"><a href="#Windows端安装和配置" class="headerlink" title="Windows端安装和配置"></a>Windows端安装和配置</h2><ol>
+<li>Adguard Home 支持windows系统，可以从GitHub下载windows版本的程序<br>  <a target="_blank" rel="noopener" href="https://github.com/AdguardTeam/AdGuardHome">GitHub : https://github.com/AdguardTeam/AdGuardHome </a><br>  下载时选择这个文件 <code>AdGuardHome_windows_amd64.zip</code></li>
+<li>将文件中的<code>AdGuardHome.exe</code> 移动到<code> ​C:\Program Files\AdGuard_Home​</code></li>
+<li>创建文件<code>run_adguardhome.bat</code>,添加以下内容到文件</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line"></span><br><span class="line">if &quot;%1&quot; == &quot;h&quot; goto begin</span><br><span class="line"></span><br><span class="line">mshta vbscript:createobject(&quot;wscript.shell&quot;).run(&quot;&quot;&quot;%~nx0&quot;&quot; h&quot;,0)(window.close)&amp;&amp;exit</span><br><span class="line"></span><br><span class="line">:begin</span><br><span class="line"></span><br><span class="line">REM</span><br><span class="line"></span><br><span class="line">start /b adguardhome.exe</span><br><span class="line"></span><br><span class="line">exit</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>将<code>run_adguardhome.bat</code>的快捷方式复制到<code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup</code>,以此实现开机启动。</li>
+<li>打开windows系统的设置，将DNS设置为<code>127.0.0.1</code></li>
+</ol>
+<h2 id="Linux-端安装与配置"><a href="#Linux-端安装与配置" class="headerlink" title="Linux 端安装与配置"></a>Linux 端安装与配置</h2><p>Adguard Home页可以安装到Linux系统，具体有三种方式：</p>
+<ol>
+<li>方法一：官方脚本安装（推荐）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用官方一键安装脚本</span></span><br><span class="line">curl -sSL https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh</span><br></pre></td></tr></table></figure>
+安装成功后，输出信息会显示：</li>
+</ol>
+<ul>
+<li>AdGuard Home 服务已安装并运行</li>
+<li>管理界面访问地址（通常是 <code>http://IP:3000</code>）</li>
+<li>服务管理命令</li>
+</ul>
+<ol start="2">
+<li><p>方法二：手动安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载AdGuard Home</span></span><br><span class="line">wget https://static.adguard.com/adguardhome/release/AdGuardHome_linux_amd64.tar.gz</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar xvf AdGuardHome_linux_amd64.tar.gz</span><br><span class="line"><span class="comment"># 进入目录并安装</span></span><br><span class="line"><span class="built_in">cd</span> AdGuardHome</span><br><span class="line"><span class="built_in">sudo</span> ./AdGuardHome -s install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法三：Docker安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">  --name adguardhome \</span><br><span class="line">  --restart unless-stopped \</span><br><span class="line">  --network host \</span><br><span class="line">  -v <span class="variable">$PWD</span>/adguardhome/work:/opt/adguardhome/work \</span><br><span class="line">  -v <span class="variable">$PWD</span>/adguardhome/conf:/opt/adguardhome/conf \</span><br><span class="line">  adguard/adguardhome</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装完成后可以把系统的DNS设置为127.0.0.1以此启用DNS:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/systemd/resolved.conf</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>找到 [Resolve] 部分，取消注释并修改 DNS 和 Domains 行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Resolve]</span><br><span class="line">DNS=127.0.0.1</span><br><span class="line"><span class="comment">#Domains=~.</span></span><br></pre></td></tr></table></figure>
+
+<p>重启 systemd-resolved 服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart systemd-resolved</span><br></pre></td></tr></table></figure>
+
+<p>验证设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resolvectl status</span><br></pre></td></tr></table></figure>
+<p>在输出中，你应该会在 Global 部分看到 DNS Server: 127.0.0.1。</p>
+<ol start="5">
+<li><p>服务管理命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动服务</span></span><br><span class="line"><span class="built_in">sudo</span> /opt/AdGuardHome/AdGuardHome -s start</span><br><span class="line"><span class="comment"># 停止服务</span></span><br><span class="line"><span class="built_in">sudo</span> /opt/AdGuardHome/AdGuardHome -s stop</span><br><span class="line"><span class="comment"># 重启服务</span></span><br><span class="line"><span class="built_in">sudo</span> /opt/AdGuardHome/AdGuardHome -s restart</span><br><span class="line"><span class="comment"># 查看状态</span></span><br><span class="line"><span class="built_in">sudo</span> /opt/AdGuardHome/AdGuardHome -s status</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>防火墙配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开放必要端口</span></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 3000/tcp  <span class="comment"># 管理界面</span></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 53/tcp    <span class="comment"># DNS (TCP)</span></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 53/udp    <span class="comment"># DNS (UDP)</span></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 853/tcp   <span class="comment"># DNS-over-TLS</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="web面板配置"><a href="#web面板配置" class="headerlink" title="web面板配置"></a>web面板配置</h2><p>安装完成后，我们需要打开Adguard Home的web管理面板设置。</p>
+<ol>
+<li>打开 <a target="_blank" rel="noopener" href="http://127.0.0.1:3000/">http://127.0.0.1:3000</a>,按照页面的步骤完成设置，设置监听端口和账户密码。</li>
+<li>打开设置的管理面板地址<a target="_blank" rel="noopener" href="http://127.0.0.1:3000/">http://127.0.0.1:您设置的端口</a>，打开<code>设置</code>-&gt;<code>DNS设置</code>，在上游DNS服务器填入可用的DNS地址，可以参考以下网站的地址：<a target="_blank" rel="noopener" href="https://encrypteddns.pages.dev/#cn-dns">全量加密 DNS 大全 - 安全解析隐私保护解决方案 | 国内&#x2F;国际安全 DNS 解析地址推荐（DoH&#x2F;DoT&#x2F;QUIC）: https://encrypteddns.pages.dev/#cn-dns</a>，保存配置，测试上游服务器响应，去除无法使用的服务器地址。</li>
+<li>Adguard Home提供了其他的强大功能，例如<strong>广告过滤器</strong>、<strong>安全搜索</strong>、<strong>成人内容拦截</strong>、<strong>时间段控制</strong>、<strong>设备识别</strong>、<strong>个性化设置</strong>、 <strong>速率限制</strong>、<strong>DNSSEC 配置</strong>，大家可以按需求配置。</li>
+</ol>
+<h2 id="加密DNS配置"><a href="#加密DNS配置" class="headerlink" title="加密DNS配置"></a>加密DNS配置</h2><p>Adguard Home 支持加密DNS，如果你的Adguard Home安装在服务器或想要在本地体验加密服务，可以启用它。</p>
+<p>在加密设置界面<code>启用加密</code>,输入你的服务器名称（ip地址或域名），设置DOH、DOT、DOQ的端口，将你的证书和私钥的路径或内容填入，保存配置后就能使用了。</p>
+<p>证书获取可以参考以下：</p>
+<h3 id="方案一：使用Let’s-Encrypt证书（推荐）"><a href="#方案一：使用Let’s-Encrypt证书（推荐）" class="headerlink" title="方案一：使用Let’s Encrypt证书（推荐）"></a>方案一：使用Let’s Encrypt证书（推荐）</h3><ol>
+<li><p><em><strong>*安装Certbot*</strong></em></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> apt install certbot</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>申请证书</strong></p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> crtbot certonly --standalone -d 你的域名 --preferred-challenges http --agree-tos --register-unsafely-without-email</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>证书位置</strong></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/letsencrypt/live/你的域名/fullchain.pem</span><br><span class="line">/etc/letsencrypt/live/你的域名/privkey.pem</span><br></pre></td></tr></table></figure>
+
+<h3 id="方案二：使用Cloudflare-Origin-CA证书"><a href="#方案二：使用Cloudflare-Origin-CA证书" class="headerlink" title="方案二：使用Cloudflare Origin CA证书"></a>方案二：使用Cloudflare Origin CA证书</h3><ol>
+<li><p><strong>在Cloudflare创建证书</strong></p>
+<ul>
+<li>登录Cloudflare控制面板</li>
+<li>进入 SSL&#x2F;TLS &gt; Origin Server</li>
+<li>点击”Create Certificate”</li>
+<li>选择15年有效期证书</li>
+<li>下载证书和私钥</li>
+</ul>
+</li>
+<li><p><strong>上传证书到服务器</strong></p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建证书目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /etc/ssl/adguard</span><br><span class="line"></span><br><span class="line"><span class="comment"># 上传证书文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cert.pem - 证书文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># key.pem - 私钥文件</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="故障排除——常见问题及解决方案"><a href="#故障排除——常见问题及解决方案" class="headerlink" title="故障排除——常见问题及解决方案"></a>故障排除——常见问题及解决方案</h2><ol>
+<li>端口占用问题<br><strong>检查端口占用</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> netstat -tulpn | grep :80</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> lsof -i :443</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>解决方案</strong>：</p>
+<ul>
+<li>停止占用端口的服务</li>
+<li>或使用其他端口</li>
+<li>或使用DNS挑战方式申请证书</li>
+</ul>
+<ol start="2">
+<li>防火墙问题</li>
+</ol>
+<p><strong>检查防火墙状态</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw status</span><br></pre></td></tr></table></figure>
+<p><strong>开放必要端口</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 80/tcp    <span class="comment"># HTTP验证</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 443/tcp   <span class="comment"># HTTPS</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> ufw allow 853/tcp   <span class="comment"># DoT</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>无法访问管理界面</li>
+</ol>
+<p><strong>排查步骤：</strong><br>​    1. 检查 AdGuard Home 服务是否运行<br>​    2. 确认防火墙没有阻止访问<br>​    3. 尝试使用 <code>http://127.0.0.1:3000</code><br>​    4. 检查浏览器代理设置</p>
+<ol start="4">
+<li><p>广告拦截效果不佳<br><strong>优化建议：</strong></p>
+<ol>
+<li>添加更多过滤规则</li>
+<li>检查是否启用了合适的过滤器</li>
+<li>确认设备 DNS 设置正确</li>
+<li>清空 DNS 缓存</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">ipconfig /flushdns</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>网络速度变慢<br><strong>解决方法：</strong></p>
+<ol>
+<li>更换更快的上游 DNS 服务器</li>
+<li>减少过滤规则数量</li>
+<li>检查系统资源使用情况</li>
+<li>启用缓存优化</li>
+</ol>
+</li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Adguard Home 通过提供安全的DNS保障网络访问的安全，如果你感兴趣，那么赶快来配置。</p>
+<p>参考：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F">域名系统 - 维基百科，自由的百科全书——https://zh.wikipedia.org/wiki/域名系统</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cloudflare.com/zh-tw/learning/dns/dns-over-tls/">DNS over TLS | DNS 安全性 | Cloudflare——https://www.cloudflare.com/zh-tw/learning/dns/dns-over-tls/</a></li>
+<li><a target="_blank" rel="noopener" href="https://akashrajpurohit.com/blog/adguard-home-network-wide-ad-blocking-in-your-homelab/">AdGuard Home — 家庭实验室中的全网广告拦截 |阿卡什·拉杰普罗希特——https://akashrajpurohit.com/blog/adguard-home-network-wide-ad-blocking-in-your-homelab/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/AdguardTeam/AdGuardHome">AdguardTeam&#x2F;AdGuardHome: Network-wide ads &amp; trackers blocking DNS server——https://github.com/AdguardTeam/AdGuardHome</a></li>
+<li><a target="_blank" rel="noopener" href="https://adguard-dns.io/kb/zh-CN/adguard-home/getting-started/">入门 | AdGuard DNS Knowledge Base——https://adguard-dns.io/kb/zh-CN/adguard-home/getting-started/</a></li>
+<li><a target="_blank" rel="noopener" href="https://adguard.com/en/adguard-home/overview.html">AdGuard Home——https://adguard.com/en/adguard-home/overview.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://encrypteddns.pages.dev/#cn-dns">全量加密 DNS 大全 - 安全解析隐私保护解决方案 | 国内&#x2F;国际安全 DNS 解析地址推荐（DoH&#x2F;DoT&#x2F;QUIC）——https://encrypteddns.pages.dev/#cn-dns</a></li>
+<li><a target="_blank" rel="noopener" href="https://sspai.com/post/63088">AdGuard Home 安装及使用指北 - 少数派——https://sspai.com/post/63088</a></li>
+</ol>
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2025/12/20/edge-mobile-flags/">Edge mobile浏览器flags实验性功能标志 列表盘点</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2025/10/04/byedpi/">byedpi，深度包检测绕过工具——安装与使用教程</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">LeeNut</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DNS%E7%AE%80%E8%BF%B0"><span class="toc-text">DNS简述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Adguard-Home"><span class="toc-text">Adguard Home</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows%E7%AB%AF%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="toc-text">Windows端安装和配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-%E7%AB%AF%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-text">Linux 端安装与配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web%E9%9D%A2%E6%9D%BF%E9%85%8D%E7%BD%AE"><span class="toc-text">web面板配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86DNS%E9%85%8D%E7%BD%AE"><span class="toc-text">加密DNS配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8Let%E2%80%99s-Encrypt%E8%AF%81%E4%B9%A6%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-text">方案一：使用Let’s Encrypt证书（推荐）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8Cloudflare-Origin-CA%E8%AF%81%E4%B9%A6"><span class="toc-text">方案二：使用Cloudflare Origin CA证书</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4%E2%80%94%E2%80%94%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">故障排除——常见问题及解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":"leenut.space","officialHosts":["localhost"],"encoded":"bGVlbnV0LnNwYWNl"};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://cdn.jsdelivr.net/gh/LeeNut-Code/picx-images-hosting@master/2026-09/logo/mascot-1-chestnut-coder.png`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+<script src="https://gcore.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script><script type="text/javascript" id="myhk" src="https://myhkw.cn/api/player/171807673831" key="171807673831" m="1"></script>
+</div></body></html>
